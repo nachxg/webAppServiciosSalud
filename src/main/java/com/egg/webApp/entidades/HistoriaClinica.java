@@ -1,30 +1,29 @@
-
 package com.egg.webApp.entidades;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
 public class HistoriaClinica {
-    
+
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String notas;
     private LocalDateTime fechaConsulta;
 
     public HistoriaClinica() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,6 +42,5 @@ public class HistoriaClinica {
     public void setFechaConsulta(LocalDateTime fechaConsulta) {
         this.fechaConsulta = fechaConsulta;
     }
-    
-    
+
 }

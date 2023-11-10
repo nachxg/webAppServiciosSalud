@@ -1,28 +1,28 @@
-
 package com.egg.webApp.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
 public class Calificacion {
+
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String comentario;
     private Integer calificacion;
 
     public Calificacion() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,7 +41,5 @@ public class Calificacion {
     public void setCalificacion(Integer calificacion) {
         this.calificacion = calificacion;
     }
-    
-    
-    
+
 }
