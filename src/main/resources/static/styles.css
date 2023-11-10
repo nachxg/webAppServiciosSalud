@@ -1,0 +1,128 @@
+:root {
+    --azulado: #0097A7;
+    --blanco: #FFFFFF;
+    --oscuro: rgb(28, 25, 49);
+    --arg: dodgerblue;
+    --beige: #f8f2cb;
+    --gris: #8486a6;
+    --black: #000000;
+    --grisoscuro: #cfcbcb;
+    --turquesa: #19dff1;
+    --facebook: #3b5999;
+    --instagram: #e4405f;
+    --linkedin: #0077B5;
+    --whatsapp: #25D366;
+}
+
+/**GENERAL**/
+
+html {
+    width: 100%;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.tipografia{
+    font-family: 'Montserrat', sans-serif;   
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body {   
+    background-color: var(--grisoscuro);
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+ }
+
+ h1, h2, h3 {
+    text-align: center;
+    /* font-size: large;   */
+    margin-top: 42px;
+    margin-bottom: 34px;
+}
+
+/**NAVEGACION PRINCIPAL**/
+.navegacion-principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: var(--gris);
+}
+
+@media (min-width: 768px) {
+    .navegacion-principal {
+        flex-direction: row;
+
+    }
+}
+
+/*
+.logo {
+    display:block;
+    margin:auto;
+    width: 200px;
+}*/
+
+.navegacion-principal a {
+    display: block;
+    text-align: center;
+    background-color: var(--gris);
+    color: var(--blanco);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.5rem;
+    transition: all 0.8s ease;
+}
+
+.navegacion-principal a:hover {
+    background-color: var( --turquesa);
+    color: var(--oscuro) ;
+    transform: scale(1.08);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    text-decoration:none;
+    background-color:rgb(197, 197, 184)
+
+}
+
+.nav-link {
+    text-decoration:none;
+    background-color:blue;
+    color:black;
+    border-radius: 10%;
+    margin-bottom: 1px;
+}
+
+.menu {
+    position: relative;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+
+    padding: 5px;     
+}
+
+/* Mostrar el submenú al pasar el mouse sobre el elemento padre */
+.menu:hover .submenu {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .menu:hover .submenu {
+       position: relative;
+    }
+}
