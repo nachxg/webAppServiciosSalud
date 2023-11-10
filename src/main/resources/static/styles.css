@@ -1,1 +1,226 @@
+<<<<<<< HEAD
 
+=======
+:root {
+    --azulado: #0097A7;
+    --blanco: #FFFFFF;
+    --oscuro: rgb(28, 25, 49);
+    --arg: dodgerblue;
+    --beige: #f8f2cb;
+    --gris: #8486a6;
+    --black: #000000;
+    --grisoscuro: #cfcbcb;
+    --turquesa: #19dff1;
+    --facebook: #3b5999;
+    --instagram: #e4405f;
+    --linkedin: #0077B5;
+    --whatsapp: #25D366;
+    --colorLindo: #1D7874;
+}
+
+/**GENERAL**/
+
+html {
+    width: 100%;
+    height: 200vh;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.tipografia{
+    font-family: 'Montserrat', sans-serif;   
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body {   
+    background-color: white;
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+ }
+
+ h1, h2, h3 {
+    text-align: center;
+    /* font-size: large;   */
+    margin-top: 42px;
+    margin-bottom: 34px;
+}
+
+header nav{
+    background-color: white;
+}
+
+/**NAVEGACION PRINCIPAL**/
+.navegacion-principal {
+    display: flex;
+    height: 20vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: var(--gris);
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 2px 10px rgb(231, 231, 231);
+}
+
+@media (min-width: 768px) {
+    .navegacion-principal {
+        flex-direction: row;
+
+    }
+}
+
+/*
+.logo {
+    display:block;
+    margin:auto;
+    width: 200px;
+}*/
+
+.navegacion-principal a {
+    display: block;
+    text-align: center;
+    background-color: var(--gris);
+    color: var(--blanco);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.5rem;
+    transition: all 0.8s ease;
+    height: 30%;
+}
+
+.navegacion-principal a:hover {
+    background-color: var( --turquesa);
+    color: var(--oscuro) ;
+    transform: scale(1.08);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    text-decoration:none;
+    background-color: white;
+}
+
+.nav-link {
+    text-decoration:none;
+    background-color:blue;
+    color:black;
+    border-radius: 10%;
+    margin-bottom: 1px;
+}
+
+.menu {
+    position: relative;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+
+    padding: 5px;     
+}
+
+/* Mostrar el submenú al pasar el mouse sobre el elemento padre */
+.menu:hover .submenu {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .menu:hover .submenu {
+       position: relative;
+    }
+}
+
+.pie {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    max-width: 100%;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3em;
+    color: white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: var(--colorLindo);
+}
+
+.pie li{
+    list-style-type: none;
+}
+
+
+.redes-container{
+display: flex;
+height: auto;
+align-items: center;
+justify-content: center;
+}
+
+.redes-container ul li{
+    display: inline-block;
+    margin: 0 5px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+ 
+.redes-container ul li a{
+    display: block;
+    padding: 0 10px;
+    background: var(--turquesa) ;
+    color: #FFFFFF;
+    line-height: auto;
+    font-size: 8px;
+    box-shadow: 0 6px 15px 0px rgba(252, 255, 255, 0.319);
+    border-radius: 5%;
+    transition: .2s;
+}
+
+.redes-container ul:hover a  {
+    filter: blur(2px);
+}
+
+.redes-container ul li a:hover{
+transform: translateY(-3px) scale(1.06);
+box-shadow: 0 6px 15px 0px rgba(252, 253, 253, 0.945);
+filter: none;
+}
+
+.redes-container ul li .facebook:hover{
+    background: var(--facebook);
+}
+.redes-container ul li .instagram:hover{
+    background: var(--instagram);
+}
+
+.redes-container ul li .whatsapp:hover{
+    background: var(--whatsapp);
+}
+
+.navfooter ul{
+        list-style-type: none; 
+        text-align: center;
+    }
+    .navfooter li {
+        display: inline-block; / Hacer que los elementos de la lista se muestren en línea */
+        margin-right: 15px;
+        margin-bottom: 10px;
+    }
+    .navfooter a{
+        color: var(--turquesa);
+        transition: .2s;
+    }
+    .navfooter a:hover{
+     color: #FFFFFF;
+    }
+>>>>>>> 872411fda6bd45b7e08d239ca97fa824fa4a07db
