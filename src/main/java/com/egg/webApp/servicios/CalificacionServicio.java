@@ -5,10 +5,15 @@
  */
 package com.egg.webApp.servicios;
 
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author Octavio
  */
+@Service
 public class CalificacionServicio {
+    
+  
     
 }
