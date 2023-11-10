@@ -13,18 +13,18 @@ public class HistoriaClinica {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private long id;
+    private String id;
     private String notas;
     private LocalDateTime fechaConsulta;
 
     public HistoriaClinica() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
