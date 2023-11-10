@@ -6,7 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Turno {
     
@@ -17,42 +21,5 @@ public class Turno {
     private Boolean turno;
     private String consulta;
 
-    public Turno() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-
-    public Boolean getTurno() {
-        return turno;
-    }
-
-    public void setTurno(Boolean turno) {
-        this.turno = turno;
-    }
-
-    public String getConsulta() {
-        return consulta;
-    }
-
-    public void setConsulta(String consulta) {
-        this.consulta = consulta;
-    }
-    
-    
-    
     
 }

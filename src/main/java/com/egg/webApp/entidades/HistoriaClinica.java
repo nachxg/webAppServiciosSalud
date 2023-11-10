@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
+@Data
+@NoArgsConstructor
 @Entity
 public class HistoriaClinica {
 
@@ -16,31 +19,6 @@ public class HistoriaClinica {
     private String notas;
     private LocalDateTime fechaConsulta;
 
-    public HistoriaClinica() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNotas() {
-        return notas;
-    }
-
-    public void setNotas(String notas) {
-        this.notas = notas;
-    }
-
-    public LocalDateTime getFechaConsulta() {
-        return fechaConsulta;
-    }
-
-    public void setFechaConsulta(LocalDateTime fechaConsulta) {
-        this.fechaConsulta = fechaConsulta;
-    }
+   
 
 }
