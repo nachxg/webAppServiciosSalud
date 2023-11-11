@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 :root {
     --azulado: #0097A7;
     --blanco: #FFFFFF;
@@ -212,7 +210,7 @@ filter: none;
         text-align: center;
     }
     .navfooter li {
-        display: inline-block; / Hacer que los elementos de la lista se muestren en línea */
+        display: inline-block; /* Hacer que los elementos de la lista se muestren en línea */
         margin-right: 15px;
         margin-bottom: 10px;
     }
@@ -223,4 +221,7 @@ filter: none;
     .navfooter a:hover{
      color: #FFFFFF;
     }
->>>>>>> 872411fda6bd45b7e08d239ca97fa824fa4a07db
+
+    
+
+
