@@ -2,11 +2,9 @@ package com.egg.webApp.entidades;
 
 import com.egg.webApp.enumeraciones.Rol;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,26 +13,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "usuarios")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long dni;
-    private String password;
-    private String email;
-    private boolean activo;
-    private Rol rol;
-    private LocalDate fechaAlta;
-    private LocalDate fechaNacimiento;
-    private Imagen imagen;
-    private String telefono;
     private String nombre;
     private String apellido;
-    private String sexo;
 
-    private Paciente paciente;
-    private Profesional profesional;
+    protected String username;
+    protected String password;
+    protected String email;
+    protected boolean activo;
+    @Enumerated(EnumType.STRING)
+    protected Rol rol;
+    protected LocalDateTime fechaAlta;
 
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    protected Paciente paciente;
+
+    @OneToOne
+    @JoinColumn(name = "imagen_id")
+    protected Imagen imagen;
 }

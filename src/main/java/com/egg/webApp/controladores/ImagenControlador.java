@@ -22,7 +22,7 @@ public class ImagenControlador {
     @GetMapping("") // FALTA AGREGAR LA URL DEL GET MAPPING
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String  id){
 
-        Usuario usuario = usuarioServicio.getOne(id); // TIRA ERROR PORQUE USUARIO SERVICIO ESTA VACIO
+        Usuario usuario = null;//usuarioServicio.getOne(id); // TIRA ERROR PORQUE USUARIO SERVICIO ESTA VACIO
 
         byte[] imagen =  usuario.getImagen().getContenido();
 
