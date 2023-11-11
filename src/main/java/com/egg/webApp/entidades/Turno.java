@@ -2,10 +2,8 @@
 package com.egg.webApp.entidades;
 
 import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,5 +19,11 @@ public class Turno {
     private Boolean turno;
     private String consulta;
 
-    
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "profesional_id")
+    private Profesional profesional;
 }

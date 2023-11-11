@@ -19,7 +19,7 @@ public class ImagenControlador {
     @Autowired
     UsuarioServicio usuarioServicio;
 
-    @GetMapping("") // FALTA AGREGAR LA URL DEL GET MAPPING
+    @GetMapping("/{id}") // FALTA AGREGAR LA URL DEL GET MAPPING
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String  id){
 
         Usuario usuario = usuarioServicio.getOne(id); // TIRA ERROR PORQUE USUARIO SERVICIO ESTA VACIO

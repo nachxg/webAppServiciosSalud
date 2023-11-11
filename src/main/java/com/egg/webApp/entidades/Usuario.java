@@ -2,11 +2,10 @@ package com.egg.webApp.entidades;
 
 import com.egg.webApp.enumeraciones.Rol;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,13 +27,18 @@ public class Usuario {
     private Rol rol;
     private LocalDate fechaAlta;
     private LocalDate fechaNacimiento;
+    @OneToOne
     private Imagen imagen;
     private String telefono;
     private String nombre;
     private String apellido;
     private String sexo;
 
+    @ElementCollection
+    private List<Integer> calificaciones;
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Paciente paciente;
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Profesional profesional;
 
 }

@@ -26,8 +26,6 @@ import java.util.List;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
-
-    @Autowired
     private UsuarioServicio usuarioServicio;
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
