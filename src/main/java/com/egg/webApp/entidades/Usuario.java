@@ -21,7 +21,6 @@ public class Usuario {
     private Long id;
     private String nombre;
     private String apellido;
-
     protected String username;
     protected String password;
     protected String email;

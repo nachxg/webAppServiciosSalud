@@ -3,6 +3,7 @@ package com.egg.webApp.entidades;
 
 import com.egg.webApp.enumeraciones.Rol;
 public class Administrador {
+
     public static void darBajaUsuario(Usuario usuario) {
         usuario.setActivo(false);
     }

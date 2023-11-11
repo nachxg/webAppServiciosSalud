@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/imagen")
 public class ImagenControlador {
 
-    @Autowired
-    UsuarioServicio usuarioServicio;
+    //@Autowired
+    //UsuarioServicio usuarioServicio;
 
     @GetMapping("") // FALTA AGREGAR LA URL DEL GET MAPPING
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String  id){
