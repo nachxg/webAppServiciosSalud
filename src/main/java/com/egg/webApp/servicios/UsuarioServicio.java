@@ -28,6 +28,8 @@ import java.util.List;
 public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
+    private UsuarioServicio usuarioServicio;
+    @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
@@ -47,8 +49,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setActivo(true);
         usuario.setRol(Rol.PACIENTE);
-
-        usuario.setImagen(imagen);
+        usuario.setImagen(null);
         usuario.setEmail(null);
         usuario.setFechaNacimiento(null);
         usuario.setTelefono(null);
@@ -89,6 +90,10 @@ public class UsuarioServicio implements UserDetailsService {
 
             usuarioRepositorio.save(usuario);
 
+    }
+
+    public Usuario getOne(String id){
+        return usuarioServicio.getOne(id);
     }
 
     public List<Usuario> listarUsuarios(){
