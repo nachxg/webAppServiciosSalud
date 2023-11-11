@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long dni;
+    private String dni;
     private String password;
     private String email;
     private boolean activo;
