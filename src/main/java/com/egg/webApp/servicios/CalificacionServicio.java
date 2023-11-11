@@ -1,19 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.egg.webApp.servicios;
 
+import com.egg.webApp.entidades.Calificacion;
+import com.egg.webApp.repositorios.CalificacionRepositorio;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author Octavio
- */
 @Service
 public class CalificacionServicio {
-    
-  
-    
+
+    @Autowired
+    private CalificacionRepositorio calificacionRepositorio;
+
+    @Transactional
+    public void crearCalificacion(String comentario, Integer calificacion) {
+        Calificacion nuevaCalificacion = new Calificacion();
+        nuevaCalificacion.setComentario(comentario);
+        nuevaCalificacion.setCalificacion(calificacion);
+        calificacionRepositorio.save(nuevaCalificacion);
+    }
+
+    @Transactional
+    public void modificarCalificacion(Long id, String comentarioNuevo, Integer nuevaCalificacion) {
+        Optional<Calificacion> respuesta = calificacionRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Calificacion calificacionModificada = respuesta.get();
+            calificacionModificada.setCalificacion(nuevaCalificacion);
+            calificacionModificada.setComentario(comentarioNuevo);
+            calificacionRepositorio.save(calificacionModificada);
+        }
+    }
+
+    public List<Calificacion> calificaciones() {
+        List<Calificacion> calificaciones = new ArrayList();
+        calificaciones = calificacionRepositorio.findAll();
+        return calificaciones;
+    }
+
 }
