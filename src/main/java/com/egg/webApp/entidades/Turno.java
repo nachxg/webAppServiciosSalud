@@ -2,10 +2,10 @@
 package com.egg.webApp.entidades;
 
 import java.time.LocalDateTime;
-import javax.persistence.*;
-
-import com.egg.webApp.enumeraciones.Especialidad;
-import lombok.AllArgsConstructor;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
