@@ -1,27 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.egg.webApp.entidades;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.egg.webApp.enumeraciones.Rol;
+public class Administrador extends Usuario {
 
-/**
- *
- * @author Octavio
- */
-@Entity
-@Table(name = "Administradores")
-public class Administrador extends Usuario implements Serializable{
+    public static void darBajaUsuario(Usuario usuario) {
+        usuario.setActivo(false);
+    }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
- 
+    public static void darAltaUsuario(Usuario usuario) {
+        usuario.setActivo(true);
+    }
+
+    public static void establecerROlUsuario(Usuario usuario, String rol) {
+        usuario.setRol(Rol.valueOf(rol));
+    }
 }

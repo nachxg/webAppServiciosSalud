@@ -39,5 +39,3 @@ public class CalificacionServicio {
         calificaciones = calificacionRepositorio.findAll();
         return calificaciones;
     }
-
-}
