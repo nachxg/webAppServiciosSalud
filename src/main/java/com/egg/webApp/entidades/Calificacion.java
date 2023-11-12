@@ -6,11 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "calificaciones")
 public class Calificacion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +26,8 @@ public class Calificacion {
     @ManyToOne
     @JoinColumn(name = "profesional_id")
     private Profesional profesional;
+
+    private int puntuacion;
     private String comentario;
-    private Integer calificacion;
-
-   
-
+    private LocalDateTime fechaCalificacion;
 }

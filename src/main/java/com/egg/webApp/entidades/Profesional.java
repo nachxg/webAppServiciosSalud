@@ -1,5 +1,6 @@
 package com.egg.webApp.entidades;
 
+import com.egg.webApp.enumeraciones.Especialidad;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,14 +14,13 @@ import java.util.List;
 @Entity
 @Table(name = "profesionales")
 public class Profesional extends Usuario {
-    private String matricula;
-
-    @OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL)
+    @Enumerated(EnumType.STRING)
+    private Especialidad especialidad;
+    @OneToMany(mappedBy = "profesional")
     private List<Turno> turnosDisponibles;
-
-    @OneToMany(mappedBy = "profesional", cascade = CascadeType.ALL)
+    private String matricula;
+    @OneToMany(mappedBy = "profesional")
     private List<Calificacion> calificaciones;
-
     @OneToOne
     @JoinColumn(name = "id")
     private Usuario usuario;

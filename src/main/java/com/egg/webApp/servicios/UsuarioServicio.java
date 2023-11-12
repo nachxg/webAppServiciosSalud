@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class UsuarioServicio implements UserDetailsService {
         Usuario usuario = new Usuario();
         Imagen imagen = imagenServicio.guardar(archivo);
 
-        usuario.setFechaAlta(LocalDate.now());
+        usuario.setFechaAlta(LocalDateTime.now());
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setDni(dni);

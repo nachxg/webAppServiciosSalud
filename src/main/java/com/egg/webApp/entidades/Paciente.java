@@ -12,12 +12,14 @@ import java.util.List;
 @Entity
 @Table(name = "pacientes")
 public class Paciente extends Usuario {
-
     private String numeroObraSocial;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Turno> turnos;
 
+    @ManyToOne
+    @JoinColumn(name = "grupo_familiar_id")
+    private GrupoFamiliar grupoFamiliar;
 
     @ManyToOne
     @JoinColumn(name = "paciente_titular_id")
@@ -29,4 +31,6 @@ public class Paciente extends Usuario {
     @OneToOne
     @JoinColumn(name = "id")
     private Usuario usuario;
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Calificacion> calificaciones;
 }
