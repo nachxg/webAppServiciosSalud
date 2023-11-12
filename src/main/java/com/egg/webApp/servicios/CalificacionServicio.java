@@ -19,7 +19,7 @@ public class CalificacionServicio {
     public void crearCalificacion(String comentario, Integer calificacion) {
         Calificacion nuevaCalificacion = new Calificacion();
         nuevaCalificacion.setComentario(comentario);
-        nuevaCalificacion.setCalificacion(calificacion);
+        nuevaCalificacion.setPuntuacion(calificacion);
         calificacionRepositorio.save(nuevaCalificacion);
     }
 
@@ -28,7 +28,7 @@ public class CalificacionServicio {
         Optional<Calificacion> respuesta = calificacionRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Calificacion calificacionModificada = respuesta.get();
-            calificacionModificada.setCalificacion(nuevaCalificacion);
+            calificacionModificada.setPuntuacion(nuevaCalificacion);
             calificacionModificada.setComentario(comentarioNuevo);
             calificacionRepositorio.save(calificacionModificada);
         }
