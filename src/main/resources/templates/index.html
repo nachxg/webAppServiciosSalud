@@ -3,42 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>WebApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <title>Sanatorio Vitalis</title>
 </head>
 <body>
-    <header>
-        <nav class="navegacion-principal">
-            <img src="" alt="">
-            <div class="menu">
-                <a class="nav-link tipografia" href="#">nav1</a>
-                <div class="submenu">
-                    <a class="nav-link tipografia" href="#">A</a>
-                    <a class="nav-link tipografia" href="#">B</a>
-                    <a class="nav-link tipografia" href="#">C</a>
-                </div>
-            </div>
-            <div class="menu">
-                <a class="nav-link tipografia" href="#">nav2</a>
-                <div class="submenu">
-                    <a class="nav-link tipografia" href="#">A</a>
-                    <a class="nav-link tipografia" href="#">B</a>
-                    <a class="nav-link tipografia" href="#">C</a>
-                    <a class="nav-link tipografia" href="#">D</a>
-                    <a class="nav-link tipografia" href="#">E</a>
-                </div>
-            </div>
-            <div class="menu">
-                <a class="nav-link tipografia" href="#">nav3</a>
-                <div class="submenu">
-                    <a class="nav-link tipografia" href="#">A</a>
-                    <a class="nav-link tipografia" href="#">B</a>
-                </div>
-            </div>
-            <a class="nav-link tipografia" href="#">nav4</a>
-        </nav>
-    </header>
+    
+    <nav class="">
+        <img src="../iconos/logo.png" alt="" class="logo">
+        <a href="">Pacientes</a>
+        <a href="">Profesionales</a>
+        <a href="">Turnos</a>
+        <a href="">Especialidades</a>
+        <a href="">Registrarse</a>
+        <a href="">Iniciar sesión</a>
+    </nav>
+
     <main>
+
+        <div class="encabezado1">
+            <h1>Encabezado</h1>
+            <p class="parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore quo doloremque similique, maxime eligendi vero voluptas ipsum modi ex dolore ut quis pariatur obcaecati consequuntur laborum quod! Hic, atque maxime.</p>
+        </div>
+
+        <div class="carrusel">
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="../iconos/Presentacion_farmacologia_estructurada_iconos_linea_verde_1.png" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="../iconos/Presentacion_farmacologia_estructurada_iconos_linea_verde_2.png" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="../iconos/Presentacion_farmacologia_estructurada_iconos_linea_verde_1.png" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>
+
+        <div class="tarjetitas">
+            <div class="tarjeta">1</div>
+            <div class="tarjeta">2</div>
+            <div class="tarjeta">3</div>
+        </div>
 
     </main>
 
@@ -81,5 +102,6 @@
             </ul>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
