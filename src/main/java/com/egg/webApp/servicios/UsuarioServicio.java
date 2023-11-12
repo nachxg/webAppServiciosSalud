@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setTelefono(telefono);
             usuario.setSexo(sexo);
 
-            String idImagen = null;
+        Long idImagen = null;
 
             if (usuario.getImagen() !=null){
                 idImagen = usuario.getImagen().getId();
@@ -114,7 +115,8 @@ public class UsuarioServicio implements UserDetailsService {
         if (dni.isEmpty() || dni == null){
             throw new Exception("El dni no puede ser nulo o estar vacio");
         }
-        if (password.isEmpty() || password == null || password.length()<=6 ){
+        if (password.isEmpty() || password
+                == null || password.length()<=6 ){
             throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
         }
         if (password.equals(password2)){
