@@ -21,6 +21,6 @@ public class HistoriaClinica {
     private String notas;
     private LocalDateTime fechaConsulta;
 
+    
    
-
 }
