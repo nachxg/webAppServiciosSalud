@@ -2,13 +2,28 @@ package com.egg.webApp.entidades;
 
 import com.egg.webApp.enumeraciones.Rol;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+/**
+ * Clase que representa a un usuario en la aplicación.
+ * Esta clase es una entidad persistente que se mapea a la tabla "usuarios" en la base de datos.
+ * Se utiliza la estrategia de herencia "JOINED" para manejar la herencia de clases.
+ *
+ * @version v0.1.0-alpha 07/11/2023
+ * @see <a href="https://github.com/nachxg/webAppServiciosSalud/releases/tag/v0.1.0-alpha">Versión en GitHub</a>
+ */
 
 @Data
 @AllArgsConstructor
@@ -18,31 +33,88 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
 
+    /**
+     * Identificador único del usuario generado automáticamente por la base de datos.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
-    private String nombre;
-    private String apellido;
-    private String dni;
-    private String password;
-    private String email;
-    private boolean activo;
+    /**
+     * Número de identificación del usuario (DNI).
+     */
+    protected String dni;
 
+    /**
+     * Contraseña del usuario.
+     */
+    protected String password;
+
+    /**
+     * Dirección de correo electrónico del usuario.
+     */
+    protected String email;
+
+    /**
+     * Indica si el usuario está activo o no.
+     */
+    protected boolean activo;
+
+    /**
+     * Rol del usuario, representado como una enumeración de tipo Rol.
+     */
     @Enumerated(EnumType.STRING)
-    private Rol rol;
+    protected Rol rol;
 
-    private LocalDate fechaAlta;
-    private LocalDate fechaNacimiento;
+    /**
+     * Fecha y hora en la que se registró al usuario.
+     */
+    protected LocalDateTime fechaAlta;
 
-    private String telefono;
+    /**
+     * Fecha de nacimiento del usuario.
+     */
+    protected LocalDate fechaNacimiento;
 
+    /**
+     * Imagen asociada al usuario.
+     */
+    @OneToOne
+    @JoinColumn(name = "imagen_id")
+    protected Imagen imagen;
+
+    /**
+     * Número de teléfono del usuario.
+     */
+    protected String telefono;
+
+    /**
+     * Nombre del usuario.
+     */
+    protected String nombre;
+
+    /**
+     * Apellido del usuario.
+     */
+    protected String apellido;
+
+    /**
+     * Género del usuario.
+     */
+    protected String sexo;
+
+    /**
+     * Relación uno a uno con la entidad Paciente, representando al paciente asociado al usuario.
+     */
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     protected Paciente paciente;
 
-    @OneToOne
-    @JoinColumn(name = "imagen_id")
-    protected Imagen imagen;
+    /**
+     * Relación uno a uno con la entidad Profesional, representando al profesional asociado al usuario.
+     */
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    protected Profesional profesional;
 
 }

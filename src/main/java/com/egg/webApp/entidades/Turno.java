@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import com.egg.webApp.enumeraciones.Especialidad;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +20,10 @@ public class Turno {
     private LocalDateTime fechaTurno;
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
+    @Column(name = "motivo_consulta")
+    private String motivoCosulta;
+    private boolean atendido;
+    private boolean cancelado;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
