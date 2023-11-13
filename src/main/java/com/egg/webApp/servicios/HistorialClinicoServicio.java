@@ -49,4 +49,3 @@ public class HistorialClinicoServicio {
         historiales = histoiralClinicoRepositorio.findAll();
         return historiales;
     }
-}

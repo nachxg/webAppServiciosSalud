@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "pacientes")
 public class Paciente extends Usuario {
     private String numeroObraSocial;
-
+  
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Turno> turnos;
 
@@ -34,3 +34,4 @@ public class Paciente extends Usuario {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
 }
+
