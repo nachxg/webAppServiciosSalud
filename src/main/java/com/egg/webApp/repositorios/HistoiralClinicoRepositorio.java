@@ -13,6 +13,4 @@ public interface HistoiralClinicoRepositorio extends JpaRepository<HistoriaClini
     @Query("SELECT h FROM historias_clinicas h  WHERE h.fecha_visita = :fecha")
     public List<HistoriaClinica> buscarListaPorFecha(@Param("fecha") LocalDateTime fecha);
     
-    @Query("SELECT h FROM historias_clinicas h  WHERE h.fecha_visita = :fecha")
-    public List<HistoriaClinica> buscarListaPorFecha(@Param("fecha") LocalDateTime fecha);
 }
