@@ -1,6 +1,8 @@
 package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.HistoriaClinica;
+import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.repositorios.HistoiralClinicoRepositorio;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,10 +19,17 @@ public class HistorialClinicoServicio {
     private HistoiralClinicoRepositorio histoiralClinicoRepositorio;
 
     @Transactional
-    public void crearHistorial(String nota, LocalDateTime fecha) throws Exception {
+    public void crearHistorial(String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, LocalDateTime fecha, Paciente paciente, Profesional profesional) throws Exception {
         HistoriaClinica historialClinico = new HistoriaClinica();
-        historialClinico.setNotas(nota);
-        historialClinico.setFechaConsulta(fecha);
+        historialClinico.setDiagnostico(diagnostico);
+        historialClinico.setTratamiento(tratamiento);
+        historialClinico.setMedicacion(medicacion);
+        historialClinico.setIndicaciones(indicaciones);
+        historialClinico.setEstudios(estudios);
+        historialClinico.setObservaciones(observaciones);
+        historialClinico.setFechaVisita(fecha);
+        historialClinico.setPaciente(paciente);
+        historialClinico.setProfesional(profesional);
         histoiralClinicoRepositorio.save(historialClinico);
     }
 
