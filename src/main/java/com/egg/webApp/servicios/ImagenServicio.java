@@ -39,7 +39,7 @@ public class ImagenServicio {
 
     }
 
-    public Imagen actualizar(MultipartFile archivo, String idImagen) throws Exception {
+    public Imagen actualizar(MultipartFile archivo, Long idImagen) throws Exception {
 
         if (archivo != null) {
 

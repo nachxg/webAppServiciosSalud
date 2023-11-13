@@ -1,16 +1,20 @@
 package com.egg.webApp.entidades;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Imagen {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String mime;
 
@@ -20,38 +24,5 @@ public class Imagen {
     @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
 
-    public Imagen() {
-    }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getMime() {
-        return mime;
-    }
-
-    public void setMime(String mime) {
-        this.mime = mime;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public byte[] getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(byte[] contenido) {
-        this.contenido = contenido;
-    }
 }

@@ -1,24 +1,35 @@
 package com.egg.webApp.entidades;
 
 import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "historias_clinicas")
 public class HistoriaClinica {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String notas;
-    private LocalDateTime fechaConsulta;
+    @Column(name = "fecha_visita")
+    private LocalDateTime fechaVisita;
 
-   
+    private String diagnostico;
+    private String tratamiento;
+    private String medicacion;
+    private String indicaciones;
+    private String estudios;
+    private String observaciones;
 
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
+    @ManyToOne
+    @JoinColumn(name = "profesional_id")
+    private Profesional profesional;
 }

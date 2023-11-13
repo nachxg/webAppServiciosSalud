@@ -11,7 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+/**
+ * Controlador para las operaciones relacionadas con imágenes en la aplicación.
+ * Todas las URL asociadas a este controlador comienzan con "/imagen".
+ *  * @version v0.1.0-alfa 11/11/2023
+ */
 @Controller
 @RequestMapping("/imagen")
 public class ImagenControlador {
@@ -19,7 +23,8 @@ public class ImagenControlador {
     @Autowired
     UsuarioServicio usuarioServicio;
 
-    @GetMapping("") // FALTA AGREGAR LA URL DEL GET MAPPING
+
+    @GetMapping("/perfil/{id}") // FALTA AGREGAR LA URL DEL GET MAPPING
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String  id){
 
         Usuario usuario = usuarioServicio.getOne(id); // TIRA ERROR PORQUE USUARIO SERVICIO ESTA VACIO
