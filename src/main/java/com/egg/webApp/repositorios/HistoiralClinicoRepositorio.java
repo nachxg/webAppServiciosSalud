@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HistoiralClinicoRepositorio extends JpaRepository<HistoriaClinica, Long> {
-    @Query("SELECT h FROM historias_clinicas h  WHERE h.fecha_visita = :fecha")
-    public List<HistoriaClinica> buscarListaPorFecha(@Param("fecha") LocalDateTime fecha);
+    //@Query("SELECT h FROM historias_clinicas h  WHERE h.fecha_visita = :fecha")
+   // public List<HistoriaClinica> buscarListaPorFecha(@Param("fecha") LocalDateTime fecha);
     
 }

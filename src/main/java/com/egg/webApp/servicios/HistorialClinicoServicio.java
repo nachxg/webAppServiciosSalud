@@ -38,8 +38,8 @@ public class HistorialClinicoServicio {
         Optional<HistoriaClinica> respuesta = histoiralClinicoRepositorio.findById(id);
         if (respuesta.isPresent()) {
             HistoriaClinica historialClinico = respuesta.get();
-            historialClinico.setNotas(nota);
-            historialClinico.setFechaConsulta(fecha);
+            //historialClinico.setNotas(nota);
+            //historialClinico.setFechaConsulta(fecha);
             histoiralClinicoRepositorio.save(historialClinico);
         }
     }
@@ -49,3 +49,4 @@ public class HistorialClinicoServicio {
         historiales = histoiralClinicoRepositorio.findAll();
         return historiales;
     }
+}
