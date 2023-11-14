@@ -9,7 +9,7 @@ const descProf = document.getElementById("pprof");
 
 let estado = false;
 
-seccion2.addEventListener("click", function() {
+const mostrarProf = function mostrarProf () {
 
     if(!estado){
 
@@ -24,9 +24,9 @@ seccion2.addEventListener("click", function() {
         estado = true;
     }
     
-});
+}
 
-seccion1.addEventListener("click", function(){
+const mostrarPaciente = function mostrarPaciente (){
     
     if(estado){
         seccion2.style.cssText = "padding: 1%; margin: 0; background-color:#1b5453; width: fit-content; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; flex: 1; cursor: pointer;";
@@ -40,4 +40,17 @@ seccion1.addEventListener("click", function(){
         estado = false;
     }
 
-});
+}
+
+const cambiarCartel = function cambiarCartel(dato){
+    if(dato == 'prof'){
+        estado = false;
+        mostrarProf();
+    } else {
+        estado = true;
+        mostrarPac();
+    }
+} 
+
+seccion2.addEventListener("click", mostrarProf);
+seccion1.addEventListener("click", mostrarPaciente);
