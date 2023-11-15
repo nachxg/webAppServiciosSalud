@@ -47,6 +47,8 @@ public class UsuarioServicio implements UserDetailsService {
 
         Usuario usuario = usuarioRepositorio.getOne(id);
 
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
         usuario.setFechaAlta(LocalDateTime.now());
         usuario.setDni(dni);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
