@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <title>FORMULARIO REGISTRO</title>
 </head>
+
 <body>
 
     <nav class="">
@@ -40,70 +42,73 @@
             <h2 style="color: white;">desde el div principal</h2>
         </div>
         <div class="grid-principal">
-            <aside class="sidebar">
-    
+            <div class="sidebar">
+
                 <h2>Desde el Sidebar</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam rem reprehenderit voluptate eveniet
-                    placeat fuga labore sint fugiat soluta consequuntur eius pariatur veniam incidunt dolor modi delectus,
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam rem reprehenderit voluptate
+                    eveniet
+                    placeat fuga labore sint fugiat soluta consequuntur eius pariatur veniam incidunt dolor modi
+                    delectus,
                     voluptas cumque. Nihil?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid totam quas, exercitationem, quibusdam unde sit
-                    porro, voluptas minus voluptatem fuga nobis quisquam suscipit qui dignissimos quos nostrum nulla itaque numquam!</p>
-            </aside>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid totam quas, exercitationem,
+                    quibusdam unde sit
+                    porro, voluptas minus voluptatem fuga nobis quisquam suscipit qui dignissimos quos nostrum nulla
+                    itaque numquam!</p>
+
+            </div>
+
             <section class="formulario">
-                <div>
-                    <form id="form1">
-                        <fieldset>
-                            <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
-                            <div class="contenedor-inputs">
-                                <div class="inputs">
-                                    <label class="tipografia">Nombre</label>
-                                    <input class="input-text" id="nombre-registro" placeholder="Indique su Nombre">
-                                </div>
-                                <div class="inputs">
-                                    <label class="tipografia">Apellido</label>
-                                    <input class="input-text" id="apellido-registro" placeholder="Indique su Apellido">
-                                </div>
-                                <div class="inputs">
-                                    <label class="tipografia">E-mail</label>
-                                    <input class="input-text" type="email" id="email-registro"
-                                        placeholder="Indique su correo electronico">
-                                </div>
-                                <div class="inputs">
-                                    <label class="tipografia">Indique su DNI</label>
-                                    <input class="input-text" type="number" id="dni-registro" min="1"
-                                        placeholder="Indique su DNI sin puntos o comas">
-                                </div>
-                                <div class="inputs">
-                                    <label class="tipografia">Indique su Password</label>
-                                    <input class="input-text" type="password" id="password-registro"
-                                        placeholder="Indique su Contraseña">
-                                </div>
-                                <div class="inputs">
-                                    <label class="tipografia">Indique su Telefono</label>
-                                    <input class="input-text" type="number" id="telefono-registro"
-                                        placeholder="Indique su Telefono o celular">
-                                </div>
-                                <div class="inputs opcion-genero">
-                                    <label class="tipografia" for="genero-registro">Indique su Genero</label>
-                                    <div class="radio-group">
-                                        <input class="input-radio" type="radio" id="masculino-registro" name="sexo"
-                                            value="masculino">
-                                        <label for="masculino-registro">Masculino</label>
-    
-                                        <input class="input-radio" type="radio" id="femenino-registro" name="sexo"
-                                            value="femenino">
-                                        <label for="femenino-registro">Femenino</label>
-                                    </div>
-                                </div>
-    
+                <form>
+                    <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
+                    <div class="contenedor-inputs">
+                        <div class="inputs">
+                            <label class="tipografia">Nombre</label>
+                            <input class="input-text" id="nombre-registro" placeholder="Indique su Nombre">
+                        </div>
+                        <div class="inputs">
+                            <label class="tipografia">Apellido</label>
+                            <input class="input-text" id="apellido-registro" placeholder="Indique su Apellido">
+                        </div>
+                        <div class="inputs">
+                            <label class="tipografia">E-mail</label>
+                            <input class="input-text" type="email" id="email-registro"
+                                placeholder="Indique su correo electronico">
+                        </div>
+                        <div class="inputs">
+                            <label class="tipografia">Indique su DNI</label>
+                            <input class="input-text" type="number" id="dni-registro" min="1"
+                                placeholder="Indique su DNI sin puntos o comas">
+                        </div>
+                        <div class="inputs">
+                            <label class="tipografia">Indique su Password</label>
+                            <input class="input-text" type="password" id="password-registro"
+                                placeholder="Indique su Contraseña">
+                        </div>
+                        <div class="inputs">
+                            <label class="tipografia">Indique su Telefono</label>
+                            <input class="input-text" type="number" id="telefono-registro"
+                                placeholder="Indique su Telefono o celular">
+                        </div>
+                        <div class="inputs opcion-genero">
+                            <label class="tipografia" for="genero-registro">Indique su Genero</label>
+                            <div class="radio-group">
+                                <input class="input-radio" type="radio" id="masculino-registro" name="sexo"
+                                    value="masculino">
+                                <label for="masculino-registro">Masculino</label>
+
+                                <input class="input-radio" type="radio" id="femenino-registro" name="sexo"
+                                    value="femenino">
+                                <label for="femenino-registro">Femenino</label>
                             </div>
-                            <div class="">
-                                <button class="boton-enviar tipografia" type="submit">Registrarse</button>
-                                <p class="warnings" id="warnings"></p>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <button class="boton-enviar tipografia" type="submit">Registrarse</button>
+                        <p class="warnings" id="warnings"></p>
+                    </div>
+
+                </form>
+
             </section>
         </div>
     </main>
@@ -141,4 +146,5 @@
     </footer>
 
 </body>
+
 </html>
