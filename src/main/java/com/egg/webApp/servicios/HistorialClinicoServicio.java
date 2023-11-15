@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HistorialClinicoServicio {
-
+    
     @Autowired
     private HistoiralClinicoRepositorio histoiralClinicoRepositorio;
-
+    
     @Transactional
     public void crearHistorial(String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, LocalDateTime fecha, Paciente paciente, Profesional profesional) throws Exception {
         HistoriaClinica historialClinico = new HistoriaClinica();
@@ -32,10 +32,10 @@ public class HistorialClinicoServicio {
         historialClinico.setProfesional(profesional);
         histoiralClinicoRepositorio.save(historialClinico);
     }
-
+    
     @Transactional
     public void modificarHistorial(Long id, String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, LocalDateTime fecha, Paciente paciente, Profesional profesional) throws Exception {
-
+        
         Optional<HistoriaClinica> respuesta = histoiralClinicoRepositorio.findById(id);
         if (respuesta.isPresent()) {
             HistoriaClinica historialClinico = respuesta.get();
@@ -51,13 +51,14 @@ public class HistorialClinicoServicio {
             histoiralClinicoRepositorio.save(historialClinico);
         }
     }
-
-    public List<HistoriaClinica> listaDeHistorial() {
+    
+    public List<HistoriaClinica> listaDeHistorialesClinicosPorPaciente(Paciente paciente) {
         List<HistoriaClinica> historiales = new ArrayList();
-        historiales = histoiralClinicoRepositorio.findAll();
+        historiales = histoiralClinicoRepositorio.buscarHistorialesPorId(paciente.getId());
         return historiales;
     }
-    public HistoriaClinica getOne(Long id){
+    
+    public HistoriaClinica getOne(Long id) {
         return histoiralClinicoRepositorio.getOne(id);
     }
 }

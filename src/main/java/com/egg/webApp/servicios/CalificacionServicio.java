@@ -1,6 +1,7 @@
 package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.Calificacion;
+import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.repositorios.CalificacionRepositorio;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CalificacionServicio {
-
+    
     @Autowired
     private CalificacionRepositorio calificacionRepositorio;
-
+    
     @Transactional
     public void crearCalificacion(String comentario, Integer calificacion) {
         Calificacion nuevaCalificacion = new Calificacion();
@@ -22,7 +23,7 @@ public class CalificacionServicio {
         nuevaCalificacion.setPuntuacion(calificacion);
         calificacionRepositorio.save(nuevaCalificacion);
     }
-
+    
     @Transactional
     public void modificarCalificacion(Long id, String comentarioNuevo, Integer nuevaCalificacion) {
         Optional<Calificacion> respuesta = calificacionRepositorio.findById(id);
@@ -33,13 +34,14 @@ public class CalificacionServicio {
             calificacionRepositorio.save(calificacionModificada);
         }
     }
-
-    public List<Calificacion> calificaciones() {
+    
+    public List<Calificacion> calificacionesDeUnProfecional(Profesional profecional) {
         List<Calificacion> calificaciones = new ArrayList();
-        calificaciones = calificacionRepositorio.findAll();
+        calificaciones = calificacionRepositorio.buscarCalificacionesPorId(profecional.getId());
         return calificaciones;
     }
-    public Calificacion getOne(Long id){
+
+    public Calificacion getOne(Long id) {
         return calificacionRepositorio.getOne(id);
     }
 }
