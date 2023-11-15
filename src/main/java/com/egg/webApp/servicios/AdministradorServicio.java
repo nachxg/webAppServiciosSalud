@@ -11,6 +11,7 @@ public class AdministradorServicio {
     @Autowired
     UsuarioRepositorio usuarioRepositorio;
 
+    /*
     public void desactivarUsuario(Long id) throws Exception {
         if (id == null) {
             throw new Exception("No se puede desactivar usuario: el ID no puede ser nulo");
@@ -25,4 +26,7 @@ public class AdministradorServicio {
             usuarioRepositorio.save(usuario);
         }
     }
+*/
+
+
 }
