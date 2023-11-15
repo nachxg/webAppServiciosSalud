@@ -34,12 +34,20 @@ public class HistorialClinicoServicio {
     }
 
     @Transactional
-    public void modificarHistorial(String nota, LocalDateTime fecha, Long id) throws Exception {
+    public void modificarHistorial(Long id, String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, LocalDateTime fecha, Paciente paciente, Profesional profesional) throws Exception {
+
         Optional<HistoriaClinica> respuesta = histoiralClinicoRepositorio.findById(id);
         if (respuesta.isPresent()) {
             HistoriaClinica historialClinico = respuesta.get();
-            //historialClinico.setNotas(nota);
-            //historialClinico.setFechaConsulta(fecha);
+            historialClinico.setDiagnostico(diagnostico);
+            historialClinico.setTratamiento(tratamiento);
+            historialClinico.setMedicacion(medicacion);
+            historialClinico.setIndicaciones(indicaciones);
+            historialClinico.setEstudios(estudios);
+            historialClinico.setObservaciones(observaciones);
+            historialClinico.setFechaVisita(fecha);
+            historialClinico.setPaciente(paciente);
+            historialClinico.setProfesional(profesional);
             histoiralClinicoRepositorio.save(historialClinico);
         }
     }
@@ -48,5 +56,8 @@ public class HistorialClinicoServicio {
         List<HistoriaClinica> historiales = new ArrayList();
         historiales = histoiralClinicoRepositorio.findAll();
         return historiales;
+    }
+    public HistoriaClinica getOne(Long id){
+        return histoiralClinicoRepositorio.getOne(id);
     }
 }

@@ -39,4 +39,7 @@ public class CalificacionServicio {
         calificaciones = calificacionRepositorio.findAll();
         return calificaciones;
     }
+    public Calificacion getOne(Long id){
+        return calificacionRepositorio.getOne(id);
+    }
 }
