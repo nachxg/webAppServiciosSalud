@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-  <link rel="stylesheet" href="../static/css/formularios.css">
+  <link rel="stylesheet" href="/css/formularios.css">
 
   <title>Login</title>
 </head>
 <body>
+
+  <div class="container-fluid m-5 contenedor">
+    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+    <div class="card-body">
+        <h5 class="card-title">Error!</h5>
+        <p class="card-text" th:text="${error}"></p>
+    </div>
+</div>
+<div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+    <div class="card-body">
+        <h5 class="card-title">Exito!</h5>
+        <p class="card-text" th:text="${exito}"></p>
+    </div>
+</div>
 
   <div class="container mt-5">
     <div class="row justify-content-center">
@@ -17,14 +31,14 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title text-center">Inicio de sesión</h5>
-            <form>
+            <form th:action="@{/logincheck}" method="POST">
               <div class="form-group">
                 <label for="dni">DNI:</label>
-                <input type="text" class="form-control" id="dni" placeholder="Ingrese su DNI" required>
+                <input type="text" class="form-control" id="dni" placeholder="Ingrese su DNI" required name="dni">
               </div>
               <div class="form-group">
                 <label for="password">Contraseña:</label>
-                <div class="input-group">
+                <div class="input-group" name="password">
                   <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
                   <div class="input-group-append">
                     <span class="input-group-text" id="eye-toggle">
@@ -49,7 +63,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-  <script src="../static/js/scriptLogin.js"></script>
+  <script src="/js/scriptLogin.js"></script>
 
 </body>
 </html>
