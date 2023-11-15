@@ -3,7 +3,6 @@ package com.egg.webApp.servicios;
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Rol;
-import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
