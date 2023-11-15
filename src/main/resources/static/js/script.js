@@ -50,7 +50,7 @@ const cambiarCartel = function cambiarCartel(dato){
         estado = true;
         mostrarPac();
     }
-} 
+}
 
 seccion2.addEventListener("click", mostrarProf);
 seccion1.addEventListener("click", mostrarPaciente);
