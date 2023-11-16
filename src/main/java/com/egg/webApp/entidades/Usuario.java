@@ -100,5 +100,10 @@ public class Usuario {
      */
     protected String apellido;
 
+    /**
+     * Estado del usuario.
+     */
+    protected boolean activo;
+
 
 }

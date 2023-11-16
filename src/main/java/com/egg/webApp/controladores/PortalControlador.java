@@ -1,13 +1,10 @@
 package com.egg.webApp.controladores;
 
-import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
-import com.egg.webApp.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +41,7 @@ public class PortalControlador {
         List<Sexo> generos = enumServicio.obtenerGeneros();
         modelo.addAttribute("generos", generos);
 
-        return "html";
+        return "registrarPrueba.html";
     }
 
     @PostMapping("/registrar")
@@ -88,18 +85,16 @@ public class PortalControlador {
 
             return "html";
         }
-
-
     }
-    @GetMapping("/login") // TODO: Hay que solucionar el login, tira eror. No se puedo acceder
-    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
-        if (error != null) {
-            modelo.put("error", "ERROR, usuario o contraseña invalidos");
 
+    @GetMapping("/login")
+    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
+
+        if (error != null) {
+
+            modelo.put("error", "Usuario o contraseña incorrectos");
         }
         return "login.html";
     }
-
-
 
 }
