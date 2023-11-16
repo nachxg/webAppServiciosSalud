@@ -2,6 +2,7 @@ package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.Administrador;
 import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,9 @@ public class AdministradorServicio {
     @Autowired
     UsuarioRepositorio usuarioRepositorio;
 
-
-    public void desactivarUsuario(Long id) throws Exception {
+    public void desactivarActivarUsuario(Long id) throws MiExcepcion {
         if (id == null) {
-            throw new Exception("No se puede desactivar usuario: el ID no puede ser nulo");
+            throw new MiExcepcion("No se puede desactivar usuario: el ID no puede ser nulo");
         }
         Usuario usuario = usuarioRepositorio.findById(id).orElse(null);
         assert usuario != null;
@@ -27,6 +27,13 @@ public class AdministradorServicio {
         }
     }
 
-
-
+public void establecerRolUsuario(Long id, String rol) throws MiExcepcion {
+        if (id == null) {
+            throw new MiExcepcion("No se puede establecer rol: el ID no puede ser nulo");
+        }
+        Usuario usuario = usuarioRepositorio.findById(id).orElse(null);
+        assert usuario != null;
+        Administrador.establecerROlUsuario(usuario, rol);
+        usuarioRepositorio.save(usuario);
+    }
 }
