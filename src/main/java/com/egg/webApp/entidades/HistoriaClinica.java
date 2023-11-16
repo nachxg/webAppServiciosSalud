@@ -19,6 +19,8 @@ public class HistoriaClinica {
     @Column(name = "fecha_visita")
     private LocalDateTime fechaVisita;
 
+    
+   
     private String diagnostico;
     private String tratamiento;
     private String medicacion;
