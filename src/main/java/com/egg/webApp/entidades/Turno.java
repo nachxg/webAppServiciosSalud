@@ -22,7 +22,7 @@ public class Turno {
     private Especialidad especialidad;
     @Column(name = "motivo_consulta")
     private String motivoCosulta;
-    private boolean disponible;
+    private boolean atendido;
     private boolean cancelado;
 
     @ManyToOne

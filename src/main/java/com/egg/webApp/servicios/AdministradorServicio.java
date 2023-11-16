@@ -12,11 +12,7 @@ public class AdministradorServicio {
     @Autowired
     UsuarioRepositorio usuarioRepositorio;
 
-<<<<<<< HEAD
     public void desactivarActivarUsuario(Long id) throws MiExcepcion {
-=======
-    public void desactivarUsuario(Long id) throws Exception {
->>>>>>> 7fd26438f8bb3d85327f493083382d6c2ca0a3e4
         if (id == null) {
             throw new MiExcepcion("No se puede desactivar usuario: el ID no puede ser nulo");
         }
@@ -30,7 +26,6 @@ public class AdministradorServicio {
             usuarioRepositorio.save(usuario);
         }
     }
-<<<<<<< HEAD
 
 public void establecerRolUsuario(Long id, String rol) throws MiExcepcion {
         if (id == null) {
@@ -41,6 +36,4 @@ public void establecerRolUsuario(Long id, String rol) throws MiExcepcion {
         Administrador.establecerROlUsuario(usuario, rol);
         usuarioRepositorio.save(usuario);
     }
-=======
->>>>>>> 7fd26438f8bb3d85327f493083382d6c2ca0a3e4
 }

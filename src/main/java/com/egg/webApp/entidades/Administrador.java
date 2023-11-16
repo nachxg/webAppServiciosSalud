@@ -1,14 +1,10 @@
+
 package com.egg.webApp.entidades;
 
 import com.egg.webApp.enumeraciones.Rol;
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "Administradores")
 
-public class Administrador extends Usuario implements Serializable {
+public class Administrador extends Usuario {
 
     public static void darBajaUsuario(Usuario usuario) {
         usuario.setActivo(false);
