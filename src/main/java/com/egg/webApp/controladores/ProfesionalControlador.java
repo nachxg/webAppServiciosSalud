@@ -1,9 +1,11 @@
 package com.egg.webApp.controladores;
 
+import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,9 @@ public class ProfesionalControlador {
 
         List<Sexo> generos = enumServicio.obtenerGeneros();
         modelo.addAttribute("generos", generos);
+
+        List<Especialidad> especialidades = enumServicio.obtenerEspecialidad();
+        modelo.addAttribute("especialidades", especialidades);
 
         return "registrar_profesional.html";
     }

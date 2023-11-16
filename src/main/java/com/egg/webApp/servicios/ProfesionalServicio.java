@@ -40,6 +40,7 @@ public class ProfesionalServicio {
         Profesional profesional = new Profesional();
         profesional.setMatricula(matricula);
         profesional.setEspecialidad(Especialidad.valueOf(especialidad));
+        profesional.setRol(Rol.PROFESIONAL);
         profesionalRepositorio.save(profesional);
         usuarioServicio.registrar(nombre, apellido, dni, password, password2, profesional.getId(), sexo);
     }

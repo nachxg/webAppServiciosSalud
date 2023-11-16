@@ -28,7 +28,7 @@
     <form class="formulario" th:action="@{/registrar/profesional}" method="POST">
 
         <div class="form-group my-3">
-            <label class="mb-2"> Cargar USUARIO</label>
+            <label class="mb-2"> Cargar PROFESIONAL</label>
             <input type="text" class="form-control" name="nombre" placeholder="Nombre de usuario">
         </div>
 
@@ -42,25 +42,27 @@
 
 
         <div class="form-group my-3">
-            <input type="text" class="form-control" name="password" placeholder="Password de usuario">
+            <input type="password" class="form-control" name="password" placeholder="Password de usuario">
         </div>
 
 
         <div class="form-group my-3">
-            <input type="text" class="form-control" name="password2" placeholder="Confirmar password">
+            <input type="password" class="form-control" name="password2" placeholder="Confirmar password">
         </div>
 
         <div class="form-group my-3">
             <input type="text" class="form-control" name="matricula" placeholder="Matricula de profesional">
         </div>
 
-        <div class="form-group my-3">
-            <input type="text" class="form-control" name="especialidad" placeholder="Especialidad de profesional">
-        </div>
+        <label class="input-group-text sm" for="inputGroupSelect">Sexo</label>
+            <select class="form-select-sm p-0" id="inputGroupSelect" name="especialidad">
+                <option selected>Elige...</option>
+                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}"></option>
+            </select>
 
 
-        <label class="input-group-text sm" for="inputGroupSelect">Sexo<label>
-            <select class="form-select-sm p-0" id="inputGroupSelect" name="sexo">
+        <label class="input-group-text sm" for="inputGroupSelect2">Especialidad</label>
+            <select class="form-select-sm p-0" id="inputGroupSelect2" name="sexo">
                 <option selected>Elige...</option>
                 <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
             </select>

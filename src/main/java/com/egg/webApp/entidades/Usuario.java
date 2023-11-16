@@ -71,13 +71,11 @@ public class Usuario {
     /**
      * Fecha y hora en la que se registró al usuario.
      */
-    @Temporal(TemporalType.DATE)
     protected LocalDateTime fechaAlta;
 
     /**
      * Fecha de nacimiento del usuario.
      */
-    @Temporal(TemporalType.DATE)
     protected LocalDate fechaNacimiento;
 
     /**

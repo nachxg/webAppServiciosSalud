@@ -48,9 +48,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setFechaAlta(LocalDateTime.now());
         usuario.setDni(dni);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.USUARIO);
         usuario.setSexo(Sexo.valueOf(sexo));
-
         usuarioRepositorio.save(usuario);
     }
 
