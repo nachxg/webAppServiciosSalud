@@ -107,14 +107,10 @@ public class ProfesionalServicio {
         if (especialidad.isEmpty() || especialidad == null){
             throw new Exception("La especialidad no puede ser nulo o estar vacio");
         }
-
-
     }
 
     public LocalDate convertirStringALocalDate(String fechaNacimiento) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
-
-
 }
