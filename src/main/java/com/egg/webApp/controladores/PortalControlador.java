@@ -2,9 +2,9 @@ package com.egg.webApp.controladores;
 
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
-import com.egg.webApp.enumeraciones.Sexo;
-import com.egg.webApp.servicios.EnumServicio;
-import com.egg.webApp.servicios.PacienteServicio;
+//import com.egg.webApp.enumeraciones.Sexo;
+//import com.egg.webApp.servicios.EnumServicio;
+//import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,10 +21,10 @@ import java.util.List;
 public class PortalControlador {
 
     @Autowired
-    PacienteServicio pacienteServicio;
+    //PacienteServicio pacienteServicio;
 
-    @Autowired
-    EnumServicio enumServicio;
+   // @Autowired
+   // EnumServicio enumServicio;
 
     @GetMapping
     public String index(/*ModelMap modelo*/) throws Exception {
@@ -41,8 +41,8 @@ public class PortalControlador {
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
 
-        List<Sexo> generos = enumServicio.obtenerGeneros();
-        modelo.addAttribute("generos", generos);
+        //List<Sexo> generos = enumServicio.obtenerGeneros();
+       // modelo.addAttribute("generos", generos);
 
         return "html";
     }
@@ -53,7 +53,7 @@ public class PortalControlador {
 
         try {
 
-            pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo);
+           // pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo);
 
             return "index.html";
 
@@ -79,7 +79,7 @@ public class PortalControlador {
                              @RequestParam String password, @RequestParam String password2, ModelMap modelo, String telefono, String sexo) {
 
         try {
-            pacienteServicio.actualizarPaciente(archivo, id, email, password,password2, fechaNacimiento, telefono, sexo);
+          //  pacienteServicio.actualizarPaciente(archivo, id, email, password,password2, fechaNacimiento, telefono, sexo);
 
             return "inicio.html";
 

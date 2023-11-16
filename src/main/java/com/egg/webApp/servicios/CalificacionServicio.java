@@ -34,6 +34,13 @@ public class CalificacionServicio {
             calificacionRepositorio.save(calificacionModificada);
         }
     }
+    @Transactional
+    public void eliminarCalificacion(Long id){
+        Optional<Calificacion> respuesta = calificacionRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            calificacionRepositorio.deleteById(id);
+        }
+    }
     
     public List<Calificacion> calificacionesDeUnProfecional(Profesional profecional) {
         List<Calificacion> calificaciones = new ArrayList();
