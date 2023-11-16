@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+    <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,77 +38,85 @@
 
     <main class="cuerpo-main">
         <div class="imagen-principal">
-            <h2 style="color: white;">desde el div principal</h2>
+            <h2 hidden style="color: white;">desde la imagen principal</h2>
         </div>
         <div class="grid-principal">
             <div class="sidebar">
-
-                <h2>Desde el Sidebar</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam rem reprehenderit voluptate
-                    eveniet
-                    placeat fuga labore sint fugiat soluta consequuntur eius pariatur veniam incidunt dolor modi
-                    delectus,
-                    voluptas cumque. Nihil?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid totam quas, exercitationem,
-                    quibusdam unde sit
-                    porro, voluptas minus voluptatem fuga nobis quisquam suscipit qui dignissimos quos nostrum nulla
-                    itaque numquam!</p>
-
+                <ul class="input-sidebar">
+                    <li>
+                        <h3>Nombre:</h3>
+                        <p>"Por favor, ingrese su nombre completo tal como aparece en su documento de identidad. Este campo es
+                            obligatorio para completar el registro en nuestro sistema."</p>
+                    </li>
+                    <li>
+                        <h3>Apellido:</h3>
+                        <p>"Proporcione su apellido completo según su documento oficial. Asegúrese de ingresar la información
+                            correctamente para una identificación precisa en nuestro sistema."</p>
+                    </li>
+                    <li>
+                        <h3>DNI:</h3>
+                        <p>"Ingrese su número de Documento Nacional de Identidad (DNI). Este número es esencial para su identificación
+                            en nuestro sanatorio. Asegúrese de ingresar los dígitos correctamente."</p>
+                    </li>
+                    <li>
+                        <h3>Contraseña:</h3>
+                        <p>"Seleccione una contraseña segura que cumpla con nuestros requisitos de seguridad. La contraseña debe tener
+                            al menos 8 caracteres, incluyendo letras y números. ¡Mantenga su cuenta protegida!"</p>
+                    </li>
+                    <li>
+                        <h3>Confirmación de Contraseña</h3>
+                        <p> "Confirme la contraseña ingresada anteriormente. Esto ayuda a prevenir errores y asegura que haya ingresado
+                            la contraseña deseada. Asegúrese de que coincida exactamente con la contraseña anterior."</p>
+                    </li>
+                </ul>                
             </div>
 
-            <section class="formulario">
-                <form>
-                    <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
-                    <div class="contenedor-inputs">
-                        <div class="inputs">
-                            <label class="tipografia">Nombre</label>
-                            <input class="input-text" id="nombre-registro" name="nombre" placeholder="Indique su Nombre">
-                        </div>
-                        <div class="inputs">
-                            <label class="tipografia">Apellido</label>
-                            <input class="input-text" id="apellido-registro" name="apellido" placeholder="Indique su Apellido">
-                        </div>
-                        <div class="inputs">
-                            <label class="tipografia">E-mail</label>
-                            <input class="input-text" type="email" id="email-registro" name="email"
-                                placeholder="Indique su correo electronico">
-                        </div>
-                        <div class="inputs">
-                            <label class="tipografia">Indique su DNI</label>
-                            <input class="input-text" type="number" id="dni-registro"  name="dni" min="1"
-                                placeholder="Indique su DNI sin puntos o comas">
-                        </div>
-                        <div class="inputs">
-                            <label class="tipografia">Indique su Password</label>
-                            <input class="input-text" type="password" id="password-registro" name="password"
-                                placeholder="Indique su Contraseña">
-                        </div>
-                        <div class="inputs">
-                            <label class="tipografia">Indique su Telefono</label>
-                            <input class="input-text" type="number" id="telefono-registro" name="telefono"
-                                placeholder="Indique su Telefono o celular">
-                        </div>
-                        <div class="inputs opcion-genero">
-                            <label class="tipografia" for="genero-registro">Indique su Genero</label>
-                            <div class="radio-group">
-                                <input class="input-radio" type="radio" id="masculino-registro" name="sexo"
-                                    value="masculino">
-                                <label for="masculino-registro">Masculino</label>
-
-                                <input class="input-radio" type="radio" id="femenino-registro" name="sexo"
-                                    value="femenino">
-                                <label for="femenino-registro">Femenino</label>
-                            </div>
-                        </div>
+            <form class="formulario" th:action="@{/registrar}" method="POST">
+                <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
+                <div class="contenedor-inputs">
+                    <div class="inputs">
+                        <label class="tipografia">Nombre</label>
+                        <input class="input-text" id="nombre-registro" name="nombre" placeholder="Indique su Nombre">
                     </div>
-                    <div class="">
-                        <button class="boton-enviar tipografia" type="submit">Registrarse</button>
-                        <p class="warnings" id="warnings"></p>
+                    <div class="inputs">
+                        <label class="tipografia">Apellido</label>
+                        <input class="input-text" id="apellido-registro" name="apellido"
+                            placeholder="Indique su Apellido">
                     </div>
+                    <div class="inputs">
+                        <label class="tipografia">DNI</label>
+                        <input class="input-text" type="number" id="dni-registro" name="dni" min="1"
+                            placeholder="Indique su DNI sin puntos ni comas">
+                    </div>
+                    <div class="inputs">
+                        <label class="tipografia">Contraseña</label>
+                        <input class="input-text" type="password" id="password-registro" name="password"
+                            placeholder="Indique su Contraseña">
+                    </div>
+                    <div class="inputs">
+                        <label class="tipografia">Confirme Contraseña</label>
+                        <input class="input-text" type="password2" id="password2-registro" name="password2"
+                            placeholder="Confirme su Contraseña">
+                    </div>
+                    <!--<div class="inputs">
+                        <label class="tipografia">Fecha de Nacimiento</label>
+                        <input class="input-text" type="date" id="fecha-registro" name="fecha"
+                            placeholder="Indique su Fecha de Nacimiento">
+                    </div>-->
+                   <!--<div class="inputs opcion-genero">
+                        <label class="tipografia" for="genero-registro">Genero</label>
+                        <select class="input-text" id="inputGroupSelect" name="sexo">
+                            <option selected>Elige...</option>
+                            <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
+                        </select>
+                    </div>-->
+                </div>
+                <div class="">
+                    <button class="boton-enviar tipografia" type="submit">Registrarse</button>
+                    <p class="warnings" id="warnings"></p>
+                </div>
 
-                </form>
-
-            </section>
+            </form>
         </div>
     </main>
 
