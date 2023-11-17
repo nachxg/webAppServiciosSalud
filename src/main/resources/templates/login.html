@@ -5,25 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-  <link rel="stylesheet" href="/css/formularios.css">
+  <link rel="stylesheet" href="../static/css/login.css">
 
   <title>Login</title>
 </head>
 <body>
-
+  <nav class="">
+    <a class="logo" href="/">
+        <img src="../static/img/logoColor.png" alt="" class="logo">
+    </a>
+    <a href="">Pacientes</a>
+    <a href="">Profesionales</a>
+    <a href="">Turnos</a>
+    <a href="">Especialidades</a>
+  </nav>
+  <!--
   <div class="container-fluid m-5 contenedor">
     <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
     <div class="card-body">
         <h5 class="card-title">Error!</h5>
         <p class="card-text" th:text="${error}"></p>
+       </div>
     </div>
-</div>
-<div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+
+  <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
     <div class="card-body">
         <h5 class="card-title">Exito!</h5>
         <p class="card-text" th:text="${exito}"></p>
     </div>
 </div>
+-->
 
   <div class="container mt-5">
     <div class="row justify-content-center">
@@ -51,13 +62,52 @@
                 <input type="checkbox" class="form-check-input" id="recordarUsuario">
                 <label class="form-check-label" for="recordarUsuario">Recordar usuario</label>
               </div>
-              <button type="submit" class="btn btn-primary btn-block mt-3">Iniciar sesión</button>
+              <button type="submit" class="btn btn-custom-color  btn-block mt-3">Iniciar sesión</button>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+
+  <footer class="pie">
+    <div class="links">
+        <div class="seccion-nav">
+            <p class="titulo-sec">Nosotros</p>
+            <div>
+                  <a>Preguntas frecuentes</a>
+               
+            </div>
+        </div>
+        <div class="seccion-nav">
+            <p class="titulo-sec">Pacientes</p>
+            <div>
+                <a href="#seccion1" onclick="cambiarCartel('pac')">Información</a>
+            </div>
+        </div>
+        <div class="seccion-nav">
+            <p class="titulo-sec">E-mail</p>
+            <div>
+                <a href="mailto:tudireccion@gmail.com">
+                  <i class="fas fa-envelope"></i> info@sanatoriovitalis.com
+                </a> 
+              </div>
+        </div>
+        <div class="seccion-nav">
+            <p class="titulo-sec">Contacto</p>
+            <div>
+              <a href="tu-link-de-WhatsApp" target="_blank">
+                <i class="fab fa-whatsapp"></i> 11-1234-5678
+              </a>              
+            </div>
+        </div>
+    </div>
+    <div class="tyc">
+        &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
+    </div>
+</footer>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
