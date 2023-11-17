@@ -13,6 +13,9 @@ import com.egg.webApp.servicios.PacienteServicio;
 
 
 import com.egg.webApp.servicios.ProfesionalServicio;
+import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.servicios.EnumServicio;
+import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.UsuarioServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,9 @@ public class PortalControlador {
 
     @Autowired
     PacienteRepositorio pacienteRepositorio;
+
+    @Autowired
+    EnumServicio enumServicio;
 
     @Autowired
     EnumServicio enumServicio;
@@ -73,6 +79,7 @@ public class PortalControlador {
             pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
 
             return "redirect:/inicio.html";
+            pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo);
 
 
         } catch (Exception e) {
@@ -144,6 +151,7 @@ public class PortalControlador {
 
         try {
             profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo);
+            pacienteServicio.actualizarPaciente(archivo, id, email, password,password2, fechaNacimiento, telefono, sexo);
 
             return "inicio.html";
 

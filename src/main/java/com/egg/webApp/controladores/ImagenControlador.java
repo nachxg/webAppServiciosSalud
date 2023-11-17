@@ -24,13 +24,8 @@ public class ImagenControlador {
     UsuarioServicio usuarioServicio;
 
 
-<<<<<<< HEAD
-    @GetMapping("/perfil/{id}")
-    public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id){
-=======
     @GetMapping("/perfil/{id}") // FALTA AGREGAR LA URL DEL GET MAPPING
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long  id){
->>>>>>> 8547b25e8057f5757241fd457b275703cae50651
 
         Usuario usuario = usuarioServicio.getOne(id);
 

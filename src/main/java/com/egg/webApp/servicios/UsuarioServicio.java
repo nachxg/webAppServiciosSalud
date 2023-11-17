@@ -3,11 +3,8 @@ package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.Usuario;
 
-<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-=======
->>>>>>> 8547b25e8057f5757241fd457b275703cae50651
 
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
@@ -54,11 +51,8 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setDni(dni);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setSexo(Sexo.valueOf(sexo));
-<<<<<<< HEAD
         usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
 
-=======
->>>>>>> 8547b25e8057f5757241fd457b275703cae50651
         usuarioRepositorio.save(usuario);
     }
 
