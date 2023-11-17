@@ -24,10 +24,10 @@ public class ImagenControlador {
     UsuarioServicio usuarioServicio;
 
 
-    @GetMapping("/perfil/{id}") // FALTA AGREGAR LA URL DEL GET MAPPING
-    public ResponseEntity<byte[]> imagenUsuario(@PathVariable String  id){
+    @GetMapping("/perfil/{id}")
+    public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id){
 
-        Usuario usuario = usuarioServicio.getOne(id); // TIRA ERROR PORQUE USUARIO SERVICIO ESTA VACIO
+        Usuario usuario = usuarioServicio.getOne(id);
 
         byte[] imagen =  usuario.getImagen().getContenido();
 

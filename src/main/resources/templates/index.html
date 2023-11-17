@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
         <a href="">Pacientes</a>
         <a href="">Profesionales</a>
         <a href="">Turnos</a>
-        <a href="">Especialidades</a>
+        <a th:href="@{/perfil}">Especialidades</a>
         <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" fill="currentColor"
                 class="bi bi-person-plus mb-1 me-1" viewBox="0 0 16 16">
                 <path

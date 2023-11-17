@@ -3,11 +3,14 @@ package com.egg.webApp.controladores;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.repositorios.PacienteRepositorio;
+import com.egg.webApp.repositorios.UsuarioRepositorio;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -24,74 +27,86 @@ public class PortalControlador {
     PacienteServicio pacienteServicio;
 
     @Autowired
+    PacienteRepositorio pacienteRepositorio;
+
+    @Autowired
     EnumServicio enumServicio;
 
     @GetMapping
     public String index(/*ModelMap modelo*/) throws Exception {
 
-        //pacienteServicio.registrarPaciente("55345343", "hola1234", "hola1234");
 
         return "index.html";
 
     }
 
-    // BORRAR DESPUES:
 
-
-    @GetMapping("/registrar")
+    @GetMapping("/") //TODO: ACTUALIZAR ESTO
     public String registrar(ModelMap modelo) {
 
         List<Sexo> generos = enumServicio.obtenerGeneros();
         modelo.addAttribute("generos", generos);
 
-        return "html";
+        return ".html"; //TODO: ACTUALIZAR ESTO
     }
 
-    @PostMapping("/registrar")
+    @PostMapping("/") //TODO: ACTUALIZAR ESTO
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
-                           @RequestParam String password2, String dni, String sexo) {
+                           @RequestParam String password2, String dni, String sexo, String fechaNacimiento) {
 
         try {
 
-            pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo);
+            pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
 
-            return "index.html";
+            return "redirect:/inicio.html";
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");
             System.out.println(e.getMessage());
-            return "html";
+            return ".html"; //TODO: ACTUALIZAR ESTO
 
         }
-
-
     }
 
-    @GetMapping("/perfil") // TODO: Hay que solucionar, no podemos entrar a perfil
+    @GetMapping("/inicio")
+    public String inicio() {
+        return "inicio.html";
+    }
+
+    @GetMapping("/perfil")
     public String perfil(ModelMap modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo.put("usuario", usuario);
-        return "html";
+
+        List<Sexo> generos = enumServicio.obtenerGeneros();
+        modelo.addAttribute("generos", generos);
+
+        Paciente paciente = (Paciente) session.getAttribute("usuariosession");
+        modelo.put("paciente", paciente);
+
+
+        return ".html"; //TODO: ACTUALIZAR ESTO
     }
 
-    @PostMapping("/perfil/{id}") // TODO: Hay que solucionar, no podemos entrar a perfil
-    public String actualizar(MultipartFile archivo, @PathVariable Long id, @RequestParam String email, @RequestParam String fechaNacimiento,
-                             @RequestParam String password, @RequestParam String password2, ModelMap modelo, String telefono, String sexo) {
+    @PostMapping("/perfil/{id}")
+    public String actualizar(MultipartFile archivo, @RequestParam String email, @RequestParam String fechaNacimiento,
+                             @RequestParam String password, @RequestParam String password2,
+                             ModelMap modelo, String telefono, String sexo, @PathVariable Long id) {
 
         try {
-            pacienteServicio.actualizarPaciente(archivo, id, email, password,password2, fechaNacimiento, telefono, sexo);
 
-            return "inicio.html";
+            pacienteServicio.actualizarPaciente(archivo, id, email, password, password2, fechaNacimiento, telefono, sexo);
 
+            return ".html"; //TODO: ACTUALIZAR ESTO
         } catch (Exception e) {
             System.out.println("ERROR ERROR ");
+            System.out.println(e.getMessage());
 
-            return "html";
+            return ".html"; //TODO: ACTUALIZAR ESTO
         }
 
 
     }
-    @GetMapping("/login") // TODO: Hay que solucionar el login, tira eror. No se puedo acceder
+
+    @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error != null) {
             modelo.put("error", "ERROR, usuario o contraseña invalidos");
@@ -99,7 +114,6 @@ public class PortalControlador {
         }
         return "login.html";
     }
-
 
 
 }
