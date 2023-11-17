@@ -68,6 +68,7 @@ nav a:hover:not(.logo), .pie a:hover{
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
+
 main{
     display: flex;
     flex-direction: column;
@@ -153,8 +154,13 @@ main{
     color: var(--colorLindo);
     background-color: rgba(0, 0, 0, 0.041);
 }
-.btn-custom-color {
+button {
     background-image: linear-gradient(to left, #44bdb3,#1b5453);/* Reemplaza "tu-color" con el color deseado */
     color:#f8f2cb /* Color del texto, puedes ajustarlo según sea necesario */
+}
+
+.btn-custom-color:hover{
+    background-image:linear-gradient(to left, #44bdb3,#1b5453);
+    color:#f8f2cb
 }
 
