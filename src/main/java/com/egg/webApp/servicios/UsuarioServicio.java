@@ -3,14 +3,14 @@ package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.Usuario;
 
+<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+=======
+>>>>>>> 8547b25e8057f5757241fd457b275703cae50651
 
-import com.egg.webApp.entidades.Imagen;
-import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
-import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -53,10 +53,12 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setFechaAlta(LocalDateTime.now());
         usuario.setDni(dni);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.USUARIO);
         usuario.setSexo(Sexo.valueOf(sexo));
+<<<<<<< HEAD
         usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
 
+=======
+>>>>>>> 8547b25e8057f5757241fd457b275703cae50651
         usuarioRepositorio.save(usuario);
     }
 
