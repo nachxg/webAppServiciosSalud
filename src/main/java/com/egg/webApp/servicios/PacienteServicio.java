@@ -36,6 +36,7 @@ public class PacienteServicio {
 
         Paciente paciente = new Paciente();
         paciente.setAltaSistema(true);
+        paciente.setRol(Rol.PACIENTE);
         pacienteRepositorio.save(paciente);
         usuarioServicio.registrar(nombre, apellido, dni, password, password2, paciente.getId(), sexo);
     }

@@ -1,10 +1,12 @@
 package com.egg.webApp.controladores;
 
 import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
+import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,11 +24,13 @@ public class PortalControlador {
 
     @Autowired
     PacienteServicio pacienteServicio;
+    @Autowired
+    ProfesionalServicio profesionalServicio;
 
     @Autowired
     EnumServicio enumServicio;
 
-    @GetMapping
+    @GetMapping("/index")
     public String index(/*ModelMap modelo*/) throws Exception {
 
         //pacienteServicio.registrarPaciente("55345343", "hola1234", "hola1234");
@@ -55,26 +59,26 @@ public class PortalControlador {
 
             pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo);
 
-            return "index.html";
+            return "redirect:/";
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");
             System.out.println(e.getMessage());
-            return "registrarPrueba.html";
+            return "redirect:/registrar";
 
         }
 
 
     }
 
-    @GetMapping("/perfil") // TODO: Hay que solucionar, no podemos entrar a perfil
-    public String perfil(ModelMap modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo.put("usuario", usuario);
-        return "editarPerfil.html";
+    @GetMapping("/perfil/paciente") // TODO: Hay que solucionar, no podemos entrar a perfil
+    public String perfilPaciente(ModelMap modelo, HttpSession session) {
+        Paciente paciente = (Paciente) session.getAttribute("usuariosession");
+        modelo.put("paciente", paciente);
+        return "editarPerfilPaciente.html";
     }
 
-    @PostMapping("/perfil/{id}") // TODO: Hay que solucionar, no podemos entrar a perfil
+    @PostMapping("/perfil/paciente/{id}") // TODO: Hay que solucionar, no podemos entrar a perfil
     public String actualizar(MultipartFile archivo, @PathVariable Long id, @RequestParam String email, @RequestParam String fechaNacimiento,
                              @RequestParam String password, @RequestParam String password2, ModelMap modelo, String telefono, String sexo) {
 
@@ -86,11 +90,40 @@ public class PortalControlador {
         } catch (Exception e) {
             System.out.println("ERROR ERROR ");
 
-            return "editarPerfil.html";
+            return "editarPerfilPaciente.html";
         }
 
 
     }
+    @GetMapping("/perfil/profesional") // TODO: Hay que solucionar, no podemos entrar a perfil
+    public String perfilProfesional(ModelMap modelo, HttpSession session) {
+
+        List<Sexo> generos = enumServicio.obtenerGeneros();
+        modelo.addAttribute("generos", generos);
+
+        Profesional profesional = (Profesional) session.getAttribute("usuariosession");
+        modelo.put("profesional", profesional);
+        return "editarPerfilProfesional.html";
+    }
+
+    @PostMapping("/perfil/profesional/{id}") // TODO: Hay que solucionar, no podemos entrar a perfil
+    public String actualizar(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
+                             @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {
+
+        try {
+            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo);
+
+            return "inicio.html";
+
+        } catch (Exception e) {
+            System.out.println("ERROR ERROR ");
+
+            return "editarPerfilProfesional.html";
+        }
+
+
+    }
+
     @GetMapping("/login") // TODO: Hay que solucionar el login, tira eror. No se puedo acceder
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error != null) {

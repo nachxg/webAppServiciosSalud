@@ -1,18 +1,17 @@
 package com.egg.webApp.controladores;
 
+import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 @Controller
 @RequestMapping("/registrar")
@@ -46,7 +45,7 @@ public class ProfesionalControlador {
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");
             System.out.println(e.getMessage());
-            return "registrar_profesional.html";
+            return "redirect:/registrar/profesional";
 
         }
 

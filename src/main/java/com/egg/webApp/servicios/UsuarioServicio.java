@@ -53,7 +53,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
 
-    public Usuario getOne(String id) {
+    public Usuario getOne(Long id) {
         return usuarioServicio.getOne(id);
     }
 
