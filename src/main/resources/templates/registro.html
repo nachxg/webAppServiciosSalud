@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <link rel="stylesheet" href="/css/formularios.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,24 +17,8 @@
         <a class="logo" href="/">
             <img src="/img/logoColor.png" alt="" class="logo">
         </a>
-        <a href="">Pacientes</a>
-        <a href="">Profesionales</a>
-        <a href="">Turnos</a>
-        <a href="">Especialidades</a>
-        <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" fill="currentColor"
-                class="bi bi-person-plus mb-1 me-1" viewBox="0 0 16 16">
-                <path
-                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                <path fill-rule="evenodd"
-                    d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
-            </svg>Registrarse</a>
-        <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" fill="currentColor"
-                class="bi bi-box-arrow-in-right mb-1 me-1" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
-                <path fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-            </svg>Iniciar sesión</a>
+        <a href="#">Volver a Inicio</a>
+        
     </nav>
 
     <main class="cuerpo-main">
@@ -59,6 +44,10 @@
                             en nuestro sanatorio. Asegúrese de ingresar los dígitos correctamente."</p>
                     </li>
                     <li>
+                        <h3>Fecha de Nacimiento</h3>
+                        <p>"La "Fecha de Nacimiento" es un dato importante para nosotros. Por favor, seleccione su fecha de nacimiento utilizando el campo proporcionado. Esta información nos ayuda a personalizar su experiencia y garantiza que recibirá la atención médica adecuada. Apreciamos su colaboración."</p>
+                    </li>
+                    <li>
                         <h3>Contraseña:</h3>
                         <p>"Seleccione una contraseña segura que cumpla con nuestros requisitos de seguridad. La contraseña debe tener
                             al menos 8 caracteres, incluyendo letras y números. ¡Mantenga su cuenta protegida!"</p>
@@ -70,7 +59,7 @@
                     </li>
                 </ul>                
             </div>
-
+           
             <form class="formulario" th:action="@{/registrar}" method="POST">
                 <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
                 <div class="contenedor-inputs">
@@ -89,26 +78,26 @@
                             placeholder="Indique su DNI sin puntos ni comas">
                     </div>
                     <div class="inputs">
+                        <label class="tipografia">Fecha de Nacimiento:</label>
+                        <input class="input-text" type="date" id="fecha-registro" name="fecha"
+                            placeholder="Indique su Fecha de Nacimiento">
+                    </div>
+                    <div class="inputs">
                         <label class="tipografia">Contraseña</label>
                         <input class="input-text" type="password" id="password-registro" name="password"
                             placeholder="Indique su Contraseña">
                     </div>
                     <div class="inputs">
-                        <label class="tipografia">Confirme Contraseña</label>
+                        <label class="tipografia">Confirme Contraseña:</label>
                         <input class="input-text" type="password2" id="password2-registro" name="password2"
                             placeholder="Confirme su Contraseña">
                     </div>
-                    <!--<div class="inputs">
-                        <label class="tipografia">Fecha de Nacimiento</label>
-                        <input class="input-text" type="date" id="fecha-registro" name="fecha"
-                            placeholder="Indique su Fecha de Nacimiento">
-                    </div>-->
                    <!--<div class="inputs opcion-genero">
                         <label class="tipografia" for="genero-registro">Genero</label>
                         <select class="input-text" id="inputGroupSelect" name="sexo">
                             <option selected>Elige...</option>
                             <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
-                        </select>
+                        </select>   
                     </div>-->
                 </div>
                 <div class="">
@@ -125,25 +114,30 @@
             <div class="seccion-nav">
                 <p class="titulo-sec">Nosotros</p>
                 <div>
-                    <a>Autoridades</a>
-                    <a>Preguntas frecuentes</a>
-                    <a>Términos y condiciones</a>
+                      <a>Preguntas frecuentes</a>
+    
                 </div>
             </div>
             <div class="seccion-nav">
                 <p class="titulo-sec">Pacientes</p>
                 <div>
-                    <a>Lorem ipsum</a>
-                    <a>Lorem ipsum</a>
-                    <a>Lorem ipsum</a>
+                    <a href="#seccion1" onclick="cambiarCartel('pac')">Información</a>
                 </div>
+            </div>
+            <div class="seccion-nav">
+                <p class="titulo-sec">E-mail</p>
+                <div>
+                    <a href="mailto:tudireccion@gmail.com">
+                      <i class="fas fa-envelope"></i> info@sanatoriovitalis.com
+                    </a> 
+                  </div>
             </div>
             <div class="seccion-nav">
                 <p class="titulo-sec">Contacto</p>
                 <div>
-                    <a>Lorem ipsum</a>
-                    <a>Lorem ipsum</a>
-                    <a>Lorem ipsum</a>
+                  <a href="tu-link-de-WhatsApp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> 11-1234-5678
+                  </a>
                 </div>
             </div>
         </div>
@@ -151,6 +145,10 @@
             &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
         </div>
     </footer>
-
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+      <script src="/js/scriptLogin.js"></script>
 </body>
 </html>
