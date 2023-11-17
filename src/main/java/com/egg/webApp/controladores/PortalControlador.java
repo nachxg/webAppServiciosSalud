@@ -49,7 +49,7 @@ public class PortalControlador {
 
     }
 
-    @PostMapping("/registro")
+    @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
                            @RequestParam String password2, String dni, String sexo, String fechaNacimiento) {
         try {
