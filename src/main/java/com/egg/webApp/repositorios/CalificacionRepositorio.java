@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface CalificacionRepositorio extends JpaRepository<Calificacion, Long> {
 
     @Query("SELECT c FROM calificaciones c WHERE c.profesional_id = :id")
-    public List<Calificacion> buscarCalificacionesPorId(@Param("id") Long id);
+    public List<Calificacion> buscarCalificacionesPorIdDeProfesionales(@Param("id") Long id);
 }

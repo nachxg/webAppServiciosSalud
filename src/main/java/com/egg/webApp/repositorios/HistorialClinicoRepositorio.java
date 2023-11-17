@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface HistoiralClinicoRepositorio extends JpaRepository<HistoriaClinica, Long> {
+public interface HistorialClinicoRepositorio extends JpaRepository<HistoriaClinica, Long> {
 
     @Query("SELECT h FROM historias_clinicas h WHERE h.paciente_id = :id")
     public List<HistoriaClinica> buscarHistorialesPorIdPaciente(@Param("id") Long id);

@@ -4,7 +4,6 @@ import com.egg.webApp.entidades.HistoriaClinica;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.excepciones.MiExcepcion;
-import com.egg.webApp.repositorios.HistoiralClinicoRepositorio;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +11,13 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.egg.webApp.repositorios.HistorialClinicoRepositorio;
 
 @Service
 public class HistorialClinicoServicio {
 
     @Autowired
-    private HistoiralClinicoRepositorio histoiralClinicoRepositorio;
+    private HistorialClinicoRepositorio historialClinicoRepositorio;
 
     @Transactional
     public void crearHistorial(String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, LocalDateTime fecha, Paciente paciente, Profesional profesional) throws MiExcepcion {
@@ -33,13 +33,13 @@ public class HistorialClinicoServicio {
         historialClinico.setFechaVisita(fecha);
         historialClinico.setPaciente(paciente);
         historialClinico.setProfesional(profesional);
-        histoiralClinicoRepositorio.save(historialClinico);
+        historialClinicoRepositorio.save(historialClinico);
     }
 
     @Transactional
     public void modificarHistorial(Long id, String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, LocalDateTime fecha, Paciente paciente, Profesional profesional) throws MiExcepcion {
 
-        Optional<HistoriaClinica> respuesta = histoiralClinicoRepositorio.findById(id);
+        Optional<HistoriaClinica> respuesta = historialClinicoRepositorio.findById(id);
         validar(paciente, profesional);
         if (respuesta.isPresent()) {
             HistoriaClinica historialClinico = respuesta.get();
@@ -52,18 +52,18 @@ public class HistorialClinicoServicio {
             historialClinico.setFechaVisita(fecha);
             historialClinico.setPaciente(paciente);
             historialClinico.setProfesional(profesional);
-            histoiralClinicoRepositorio.save(historialClinico);
+            historialClinicoRepositorio.save(historialClinico);
         }
     }
 
     public List<HistoriaClinica> listaDeHistorialesClinicosPorPaciente(Paciente paciente) {
         List<HistoriaClinica> historiales = new ArrayList();
-        historiales = histoiralClinicoRepositorio.buscarHistorialesPorIdPaciente(paciente.getId());
+        historiales = historialClinicoRepositorio.buscarHistorialesPorIdPaciente(paciente.getId());
         return historiales;
     }
 
     public HistoriaClinica getOne(Long id) {
-        return histoiralClinicoRepositorio.getOne(id);
+        return historialClinicoRepositorio.getOne(id);
     }
 
     private void validar(Paciente paciente, Profesional profesional) throws MiExcepcion {
