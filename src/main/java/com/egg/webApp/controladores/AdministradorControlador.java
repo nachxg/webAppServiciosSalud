@@ -5,6 +5,8 @@ import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -22,5 +24,10 @@ public class AdministradorControlador {
         this.profesionalServicio = profesionalServicio;
     }
 
-    
+    @GetMapping("/dashboard")
+    public String listarUsuarios(ModelMap model) {
+        model.put("paciente", pacienteServicio.listarPacientes());
+        model.put("profesional", profesionalServicio.listarProfesionales());
+        return "adminDashboard";
+    }
 }

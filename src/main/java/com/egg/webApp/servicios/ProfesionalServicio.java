@@ -37,23 +37,25 @@ public class ProfesionalServicio {
     @Transactional
     public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, String fechaNacimiento) throws Exception {
 
+        validar(nombre, apellido, dni, password, password2,matricula, especialidad);
+
         Profesional profesional = new Profesional();
         profesional.setMatricula(matricula);
         profesional.setEspecialidad(Especialidad.valueOf(especialidad));
+        profesional.setRol(Rol.PROFESIONAL);
         profesionalRepositorio.save(profesional);
         usuarioServicio.registrar(nombre, apellido, dni, password, password2, profesional.getId(), sexo, fechaNacimiento);
     }
 
     @Transactional
-    public void actualizarProfesional(String nombre, String apellido, String dni, MultipartFile archivo, Long id, String email, String password, String password2, String fechaNacimiento, String telefono, String sexo, String matricula, String especialidad) throws Exception {
+    public void actualizarProfesional(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
 
-        validar(nombre, apellido, dni, password, password2,matricula, especialidad);
+      validarActualizacion(password, password2, sexo, telefono, email);
 
         Profesional profesional = profesionalRepositorio.buscarPorId(id);
 
         profesional.setEmail(email);
         profesional.setPassword(new BCryptPasswordEncoder().encode(password));
-        profesional.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
         profesional.setTelefono(telefono);
         profesional.setSexo(Sexo.valueOf(sexo));
 
@@ -84,6 +86,7 @@ public class ProfesionalServicio {
     }
 
 
+
     private void validar(String nombre, String apellido, String dni, String password, String password2, String matricula, String especialidad) throws Exception {
 
         if (nombre.isEmpty() || nombre == null) {
@@ -98,7 +101,7 @@ public class ProfesionalServicio {
         if (password.isEmpty() || password == null || password.length() <= 6) {
             throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
         }
-        if (password.equals(password2)) {
+        if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
         if (matricula.isEmpty() || matricula == null){
@@ -107,7 +110,25 @@ public class ProfesionalServicio {
         if (especialidad.isEmpty() || especialidad == null){
             throw new Exception("La especialidad no puede ser nulo o estar vacio");
         }
+    }
 
+    private void validarActualizacion(String password, String password2, String sexo, String telefono, String email) throws Exception {
+
+        if (sexo.isEmpty() || sexo == null) {
+            throw new Exception("El sexo no puede ser nulo o estar vacio");
+        }
+        if (telefono.isEmpty() || telefono == null) {
+            throw new Exception("El telefono no puede ser nulo o estar vacio");
+        }
+        if (email.isEmpty() || email == null) {
+            throw new Exception("El email no puede ser nulo o estar vacio");
+        }
+        if (password.isEmpty() || password == null || password.length() <= 6) {
+            throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
+        }
+        if (password.equals(password2)) {
+            throw new Exception("Los password ingresados deben ser iguales");
+        }
 
     }
 
@@ -115,6 +136,4 @@ public class ProfesionalServicio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
-
-
 }

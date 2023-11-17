@@ -24,8 +24,10 @@ public class ImagenControlador {
     UsuarioServicio usuarioServicio;
 
 
+
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id){
+
 
         Usuario usuario = usuarioServicio.getOne(id);
 
