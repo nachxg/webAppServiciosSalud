@@ -38,7 +38,6 @@ public class PortalControlador {
         return "index.html";
     }
 
-
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
 
@@ -61,7 +60,6 @@ public class PortalControlador {
             return "inicio.html"; //TODO: ACTUALIZAR ESTO
         }
     }
-
 
     @GetMapping("/inicio")
     public String inicio() {
@@ -120,12 +118,9 @@ public class PortalControlador {
 
         try {
             profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo);
-
             return "inicio.html";
-
         } catch (Exception e) {
             System.out.println("ERROR ERROR ");
-
             return "editarPerfilProfesional.html";
         }
 
@@ -134,9 +129,7 @@ public class PortalControlador {
 
     @GetMapping("/login") // TODO: Hay que solucionar el login, tira eror. No se puedo acceder
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
-
         if (error != null) {
-
             modelo.put("error", "Usuario o contraseña incorrectos");
         }
         return "login.html";

@@ -39,19 +39,14 @@ public class UsuarioServicio implements UserDetailsService {
     public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, String fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2);
-        System.out.println(nombre+apellido+dni+password+password2+id+sexo+fechaNacimiento);
-        System.out.println("llego aqui50");
         Usuario usuario = usuarioRepositorio.getOne(id);
-        System.out.println("llego aqui51"+usuario.getDni());
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setFechaAlta(LocalDateTime.now());
         usuario.setDni(dni);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setSexo(Sexo.valueOf(sexo));
-        System.out.println("llego aqui52"+usuario.getDni());
         usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
-        System.out.println("llego aqui53"+usuario.getDni());
         usuarioRepositorio.save(usuario);
     }
 
