@@ -35,13 +35,13 @@ public class ProfesionalServicio {
 
 
     @Transactional
-    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad) throws Exception {
+    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, String fechaNacimiento) throws Exception {
 
         Profesional profesional = new Profesional();
         profesional.setMatricula(matricula);
         profesional.setEspecialidad(Especialidad.valueOf(especialidad));
         profesionalRepositorio.save(profesional);
-        usuarioServicio.registrar(nombre, apellido, dni, password, password2, profesional.getId(), sexo);
+        usuarioServicio.registrar(nombre, apellido, dni, password, password2, profesional.getId(), sexo, fechaNacimiento);
     }
 
     @Transactional
