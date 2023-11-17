@@ -103,7 +103,7 @@ public class Usuario {
     /**
      * Estado del usuario.
      */
-    protected boolean activo;
+    protected boolean altaSistema;
 
 
 }

@@ -19,7 +19,7 @@ public class AdministradorServicio {
         }
         Usuario usuario = usuarioRepositorio.findById(id).orElse(null);
         assert usuario != null;
-        if (usuario.isActivo()) {
+        if (usuario.isAltaSistema()) {
             Administrador.darBajaUsuario(usuario);
             usuarioRepositorio.save(usuario);
         } else {
