@@ -3,6 +3,7 @@ package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.Usuario;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import com.egg.webApp.entidades.Imagen;
@@ -41,7 +42,7 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo) throws Exception {
+    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, String fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2);
 
@@ -54,12 +55,13 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.USUARIO);
         usuario.setSexo(Sexo.valueOf(sexo));
+        usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
 
         usuarioRepositorio.save(usuario);
     }
 
 
-    public Usuario getOne(String id) {
+    public Usuario getOne(Long id) {
         return usuarioServicio.getOne(id);
     }
 
@@ -117,4 +119,10 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
+
+    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(fechaNacimiento, formatter);
+    }
+
 }
