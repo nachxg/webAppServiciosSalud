@@ -36,15 +36,17 @@ public class ProfesionalServicio {
 
     @Transactional
     public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, String fechaNacimiento) throws Exception {
-
+        System.out.println("llego aqui1");
         validar(nombre, apellido, dni, password, password2,matricula, especialidad);
-
+        System.out.println("llego aqui2");
         Profesional profesional = new Profesional();
         profesional.setMatricula(matricula);
         profesional.setEspecialidad(Especialidad.valueOf(especialidad));
         profesional.setRol(Rol.PROFESIONAL);
         profesionalRepositorio.save(profesional);
+        System.out.println("llego aqui3");
         usuarioServicio.registrar(nombre, apellido, dni, password, password2, profesional.getId(), sexo, fechaNacimiento);
+        System.out.println("llego aqui6");
     }
 
     @Transactional
@@ -126,7 +128,7 @@ public class ProfesionalServicio {
         if (password.isEmpty() || password == null || password.length() <= 6) {
             throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
         }
-        if (password.equals(password2)) {
+        if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
 

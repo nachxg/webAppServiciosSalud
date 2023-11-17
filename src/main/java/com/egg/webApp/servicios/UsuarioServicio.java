@@ -3,13 +3,8 @@ package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.Usuario;
 
-<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
-=======
->>>>>>> 8547b25e8057f5757241fd457b275703cae50651
 
-import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -45,20 +39,19 @@ public class UsuarioServicio implements UserDetailsService {
     public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, String fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2);
-
+        System.out.println(nombre+apellido+dni+password+password2+id+sexo+fechaNacimiento);
+        System.out.println("llego aqui50");
         Usuario usuario = usuarioRepositorio.getOne(id);
-
+        System.out.println("llego aqui51"+usuario.getDni());
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setFechaAlta(LocalDateTime.now());
         usuario.setDni(dni);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setSexo(Sexo.valueOf(sexo));
-<<<<<<< HEAD
+        System.out.println("llego aqui52"+usuario.getDni());
         usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
-
-=======
->>>>>>> 8547b25e8057f5757241fd457b275703cae50651
+        System.out.println("llego aqui53"+usuario.getDni());
         usuarioRepositorio.save(usuario);
     }
 

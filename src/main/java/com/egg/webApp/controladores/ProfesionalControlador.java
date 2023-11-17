@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpSession;
 import java.util.List;
 @Controller
 @RequestMapping("/registrar")
@@ -35,7 +32,7 @@ public class ProfesionalControlador {
     @PostMapping("/profesional")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
                            @RequestParam String password2, String dni, String sexo, @RequestParam String matricula, @RequestParam String especialidad, String fechaNacimiento) {
-
+        System.out.println("ENTRO AL POST");
         try {
 
             profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad, fechaNacimiento);
