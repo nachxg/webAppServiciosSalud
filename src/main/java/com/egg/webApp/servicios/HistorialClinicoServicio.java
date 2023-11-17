@@ -12,15 +12,19 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.egg.webApp.repositorios.HistorialClinicoRepositorio;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class HistorialClinicoServicio {
 
     @Autowired
     private HistorialClinicoRepositorio historialClinicoRepositorio;
+    
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Transactional
-    public void crearHistorial(String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, LocalDateTime fecha, Paciente paciente, Profesional profesional) throws MiExcepcion {
+    public void crearHistorial(String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, String fecha, Paciente paciente, Profesional profesional) throws MiExcepcion {
 
         HistoriaClinica historialClinico = new HistoriaClinica();
         validar(paciente, profesional);
@@ -30,14 +34,14 @@ public class HistorialClinicoServicio {
         historialClinico.setIndicaciones(indicaciones);
         historialClinico.setEstudios(estudios);
         historialClinico.setObservaciones(observaciones);
-        historialClinico.setFechaVisita(fecha);
+        historialClinico.setFechaVisita(LocalDateTime.parse(fecha, formatter));
         historialClinico.setPaciente(paciente);
         historialClinico.setProfesional(profesional);
         historialClinicoRepositorio.save(historialClinico);
     }
 
     @Transactional
-    public void modificarHistorial(Long id, String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, LocalDateTime fecha, Paciente paciente, Profesional profesional) throws MiExcepcion {
+    public void modificarHistorial(Long id, String diagnostico, String tratamiento, String medicacion, String indicaciones, String estudios, String observaciones, String fecha, Paciente paciente, Profesional profesional) throws MiExcepcion {
 
         Optional<HistoriaClinica> respuesta = historialClinicoRepositorio.findById(id);
         validar(paciente, profesional);
@@ -49,7 +53,7 @@ public class HistorialClinicoServicio {
             historialClinico.setIndicaciones(indicaciones);
             historialClinico.setEstudios(estudios);
             historialClinico.setObservaciones(observaciones);
-            historialClinico.setFechaVisita(fecha);
+            historialClinico.setFechaVisita(LocalDateTime.parse(fecha, formatter));
             historialClinico.setPaciente(paciente);
             historialClinico.setProfesional(profesional);
             historialClinicoRepositorio.save(historialClinico);
