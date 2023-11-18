@@ -71,13 +71,65 @@ nav a:hover:not(.logo), .pie a:hover{
     background-size: 100% 2px;
 }
 
+/**MAIN**/
+.cuerpo-main {
+    width: 100%;
+    background: linear-gradient(to left, #44bdb3,#1b5453); 
+}
+
+.imagen-principal {
+    background-image: url(../img/foto-cover1.jpg); 
+    height: 450px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.grid-principal{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+    margin-right: 20px;
+}
+
+.sidebar {
+    color: white;
+    text-align: start;
+    margin: 80px 20px 20px 20px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.input-sidebar p {
+    margin-bottom: 2rem;
+}
+
+
+@media (max-width: 768px) {
+   
+    .sidebar {
+        margin: 20px;
+    }
+
+    .input-sidebar h3 {
+        text-align: center;
+    }
+
+    .grid-principal, .sidebar{
+        grid-template-columns: 1fr; 
+        grid-auto-flow: row;
+        grid-row: 1/ 2;    
+    }
+}
+
 /**FORMULARIO**/
 .formulario {
-    margin: 0 auto;
-    margin-bottom: 20px;
+    margin: 40px auto 40px auto;
     border: none;
     width: fit-content;
-    margin-top: 50px;
     padding: 5rem;
     border-radius: 5%;
     text-align: center;
@@ -98,15 +150,11 @@ legend {
 }
 
 @media (max-width: 768px) {
-    .formulario {
-        border-radius: unset;
-    }
-}
 
-@media (max-width: 768px) {
-    .contenedor-inputs {
-        display: flex;
-        flex-direction: column;
+    .formulario {
+        width: 300px;
+        order: -1;
+        border-radius: 10px;
     }
 }
 
@@ -117,17 +165,7 @@ legend {
         grid-template-rows: auto auto auto;
         column-gap: 3rem;
     }
-
-    .inputs:nth-child(3) {
-        grid-column: 1 / 3;
-    } 
-
-    #dni-registro {
-        width: 60%;
-    }
 }
-
-
 
 .inputs {
     margin-bottom: 1rem;
@@ -165,74 +203,12 @@ legend {
 
 @media (max-width: 768px) {
     .boton-enviar {
-        width: 100%;
+        width: 105%;
     }
 }
 
 .boton-enviar:hover {
     cursor: pointer;
-}
-
-/**MAIN**/
-.cuerpo-main {
-    width: 100%;
-    background: linear-gradient(to left, #44bdb3,#1b5453); 
-}
-
-.imagen-principal {
-    background-image: url(../img/foto-cover1.jpg); 
-    height: 450px;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.grid-principal{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 2rem;
-    margin-right: 20px;
-}
-
-.sidebar {
-    color: white;
-    text-align: start;
-    margin-top: 100px;
-    margin-left: 20px;
-}
-
-ul {
-    list-style-type: none;
-}
-
-.input-sidebar p {
-    margin-bottom: 2rem;
-}
-
-
-@media (max-width: 768px) {
-   
-    .sidebar {
-        margin: 20px;
-    }
-
-    .input-sidebar h3 {
-        text-align: center;
-    }
-
-    .grid-principal, .sidebar{
-        grid-template-columns: 1fr; 
-        grid-auto-flow: row;
-        grid-row: 1/ 2;    
-    }
-
-    .formulario {
-        margin-top: 0;
-        width: 300px;
-        order: -1;
-        border-radius:10px;
-    }
 }
 
 /** FOOTER **/
@@ -302,14 +278,15 @@ ul {
     text-align: left;
     cursor: pointer;
     width: fit-content;
+    text-decoration: none;
 }
 
 .pie .seccion-nav a:hover{
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
-
-    @media(max-width: 1000px){
+  
+    @media(max-width: 768px){
         nav a:not(.logo){
             display: none;
         }
@@ -321,4 +298,29 @@ ul {
         .encabezado1{
             height: fit-content;
         }
+
+        .pie {
+          padding-top: 70px;
+          text-align: center;
+          
+          order: 1; /* Cambiar el orden en columnas */
+
+        }
+
+        .links {
+            flex-direction: column;          
+            order: 2;
+            gap: 0.5rem;
+            padding-top: 10px;
+        }
+    
+        .tyc {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            flex-direction: column;
+            order: 3; /* Cambiar el orden en columnas */
+           
+        }
     }
+
+      
