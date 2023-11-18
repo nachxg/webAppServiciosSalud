@@ -33,10 +33,4 @@ public class Paciente extends Usuario {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
 
-    /**
-     * Indica si el paciente está activo o no.
-     */
-    protected boolean altaSistema;
-
-
 }

@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfesionalServicio {
@@ -38,7 +39,6 @@ public class ProfesionalServicio {
     public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, String fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2,matricula, especialidad);
-
         Profesional profesional = new Profesional();
         profesional.setMatricula(matricula);
         profesional.setEspecialidad(Especialidad.valueOf(especialidad));
@@ -48,29 +48,34 @@ public class ProfesionalServicio {
     }
 
     @Transactional
-    public void actualizarProfesional(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
+    public void actualizarProfesional(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo, String fechaNacimiento) throws Exception {
 
-      validarActualizacion(password, password2, sexo, telefono, email);
+      validarActualizacion(password, password2, sexo, telefono, email, fechaNacimiento);
 
-        Profesional profesional = profesionalRepositorio.buscarPorId(id);
+        Optional<Profesional> respuesta = profesionalRepositorio.findById(id);
 
-        profesional.setEmail(email);
-        profesional.setPassword(new BCryptPasswordEncoder().encode(password));
-        profesional.setTelefono(telefono);
-        profesional.setSexo(Sexo.valueOf(sexo));
+        if (respuesta.isPresent()) {
+
+            Profesional profesional = respuesta.get();
+
+            profesional.setEmail(email);
+            profesional.setPassword(new BCryptPasswordEncoder().encode(password));
+            profesional.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
+            profesional.setTelefono(telefono);
+            profesional.setSexo(Sexo.valueOf(sexo));
 
 
-        Long idImagen = null;
+            Long idImagen = null;
 
-        if (profesional.getImagen() != null) {
-            idImagen = profesional.getImagen().getId();
+            if (profesional.getImagen() != null) {
+                idImagen = profesional.getImagen().getId();
+            }
 
+            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+            profesional.setImagen(imagen);
+
+            profesionalRepositorio.save(profesional);
         }
-        Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-        profesional.setImagen(imagen);
-
-        profesionalRepositorio.save(profesional);
-
     }
 
     public Profesional getOne(Long id) {
@@ -112,10 +117,13 @@ public class ProfesionalServicio {
         }
     }
 
-    private void validarActualizacion(String password, String password2, String sexo, String telefono, String email) throws Exception {
+    private void validarActualizacion(String password, String password2, String sexo, String telefono, String email, String fechaNacimiento) throws Exception {
 
         if (sexo.isEmpty() || sexo == null) {
             throw new Exception("El sexo no puede ser nulo o estar vacio");
+        }
+        if (fechaNacimiento.isEmpty() || fechaNacimiento == null) {
+            throw new Exception("La fecha de nacimiento no puede ser nulo o estar vacio");
         }
         if (telefono.isEmpty() || telefono == null) {
             throw new Exception("El telefono no puede ser nulo o estar vacio");
@@ -126,7 +134,7 @@ public class ProfesionalServicio {
         if (password.isEmpty() || password == null || password.length() <= 6) {
             throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
         }
-        if (password.equals(password2)) {
+        if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
 

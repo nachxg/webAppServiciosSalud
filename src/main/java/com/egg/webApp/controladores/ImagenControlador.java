@@ -1,7 +1,9 @@
 package com.egg.webApp.controladores;
 
-import com.egg.webApp.entidades.Usuario;
-import com.egg.webApp.servicios.UsuarioServicio;
+import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.entidades.Profesional;
+import com.egg.webApp.servicios.PacienteServicio;
+import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,22 +23,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ImagenControlador {
 
     @Autowired
-    UsuarioServicio usuarioServicio;
+    PacienteServicio pacienteServicio;
+    @Autowired
+    ProfesionalServicio profesionalServicio;
+    
+    @GetMapping("/perfil/paciente{id}")
+    public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long  id){
 
-
-
-    @GetMapping("/perfil/{id}")
-    public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id){
-
-
-        Usuario usuario = usuarioServicio.getOne(id);
-
-        byte[] imagen =  usuario.getImagen().getContenido();
+        Paciente paciente = pacienteServicio.getOne(id);
+        byte[] imagen =  paciente.getImagen().getContenido();
 
         HttpHeaders headers = new HttpHeaders();
 
         // Metodo para que se pueda ingresar cualquier tipo de imagen (png, jpg, gif, etc)
-        String mime = usuario.getImagen().getMime().toLowerCase();
+        String mime = paciente.getImagen().getMime().toLowerCase();
+
+        MediaType tipo = MediaType.parseMediaType("image/" + mime.replace("/", "_"));
+
+        headers.setContentType(tipo);
+
+        return new ResponseEntity<>(imagen,headers, HttpStatus.OK);
+    }
+    @GetMapping("/perfil/profesional{id}")
+    public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long  id){
+
+        Profesional profesional = profesionalServicio.getOne(id);
+        byte[] imagen =  profesional.getImagen().getContenido();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        // Metodo para que se pueda ingresar cualquier tipo de imagen (png, jpg, gif, etc)
+        String mime = profesional.getImagen().getMime().toLowerCase();
 
         MediaType tipo = MediaType.parseMediaType("image/" + mime.replace("/", "_"));
 

@@ -1,0 +1,109 @@
+.banner-especialidad {
+    background-image: url(especialidades.jpg);
+    background-size: cover;
+    color : #fff;
+    text-align: 45%;
+    padding: 50px;
+    color: #1D7874;
+    height: 200px;
+    font-size: 24px
+}
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+.busqueda {
+    background-color: #f4f4f4; /* Color de fondo */
+    padding: 20px;
+    text-align: center;
+}
+
+.busqueda form {
+    display: flex;
+    justify-content: left;
+}
+
+.busqueda input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
+
+.busqueda button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1D7874; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    cursor: pointer;
+}
+.filtro-letras {
+    text-align: center;
+    margin-top: 20px; /* Ajusta este valor según sea necesario */
+    margin-bottom: 20px; /* Ajusta este valor según sea necesario */
+    
+}
+
+.filtro-letras button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #1D7874;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 80px; /* Ajusta el tamaño según tus necesidades */
+    height: 80px; /* Ajusta el tamaño según tus necesidades */
+}
+
+
+footer {
+    background-color: #1D7874;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px; /* Ajusta este valor según sea necesario */
+}
+
+.footer-seccion {
+    text-align: center;
+}
+
+.footer-seccion h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-seccion p {
+    font-size: 14px;
+}
+/*ESPECIALIDADES
+*/
+#especialidades-container {
+    text-align: center;
+    font-size: 18px; /* Ajusta el tamaño de la letra según tus necesidades */
+    font-family: 'Montserrat', sans-serif; /* Cambia a la fuente Montserrat */
+}
+
+#especialidades-container.centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20vh; /* Ajusta según tus necesidades */
+    font-size: 24px; /* Ajusta el tamaño de la letra cuando está centrado */
+    font-family: 'Montserrat', sans-serif; /* Cambia a la fuente Montserrat */
+}
+/* Agrega estilos para los enlaces dentro de la lista de especialidades */
+#lista-especialidades a {
+    color: #1D7874; /* Reemplaza "tu-color-deseado" con el color que prefieras */
+    text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces si lo deseas */
+}
+
+/* Cambia el color cuando el enlace está en estado hover (cuando el mouse pasa sobre él) */
+#lista-especialidades a:hover {
+    color: orange; /* Reemplaza "tu-color-hover" con el color que prefieras para el estado hover */
+}
+

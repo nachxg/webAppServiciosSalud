@@ -48,6 +48,8 @@ nav{
     height: 100%;
 }
 
+
+
 nav a:not(:first-child){
     font-family: 'Montserrat', sans-serif;
     text-align: center;
@@ -283,8 +285,8 @@ legend {
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
-
-    @media(max-width: 1000px){
+  
+    @media(max-width: 768px){
         nav a:not(.logo){
             display: none;
         }
@@ -296,4 +298,29 @@ legend {
         .encabezado1{
             height: fit-content;
         }
+
+        .pie {
+          padding-top: 70px;
+          text-align: center;
+          
+          order: 1; /* Cambiar el orden en columnas */
+
+        }
+
+        .links {
+            flex-direction: column;          
+            order: 2;
+            gap: 0.5rem;
+            padding-top: 10px;
+        }
+    
+        .tyc {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            flex-direction: column;
+            order: 3; /* Cambiar el orden en columnas */
+           
+        }
     }
+
+      
