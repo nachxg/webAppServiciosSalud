@@ -13,13 +13,14 @@
 
 <body>
 
-<nav class="">
-    <a class="logo" href="/">
-        <img src="/img/logoColor.png" alt="" class="logo">
-    </a>
-    <a href="#">Volver a Inicio</a>
+    <nav class="">
+        <a class="logo" href="/">
+            <img src="../static/img/logoColor.png" alt="" class="logo">
+        </a>
+        <a href="#">Volver a Inicio</a>
+        
+    </nav>
 
-</nav>
 
 <main class="cuerpo-main">
     <div class="imagen-principal">
@@ -79,7 +80,7 @@
                 </div>
                 <div class="inputs">
                     <label class="tipografia">Fecha de Nacimiento:</label>
-                    <input class="input-text" type="date" id="fecha-registro" name="fecha"
+                    <input class="input-text" type="text" id="fecha-registro" name="fechaNacimiento"
                            placeholder="Indique su Fecha de Nacimiento">
                 </div>
                 <div class="inputs">
@@ -89,16 +90,16 @@
                 </div>
                 <div class="inputs">
                     <label class="tipografia">Confirme Contraseña:</label>
-                    <input class="input-text" type="password2" id="password2-registro" name="password2"
+                    <input class="input-text" type="password" id="password2-registro" name="password2"
                            placeholder="Confirme su Contraseña">
                 </div>
-                <!--<div class="inputs opcion-genero">
+                <div class="inputs opcion-genero">
                      <label class="tipografia" for="genero-registro">Genero</label>
                      <select class="input-text" id="inputGroupSelect" name="sexo">
                          <option selected>Elige...</option>
                          <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
                      </select>
-                 </div>-->
+                 </div>
             </div>
             <div class="">
                 <button class="boton-enviar tipografia" type="submit">Registrarse</button>
@@ -141,14 +142,17 @@
             </div>
         </div>
     </div>
-    <div class="tyc">
-        &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
-    </div>
-</footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-<script src="/js/scriptLogin.js"></script>
+        <div class="tyc">
+            &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
+        </div>
+    </footer>
+    
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+      <script src="/js/scriptLogin.js"></script>
+    
+
 </body>
 </html>

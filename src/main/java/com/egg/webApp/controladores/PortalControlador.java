@@ -74,7 +74,7 @@ public class PortalControlador {
 
         Paciente paciente = (Paciente) session.getAttribute("usuariosession");
         modelo.put("paciente", paciente);
-        return "editarPerfilPaciente.html";
+        return "editarPaciente.html";
     }
 
     @PostMapping("/perfil/paciente/{id}")
@@ -87,7 +87,7 @@ public class PortalControlador {
         } catch (Exception e) {
             System.out.println("ERROR ERROR ");
             System.out.println(e.getMessage());
-            return "editarPerfilPaciente.html";
+            return "editarPaciente.html";
         }
     }
     @GetMapping("/perfil/profesional")
@@ -98,7 +98,7 @@ public class PortalControlador {
 
         Profesional profesional = (Profesional) session.getAttribute("usuariosession");
         modelo.put("profesional", profesional);
-        return "editarPerfilProfesional.html";
+        return "editarProfesional.html";
     }
 
     @PostMapping("/perfil/profesional/{id}")
@@ -112,7 +112,7 @@ public class PortalControlador {
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR "+ e.getMessage());
-            return "editarPerfilProfesional.html";
+            return "editarProfesional.html";
         }
     }
     @GetMapping("/login")

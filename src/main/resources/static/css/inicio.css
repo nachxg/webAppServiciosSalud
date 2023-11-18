@@ -30,13 +30,21 @@ nav{
     background-color: white;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     box-shadow: 0px 1px 10px rgb(0, 0, 0);
     z-index: 2;
 }
 
-.logo{
+.contenedor-links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50%;
+}
+
+.contenedor-logo{
     height: 80px;
     width: 300px;
     padding: 0;
@@ -48,9 +56,7 @@ nav{
     height: 100%;
 }
 
-
-
-nav a:not(:first-child), .contenedor-perfil p{
+nav a:not(.logo), .nombre-perfil{
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     text-transform: uppercase;
@@ -66,27 +72,27 @@ nav a:not(:first-child), .contenedor-perfil p{
     transition: background-size .3s, color .3s ease;
 }
 
-nav a:hover:not(.logo), .pie a:hover, .contenedor-perfil p:hover{
+nav a:hover:not(.logo), .pie a:hover{
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
 
 .contenedor-perfil{
     display: flex;
+    gap: 10px;
     flex-direction: row;
     align-items: center;
     height: fit-content;
     justify-content: center;
     width: fit-content;
-}
-
-.contenedor-perfil p{
     padding: 0;
     margin-bottom: 0;
     margin-right: 10px;
+    text-transform: uppercase;
 }
 
 .profile-circle {
+    font-weight: 420;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -95,12 +101,15 @@ nav a:hover:not(.logo), .pie a:hover, .contenedor-perfil p:hover{
     transition: height 0.3s ease, width 0.3s ease;
 }
 
-.profile-circle:hover{
+.contenedor-perfil:hover .profile-circle{
     height: 50px;
     width: 50px;
-    color: var(--colorLindo);
 }
 
+.contenedor-perfil:hover .nombre-perfil{
+    color: var(--colorLindo);
+    background-size: 100% 2px;
+}
 
 main{
     display: flex;
@@ -115,140 +124,63 @@ main{
 .encabezado1{
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    background-image: linear-gradient(to left, #44bdb3,#1b5453);
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(to left, #44bdb34d, #1b54534d), url('../img/fondoinicio.jpg');
+    background-size: cover; 
+    background-position: center;
     width: 100%;
     height: 25%;
 }
 
-.encabezado1 div, .encabezado1 h1, .encabezado1 p{
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.seccion1{
-    padding: 3%;
-    width: 100%;
+.seccion-turnos{
+    margin: 0px 30px 0px 30px;
+    height: 80%;
+    width: 20%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100%;
+    flex-flow: row wrap;
 }
 
-.seccion1 h1{
-    color: white;
-    width: fit-content;
-    padding: 0;
-    margin: 0;
-    text-align: start;
-    margin-bottom: 0.5rem;
-    font-size: 3em;
-}
-
-.seccion1 p{
-    opacity: 1;
-    display: block;
-    width: 100%;
-    padding: 1px;
-    margin: 0;
-    font-size: 1.1rem;
-    color: white;
-}
-
-.seccion2{
-    padding: 1%;
-    margin: 0;
-    background-color:#1b5453;
-    width: fit-content;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    flex: 12;
+.seccion{
     cursor: pointer;
-}
-
-.seccion2 h1{
-    color: white;
-    font-size: 1rem;
-}
-
-.seccion2 p{
-    display: none;
-    align-self: center;
-}
-
-.carousel{
-    margin-top: -1%;
-    width: 95%;
-    height: 500px;
-    overflow: hidden;
-    box-shadow: 0px 0px 10px black;
-    border-radius: 6px;
-    z-index: 2;
-}
-
-.tarjetitas{
-    margin-top: -1%;
-    width: 100%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0;
-}
-
-.h-tarjetas h1{
-    font-size: 2em;
-    text-align: center;
-    color: white;
-}
-
-.contenedor-tarjetas{
-    background: linear-gradient(to left, #44bdb3,#1b5453);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding-top: 30px;
-    z-index: 0;
-    padding-bottom: 20px;
-    margin-bottom: 0;
-}
-
-.contenedor-tarjetas .tarjeta{
-    box-shadow: 1px 1px 10px black;
-    height: 90%;
-    width: 23%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    border-radius: 6px;
-}
-
-.tarjeta img{
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
-    height: 70%;
-    width: 100%;
-}
-
-.tarjeta div{
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    padding: 3%;
-    text-align: center;
-    height: 30%;
-    width: 100%;
     background-color: white;
-    color: black;
-    font-size: 0.9em;
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgb(58, 58, 58);
+    height: 6rem;
+    width: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    transition: height 0.2s ease, width 0.2s ease, color 0.2s ease;
+    margin-left: 15px;
+}
+
+.icono{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.texto{
+    font-weight: 420;
+    font-size: 0.8em;
+    padding: 0;
+    position: relative;
+}
+
+.seccion:hover{
+    width: 7.2rem;
+    height: 6.2rem;
+    color: #44bdb3;
+}
+
+.saludo{
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 1px 1px 10px rgb(0, 0, 0);
+    width: 80%;
+    text-align: center;
+    color: white;
 }
 
 .pie{
