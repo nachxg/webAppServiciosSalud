@@ -100,5 +100,6 @@ public class Usuario {
      */
     protected String apellido;
 
+    protected boolean altaSistema;
 
 }

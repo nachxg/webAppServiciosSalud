@@ -1,10 +1,8 @@
 package com.egg.webApp.servicios;
 
 
+import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Usuario;
-
-
-import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo) throws Exception {
+    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, String fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2);
 
@@ -47,12 +45,12 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setApellido(apellido);
         usuario.setFechaAlta(LocalDateTime.now());
         usuario.setDni(dni);
+        usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setSexo(Sexo.valueOf(sexo));
         usuarioRepositorio.save(usuario);
     }
-
-
+    
     public Usuario getOne(Long id) {
         return usuarioServicio.getOne(id);
     }
@@ -111,4 +109,9 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
+    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(fechaNacimiento, formatter);
+    }
+
 }

@@ -32,13 +32,13 @@ public class PacienteServicio {
 
 
     @Transactional
-    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo) throws Exception {
+    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, String fechaNacimiento) throws Exception {
 
         Paciente paciente = new Paciente();
         paciente.setAltaSistema(true);
         paciente.setRol(Rol.PACIENTE);
         pacienteRepositorio.save(paciente);
-        usuarioServicio.registrar(nombre, apellido, dni, password, password2, paciente.getId(), sexo);
+        usuarioServicio.registrar(nombre, apellido, dni, password, password2, paciente.getId(), sexo, fechaNacimiento);
     }
 
     @Transactional
@@ -80,7 +80,7 @@ public class PacienteServicio {
     }
 
 
-    private void validar(String nombre, String apellido, String dni, String password, String password2) throws Exception {
+    private void validar(String nombre, String apellido, String dni, String password, String password2, String fechaNacimiento) throws Exception {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede ser nulo o estar vacio");
@@ -91,10 +91,13 @@ public class PacienteServicio {
         if (dni.isEmpty() || dni == null) {
             throw new Exception("El dni no puede ser nulo o estar vacio");
         }
+        if (fechaNacimiento.isEmpty() || fechaNacimiento == null) {
+            throw new Exception("La fecha de nacimiento no puede ser nulo o estar vacio");
+        }
         if (password.isEmpty() || password == null || password.length() <= 6) {
             throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
         }
-        if (password.equals(password2)) {
+        if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
 

@@ -27,6 +27,5 @@ public class Profesional extends Usuario {
     @OneToMany(mappedBy = "profesional")
     private List<Calificacion> calificaciones;
 
-    private boolean altaSistema;
 
 }

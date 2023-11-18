@@ -34,11 +34,11 @@ public class ProfesionalControlador {
 
     @PostMapping("/profesional")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
-                           @RequestParam String password2, String dni, String sexo, @RequestParam String matricula, @RequestParam String especialidad) {
+                           @RequestParam String password2, String dni, String sexo, @RequestParam String matricula, @RequestParam String especialidad, @RequestParam String fechaNacimiento) {
 
         try {
 
-            profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad);
+            profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad, fechaNacimiento);
 
             return "index.html";
 
