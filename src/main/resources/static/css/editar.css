@@ -186,6 +186,7 @@ button{
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
+
 .tyc{
     padding: 0.5em;
     width: 100%;
@@ -194,4 +195,41 @@ button{
     align-self: flex-end;
     color: var(--colorLindo);
     background-color: rgba(0, 0, 0, 0.041);
+}
+
+ @media(max-width: 768px){
+    nav a:not(.logo){
+        display: none;
+    }
+
+    .logo{
+        width: 300px;
+    }
+
+    .encabezado1{
+        height: fit-content;
+    }
+
+    .pie {
+      
+      text-align: center;
+      height:fit-content;
+      order: 1; /* Cambiar el orden en columnas */
+
+    }
+
+    .links {
+        flex-direction: column;
+        order: 2;
+        gap: 0.5rem;
+        padding-top: 10px;
+    }
+
+    .tyc {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        flex-direction: column;
+        order: 3; /* Cambiar el orden en columnas */
+
+    }
 }
