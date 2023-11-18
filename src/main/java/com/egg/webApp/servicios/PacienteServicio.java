@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteServicio {
@@ -45,26 +46,31 @@ public class PacienteServicio {
     public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String fechaNacimiento, String telefono, String sexo) throws Exception {
 
 
-        Paciente paciente = pacienteRepositorio.buscarPorId(id);
+        Optional<Paciente> respuesta = pacienteRepositorio.findById(id);
 
-        paciente.setEmail(email);
-        paciente.setPassword(new BCryptPasswordEncoder().encode(password));
-        paciente.setRol(Rol.PACIENTE);
-        paciente.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
-        paciente.setTelefono(telefono);
-        paciente.setSexo(Sexo.valueOf(sexo));
+        if (respuesta.isPresent()) {
 
-        Long idImagen = null;
+            Paciente paciente = respuesta.get();
 
-        if (paciente.getImagen() != null) {
-            idImagen = paciente.getImagen().getId();
+            paciente.setEmail(email);
+            paciente.setPassword(new BCryptPasswordEncoder().encode(password));
+            paciente.setRol(Rol.PACIENTE);
+            paciente.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
+            paciente.setTelefono(telefono);
+            paciente.setSexo(Sexo.valueOf(sexo));
 
+
+            Long idImagen = null;
+
+            if (paciente.getImagen() != null) {
+                idImagen = paciente.getImagen().getId();
+
+            }
+            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+            paciente.setImagen(imagen);
+
+            pacienteRepositorio.save(paciente);
         }
-        Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-        paciente.setImagen(imagen);
-
-        pacienteRepositorio.save(paciente);
-
     }
 
     public Paciente getOne(Long id) {

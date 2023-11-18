@@ -50,7 +50,7 @@ nav{
 
 
 
-nav a:not(:first-child){
+nav a:not(:first-child), .contenedor-perfil p{
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     text-transform: uppercase;
@@ -66,9 +66,39 @@ nav a:not(:first-child){
     transition: background-size .3s, color .3s ease;
 }
 
-nav a:hover:not(.logo), .pie a:hover{
+nav a:hover:not(.logo), .pie a:hover, .contenedor-perfil p:hover{
     color: var(--colorLindo);
     background-size: 100% 2px;
+}
+
+.contenedor-perfil{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: fit-content;
+    justify-content: center;
+    width: fit-content;
+}
+
+.contenedor-perfil p{
+    padding: 0;
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.profile-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--colorLindo); 
+    margin-right: 15px;
+    transition: height 0.3s ease, width 0.3s ease;
+}
+
+.profile-circle:hover{
+    height: 50px;
+    width: 50px;
+    color: var(--colorLindo);
 }
 
 

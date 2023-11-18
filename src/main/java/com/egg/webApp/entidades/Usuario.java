@@ -102,4 +102,5 @@ public class Usuario {
 
     protected boolean altaSistema;
 
+
 }

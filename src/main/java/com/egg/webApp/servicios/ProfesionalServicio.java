@@ -39,7 +39,6 @@ public class ProfesionalServicio {
     public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, String fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2,matricula, especialidad);
-
         Profesional profesional = new Profesional();
         profesional.setMatricula(matricula);
         profesional.setEspecialidad(Especialidad.valueOf(especialidad));
@@ -116,8 +115,6 @@ public class ProfesionalServicio {
         if (especialidad.isEmpty() || especialidad == null){
             throw new Exception("La especialidad no puede ser nulo o estar vacio");
         }
-
-
     }
 
     private void validarActualizacion(String password, String password2, String sexo, String telefono, String email, String fechaNacimiento) throws Exception {
@@ -147,6 +144,4 @@ public class ProfesionalServicio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
-
-
 }

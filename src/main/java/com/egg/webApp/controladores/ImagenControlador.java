@@ -26,8 +26,6 @@ public class ImagenControlador {
     PacienteServicio pacienteServicio;
     @Autowired
     ProfesionalServicio profesionalServicio;
-
-
     @GetMapping("/perfil/paciente{id}")
     public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long  id){
 

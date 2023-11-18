@@ -1,8 +1,10 @@
 package com.egg.webApp.controladores;
 
+
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.repositorios.PacienteRepositorio;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
@@ -24,25 +26,29 @@ public class PortalControlador {
     ProfesionalServicio profesionalServicio;
 
     @Autowired
+    PacienteRepositorio pacienteRepositorio;
+
+    @Autowired
     EnumServicio enumServicio;
+
 
     @GetMapping("/index")
     public String index(/*ModelMap modelo*/) throws Exception {
-
         return "index.html";
-
     }
-
-
+    @GetMapping("/inicio")
+    public String inicio() {
+        return "inicio.html";
+    }
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
 
         List<Sexo> generos = enumServicio.obtenerGeneros();
         modelo.addAttribute("generos", generos);
 
-        return "registrarPrueba.html";
-    }
+        return "registro.html";
 
+    }
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
                            @RequestParam String password2, @RequestParam String dni,  @RequestParam String sexo, @RequestParam String fechaNacimiento) {
@@ -56,11 +62,8 @@ public class PortalControlador {
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");
             System.out.println(e.getMessage());
-            return "redirect:/registrar";
-
+            return "index.html";
         }
-
-
     }
 
     @GetMapping("/perfil/paciente")
@@ -80,16 +83,12 @@ public class PortalControlador {
 
         try {
             pacienteServicio.actualizarPaciente(archivo, id, email, password,password2, fechaNacimiento, telefono, sexo);
-
             return "index.html";
-
         } catch (Exception e) {
             System.out.println("ERROR ERROR ");
-
+            System.out.println(e.getMessage());
             return "editarPerfilPaciente.html";
         }
-
-
     }
     @GetMapping("/perfil/profesional")
     public String perfilProfesional(ModelMap modelo, HttpSession session) {
@@ -102,7 +101,7 @@ public class PortalControlador {
         return "editarPerfilProfesional.html";
     }
 
-    @PostMapping("/perfil/profesional/{id}") // TODO: Hay que solucionar, no podemos entrar a perfil
+    @PostMapping("/perfil/profesional/{id}")
     public String actualizarProfesional(@RequestParam MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
                              @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo, @RequestParam String fechaNacimiento) {
 
@@ -113,20 +112,19 @@ public class PortalControlador {
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR "+ e.getMessage());
-
             return "editarPerfilProfesional.html";
         }
-
-
     }
-
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error != null) {
-            modelo.put("error", "ERROR, usuario o contraseña invalidos");
-
+            modelo.put("error", "Usuario o contraseña incorrectos");
         }
         return "login.html";
     }
-
 }
+
+    
+   
+
+
