@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
 
     <nav class="">
         <div class="contenedor-logo">
-            <a class="logo" href="/">
+            <a class="logo" href="/inicio">
                 <img src="/img/logoColor.png" alt="" class="logo">
             </a>
         </div>
@@ -26,8 +26,8 @@
             <a href="">Turnos</a>
             <a href="">Especialidades</a>
             <div class="contenedor-perfil">
-                <div class="nombre-perfil">Ignacio Gimenez</div>
-                <div class="profile-circle" id="profile-circle"></div>
+                <div class="nombre-perfil" th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></div>
+                <div class="profile-circle" id="profile-circle" th:src="@{/imagen/perfil/paciente/__${session.usuariosession.id}__}"></div>
             </div>
         </div>
     </nav>
@@ -89,7 +89,7 @@
             </div>
 
             <div class="saludo">
-                <h1>BIENVENIDO, Ignacio Gimenez.</h1>
+                <h1 th:text=" 'BIENVENIDO,  ' + ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></h1>
             </div>
 
         </div>

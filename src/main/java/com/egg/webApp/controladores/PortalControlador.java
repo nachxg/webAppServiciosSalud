@@ -57,7 +57,7 @@ public class PortalControlador {
 
             pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
 
-            return "redirect:/inicio";
+            return "redirect:/index";
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");
