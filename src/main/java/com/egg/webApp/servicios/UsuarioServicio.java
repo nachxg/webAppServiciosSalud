@@ -51,8 +51,11 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
+    @Transactional
     public Usuario getOne(Long id) {
-        return usuarioServicio.getOne(id);
+        Usuario usuario = usuarioRepositorio.getReferenceById(id);
+        usuario.getImagen();
+        return usuario;
     }
 
     public List<Usuario> listarUsuarios() {

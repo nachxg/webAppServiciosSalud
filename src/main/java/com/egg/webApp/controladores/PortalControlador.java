@@ -57,12 +57,12 @@ public class PortalControlador {
 
             pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
 
-            return "redirect:/";
+            return "redirect:/inicio";
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");
             System.out.println(e.getMessage());
-            return "index.html";
+            return "registro.html";
         }
     }
 
@@ -78,12 +78,11 @@ public class PortalControlador {
     }
 
     @PostMapping("/perfil/paciente/{id}")
-    public String actualizarPaciente(MultipartFile archivo, @PathVariable Long id, @RequestParam String email, @RequestParam String fechaNacimiento,
-                             @RequestParam String password, @RequestParam String password2, ModelMap modelo, String telefono, String sexo) {
+    public String actualizarPaciente(MultipartFile archivo, @PathVariable Long id, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap modelo, String telefono, String sexo) {
 
         try {
-            pacienteServicio.actualizarPaciente(archivo, id, email, password,password2, fechaNacimiento, telefono, sexo);
-            return "index.html";
+            pacienteServicio.actualizarPaciente(archivo, id, email, password,password2, telefono, sexo.toUpperCase());
+            return "inicio.html";
         } catch (Exception e) {
             System.out.println("ERROR ERROR ");
             System.out.println(e.getMessage());
@@ -103,12 +102,12 @@ public class PortalControlador {
 
     @PostMapping("/perfil/profesional/{id}")
     public String actualizarProfesional(@RequestParam MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
-                             @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo, @RequestParam String fechaNacimiento) {
+                             @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {
 
         try {
-            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo, fechaNacimiento);
+            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
 
-            return "index.html";
+            return "inicio.html";
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR "+ e.getMessage());
