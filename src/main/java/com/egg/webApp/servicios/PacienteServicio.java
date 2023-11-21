@@ -43,7 +43,7 @@ public class PacienteServicio {
     }
 
     @Transactional
-    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String fechaNacimiento, String telefono, String sexo) throws Exception {
+    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
 
 
         Optional<Paciente> respuesta = pacienteRepositorio.findById(id);
@@ -55,7 +55,6 @@ public class PacienteServicio {
             paciente.setEmail(email);
             paciente.setPassword(new BCryptPasswordEncoder().encode(password));
             paciente.setRol(Rol.PACIENTE);
-            paciente.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
             paciente.setTelefono(telefono);
             paciente.setSexo(Sexo.valueOf(sexo));
 

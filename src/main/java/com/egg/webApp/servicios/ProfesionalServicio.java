@@ -48,9 +48,9 @@ public class ProfesionalServicio {
     }
 
     @Transactional
-    public void actualizarProfesional(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo, String fechaNacimiento) throws Exception {
+    public void actualizarProfesional(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
 
-      validarActualizacion(password, password2, sexo, telefono, email, fechaNacimiento);
+      validarActualizacion(password, password2, sexo, telefono, email);
 
         Optional<Profesional> respuesta = profesionalRepositorio.findById(id);
 
@@ -60,7 +60,6 @@ public class ProfesionalServicio {
 
             profesional.setEmail(email);
             profesional.setPassword(new BCryptPasswordEncoder().encode(password));
-            profesional.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
             profesional.setTelefono(telefono);
             profesional.setSexo(Sexo.valueOf(sexo));
 
@@ -79,7 +78,10 @@ public class ProfesionalServicio {
     }
 
     public Profesional getOne(Long id) {
-        return profesionalRepositorio.getOne(id);
+        Profesional profesional = profesionalRepositorio.getOne(id);
+        profesional.getImagen();
+
+        return profesional;
     }
 
     public List<Profesional> listarProfesionales() {
@@ -117,13 +119,10 @@ public class ProfesionalServicio {
         }
     }
 
-    private void validarActualizacion(String password, String password2, String sexo, String telefono, String email, String fechaNacimiento) throws Exception {
+    private void validarActualizacion(String password, String password2, String sexo, String telefono, String email) throws Exception {
 
         if (sexo.isEmpty() || sexo == null) {
             throw new Exception("El sexo no puede ser nulo o estar vacio");
-        }
-        if (fechaNacimiento.isEmpty() || fechaNacimiento == null) {
-            throw new Exception("La fecha de nacimiento no puede ser nulo o estar vacio");
         }
         if (telefono.isEmpty() || telefono == null) {
             throw new Exception("El telefono no puede ser nulo o estar vacio");
