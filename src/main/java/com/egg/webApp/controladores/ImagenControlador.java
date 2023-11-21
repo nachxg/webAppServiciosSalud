@@ -1,8 +1,6 @@
 package com.egg.webApp.controladores;
 
 import com.egg.webApp.entidades.Imagen;
-import com.egg.webApp.entidades.Paciente;
-import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
@@ -65,7 +63,7 @@ public class ImagenControlador {
 //
 //        return new ResponseEntity<>(imagen,headers, HttpStatus.OK);
 //    }
-    @GetMapping("/perfil/profesional/{id}")
+    @GetMapping("/profesional/perfil/{id}")
     public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.getOne(id);
 
@@ -78,7 +76,7 @@ public class ImagenControlador {
 
         return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
     }
-    @GetMapping("/perfil/paciente/{id}")
+    @GetMapping("/paciente/perfil/{id}")
     public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.getOne(id);
 
