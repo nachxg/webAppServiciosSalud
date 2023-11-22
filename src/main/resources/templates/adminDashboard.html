@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +27,9 @@
         <a href="">Especialidades</a>
         <div class="contenedor-perfil">
             <div class="nombre-perfil">Ignacio Gimenez</div>
-            <div class="profile-circle" id="profile-circle"></div>
+            <div class="profile-circle" id="profile-circle">
+                <img th:src="@{/imagen/admin/perfil/{id}(id=${session.usuariosession.id})}">
+            </div>
         </div>
     </div>
 </nav>

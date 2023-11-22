@@ -14,10 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  * Controlador para las operaciones relacionadas con imágenes en la aplicación.
  * Todas las URL asociadas a este controlador comienzan con "/imagen".
- *  * @version v0.1.0-alfa 11/11/2023
+ * * @version v0.1.0-alfa 11/11/2023
  */
 @Controller
 @RequestMapping("/imagen")
@@ -29,7 +30,8 @@ public class ImagenControlador {
     UsuarioServicio usuarioServicio;
     @Autowired
     ProfesionalServicio profesionalServicio;
-//    @GetMapping("/perfil/paciente/{id}")
+
+    //    @GetMapping("/perfil/paciente/{id}")
 //    public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long  id){
 //
 //        Paciente paciente = pacienteServicio.getOne(id);
@@ -76,8 +78,24 @@ public class ImagenControlador {
 
         return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
     }
+
     @GetMapping("/paciente/perfil/{id}")
     public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long id) {
+        Usuario usuario = usuarioServicio.getOne(id);
+
+
+        Imagen imagen = usuario.getImagen();
+        byte[] contenido = imagen.getContenido();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/perfil/{id}")
+    public ResponseEntity<byte[]> imagenAdmin(@PathVariable Long id) {
+
         Usuario usuario = usuarioServicio.getOne(id);
 
 

@@ -27,7 +27,9 @@
             <a href="">Especialidades</a>
             <div class="contenedor-perfil">
                 <div class="nombre-perfil" th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></div>
-                <div class="profile-circle" id="profile-circle" th:src="@{/imagen/profesional/perfil/{id}(id=${session.usuariosession.id})}"></div>
+                <div class="profile-circle" id="profile-circle">
+                    <img th:src="@{/imagen/paciente/perfil/{id}(id=${session.usuariosession.id})}">
+                </div>
             </div>
         </div>
     </nav>
@@ -89,7 +91,7 @@
             </div>
 
             <div class="saludo">
-                <h1 th:text=" 'BIENVENIDO,  ' + ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></h1>
+                <h1>BIENVENIDO, <span class="text-capitalize" th:text="${session.usuariosession?.nombre + ' ' + session.usuariosession?.apellido}"></span>.</h1>
             </div>
 
         </div>
@@ -138,7 +140,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="../static/js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 
 </html>
