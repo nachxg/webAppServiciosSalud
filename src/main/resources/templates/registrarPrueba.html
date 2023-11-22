@@ -54,7 +54,7 @@
             <input type="text" class="form-control" name="password2" placeholder="Repetir password">
         </div>
 
-        <label class="input-group-text sm" for="inputGroupSelect">Sexo</label>
+        <label class="input-group-text sm" for="inputGroupSelect">Sexo<label>
         <select class="form-select-sm p-0" id="inputGroupSelect" name="sexo">
             <option selected>Elige...</option>
             <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>

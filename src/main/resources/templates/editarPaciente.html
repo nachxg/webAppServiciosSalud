@@ -2,7 +2,7 @@
  <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Libros</title>
+    <title>Perfil</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/editar.css">
@@ -23,10 +23,10 @@
             <div class="card">
               <div class="card-body">
 
-                  <form th:action="@{/perfil/paciente/__${paciente.id}__}" method="POST" enctype="multipart/form-data">
+                  <form th:action="@{/paciente/perfil/__${paciente.id}__}" method="POST" enctype="multipart/form-data">
                       <input hidden th:value="${id}" name="id">
                       <div class="profile-image">
-                          <img th:src="@{/imagen/perfil/paciente/{id}(id=${session.usuariosession.id})}" alt="Imagen de perfil">
+                          <img th:src="@{/imagen/paciente/perfil/{id}(id=${session.usuariosession.id})}" alt="Imagen de perfil">
                      </div>
                   <div class="mb-3">
                    <label for="formFile" class="form-label">Cambiar foto de Perfil.</label>
