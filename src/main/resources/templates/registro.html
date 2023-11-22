@@ -15,7 +15,7 @@
 
     <nav class="">
         <a class="logo" href="/">
-            <img src="../img/logoColor.png" alt="" class="logo">
+            <img src="/img/logoColor.png" alt="" class="logo">
         </a>
         <a href="/">Volver a Inicio</a>
         
@@ -58,10 +58,14 @@
                     <p> "Confirme la contraseña ingresada anteriormente. Esto ayuda a prevenir errores y asegura que haya ingresado
                         la contraseña deseada. Asegúrese de que coincida exactamente con la contraseña anterior."</p>
                 </li>
+                <li>
+                    <h3>Genero </h3>
+                    <p> "Ingrese el genero, esto nos ayudara a diferenciar mejor su identidad"</p>
+                </li>
             </ul>
         </div>
 
-        <form class="formulario" th:action="@{/registrar}" method="POST">
+        <form class="formulario" th:action="@{/paciente/registrar}" method="POST">
             <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
             <div class="contenedor-inputs">
                 <div class="inputs">

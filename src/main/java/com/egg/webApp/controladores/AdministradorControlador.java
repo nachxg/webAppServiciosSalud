@@ -58,14 +58,8 @@ public class AdministradorControlador {
      */
 
 
+
     @GetMapping("/usuario/baja/{id}")
-    public String desactivarUsuario(@PathVariable Long id, ModelMap modelo){
-        modelo.put("usuarios", usuarioServicio.listarUsuarios());
-        return "lista_usuarios.html";
-
-    }
-
-    @PostMapping("/usuario/baja/{id}")
     public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo) {
         try {
             administradorServicio.desactivarActivarUsuario(id);
@@ -77,31 +71,6 @@ public class AdministradorControlador {
         }
     }
 
-/*
-    @GetMapping("/eliminar/{id}")
-   public String eliminarNoticia(@PathVariable Long id, ModelMap modelo){
 
-       modelo.put("noticia", noticiaS.getOne(id));
-
-       return "noticia_eliminar.html";
-
-   }
-
-   @PostMapping("eliminar/{id}")
-   public String eliminarNoticia(@PathVariable Long id, String cuerpo, String titulo, ModelMap modelo){
-
-       try {
-
-           noticiaS.bajarNoticia(id);
-
-           return "redirect:../lista";
-
-       } catch (Exception e) {
-           modelo.put("error", e.getMessage());
-
-           return "noticia_modificar.html";
-
-       }
-*/
 
 }

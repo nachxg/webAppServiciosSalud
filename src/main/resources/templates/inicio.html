@@ -27,7 +27,7 @@
             <a href="">Especialidades</a>
             <div class="contenedor-perfil">
                 <div class="nombre-perfil" th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></div>
-                <div class="profile-circle" id="profile-circle" th:src="@{/imagen/perfil/paciente/__${session.usuariosession.id}__}"></div>
+                <div class="profile-circle" id="profile-circle" th:src="@{/imagen/profesional/perfil/{id}(id=${session.usuariosession.id})}"></div>
             </div>
         </div>
     </nav>

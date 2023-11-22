@@ -22,7 +22,7 @@
             <th scope="col">Contraseña</th>
             <th scope="col">Rol</th>
             <th scope="col">Fecha de alta</th>
-            <th scope="col">ID Imagen</th>
+            <!--<th scope="col">ID Imagen</th>-->
             <th scope="col" sec:authorize="hasRole('ADMIN')">Modificar</th>
             <th scope="col" sec:authorize="hasRole('ADMIN')">Dar de baja</th>
           </tr>
@@ -40,7 +40,7 @@
             <td th:text="${usuario.password}"></td>
             <td th:text="${usuario.rol}"></td>
             <td th:text="${usuario.fechaAlta}"></td>
-            <td th:text="${usuario.imagen}"></td>
+            <!-- <td th:text="${usuario.imagen}"></td> -->
             <td th:text="${usuario.altaSistema}"></td>
             <td><a sec:authorize="hasRole('ADMIN')" th:href="@{/usuario/modificar/__${usuario.id}__}"><button type="button" class="btn btn-warning btn-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square mb-1" viewBox="0 0 16 16">
