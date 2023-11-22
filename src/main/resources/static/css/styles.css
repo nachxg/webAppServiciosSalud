@@ -203,17 +203,22 @@ main{
 }
 
 .tarjeta img{
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
     height: 70%;
     width: 100%;
 }
 
 .tarjeta div{
-    padding: 2%;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 3%;
     text-align: center;
     height: 30%;
     width: 100%;
     background-color: white;
     color: black;
+    font-size: 0.9em;
 }
 
 .pie{
@@ -248,10 +253,11 @@ main{
     height: 100%;
     text-align: center;
     align-self: flex-end;
+    color: var(--colorLindo);
+    background-color: rgba(0, 0, 0, 0.041);
 }
 
 .seccion-nav{
-    text-align: center;
     font-size: 1em;
     display: flex;
     flex-direction: column;
@@ -264,12 +270,14 @@ main{
 }
 
 .titulo-sec{
-    text-align: center;
+    margin-bottom: 0;
+    text-align: left;
     font-weight: 600;
     color: var(--colorLindo);
 }
 
 .pie .seccion-nav a{
+    text-decoration: none;
     color: black;
     font-weight: 420;
     background-image: linear-gradient(currentColor,currentColor);
@@ -277,7 +285,7 @@ main{
     background-repeat: no-repeat;
     background-size: 0% 2px;
     transition: background-size .3s, color .3s ease;
-    font-size: 0.9em;
+    font-size: 0.8em;
     list-style-type: none;
     text-align: left;
     cursor: pointer;
@@ -289,16 +297,16 @@ main{
     background-size: 100% 2px;
 }
 
-    @media(max-width: 1000px){
-        nav a:not(.logo){
+@media(max-width: 1000px){
+    nav a:not(.logo){
             display: none;
-        }
-    
-        .logo{
-            width: 300px;
-        }
-    
-        .encabezado1{
-            height: fit-content;
-        }
     }
+    
+    .logo{
+            width: 300px;
+    }
+    
+    .encabezado1{
+            height: fit-content;
+    }
+}

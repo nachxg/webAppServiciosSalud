@@ -1,9 +1,12 @@
 package com.egg.webApp.servicios;
 
+
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Usuario;
-import com.egg.webApp.enumeraciones.Rol;
-import com.egg.webApp.excepciones.MiExcepcion;
+
+import java.time.format.DateTimeFormatter;
+
+import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,12 +19,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,68 +36,29 @@ public class UsuarioServicio implements UserDetailsService {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrar(MultipartFile archivo, String nombre, String apellido, String dni, String password, String password2 ) throws Exception{
+    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, String fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2);
-
-        Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardar(archivo);
-
-        usuario.setFechaAlta(LocalDateTime.now());
+        Usuario usuario = usuarioRepositorio.getOne(id);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
+        usuario.setFechaAlta(LocalDateTime.now());
         usuario.setDni(dni);
+        usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setActivo(true);
-        usuario.setRol(Rol.PACIENTE);
-        usuario.setImagen(null);
-        usuario.setEmail(null);
-        usuario.setFechaNacimiento(null);
-        usuario.setTelefono(null);
-        usuario.setSexo(null);
-        usuario.setPaciente(null);
-        usuario.setProfesional(null);
-
+        usuario.setSexo(Sexo.valueOf(sexo));
+        usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
         usuarioRepositorio.save(usuario);
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo, Long id, String nombre, String apellido, String email, String password, String password2,
-                           String dni, LocalDate fechaNacimiento, String telefono, String sexo) throws Exception{
-
-        validar(nombre, apellido, dni, password, password2);
-
-        Usuario usuario = usuarioRepositorio.buscarPorId(id);
-
-            usuario.setNombre(nombre);
-            usuario.setApellido(apellido);
-            usuario.setEmail(email);
-            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-            usuario.setActivo(true);
-            usuario.setRol(Rol.PACIENTE);
-            usuario.setDni(dni);
-            usuario.setFechaNacimiento(fechaNacimiento);
-            usuario.setTelefono(telefono);
-            usuario.setSexo(sexo);
-
-        Long idImagen = null;
-
-            if (usuario.getImagen() !=null){
-                idImagen = usuario.getImagen().getId();
-
-            }
-            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-            usuario.setImagen(imagen);
-
-            usuarioRepositorio.save(usuario);
-
+    public Usuario getOne(Long id) {
+        Usuario usuario = usuarioRepositorio.getReferenceById(id);
+        usuario.getImagen();
+        return usuario;
     }
 
-    public Usuario getOne(String id){
-        return usuarioServicio.getOne(id);
-    }
-
-    public List<Usuario> listarUsuarios(){
+    public List<Usuario> listarUsuarios() {
 
         List<Usuario> usuarios = new ArrayList<>();
         usuarios = usuarioRepositorio.findAll();
@@ -106,23 +68,21 @@ public class UsuarioServicio implements UserDetailsService {
 
     private void validar(String nombre, String apellido, String dni, String password, String password2) throws Exception {
 
-        if (nombre.isEmpty() || nombre == null){
-            throw new Exception("El nombre no puede ser nulo o estar vacio");
+        if (nombre.isEmpty() || nombre == null) {
+            throw new Exception("El nombre no puede ser nulo o estar vacío");
         }
-        if (apellido.isEmpty() || apellido == null){
-            throw new Exception("El apellidp no puede ser nulo o estar vacio");
+        if (apellido.isEmpty() || apellido == null) {
+            throw new Exception("El apellido no puede ser nulo o estar vacío");
         }
-        if (dni.isEmpty() || dni == null){
-            throw new Exception("El dni no puede ser nulo o estar vacio");
+        if (dni.isEmpty() || dni == null) {
+            throw new Exception("El dni no puede ser nulo o estar vacío");
         }
-        if (password.isEmpty() || password
-                == null || password.length()<=6 ){
-            throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
+        if (password.isEmpty() || password == null || password.length() <= 6) {
+            throw new Exception("El password no puede estar vacío y debe contener por lo menos 6 caracteres");
         }
-        if (password.equals(password2)){
+        if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
-
     }
 
     @Override
@@ -150,4 +110,9 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(fechaNacimiento, formatter);
+    }
 }
+

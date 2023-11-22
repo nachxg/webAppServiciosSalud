@@ -11,7 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "pacientes")
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Paciente extends Usuario {
+
     private String numeroObraSocial;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
@@ -28,9 +30,7 @@ public class Paciente extends Usuario {
     @OneToMany(mappedBy = "pacienteTitular", cascade = CascadeType.ALL)
     private List<Paciente> miembros;
 
-    @OneToOne
-    @JoinColumn(name = "id")
-    private Usuario usuario;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
+
 }

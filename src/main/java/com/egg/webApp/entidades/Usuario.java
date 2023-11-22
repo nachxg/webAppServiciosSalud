@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+
+import com.egg.webApp.enumeraciones.Sexo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -55,15 +57,16 @@ public class Usuario {
     protected String email;
 
     /**
-     * Indica si el usuario está activo o no.
-     */
-    protected boolean activo;
-
-    /**
      * Rol del usuario, representado como una enumeración de tipo Rol.
      */
     @Enumerated(EnumType.STRING)
     protected Rol rol;
+
+    /**
+     * Género del usuario.
+     */
+    @Enumerated(EnumType.STRING)
+    protected Sexo sexo;
 
     /**
      * Fecha y hora en la que se registró al usuario.
@@ -78,7 +81,7 @@ public class Usuario {
     /**
      * Imagen asociada al usuario.
      */
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "imagen_id")
     protected Imagen imagen;
 
@@ -97,22 +100,7 @@ public class Usuario {
      */
     protected String apellido;
 
-    /**
-     * Género del usuario.
-     */
-    protected String sexo;
+    protected boolean altaSistema;
 
-    /**
-     * Relación uno a uno con la entidad Paciente, representando al paciente asociado al usuario.
-     */
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    protected Paciente paciente;
 
-    /**
-     * Relación uno a uno con la entidad Profesional, representando al profesional asociado al usuario.
-     */
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    protected Profesional profesional;
 }
