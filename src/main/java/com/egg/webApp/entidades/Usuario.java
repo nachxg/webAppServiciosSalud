@@ -81,7 +81,7 @@ public class Usuario {
     /**
      * Imagen asociada al usuario.
      */
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "imagen_id")
     protected Imagen imagen;
 
@@ -99,6 +99,8 @@ public class Usuario {
      * Apellido del usuario.
      */
     protected String apellido;
+
+    protected boolean altaSistema;
 
 
 }

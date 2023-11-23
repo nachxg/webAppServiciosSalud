@@ -10,18 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <title>Formulario Registro</title>
 </head>
-
 <body>
 
-    <nav class="">
-        <a class="logo" href="/">
-            <img src="/img/logoColor.png" alt="" class="logo">
-        </a>
-        <a href="/">Volver a Inicio</a>
-        
-    </nav>
+<nav class="">
+    <a class="logo" href="/">
+        <img src="/img/logoColor.png" alt="" class="logo">
+    </a>
+    <a href="#">Volver a Inicio</a>
 
-
+</nav>
 <main class="cuerpo-main">
     <div class="imagen-principal">
         <h2 hidden style="color: white;">Desde la imagen principal</h2>
@@ -62,57 +59,82 @@
                     <h3>Genero </h3>
                     <p> "Ingrese el genero, esto nos ayudara a diferenciar mejor su identidad"</p>
                 </li>
+                <li>
+                    <h3>Matricula de Profesional</h3>
+                    <p> "Ingrese el numero de matricula con el que esta registrado como profesional"</p>
+                </li>
+                <li>
+                    <h3>Especialidad</h3>
+                    <p> "Ingrese cual es la especialidad en la que desea realizarse como profesional"</p>
+                </li>
             </ul>
         </div>
 
-        <form class="formulario" th:action="@{/paciente/registrar}" method="POST">
-            <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
-            <div class="contenedor-inputs">
-                <div class="inputs">
-                    <label class="tipografia">Nombre</label>
-                    <input class="input-text" id="nombre-registro" name="nombre" placeholder="Indique su Nombre">
-                </div>
-                <div class="inputs">
-                    <label class="tipografia">Apellido</label>
-                    <input class="input-text" id="apellido-registro" name="apellido"
-                           placeholder="Indique su Apellido">
-                </div>
-                <div class="inputs">
-                    <label class="tipografia">DNI</label>
-                    <input class="input-text" type="number" id="dni-registro" name="dni" min="1"
-                           placeholder="Indique su DNI sin puntos ni comas">
-                </div>
-                <div class="inputs">
-                    <label class="tipografia">Fecha de Nacimiento:</label>
-                    <input class="input-text" type="text" id="fecha-registro" name="fechaNacimiento"
-                           placeholder="Indique su Fecha de Nacimiento">
-                </div>
-                <div class="inputs">
-                    <label class="tipografia">Contraseña</label>
-                    <input class="input-text" type="password" id="password-registro" name="password"
-                           placeholder="Indique su Contraseña">
-                </div>
-                <div class="inputs">
-                    <label class="tipografia">Confirme Contraseña:</label>
-                    <input class="input-text" type="password" id="password2-registro" name="password2"
-                           placeholder="Confirme su Contraseña">
-                </div>
-                <div class="inputs opcion-genero">
-                     <label class="tipografia" for="genero-registro">Genero</label>
-                     <select class="input-text" id="inputGroupSelect" name="sexo">
-                         <option selected>Elige...</option>
-                         <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
-                     </select>
-                 </div>
-            </div>
-            <div class="">
-                <button class="boton-enviar tipografia" type="submit">Registrarse</button>
-                <p class="warnings" id="warnings"></p>
-            </div>
+    <form class="formulario" th:action="@{/profesional/registrar}" method="POST">
 
-        </form>
+        <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
+        <div class="contenedor-inputs">
+            <div class="inputs">
+                <label class="tipografia">Nombre</label>
+                <input class="input-text" id="nombre-registro" name="nombre" placeholder="Indique su Nombre">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">Apellido</label>
+                <input class="input-text" id="apellido-registro" name="apellido"
+                       placeholder="Indique su Apellido">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">DNI</label>
+                <input class="input-text" type="number" id="dni-registro" name="dni" min="1"
+                       placeholder="Indique su DNI sin puntos ni comas">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">Fecha de Nacimiento:</label>
+                <input class="input-text" type="text" id="fecha-registro" name="fechaNacimiento"
+                       placeholder="Indique su Fecha de Nacimiento">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">Contraseña</label>
+                <input class="input-text" type="password" id="password-registro" name="password"
+                       placeholder="Indique su Contraseña">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">Confirme Contraseña:</label>
+                <input class="input-text" type="password" id="password2-registro" name="password2"
+                       placeholder="Confirme su Contraseña">
+            </div>
+            <div class="inputs opcion-genero">
+                <label class="tipografia" for="genero-registro">Genero</label>
+                <select class="input-text" id="inputGroupSelect" name="sexo">
+                    <option selected>Elige...</option>
+                    <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="inputs">
+            <label class="tipografia">Matricula:</label>
+            <input class="input-text" type="text" id="password2-registro" name="matricula"
+                   placeholder="Matricula de profesional">
+        </div>
+
+        <div class="inputs opcion-genero">
+        <label class="tipografia" for="especialidad-registro">Especialidad</label>
+            <select class="input-text" id="inputGroupSelect" name="especialidad">
+                <option selected>Elige...</option>
+                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}"></option>
+            </select>
+        </div>
+
+        <div class="">
+            <button class="boton-enviar tipografia" type="submit">Registrarse</button>
+            <p class="warnings" id="warnings"></p>
+        </div>
+
+
+    </form>
     </div>
-</main>
+    </main>
 
 <footer class="pie">
     <div class="links">
@@ -146,17 +168,17 @@
             </div>
         </div>
     </div>
-        <div class="tyc">
-            &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
-        </div>
-    </footer>
-    
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-      <script src="/js/scriptLogin.js"></script>
-    
+    <div class="tyc">
+        &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+<script src="/js/scriptLogin.js"></script>
+
 
 </body>
 </html>

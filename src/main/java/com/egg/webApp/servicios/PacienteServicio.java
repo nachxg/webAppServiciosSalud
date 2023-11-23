@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteServicio {
@@ -32,38 +33,43 @@ public class PacienteServicio {
 
 
     @Transactional
-    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo) throws Exception {
+    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, String fechaNacimiento) throws Exception {
 
         Paciente paciente = new Paciente();
         paciente.setAltaSistema(true);
+        paciente.setRol(Rol.PACIENTE);
         pacienteRepositorio.save(paciente);
-        usuarioServicio.registrar(nombre, apellido, dni, password, password2, paciente.getId(), sexo);
+        usuarioServicio.registrar(nombre, apellido, dni, password, password2, paciente.getId(), sexo, fechaNacimiento);
     }
 
     @Transactional
-    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String fechaNacimiento, String telefono, String sexo) throws Exception {
+    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
 
 
-        Paciente paciente = pacienteRepositorio.buscarPorId(id);
+        Optional<Paciente> respuesta = pacienteRepositorio.findById(id);
 
-        paciente.setEmail(email);
-        paciente.setPassword(new BCryptPasswordEncoder().encode(password));
-        paciente.setRol(Rol.PACIENTE);
-        paciente.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
-        paciente.setTelefono(telefono);
-        paciente.setSexo(Sexo.valueOf(sexo));
+        if (respuesta.isPresent()) {
 
-        Long idImagen = null;
+            Paciente paciente = respuesta.get();
 
-        if (paciente.getImagen() != null) {
-            idImagen = paciente.getImagen().getId();
+            paciente.setEmail(email);
+            paciente.setPassword(new BCryptPasswordEncoder().encode(password));
+            paciente.setRol(Rol.PACIENTE);
+            paciente.setTelefono(telefono);
+            paciente.setSexo(Sexo.valueOf(sexo));
 
+
+            Long idImagen = null;
+
+            if (paciente.getImagen() != null) {
+                idImagen = paciente.getImagen().getId();
+
+            }
+            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+            paciente.setImagen(imagen);
+
+            pacienteRepositorio.save(paciente);
         }
-        Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-        paciente.setImagen(imagen);
-
-        pacienteRepositorio.save(paciente);
-
     }
 
     public Paciente getOne(Long id) {
@@ -79,7 +85,7 @@ public class PacienteServicio {
     }
 
 
-    private void validar(String nombre, String apellido, String dni, String password, String password2) throws Exception {
+    private void validar(String nombre, String apellido, String dni, String password, String password2, String fechaNacimiento) throws Exception {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede ser nulo o estar vacio");
@@ -90,10 +96,13 @@ public class PacienteServicio {
         if (dni.isEmpty() || dni == null) {
             throw new Exception("El dni no puede ser nulo o estar vacio");
         }
+        if (fechaNacimiento.isEmpty() || fechaNacimiento == null) {
+            throw new Exception("La fecha de nacimiento no puede ser nulo o estar vacio");
+        }
         if (password.isEmpty() || password == null || password.length() <= 6) {
             throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
         }
-        if (password.equals(password2)) {
+        if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
 
