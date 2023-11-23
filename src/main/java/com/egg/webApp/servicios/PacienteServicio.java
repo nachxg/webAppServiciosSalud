@@ -33,7 +33,7 @@ public class PacienteServicio {
 
 
     @Transactional
-    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, String fechaNacimiento) throws Exception {
+    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, LocalDate fechaNacimiento) throws Exception {
 
         Paciente paciente = new Paciente();
         paciente.setAltaSistema(true);

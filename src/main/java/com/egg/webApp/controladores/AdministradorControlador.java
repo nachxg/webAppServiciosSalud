@@ -36,14 +36,13 @@ public class AdministradorControlador {
         modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
 
         //modelo.put("profesional", profesionalServicio.listarProfesionales());
-        //modelo.put("roles", enumServicio.obtenerRoles());
+        modelo.put("roles", enumServicio.obtenerRoles());
         //modelo.put("generos", enumServicio.obtenerGeneros());
         //modelo.put("especialidades", enumServicio.obtenerEspecialidad());
 
         return "lista_usuarios";
     }
 
-    /*
     @PostMapping("/dashboard/cambiar-rol")
 
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
@@ -55,7 +54,7 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
-     */
+
 
 
 

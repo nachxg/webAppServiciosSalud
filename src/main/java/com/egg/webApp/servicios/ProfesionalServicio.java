@@ -36,7 +36,7 @@ public class ProfesionalServicio {
 
 
     @Transactional
-    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, String fechaNacimiento) throws Exception {
+    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, LocalDate fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2,matricula, especialidad);
         Profesional profesional = new Profesional();
@@ -139,8 +139,8 @@ public class ProfesionalServicio {
 
     }
 
-    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return LocalDate.parse(fechaNacimiento, formatter);
-    }
+//    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        return LocalDate.parse(fechaNacimiento, formatter);
+//    }
 }
