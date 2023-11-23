@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Sanatorio Vitalis</title>
 </head>
 
@@ -19,7 +20,12 @@
         <a class="logo" href="/">
             <img src="/img/logoColor.png" alt="" class="logo">
         </a>
-        <a th:href="@{/perfil}">Profresionales</a>
+        <a id="link_prof" class="dropdown"><i id="icono" class="fa-solid fa-angle-down"></i> Profesionales</a>
+        <div class="dropdown-content">
+            <a href="#">Opción 1</a>
+            <a href="#">Opción 2</a>
+            <a href="#">Opción 3</a>
+        </div>
         <a th:href="@{/paciente/registrar}"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" fill="currentColor"
 
                 class="bi bi-person-plus mb-1 me-1" viewBox="0 0 16 16">

@@ -55,3 +55,24 @@ const cambiarCartel = function cambiarCartel(dato){
 
 seccion2.addEventListener("click", mostrarProf);
 seccion1.addEventListener("click", mostrarPaciente);
+
+const linkProf = document.getElementById("link_prof");
+const iconoFlechaArriba = `<i class="fa-solid fa-angle-up"></i> Profesionales`;
+const iconoFlechaAbajo = `<i class="fa-solid fa-angle-down"></i> Profesionales`;
+const icono = document.getElementById("icono");
+
+let estadoFlecha = false;
+
+linkProf.addEventListener("click", function(){
+
+    
+
+    if(!estadoFlecha){
+        icono.classList.add("rotar");
+        estadoFlecha = true;
+    } else {
+        icono.classList.remove("rotar");
+        estadoFlecha = false;
+    }
+    
+});
