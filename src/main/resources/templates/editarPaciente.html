@@ -9,7 +9,7 @@
 </head>
  <body>
     <nav class="">
-        <a class="logo" href="/">
+        <a class="logo" href="/inicio">
             <img src="/img/logoColor.png" alt="" class="logo">
         </a>
         <a href="">Pacientes</a>
@@ -35,7 +35,7 @@
                  <label for="nombre">Nombre:</label>
 
 <!--                      La linea 37 de ejemplo como obtener los datos de usuario en sesion-->
-                 <input type="text" id="nombre" name="nombre" th:value="${session.usuariosession.nombre}" required>
+                 <input type="text" id="nombre" name="nombre" th:placeholder="${session.usuariosession.nombre}" readonly>
 
                  <label for="apellido">Apellido:</label>
                  <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
@@ -62,7 +62,7 @@
                           <input type="password" class="form-control" name="password2" placeholder="REPETIR PASSWORD">
                       </div>
                  <label class="mt-3" for="obraSocial">Obra social:</label>
-                 <input type="text" id="obra Social" name="obraSocial" placeholder="Obra Social" >
+                 <input type="text" id="obraSocial" name="obraSocial" placeholder="Obra Social" >
                  <label for="afiliado">Número de Afiliado:</label>
                  <input type="tel" id="afiliado" name="afiliado" placeholder="Numero de Afiliado" >
                  <button type="submit" class="btn btn-custom-color  btn-block mt-3">Guardar cambios</button>

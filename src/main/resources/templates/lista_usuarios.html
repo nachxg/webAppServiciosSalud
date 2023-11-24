@@ -68,7 +68,6 @@
                     </button>
                 </a>
             </td>
-
               <td><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/usuario/baja/__${usuario.id}__}">
                 <input type="hidden" th:value="${id}" name="id">
                 <button type="button" class="btn btn-danger btn-sm">
