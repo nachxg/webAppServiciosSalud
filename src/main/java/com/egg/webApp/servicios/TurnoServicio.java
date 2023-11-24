@@ -1,5 +1,6 @@
 package com.egg.webApp.servicios;
 
+import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Turno;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
@@ -13,38 +14,36 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/*● La app permite el acceso de las cuentas PROFESIONAL calendario, a la creación,
-eliminación y modificación de turnos disponibles, turnos reservados, posibilidad de
-cancelación, lista de pacientes con acceso a su ficha personal e historial clínico, etc).
-● Cada PROFESIONAL puede modificar sus horarios disponibles.*/
 @Service
 public class TurnoServicio {
 
     @Autowired
     private TurnoRepositorio turnoRepositorio;
     @Autowired
-    private ProfesionalServicio profesionalServicio;
+    private PacienteServicio pacienteServicio;
     @Autowired
     private ProfesionalRepositorio profesionalRepositorio;
-    
+
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Transactional
-    public void crearTurnoDisponible(Long idProfesional, String fecha) {
+    public void crearTurnoDisponible(Long idProfesional, LocalDateTime fecha) {
         Turno nuevoTurno = new Turno();
         Profesional profesional = profesionalRepositorio.getById(idProfesional);
-        nuevoTurno.setProfesional(profesional);
-        nuevoTurno.setFechaTurno(LocalDateTime.parse(fecha, formatter));
-        nuevoTurno.setAtendido(false);
-        nuevoTurno.setCancelado(false);
-        nuevoTurno.setEspecialidad(profesional.getEspecialidad());
-        profesional.getTurnosDisponibles().add(nuevoTurno);
-        profesionalRepositorio.save(profesional);
-        turnoRepositorio.save(nuevoTurno);
+        if (profesional.isAltaSistema()) {
+            nuevoTurno.setProfesional(profesional);
+            nuevoTurno.setFechaTurno(fecha);
+            nuevoTurno.setAtendido(false);
+            nuevoTurno.setCancelado(false);
+            nuevoTurno.setEspecialidad(profesional.getEspecialidad());
+            profesional.getTurnosDisponibles().add(nuevoTurno);
+            profesionalRepositorio.save(profesional);
+            turnoRepositorio.save(nuevoTurno);
+        }
     }
 
     @Transactional
-    public void modificarTurno(Long idTurno,String motivoConsulta, boolean atendido,boolean cancelado ) {
+    public void modificarTurno(Long idTurno, String motivoConsulta, boolean atendido, boolean cancelado) {
         Optional<Turno> respuesta = turnoRepositorio.findById(idTurno);
         if (respuesta.isPresent()) {
             Turno turno = respuesta.get();
@@ -55,15 +54,43 @@ public class TurnoServicio {
         }
     }
 
+    @Transactional
+    public void tomarUnTurnoPaciente(Long idTurno, Long idPaciente) {
+        Paciente paciente = pacienteServicio.getOne(idPaciente);
+        Turno turno = turnoRepositorio.getOne(idTurno);
+        if (paciente.isAltaSistema() && !turno.isAtendido() && !turno.isCancelado()) {
+            turno.setPaciente(paciente);
+            turnoRepositorio.save(turno);
+        }
+    }
+
     public List<Turno> listaDeTurnosDisponibles(Long idProfecional) {
-        List<Turno> turnos = new ArrayList<>();
-        turnos = turnoRepositorio.buscarTurnosDisponiblesDeProfecional(idProfecional);
+        List<Turno> turnos = turnoRepositorio.buscarTurnosDisponiblesDeProfecional(idProfecional);
+        return turnos;
+    }
+
+    public List<Turno> listaDeTodosLosTurnosPorProfecional(Long idProfecional) {
+        List<Turno> turnos = turnoRepositorio.todosLosTurnosDeProfecional(idProfecional);
+        return turnos;
+    }
+
+    public List<Turno> liustaDeTurnosPorEspecialidad(String especialidad) {
+        List<Turno> turnos = turnoRepositorio.todosLosTurnosPorEspecialidad(especialidad);
         return turnos;
     }
 
     public List<Turno> listaDeTurnosPorPaciente(Long idPaciente) {
-        List<Turno> turnosPaciente = turnoRepositorio.buscarTurnosPorIdPaciente(idPaciente);
-        return turnosPaciente;
+        List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPaciente(idPaciente);
+        return turnos;
+    }
+
+    public List<Turno> listaDeTurnosPorPacienteAtendido(Long idPaciente) {
+        List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPacienteAtendido(idPaciente);
+        return turnos;
+    }
+    
+    public Turno getOne(Long id){
+        return turnoRepositorio.getOne(id);
     }
 
 }
