@@ -7,6 +7,7 @@ import com.egg.webApp.entidades.Usuario;
 import java.time.format.DateTimeFormatter;
 
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.repositorios.ProfesionalRepositorio;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,11 +30,13 @@ import java.util.List;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
-    private UsuarioServicio usuarioServicio;
+
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    private ProfesionalRepositorio profesionalRepositorio;
 
     @Transactional
     public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, String fechaNacimiento) throws Exception {
@@ -49,6 +52,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setSexo(Sexo.valueOf(sexo));
         usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
         usuarioRepositorio.save(usuario);
+
     }
 
     @Transactional
@@ -83,6 +87,7 @@ public class UsuarioServicio implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
+
     }
 
     @Override
@@ -114,5 +119,19 @@ public class UsuarioServicio implements UserDetailsService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
+
+
+    // METODO PARA EVITAR QUE SE INGRESEN DNIs REPETIDOS
+    public Boolean validarDNI(String dni) {
+        return usuarioRepositorio.existsByDni(dni);
+
+    }
+
+    //METODO PARA EVITAR QUE SE INGRESEN MATRICULAS REPETIDAS
+    public Boolean validarMatricula(String matricula) {
+        return profesionalRepositorio.existsByMatricula(matricula);
+    }
+
 }
+
 

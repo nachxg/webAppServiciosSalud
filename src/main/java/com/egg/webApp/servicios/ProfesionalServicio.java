@@ -117,6 +117,16 @@ public class ProfesionalServicio {
         if (especialidad.isEmpty() || especialidad == null){
             throw new Exception("La especialidad no puede ser nulo o estar vacio");
         }
+        // VALIDAR QUE DNI NO ESTÉ REPETIDO
+        if (usuarioServicio.validarDNI(dni)) {
+            throw new Exception("El DNI ya existe. Por favor intente nuevamente");
+        }
+        //VALIDAR QUE LA MATRICULA NO ESTÉ REPETIDA
+        if (usuarioServicio.validarMatricula(matricula)) {
+            throw new Exception("La matricula ingresada ya existe. Por favor intente nuevamente");
+        }
+
+
     }
 
     private void validarActualizacion(String password, String password2, String sexo, String telefono, String email) throws Exception {
