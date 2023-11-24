@@ -32,8 +32,51 @@
             <input type="text" class="form-control" name="nombre" placeholder="Nombre de usuario">
         </div>
 
+<<<<<<< HEAD
         <div class="form-group my-3">
             <input type="text" class="form-control" name="apellido" placeholder="Apellido de usuario">
+=======
+    <form class="formulario" th:action="@{/profesional/registrar}" method="POST">
+
+        <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
+        <div class="contenedor-inputs">
+            <div class="inputs">
+                <label class="tipografia">Nombre</label>
+                <input class="input-text" id="nombre-registro" name="nombre" placeholder="Indique su Nombre">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">Apellido</label>
+                <input class="input-text" id="apellido-registro" name="apellido"
+                       placeholder="Indique su Apellido">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">DNI</label>
+                <input class="input-text" type="number" id="dni-registro" name="dni" min="1"
+                       placeholder="Indique su DNI sin puntos ni comas">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">Fecha de Nacimiento:</label>
+                <input class="input-text" type="date" id="fecha-registro" name="fechaNacimiento"
+                       placeholder="Indique su Fecha de Nacimiento">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">Contraseña</label>
+                <input class="input-text" type="password" id="password-registro" name="password"
+                       placeholder="Indique su Contraseña">
+            </div>
+            <div class="inputs">
+                <label class="tipografia">Confirme Contraseña:</label>
+                <input class="input-text" type="password" id="password2-registro" name="password2"
+                       placeholder="Confirme su Contraseña">
+            </div>
+            <div class="inputs opcion-genero">
+                <label class="tipografia" for="genero-registro">Genero</label>
+                <select class="input-text" id="inputGroupSelect" name="sexo">
+                    <option selected>Elige...</option>
+                    <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
+                </select>
+            </div>
+>>>>>>> fd0e386d540f1c7788488bdd0cd18d7ab1d321d1
         </div>
 
         <div class="form-group my-3">

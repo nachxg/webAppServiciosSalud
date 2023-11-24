@@ -39,7 +39,7 @@ public class ProfesionalServicio {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Transactional
-    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, String fechaNacimiento) throws Exception {
+    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, LocalDate fechaNacimiento) throws Exception {
 
         Usuario respuesta = usuarioRepositorio.buscarPorDni(dni);
 
@@ -147,8 +147,16 @@ public class ProfesionalServicio {
 
     }
 
+<<<<<<< HEAD
     public LocalDate convertirStringALocalDate(String fechaNacimiento) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
 }
+=======
+//    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        return LocalDate.parse(fechaNacimiento, formatter);
+//    }
+}
+>>>>>>> fd0e386d540f1c7788488bdd0cd18d7ab1d321d1

@@ -26,12 +26,18 @@ public class ImagenControlador {
     PacienteServicio pacienteServicio;
     @Autowired
     ProfesionalServicio profesionalServicio;
+<<<<<<< HEAD
     
     @GetMapping("/perfil/paciente{id}")
     public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long  id){
 
         Paciente paciente = pacienteServicio.getOne(id);
         byte[] imagen =  paciente.getImagen().getContenido();
+=======
+    @GetMapping("/perfil/{id}")
+    public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long id) {
+        Usuario usuario = usuarioServicio.getOne(id);
+>>>>>>> fd0e386d540f1c7788488bdd0cd18d7ab1d321d1
 
 
         HttpHeaders headers = new HttpHeaders();
@@ -48,6 +54,7 @@ public class ImagenControlador {
     @GetMapping("/perfil/profesional{id}")
     public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long  id){
 
+<<<<<<< HEAD
         Profesional profesional = profesionalServicio.getOne(id);
         byte[] imagen =  profesional.getImagen().getContenido();
 
@@ -63,4 +70,6 @@ public class ImagenControlador {
         return new ResponseEntity<>(imagen,headers, HttpStatus.OK);
     }
 
+=======
+>>>>>>> fd0e386d540f1c7788488bdd0cd18d7ab1d321d1
 }

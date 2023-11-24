@@ -30,12 +30,23 @@ public class AdministradorControlador {
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap model) {
 
+<<<<<<< HEAD
         model.put("paciente", pacienteServicio.listarPacientes());
         model.put("profesional", profesionalServicio.listarProfesionales());
         model.put("roles", enumServicio.obtenerRoles());
         model.put("generos", enumServicio.obtenerGeneros());
         model.put("especialidades", enumServicio.obtenerEspecialidad());
         return "adminDashboard";
+=======
+        modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
+
+        //modelo.put("profesional", profesionalServicio.listarProfesionales());
+        modelo.put("roles", enumServicio.obtenerRoles());
+        //modelo.put("generos", enumServicio.obtenerGeneros());
+        //modelo.put("especialidades", enumServicio.obtenerEspecialidad());
+
+        return "lista_usuarios";
+>>>>>>> fd0e386d540f1c7788488bdd0cd18d7ab1d321d1
     }
 
     @PostMapping("/dashboard/cambiar-rol")
@@ -48,6 +59,10 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fd0e386d540f1c7788488bdd0cd18d7ab1d321d1
 
     @GetMapping("/dashboard/desactivar/{id}")
     public String desactivarUsuario(@PathVariable Long id, Model model) {

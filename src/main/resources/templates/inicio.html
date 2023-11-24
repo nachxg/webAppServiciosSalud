@@ -25,9 +25,19 @@
         <div class="contenedor-links">
             <a href="">Turnos</a>
             <a href="">Especialidades</a>
+            <a href="/logout">Cerrar sesion</a>
             <div class="contenedor-perfil">
+<<<<<<< HEAD
                 <div class="nombre-perfil">Ignacio Gimenez</div>
                 <div class="profile-circle" id="profile-circle"></div>
+=======
+                <div class="nombre-perfil" th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></div>
+                <div class="profile-circle" id="profile-circle">
+                    <img th:src="@{/imagen/paciente/perfil/{id}(id=${session.usuariosession.id})}">
+                    <a href="/paciente/perfil">Perfil paciente</a>
+                    <a href="/profesional/perfil">Perfil profesional</a>
+                </div>
+>>>>>>> fd0e386d540f1c7788488bdd0cd18d7ab1d321d1
             </div>
         </div>
     </nav>
