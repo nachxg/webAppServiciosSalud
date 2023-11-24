@@ -1,5 +1,6 @@
 package com.egg.webApp.controladores;
 import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 @Controller
 @RequestMapping("/paciente")
 public class PacienteControlador {
@@ -46,18 +48,27 @@ public class PacienteControlador {
             return "redirect:/paciente/registrar";
         }
     }
-
-    @GetMapping("/perfil")
-    public String perfilPaciente(ModelMap modelo, HttpSession session) {
+    
+    @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN')")
+    @GetMapping("/perfil/{id}")
+    public String perfilPaciente(ModelMap modelo, HttpSession session, @PathVariable Long id) {
 
         List<Sexo> generos = enumServicio.obtenerGeneros();
         modelo.addAttribute("generos", generos);
-
-        Paciente paciente = (Paciente) session.getAttribute("usuariosession");
+        
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Paciente paciente = null;
+        if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
+            paciente = pacienteServicio.getOne(id);
+        } else {
+            paciente = (Paciente) session.getAttribute("usuariosession");
+        }
+       
         modelo.put("paciente", paciente);
         return "editarPaciente.html";
     }
-
+    
+    @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN')")
     @PostMapping("/perfil/{id}")
     public String actualizarPaciente(MultipartFile archivo, @PathVariable Long id, @RequestParam String email, @RequestParam String password, @RequestParam String password2,
                                      ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {
