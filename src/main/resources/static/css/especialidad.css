@@ -9,20 +9,16 @@
     --whatsapp: #25D366;
     --colorLindo: #1D7874;
 }
-.banner-especialidad {
-    background-image: url(../img/especialidades.jpg);
-    background-size: cover;
-    color : #fff;
-    text-align: 45%;
-    padding: 50px;
-    color: #1D7874;
-    height: 200px;
-    font-size: 24px
+
+*{
+    font-family: 'Montserrat', sans-serif;
 }
+
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
+
 nav{
     height: 80px;
     background-color: white;
@@ -30,31 +26,44 @@ nav{
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    box-shadow: 0px 1px 10px rgb(0, 0, 0);
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.521);
     z-index: 2;
+    position: relative;
 }
 
 .logo{
-    height: 80px;
-    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1.1;
+    height: 100%;
     padding: 0;
     cursor: pointer;
+    margin-left: 1.4rem;
 }
 
 .logo img{
-    width: 100%;
+    max-width: 300px;
     height: 100%;
 }
 
+.volver{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    margin-right: 4rem;
+}
 
-
-nav a:not(:first-child){
+nav div a{
+    text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     text-transform: uppercase;
-    font-weight: 420;
+    font-weight: 500;
     color: black;
-    text-decoration: none;
     font-size: 0.9rem;
     height: 27%;
     background-image: linear-gradient(currentColor, currentColor);
@@ -67,7 +76,25 @@ nav a:not(:first-child){
 nav a:hover:not(.logo), .pie a:hover{
     color: var(--colorLindo);
     background-size: 100% 2px;
+    text-decoration: none;
 }
+
+.banner-especialidad {
+    background-image: url('/img/especialidades.jpg');
+    background-size: 100%;
+    color : #fff;
+    text-align: 45%;
+    padding: 50px;
+    color: #1D7874;
+    height: 200px;
+    font-size: 24px;
+    z-index: 0;
+}
+
+.banner-especialidad div{
+    z-index: 1;
+}
+
 .busqueda {
     background-color: #f4f4f4; /* Color de fondo */
     padding: 20px;
@@ -95,6 +122,7 @@ nav a:hover:not(.logo), .pie a:hover{
     color: #fff; /* Color del texto del botón */
     cursor: pointer;
 }
+
 .filtro-letras {
     text-align: center;
     margin-top: 20px; /* Ajusta este valor según sea necesario */
@@ -113,6 +141,7 @@ nav a:hover:not(.logo), .pie a:hover{
     width: 80px; /* Ajusta el tamaño según tus necesidades */
     height: 80px; /* Ajusta el tamaño según tus necesidades */
 }
+
 .pie{
     padding-top: 1rem;
     z-index: 2;
@@ -203,6 +232,7 @@ nav a:hover:not(.logo), .pie a:hover{
     font-size: 24px; /* Ajusta el tamaño de la letra cuando está centrado */
     font-family: 'Montserrat', sans-serif; /* Cambia a la fuente Montserrat */
 }
+
 /* Agrega estilos para los enlaces dentro de la lista de especialidades */
 #lista-especialidades a {
     color: #1D7874; /* Reemplaza "tu-color-deseado" con el color que prefieras */
