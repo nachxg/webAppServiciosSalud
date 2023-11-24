@@ -122,5 +122,3 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
 }
-
-

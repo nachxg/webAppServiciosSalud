@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalControlador {
@@ -50,7 +51,7 @@ public class ProfesionalControlador {
             return "redirect:/profesional/registrar";
         }
     }
-
+        @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
         @GetMapping("/perfil")
         public String perfilProfesional(ModelMap modelo, HttpSession session) {
 
@@ -61,7 +62,8 @@ public class ProfesionalControlador {
             modelo.put("profesional", profesional);
             return "editarProfesional.html";
         }
-
+        
+        @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
         @PostMapping("/perfil/{id}")
         public String actualizarProfesional(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
                 @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {

@@ -32,6 +32,12 @@ public class AdministradorControlador {
         this.enumServicio = enumServicio;
         this.administradorServicio = administradorServicio;
     }
+    
+    @GetMapping("/inicio")
+    public String inicioAdmin(){
+        return "adminDashboard.html";
+    }
+    
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
