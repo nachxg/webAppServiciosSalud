@@ -10,6 +10,5 @@ const pass = document.getElementById("pass");
             pass.type = "password";
             icon.classList.add('bx-show-alt')
             icon.classList.remove('bx-hide')
-
         }
       })

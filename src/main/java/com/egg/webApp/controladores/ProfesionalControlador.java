@@ -39,7 +39,7 @@ public class ProfesionalControlador {
 
             profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad, fechaNacimiento);
 
-            return "index.html";
+            return "redirect:/index";
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");
@@ -73,5 +73,13 @@ public class ProfesionalControlador {
                 return "editarProfesional.html";
             }
         }
+
+    @GetMapping("/especialidad")
+    public String especialidad(ModelMap modelo){
+
+        modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
+
+        return "especialidades.html";
+    }
 
 }

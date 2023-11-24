@@ -43,9 +43,8 @@ public class AdministradorControlador {
         return "lista_usuarios";
     }
 
-    /*
-    @PostMapping("/dashboard/cambiar-rol")
 
+    @PostMapping("/dashboard/cambiar-rol")
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
         try {
             administradorServicio.establecerRolUsuario(id, rol);
@@ -55,7 +54,7 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
-     */
+
 
 
 

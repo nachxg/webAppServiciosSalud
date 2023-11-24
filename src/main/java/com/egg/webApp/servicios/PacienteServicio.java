@@ -35,6 +35,7 @@ public class PacienteServicio {
     @Transactional
     public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, String fechaNacimiento) throws Exception {
 
+        validar(nombre, apellido, dni, password, password2, fechaNacimiento);
         Paciente paciente = new Paciente();
         paciente.setAltaSistema(true);
         paciente.setRol(Rol.PACIENTE);
@@ -104,6 +105,10 @@ public class PacienteServicio {
         }
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
+        }
+        // VALIDAR QUE DNI NO ESTÉ REPETIDO
+        if (usuarioServicio.validarDNI(dni)) {
+            throw new Exception("El DNI ya existe. Por favor intente nuevamente");
         }
 
     }
