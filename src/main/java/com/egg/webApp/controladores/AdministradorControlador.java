@@ -28,24 +28,19 @@ public class AdministradorControlador {
         this.enumServicio = enumServicio;
         this.administradorServicio = administradorServicio;
     }
-
-
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
 
         modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
 
         //modelo.put("profesional", profesionalServicio.listarProfesionales());
-        //modelo.put("roles", enumServicio.obtenerRoles());
+        modelo.put("roles", enumServicio.obtenerRoles());
         //modelo.put("generos", enumServicio.obtenerGeneros());
         //modelo.put("especialidades", enumServicio.obtenerEspecialidad());
 
         return "lista_usuarios";
     }
-
-    /*
     @PostMapping("/dashboard/cambiar-rol")
-
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
         try {
             administradorServicio.establecerRolUsuario(id, rol);
@@ -55,10 +50,6 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
-     */
-
-
-
     @GetMapping("/usuario/baja/{id}")
     public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo) {
         try {
@@ -70,7 +61,4 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
-
-
-
 }

@@ -1,12 +1,7 @@
 package com.egg.webApp.servicios;
-
-
-
 import com.egg.webApp.entidades.Usuario;
-
-import java.time.format.DateTimeFormatter;
-
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.repositorios.ProfesionalRepositorio;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -29,14 +23,16 @@ import java.util.List;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
-    private UsuarioServicio usuarioServicio;
+
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    private ProfesionalRepositorio profesionalRepositorio;
 
     @Transactional
-    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, String fechaNacimiento) throws Exception {
+    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, LocalDate fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2);
         Usuario usuario = usuarioRepositorio.getOne(id);
@@ -44,11 +40,11 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setApellido(apellido);
         usuario.setFechaAlta(LocalDateTime.now());
         usuario.setDni(dni);
-        usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
+        usuario.setFechaNacimiento(fechaNacimiento);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setSexo(Sexo.valueOf(sexo));
-        usuario.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
         usuarioRepositorio.save(usuario);
+
     }
 
     @Transactional
@@ -83,6 +79,7 @@ public class UsuarioServicio implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
+
     }
 
     @Override
@@ -109,10 +106,21 @@ public class UsuarioServicio implements UserDetailsService {
             return null;
         }
     }
+//    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        return LocalDate.parse(fechaNacimiento, formatter);
+//    }
 
-    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return LocalDate.parse(fechaNacimiento, formatter);
+    // METODO PARA EVITAR QUE SE INGRESEN DNIs REPETIDOS
+    public Boolean validarDNI(String dni) {
+        return usuarioRepositorio.existsByDni(dni);
+
     }
+    //METODO PARA EVITAR QUE SE INGRESEN MATRICULAS REPETIDAS
+    public Boolean validarMatricula(String matricula) {
+        return profesionalRepositorio.existsByMatricula(matricula);
+    }
+
 }
+
 

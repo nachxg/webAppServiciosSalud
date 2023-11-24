@@ -33,8 +33,9 @@ public class PacienteServicio {
 
 
     @Transactional
-    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, String fechaNacimiento) throws Exception {
+    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, LocalDate fechaNacimiento) throws Exception {
 
+        validar(nombre, apellido, dni, password, password2, fechaNacimiento);
         Paciente paciente = new Paciente();
         paciente.setAltaSistema(true);
         paciente.setRol(Rol.PACIENTE);
@@ -85,7 +86,7 @@ public class PacienteServicio {
     }
 
 
-    private void validar(String nombre, String apellido, String dni, String password, String password2, String fechaNacimiento) throws Exception {
+    private void validar(String nombre, String apellido, String dni, String password, String password2, LocalDate fechaNacimiento) throws Exception {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede ser nulo o estar vacio");
@@ -96,7 +97,7 @@ public class PacienteServicio {
         if (dni.isEmpty() || dni == null) {
             throw new Exception("El dni no puede ser nulo o estar vacio");
         }
-        if (fechaNacimiento.isEmpty() || fechaNacimiento == null) {
+        if (fechaNacimiento == null) {
             throw new Exception("La fecha de nacimiento no puede ser nulo o estar vacio");
         }
         if (password.isEmpty() || password == null || password.length() <= 6) {
@@ -104,6 +105,10 @@ public class PacienteServicio {
         }
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
+        }
+        // VALIDAR QUE DNI NO ESTÉ REPETIDO
+        if (usuarioServicio.validarDNI(dni)) {
+            throw new Exception("El DNI ya existe. Por favor intente nuevamente");
         }
 
     }
