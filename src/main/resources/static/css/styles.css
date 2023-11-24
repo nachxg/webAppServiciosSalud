@@ -92,7 +92,7 @@ i{
     right: 42.1%;
     z-index: 3;
     visibility: visible;
-    max-height: 30%;
+    max-height: 0;
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease, max-height 0.3s ease;
   }
