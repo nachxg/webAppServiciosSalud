@@ -1,4 +1,5 @@
 package com.egg.webApp.controladores;
+
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
@@ -8,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
 @Controller
 @RequestMapping("/paciente")
 public class PacienteControlador {
@@ -28,18 +31,20 @@ public class PacienteControlador {
         return "registro.html";
 
     }
+
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
-                           @RequestParam String password2, @RequestParam String dni,  @RequestParam String sexo, @RequestParam String fechaNacimiento) {
+                           @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo,
+                           @RequestParam String fechaNacimiento, ModelMap modelo) {
 
         try {
 
             pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
-
+            modelo.put("exito", "Usuario creado con exito");
             return "redirect:/index";
 
         } catch (Exception e) {
-            System.out.println("Usuario no creado " + e.getMessage() );
+            modelo.put("error", e.getMessage());
             return "redirect:/paciente/registrar";
         }
     }
@@ -60,11 +65,11 @@ public class PacienteControlador {
                                      ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {
 
         try {
-            pacienteServicio.actualizarPaciente(archivo, id, email, password,password2, telefono, sexo.toUpperCase());
+            pacienteServicio.actualizarPaciente(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
+            modelo.put("exito", "Usuario actualizado correctamente");
             return "redirect:/inicio";
         } catch (Exception e) {
-            System.out.println("ERROR ERROR ");
-            System.out.println(e.getMessage());
+            modelo.put("error", e.getMessage());
             return "editarPaciente.html";
         }
     }

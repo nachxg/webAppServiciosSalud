@@ -29,8 +29,13 @@ public class AdministradorControlador {
         this.administradorServicio = administradorServicio;
     }
 
-
     @GetMapping("/dashboard")
+    public String panelAdministrativo(){
+        return "adminDashboard.html";
+    }
+
+
+    @GetMapping("/usuarios")
     public String listarUsuarios(ModelMap modelo) {
 
         modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
@@ -48,14 +53,12 @@ public class AdministradorControlador {
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
         try {
             administradorServicio.establecerRolUsuario(id, rol);
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/usuarios";
         } catch (MiExcepcion e) {
             model.addAttribute("error", e.getMessage());
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/usuarios";
         }
     }
-
-
 
 
     @GetMapping("/usuario/baja/{id}")
@@ -63,10 +66,10 @@ public class AdministradorControlador {
         try {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/usuarios";
         } catch (MiExcepcion e) {
             modelo.addAttribute("error", "Mensaje Admin "+e.getMessage());
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/usuarios";
         }
     }
 
