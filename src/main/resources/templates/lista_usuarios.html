@@ -57,6 +57,7 @@
                   </div>
               </form></td>
             <td>
+                <!--  Logica para tener un link dinamico a diferentes rutas segun el rol de usuario-->
                 <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
                    th:href="@{${'/'+#strings.toLowerCase(usuario.rol)+'/perfil/' + usuario.id}}">
                     <button type="button" class="btn btn-warning btn-sm">

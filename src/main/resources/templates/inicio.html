@@ -29,9 +29,11 @@
             <div class="contenedor-perfil">
                 <div class="nombre-perfil" th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></div>
                 <div class="profile-circle" id="profile-circle">
-                    <img th:src="@{/imagen/paciente/perfil/{id}(id=${session.usuariosession.id})}">
-                    <a href="/paciente/perfil">Perfil paciente</a>
-                    <a href="/profesional/perfil">Perfil profesional</a>
+                    <img th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
+<!--                    Logica para tener un link dinamico a diferentes rutas segun el rol de sesion-->
+                    <a th:if="${#authorization.expression('hasAnyRole(''PACIENTE'', ''PROFESIONAL'', ''ADMIN'')')}"
+                       th:href="@{${'/'+#strings.toLowerCase(session.usuariosession.rol)+'/perfil/'}}">Perfil</a>
+
                 </div>
             </div>
         </div>
