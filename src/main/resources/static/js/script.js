@@ -57,21 +57,24 @@ seccion2.addEventListener("click", mostrarProf);
 seccion1.addEventListener("click", mostrarPaciente);
 
 const linkProf = document.getElementById("link_prof");
-const iconoFlechaArriba = `<i class="fa-solid fa-angle-up"></i> Profesionales`;
-const iconoFlechaAbajo = `<i class="fa-solid fa-angle-down"></i> Profesionales`;
 const icono = document.getElementById("icono");
+const desplegable = document.getElementById("desplegable");
 
 let estadoFlecha = false;
 
 linkProf.addEventListener("click", function(){
 
-    
-
     if(!estadoFlecha){
         icono.classList.add("rotar");
+        desplegable.style.maxHeight = "20%";
+        desplegable.style.visibility = "visible";
+        desplegable.style.opacity = "1";
         estadoFlecha = true;
     } else {
         icono.classList.remove("rotar");
+        desplegable.style.maxHeight = "0";
+        desplegable.style.visibility = "hidden";
+        desplegable.style.opacity = "0";
         estadoFlecha = false;
     }
     
