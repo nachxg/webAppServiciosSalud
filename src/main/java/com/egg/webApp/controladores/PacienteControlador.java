@@ -42,9 +42,8 @@ public class PacienteControlador {
             return "redirect:/index";
 
         } catch (Exception e) {
-            System.out.println("ERROR ERROR USUARIO NO CREADO");
-            System.out.println(e.getMessage());
-            return "registro.html";
+            System.out.println("Usuario no creado " + e.getMessage() );
+            return "redirect:/paciente/registrar";
         }
     }
 

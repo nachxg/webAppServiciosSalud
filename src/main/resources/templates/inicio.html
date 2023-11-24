@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
 
     <nav class="">
         <div class="contenedor-logo">
-            <a class="logo" href="/">
+            <a class="logo" href="/inicio">
                 <img src="/img/logoColor.png" alt="" class="logo">
             </a>
         </div>
@@ -27,17 +27,14 @@
             <a href="">Especialidades</a>
             <a href="/logout">Cerrar sesion</a>
             <div class="contenedor-perfil">
-<<<<<<< HEAD
-                <div class="nombre-perfil">Ignacio Gimenez</div>
-                <div class="profile-circle" id="profile-circle"></div>
-=======
                 <div class="nombre-perfil" th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></div>
                 <div class="profile-circle" id="profile-circle">
-                    <img th:src="@{/imagen/paciente/perfil/{id}(id=${session.usuariosession.id})}">
-                    <a href="/paciente/perfil">Perfil paciente</a>
-                    <a href="/profesional/perfil">Perfil profesional</a>
+                    <img th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
+<!--                    Logica para tener un link dinamico a diferentes rutas segun el rol de sesion-->
+                    <a th:if="${#authorization.expression('hasAnyRole(''PACIENTE'', ''PROFESIONAL'', ''ADMIN'')')}"
+                       th:href="@{${'/'+#strings.toLowerCase(session.usuariosession.rol)+'/perfil/'}}">Perfil</a>
+
                 </div>
->>>>>>> fd0e386d540f1c7788488bdd0cd18d7ab1d321d1
             </div>
         </div>
     </nav>
@@ -99,7 +96,7 @@
             </div>
 
             <div class="saludo">
-                <h1>BIENVENIDO, Ignacio Gimenez.</h1>
+                <h1>BIENVENIDO, <span class="text-capitalize" th:text="${session.usuariosession?.nombre + ' ' + session.usuariosession?.apellido}"></span>.</h1>
             </div>
 
         </div>
@@ -148,8 +145,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="../static/js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 
 </html>
-

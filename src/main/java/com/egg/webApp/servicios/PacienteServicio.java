@@ -6,7 +6,6 @@ import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.repositorios.PacienteRepositorio;
-import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,30 +30,22 @@ public class PacienteServicio {
 
     @Autowired
     UsuarioServicio usuarioServicio;
-    
-    @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
+
 
     @Transactional
     public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, LocalDate fechaNacimiento) throws Exception {
 
-        Usuario respuesta = usuarioRepositorio.buscarPorDni(dni);
-
-        if (respuesta == null) {
-            validar(nombre, apellido, dni, password, password2, fechaNacimiento);
-            Paciente paciente = new Paciente();
-            paciente.setAltaSistema(true);
-            paciente.setRol(Rol.PACIENTE);
-            pacienteRepositorio.save(paciente);
-            usuarioServicio.registrar(nombre, apellido, dni, password, password2, paciente.getId(), sexo, fechaNacimiento);
-        } else {
-            throw new Exception("El Dni ya se encuentra registrado");
-        }
-
+        validar(nombre, apellido, dni, password, password2, fechaNacimiento);
+        Paciente paciente = new Paciente();
+        paciente.setAltaSistema(true);
+        paciente.setRol(Rol.PACIENTE);
+        pacienteRepositorio.save(paciente);
+        usuarioServicio.registrar(nombre, apellido, dni, password, password2, paciente.getId(), sexo, fechaNacimiento);
     }
 
     @Transactional
-    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String fechaNacimiento, String telefono, String sexo) throws Exception {
+    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
+
 
         Optional<Paciente> respuesta = pacienteRepositorio.findById(id);
 
@@ -65,9 +56,9 @@ public class PacienteServicio {
             paciente.setEmail(email);
             paciente.setPassword(new BCryptPasswordEncoder().encode(password));
             paciente.setRol(Rol.PACIENTE);
-            paciente.setFechaNacimiento(convertirStringALocalDate(fechaNacimiento));
             paciente.setTelefono(telefono);
             paciente.setSexo(Sexo.valueOf(sexo));
+
 
             Long idImagen = null;
 
@@ -94,7 +85,8 @@ public class PacienteServicio {
         return pacientes;
     }
 
-    private void validar(String nombre, String apellido, String dni, String password, String password2, String fechaNacimiento) throws Exception {
+
+    private void validar(String nombre, String apellido, String dni, String password, String password2, LocalDate fechaNacimiento) throws Exception {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede ser nulo o estar vacio");
@@ -105,7 +97,7 @@ public class PacienteServicio {
         if (dni.isEmpty() || dni == null) {
             throw new Exception("El dni no puede ser nulo o estar vacio");
         }
-        if (fechaNacimiento.isEmpty() || fechaNacimiento == null) {
+        if (fechaNacimiento == null) {
             throw new Exception("La fecha de nacimiento no puede ser nulo o estar vacio");
         }
         if (password.isEmpty() || password == null || password.length() <= 6) {
@@ -114,6 +106,10 @@ public class PacienteServicio {
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
+        // VALIDAR QUE DNI NO ESTÉ REPETIDO
+        if (usuarioServicio.validarDNI(dni)) {
+            throw new Exception("El DNI ya existe. Por favor intente nuevamente");
+        }
 
     }
 
@@ -121,5 +117,6 @@ public class PacienteServicio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
+
 
 }
