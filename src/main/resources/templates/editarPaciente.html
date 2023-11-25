@@ -36,19 +36,16 @@
 
 <!--                      La linea 37 de ejemplo como obtener los datos de usuario en sesion-->
                  <input type="text" id="nombre" name="nombre" th:placeholder="${session.usuariosession.nombre}" readonly>
-
                  <label for="apellido">Apellido:</label>
-                 <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
-
+                 <input type="text" id="apellido" name="apellido" placeholder="Apellido" th:placeholder="${paciente.apellido}" readonly>
                  <label for="dni">DNI:</label>
-                 <input type="text" id="dni" name="dni" placeholder="DNI">
-
-                 <label for="email">Correo ElectrÃ³nico:</label>
-                 <input type="email" id="email" name="email" placeholder="Correo ElectrÃ³nico" required>
-                 <label for="telefono">TelÃ©fono:</label>
-                 <input type="tel" id="telefono" name="telefono" placeholder="TelÃ©fono" required>
+                 <input type="text" id="dni" name="dni" placeholder="DNI"  readonly>
                  <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                 <input type="date" id="fechaNacimiento" name="fechaNacimiento">
+                 <input type="String" id="fechaNacimiento" name="fechaNacimiento" readonly>
+                 <label for="email">Correo Electrónico:</label>
+                 <input type="email" id="email" name="email" placeholder="Correo Electrónico" required>
+                 <label for="telefono">Teléfono:</label>
+                 <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required>
                  <label for="sexo">Sexo:</label>
                  <select id="sexo" name="sexo" required>
                     <option value="masculino">Masculino</option>
@@ -63,7 +60,7 @@
                       </div>
                  <label class="mt-3" for="obraSocial">Obra social:</label>
                  <input type="text" id="obraSocial" name="obraSocial" placeholder="Obra Social" >
-                 <label for="afiliado">NÃºmero de Afiliado:</label>
+                 <label for="afiliado">Numero de Afiliado:</label>
                  <input type="tel" id="afiliado" name="afiliado" placeholder="Numero de Afiliado" >
                  <button type="submit" class="btn btn-custom-color  btn-block mt-3">Guardar cambios</button>
             </form>

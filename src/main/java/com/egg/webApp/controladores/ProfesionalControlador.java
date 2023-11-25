@@ -1,5 +1,7 @@
 package com.egg.webApp.controladores;
+import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
+import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
@@ -52,13 +54,21 @@ public class ProfesionalControlador {
         }
     }
         @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
-        @GetMapping("/perfil")
-        public String perfilProfesional(ModelMap modelo, HttpSession session) {
+        @GetMapping("/perfil/{id}")
+        public String perfilProfesional(ModelMap modelo, HttpSession session, @PathVariable Long id) {
 
             List<Sexo> generos = enumServicio.obtenerGeneros();
             modelo.addAttribute("generos", generos);
 
-            Profesional profesional = (Profesional) session.getAttribute("usuariosession");
+            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+            Profesional profesional = null;
+
+            if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
+                profesional = profesionalServicio.getOne(id);
+            } else {
+                profesional = (Profesional) session.getAttribute("usuariosession");
+            }
+
             modelo.put("profesional", profesional);
             return "editarProfesional.html";
         }

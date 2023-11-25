@@ -73,6 +73,10 @@ public class PacienteServicio {
         }
     }
 
+    @Transactional
+    public Paciente buscarPorId(Long id){
+        return pacienteRepositorio.buscarPorId(id);
+    }
     public Paciente getOne(Long id) {
         return pacienteRepositorio.getOne(id);
     }

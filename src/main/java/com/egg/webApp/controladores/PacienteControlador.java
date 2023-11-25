@@ -4,6 +4,7 @@ import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -58,8 +59,10 @@ public class PacienteControlador {
         
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         Paciente paciente = null;
+
         if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
-            paciente = pacienteServicio.getOne(id);
+            //paciente = pacienteServicio.getOne(id);
+            paciente = pacienteServicio.buscarPorId(id);
         } else {
             paciente = (Paciente) session.getAttribute("usuariosession");
         }

@@ -62,7 +62,7 @@
                 <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
                    th:href="@{${'/'+#strings.toLowerCase(usuario.rol)+'/perfil/' + usuario.id}}">
                 -->
-                <a sec:authorize="hasRole('ADMIN')" 
+                <a th:if="${#authorization.expression('hasAnyRole(''ADMIN'')')}"
                             th:href="@{${'/'+#strings.toLowerCase(usuario.rol)+'/perfil/' + usuario.id}}"
                             method="GET">
                     <button type="submit" class="btn btn-warning btn-sm">
