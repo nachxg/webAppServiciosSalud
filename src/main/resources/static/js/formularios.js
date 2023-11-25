@@ -1,60 +1,69 @@
+document.addEventListener(function () {
+  
+    const dni = document.getElementById('dni-registro');
+    const fecha = document.getElementById('fecha-registro');
+    const matricula = document.getElementById('matricula-registro');
+    const mensaje = document.getElementById('warnings');
 
-const dni = document.getElementById('dni-registro');
-const mensajeDni = document.getElementById('warnings');
+    dni.addEventListener('input', validarDNI);
+    fecha.addEventListener('input', validarFecha);
+    matricula.addEventListener('input', validarMatricula);
 
-const maxLength = 8;
+    function validarDNI() {
+        if (dni.value.length > 8) {
+            mostrarAdvertencia("El DNI no puede tener más de 8 dígitos");
+            dni.value = "";
+        } else {
+            ocultarAdvertencia();
+        }
+    }
 
-dni.addEventListener('input', function () {
+    function validarFecha() {
+        const fechaValue = new Date(fecha.value);
+        const fechaActual = new Date();
 
-    const dniValor = dni.value;
+        if (fechaValue > fechaActual) {
+            mostrarAdvertencia("La fecha de nacimiento es incorrecta");
+            fecha.value = "";
+        } else {
+            ocultarAdvertencia();
+        }
+    }
 
-    if (dniValor.length > maxLength) {
-
-        mensajeDni.textContent = "Se superó el límite máximo, volve a intentarlo";
-
-    } else {
+    function validarMatricula() {
        
-        mensajeDni.textContent = "";
-    }
-});
+        const matriculasIngresadas = [];
 
+        const  matriculaValor = matricula.value;
 
-const matricula = document.getElementById('matricula-registro');
-const mensajeMatricula = document.getElementById('warnings');
-const arrayMatricula = [];
+   
+    if (matriculasIngresadas.includes(matriculaValor)) {
 
-matricula.addEventListener('input', function () {
-
-    const matriculaValor = matricula.value;
-
-
-    if (arrayMatricula.includes(matriculaValor)) {
-
-        mensajeMatricula.textContent = "La matricula ya fue ingresada";
-        matriculaValor.value = "";
+        mensaje.textContent = "La matricula ya fue ingresada previamente";
+        matricula.value = "";
 
     } else {
-        mensajeMatricula.textContent = "";
-        arrayMatricula.push(matriculaValor);
+
+        mensaje.textContent = "";
+        matriculasIngresadas.push(matriculaValor);
     }
-});
+        if (matriculaExiste(matricula.value)) {
+            mostrarAdvertencia("La matrícula ya está en uso");
+            matricula.value = "";
+        } else {
+            ocultarAdvertencia();
+        }
+    }
 
+    function mostrarAdvertencia(mensaje) {
+        mensaje.textContent = mensaje;
+    }
 
-const fecha = document.getElementById('fecha-registro');
-const mensajeFecha = document.getElementById('warnings');
+    function ocultarAdvertencia() {
+        mensaje.textContent = "";
+    }
 
-
-fecha.addEventListener('input', function () {
-
-    const fechaValor = new Date(fecha.value);
-    const fechaActual = new Date();
-
-    if (fechaValor > fechaActual) {
-
-        mensajeFecha.textContent = "La fecha de nacimiento es incorrecta, vuelva a intentarlo";
-        fechaInput.value = "";
-        
-    } else {
-        mensajeFecha.textContent = "";
+    function matriculaExiste(matricula) {
+        return false;
     }
 });
