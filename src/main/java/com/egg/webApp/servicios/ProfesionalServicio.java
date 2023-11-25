@@ -36,7 +36,7 @@ public class ProfesionalServicio {
 
 
     @Transactional
-    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, String fechaNacimiento) throws Exception {
+    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, LocalDate fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2,matricula, especialidad);
         Profesional profesional = new Profesional();
@@ -117,6 +117,16 @@ public class ProfesionalServicio {
         if (especialidad.isEmpty() || especialidad == null){
             throw new Exception("La especialidad no puede ser nulo o estar vacio");
         }
+        // VALIDAR QUE DNI NO ESTÉ REPETIDO
+        if (usuarioServicio.validarDNI(dni)) {
+            throw new Exception("El DNI ya existe. Por favor intente nuevamente");
+        }
+        //VALIDAR QUE LA MATRICULA NO ESTÉ REPETIDA
+        if (usuarioServicio.validarMatricula(matricula)) {
+            throw new Exception("La matricula ingresada ya existe. Por favor intente nuevamente");
+        }
+
+
     }
 
     private void validarActualizacion(String password, String password2, String sexo, String telefono, String email) throws Exception {
@@ -139,8 +149,8 @@ public class ProfesionalServicio {
 
     }
 
-    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return LocalDate.parse(fechaNacimiento, formatter);
-    }
+//    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        return LocalDate.parse(fechaNacimiento, formatter);
+//    }
 }

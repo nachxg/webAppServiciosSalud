@@ -15,6 +15,4 @@ public interface PacienteRepositorio extends JpaRepository<Paciente, Long> {
 
     @Query("SELECT p FROM Paciente p WHERE p.id = :id")
     public Paciente buscarPorId(@Param("id")Long id);
-
-
 }

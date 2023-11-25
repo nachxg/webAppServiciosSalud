@@ -61,7 +61,7 @@
             </ul>
         </div>
 
-        <form class="formulario" th:action="@{/registrar}" method="POST">
+        <form class="formulario" th:action="@{/paciente/registrar}" method="POST">
             <legend class="tipografia">Completá el Formulario de Registro para darte de alta:</legend>
             <div class="contenedor-inputs">
                 <div class="inputs">
@@ -80,7 +80,7 @@
                 </div>
                 <div class="inputs">
                     <label class="tipografia">Fecha de Nacimiento:</label>
-                    <input class="input-text" type="text" id="fecha-registro" name="fechaNacimiento"
+                    <input class="input-text" type="date" id="fecha-registro" name="fechaNacimiento"
                            placeholder="Indique su Fecha de Nacimiento">
                 </div>
                 <div class="inputs">
