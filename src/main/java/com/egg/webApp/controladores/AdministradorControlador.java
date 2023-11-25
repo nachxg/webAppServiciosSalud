@@ -41,15 +41,9 @@ public class AdministradorControlador {
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        List<Paciente> pacientes = pacienteServicio.listarPacientes();
-        List<Profesional> profesionales = profesionalServicio.listarProfesionales();
 
-        List<Object> todosUsuarios = new ArrayList<>();
-        todosUsuarios.addAll(usuarios);
-        todosUsuarios.addAll(pacientes);
-        todosUsuarios.addAll(profesionales);
 
-        modelo.addAttribute("todosUsuarios", todosUsuarios);
+        modelo.addAttribute("usuarios", usuarios);
         modelo.addAttribute("roles", enumServicio.obtenerRoles());
 
         //modelo.put("profesional", profesionalServicio.listarProfesionales());
