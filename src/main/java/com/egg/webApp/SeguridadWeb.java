@@ -40,13 +40,11 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
                 .usernameParameter("dni")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/inicio")
-                .defaultSuccessUrl("/")
                 .permitAll()
                 .and().logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
                 .permitAll().and().csrf().disable();
-
     }
 
 

@@ -1,5 +1,7 @@
 package com.egg.webApp.entidades;
 
+import com.egg.webApp.enumeraciones.ObraSocial;
+import com.egg.webApp.enumeraciones.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,9 @@ import java.util.List;
 public class Paciente extends Usuario {
 
     private String numeroObraSocial;
+
+    @Enumerated(EnumType.STRING)
+    private ObraSocial obraSocial;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Turno> turnos;
@@ -32,11 +37,5 @@ public class Paciente extends Usuario {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
-
-    /**
-     * Indica si el paciente está activo o no.
-     */
-    protected boolean altaSistema;
-
 
 }

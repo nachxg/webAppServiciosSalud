@@ -1,13 +1,14 @@
-document.getElementById('eye-toggle').addEventListener('click', function () {
-    var passwordInput = document.getElementById('password');
-    var eyeIcon = document.querySelector('#eye-toggle i');
-    if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-      eyeIcon.classList.remove('fa-eye-slash');
-      eyeIcon.classList.add('fa-eye');
-    } else {
-      passwordInput.type = 'password';
-      eyeIcon.classList.remove('fa-eye');
-      eyeIcon.classList.add('fa-eye-slash');
-    }
-  });
+const pass = document.getElementById("pass");
+      icon = document.querySelector(".bx");
+
+      icon.addEventListener("click", e => {
+        if(pass.type === "password"){
+           pass.type = "text";
+           icon.classList.remove('bx-show-alt')
+           icon.classList.add('bx-hide')
+        } else {
+            pass.type = "password";
+            icon.classList.add('bx-show-alt')
+            icon.classList.remove('bx-hide')
+        }
+      })
