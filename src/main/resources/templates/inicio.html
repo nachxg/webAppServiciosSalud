@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/inicio.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,138 +12,159 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Inicio - Sanatorio Vitalis</title>
 </head>
-
 <body>
-
-    <nav class="">
-        <div class="contenedor-logo">
-            <a class="logo" href="/inicio">
-                <img src="/img/logoColor.png" alt="" class="logo">
-            </a>
-        </div>
-        <div class="contenedor-links">
-            <a href="">Turnos</a>
-            <a href="">Especialidades</a>
-            <a href="/logout">Cerrar sesion</a>
-            <div class="contenedor-perfil">
-                <div class="nombre-perfil" th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></div>
-                <div class="profile-circle" id="profile-circle">
-                    <img th:if="${session.usuariosession.imagen != null}" th:src="@{/imagen/paciente/perfil/{id}(id=${session.usuariosession.id})}">
-                    <img th:unless="${session.usuariosession.imagen != null}" th:src="@{/img/usuario.jpg}" >
-                    <img th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
-<!--                    Logica para tener un link dinamico a diferentes rutas segun el rol de sesion-->
-                    <a th:if="${#authorization.expression('hasAnyRole(''PACIENTE'', ''PROFESIONAL'', ''ADMIN'')')}"
-                       th:href="@{${'/'+#strings.toLowerCase(session.usuariosession.rol)+'/perfil/'+ session.usuariosession.id }}">Perfil</a>
-
-                </div>
+<nav class="">
+    <div class="contenedor-logo">
+        <a class="logo" href="/inicio">
+            <img src="/img/logoColor.png" alt="" class="logo">
+        </a>
+    </div>
+    <div class="contenedor-links">
+        <a href="">Turnos</a>
+        <a href="">Especialidades</a>
+        <a href="/logout">Cerrar session</a>
+        <div class="contenedor-perfil">
+            <div>
+                <a class="nombre-perfil"
+                   th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"
+                   th:if="${#authorization.expression('hasAnyRole(''PACIENTE'', ''PROFESIONAL'', ''ADMIN'')')}"
+                   th:href="@{${'/'+#strings.toLowerCase(session.usuariosession.rol)+'/perfil/'+ session.usuariosession.id }}">Perfil</a>
+            </div>
+            <div id="profile-circle">
+                <!--                    Logica para tener un link dinamico a diferentes rutas segun el rol de sesion&ndash -->
+                <img class="profile-circle" th:if="${session.usuariosession.imagen != null}"
+                     th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
+                <img th:unless="${session.usuariosession.imagen != null}" th:src="@{/img/usuario.jpg}">
             </div>
         </div>
-    </nav>
-
-    <main>
-
-        <div class="encabezado1">
-
-            <div class="seccion-turnos">
-                <div class="seccion">
-                    <div class="icono">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
-                            class="bi bi-calendar-plus" viewBox="0 0 16 16">
-                            <path
-                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z" />
-                            <path
-                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                        </svg>
-                    </div>
-                    <div class="texto">Nuevo turno</div>
+    </div>
+</nav>
+<main>
+    <div class="encabezado1">
+        <div class="seccion-turnos">
+            <div class="seccion">
+                <div class="icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
+                         class="bi bi-calendar-plus" viewBox="0 0 16 16">
+                        <path
+                                d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                        <path
+                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                    </svg>
                 </div>
-                <div class="seccion">
-                    <div class="icono">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
-                            class="bi bi-calendar-heart" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Zm7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
-                        </svg>
-                    </div>
-                    <div class="texto">Mis turnos</div>
+                <div class="texto">Nuevo turno</div>
+            </div>
+            <div class="seccion">
+                <div class="icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
+                         class="bi bi-calendar-heart" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Zm7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                    </svg>
                 </div>
-                <div class="seccion">
-                    <div class="icono">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
-                            class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
-                            <path
-                                d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
-                            <path
-                                d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z" />
-                            <path
-                                d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128L9.979 5.356Z" />
-                        </svg>
-                    </div>
-                    <div class="texto">Mis estudios</div>
+                <div class="texto">Mis turnos</div>
+            </div>
+            <div class="seccion">
+                <div class="icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
+                         class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
+                        <path
+                                d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
+                        <path
+                                d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z"/>
+                        <path
+                                d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128L9.979 5.356Z"/>
+                    </svg>
                 </div>
-                <div class="seccion">
-                    <div class="icono">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
-                            class="bi bi-person-heart" viewBox="0 0 16 16">
-                            <path
-                                d="M9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h10s1 0 1-1-1-4-6-4-6 3-6 4Zm13.5-8.09c1.387-1.425 4.855 1.07 0 4.277-4.854-3.207-1.387-5.702 0-4.276Z" />
-                        </svg>
-                    </div>
-                    <div class="texto">
-                        Grupo familiar
-                    </div>
+                <div class="texto">Mis estudios</div>
+            </div>
+            <div class="seccion">
+                <div class="icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
+                         class="bi bi-person-heart" viewBox="0 0 16 16">
+                        <path
+                                d="M9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h10s1 0 1-1-1-4-6-4-6 3-6 4Zm13.5-8.09c1.387-1.425 4.855 1.07 0 4.277-4.854-3.207-1.387-5.702 0-4.276Z"/>
+                    </svg>
+                </div>
+                <div class="texto">
+                    Grupo familiar
                 </div>
             </div>
-
-            <div class="saludo">
-                <h1>BIENVENIDO, <span class="text-capitalize" th:text="${session.usuariosession?.nombre + ' ' + session.usuariosession?.apellido}"></span>.</h1>
-            </div>
-
-        </div>
-    </main>
-    <footer class="pie">
-        <div class="links">
-            <div class="seccion-nav">
-                <p class="titulo-sec">Nosotros</p>
-                <div>
-                    <a>Autoridades</a>
-                    <a>Preguntas frecuentes</a>
-                    <a>Términos y condiciones</a>
+            <div class="seccion">
+                <div class="icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                    </svg>
                 </div>
+                <div class="texto">Usuarios</div>
             </div>
-            <div class="seccion-nav">
-                <p class="titulo-sec">Pacientes</p>
-                <div>
-                    <a href="#seccion1" onclick="cambiarCartel('pac')">Información</a>
-                    <a>Lorem ipsum</a>
-                    <a>Lorem ipsum</a>
+            <div class="seccion">
+                <div class="icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                    </svg>
                 </div>
+                <div class="texto" th:src="@{/admin/dashboard/pacientes}">Pacientes</div>
             </div>
-            <div class="seccion-nav">
-                <p class="titulo-sec">Profesionales</p>
-                <div>
-                    <a href="#seccion2" onclick="cambiarCartel('prof')">Información</a>
-                    <a>Lorem ipsum</a>
-                    <a>Lorem ipsum</a>
+            <div class="seccion">
+                <div class="icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                    </svg>
                 </div>
-            </div>
-            <div class="seccion-nav">
-                <p class="titulo-sec">Contacto</p>
-                <div>
-                    <a>Lorem ipsum</a>
-                    <a>Lorem ipsum</a>
-                    <a>Lorem ipsum</a>
-                </div>
+                <div class="texto">Profesionales</div>
             </div>
         </div>
-        <div class="tyc">
-            &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
+        <div class="saludo">
+            <h1>BIENVENIDO, <span class="text-capitalize" th:text="${session.usuariosession?.nombre + ' ' + session.usuariosession?.apellido}"></span>.
+            </h1>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    </div>
+
+</main>
+<footer class="pie">
+    <div class="links">
+        <div class="seccion-nav">
+            <p class="titulo-sec">Nosotros</p>
+            <div>
+                <a>Autoridades</a>
+                <a>Preguntas frecuentes</a>
+                <a>Términos y condiciones</a>
+            </div>
+        </div>
+        <div class="seccion-nav">
+            <p class="titulo-sec">Pacientes</p>
+            <div>
+                <a href="#seccion1" onclick="cambiarCartel('pac')">Información</a>
+                <a>Lorem ipsum</a>
+                <a>Lorem ipsum</a>
+            </div>
+        </div>
+        <div class="seccion-nav">
+            <p class="titulo-sec">Profesionales</p>
+            <div>
+                <a href="#seccion2" onclick="cambiarCartel('prof')">Información</a>
+                <a>Lorem ipsum</a>
+                <a>Lorem ipsum</a>
+            </div>
+        </div>
+        <div class="seccion-nav">
+            <p class="titulo-sec">Contacto</p>
+            <div>
+                <a>Lorem ipsum</a>
+                <a>Lorem ipsum</a>
+                <a>Lorem ipsum</a>
+            </div>
+        </div>
+    </div>
+    <div class="tyc">
+        &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="/js/script.js"></script>
+<script src="/js/script.js"></script>
 </body>
 </html>
 

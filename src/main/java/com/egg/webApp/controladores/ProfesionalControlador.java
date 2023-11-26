@@ -1,5 +1,4 @@
 package com.egg.webApp.controladores;
-import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 @Controller
 @RequestMapping("/profesional")
@@ -90,9 +88,7 @@ public class ProfesionalControlador {
 
     @GetMapping("/especialidad")
     public String especialidad(ModelMap modelo) {
-
         modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
-
         return "especialidades.html";
     }
 

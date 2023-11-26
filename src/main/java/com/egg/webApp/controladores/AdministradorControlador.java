@@ -87,4 +87,5 @@ public class AdministradorControlador {
         modelo.addAttribute("generos", enumServicio.obtenerGeneros());
         return "lista_pacientes.html";
     }
+
 }

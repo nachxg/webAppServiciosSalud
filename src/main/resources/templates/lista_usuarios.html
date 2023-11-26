@@ -39,7 +39,10 @@
             <td th:text="${usuario.email}"></td>
             <td th:text="${usuario.rol}"></td>
               <td th:text="${#temporals.format(usuario.fechaAlta, 'dd/MM/yyyy HH:mm:ss')}"></td>
-              <td th:text="${usuario.imagen}"></td>
+              <td>
+                  <img class="rounded-3"  style="width: 50px;"
+                       alt="Avatar" th:src="@{/imagen/perfil/__${usuario.id}__}"/>
+              </td>
             <td th:text="${usuario.altaSistema}"></td>
               <td><form th:action="@{/admin/dashboard/cambiar-rol}" method="post" class="form-inline-sm mt-3">
                   <div class="input-group">
