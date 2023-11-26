@@ -85,6 +85,7 @@ public class ProfesionalControlador {
         return "especialidades.html";
     }
 
+    /*
     @GetMapping("/grupo_familiar")
     public String grupoFamiliar(ModelMap modelo){
 
@@ -97,5 +98,5 @@ public class ProfesionalControlador {
     public String crearFamiliar(){
 
     }
-
+*/
 }
