@@ -62,7 +62,7 @@ public class HistorialClinicoServicio {
 
     public List<HistoriaClinica> listaDeHistorialesClinicosPorPaciente(Long idPaciente) {
         List<HistoriaClinica> historiales = new ArrayList();
-        historiales = historialClinicoRepositorio.buscarHistorialesPorIdPaciente(idPaciente);
+       // historiales = historialClinicoRepositorio.buscarHistorialesPorIdPaciente(idPaciente);
         return historiales;
     }
 

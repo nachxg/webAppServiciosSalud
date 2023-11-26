@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TurnoRepositorio extends JpaRepository<Turno, Long> {
 
-    @Query("SELECT t FROM turnos t WHERE t.paciente_id = :id")
+  /*  @Query("SELECT t FROM turnos t WHERE t.paciente_id = :id")
     public List<Turno> buscarTurnosPorIdPaciente(@Param("id") Long id);
 
 
@@ -24,5 +24,5 @@ public interface TurnoRepositorio extends JpaRepository<Turno, Long> {
     public List<Turno> todosLosTurnosDeProfecional(@Param("id") Long id);
     
     @Query("SELECT t FROM turnos t WHERE t.especialidad = :especialidad")
-    public List<Turno> todosLosTurnosPorEspecialidad(@Param("especialidad") String especialidad);
+    public List<Turno> todosLosTurnosPorEspecialidad(@Param("especialidad") String especialidad);*/
 }

@@ -63,7 +63,7 @@ public class TurnoServicio {
             turnoRepositorio.save(turno);
         }
     }
-
+/*
     public List<Turno> listaDeTurnosDisponibles(Long idProfecional) {
         List<Turno> turnos = turnoRepositorio.buscarTurnosDisponiblesDeProfecional(idProfecional);
         return turnos;
@@ -88,7 +88,7 @@ public class TurnoServicio {
         List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPacienteAtendido(idPaciente);
         return turnos;
     }
-    
+    */
     public Turno getOne(Long id){
         return turnoRepositorio.getOne(id);
     }
