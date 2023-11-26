@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.security.access.prepost.PreAuthorize;
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalControlador {
@@ -39,6 +38,7 @@ public class ProfesionalControlador {
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
                            @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo, @RequestParam String matricula,
+                           @RequestParam String especialidad, @RequestParam String fechaNacimiento, ModelMap modelo) {
                            @RequestParam String especialidad, @RequestParam @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
 
         try {
@@ -57,8 +57,8 @@ public class ProfesionalControlador {
         @GetMapping("/perfil/{id}")
         public String perfilProfesional(ModelMap modelo, HttpSession session, @PathVariable Long id) {
 
-            List<Sexo> generos = enumServicio.obtenerGeneros();
-            modelo.addAttribute("generos", generos);
+        List<Sexo> generos = enumServicio.obtenerGeneros();
+        modelo.addAttribute("generos", generos);
 
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
             Profesional profesional = null;
@@ -72,25 +72,25 @@ public class ProfesionalControlador {
             modelo.put("profesional", profesional);
             return "editarProfesional.html";
         }
-        
+
         @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
         @PostMapping("/perfil/{id}")
         public String actualizarProfesional(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
                 @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {
 
-            try {
-                profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
+        try {
+            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
+            modelo.put("exito", "Profesional actualizado con exito");
+            return "inicio.html";
 
-                return "inicio.html";
-
-            } catch (Exception e) {
-                System.out.println("ERROR ERROR "+ e.getMessage());
-                return "editarProfesional.html";
-            }
+        } catch (Exception e) {
+            modelo.put("error", e.getMessage());
+            return "editarProfesional.html";
         }
+    }
 
     @GetMapping("/especialidad")
-    public String especialidad(ModelMap modelo){
+    public String especialidad(ModelMap modelo) {
 
         modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
 

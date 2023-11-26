@@ -23,7 +23,8 @@
                   <form th:action="@{/paciente/perfil/__${paciente.id}__}" method="POST" enctype="multipart/form-data">
                       <input hidden th:value="${id}" name="id">
                       <div class="profile-image">
-                          <img th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}" alt="Imagen de perfil">
+                          <img th:if="${session.usuariosession.imagen != null}" th:src="@{/imagen/paciente/perfil/{id}(id=${session.usuariosession.id})}">
+                          <img th:unless="${session.usuariosession.imagen != null}" th:src="@{/img/usuario.jpg}" >
                      </div>
                   <div class="mb-3">
                    <label for="formFile" class="form-label">Cambiar foto de Perfil.</label>
@@ -56,9 +57,9 @@
                           <input type="password" class="form-control" name="password2" placeholder="REPETIR PASSWORD">
                       </div>
                  <label class="mt-3" for="obraSocial">Obra social:</label>
-                 <input type="text" id="obraSocial" name="obraSocial" placeholder="OSDE" >
-                 <label for="afiliado">Numero de Afiliado:</label>
-                 <input type="tel" id="afiliado" name="afiliado" th:placeholder="${paciente.numeroObraSocial}" readonly>
+                 <input type="text" id="obra Social" name="obraSocial" placeholder="Obra Social" >
+                 <label for="afiliado">Número de Afiliado:</label>
+                 <input type="tel" id="afiliado" name="afiliado" placeholder="Numero de Afiliado" >
                  <button type="submit" class="btn btn-custom-color  btn-block mt-3">Guardar cambios</button>
             </form>
         </div>
