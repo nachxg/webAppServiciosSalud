@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,17 +65,26 @@ public class AdministradorControlador {
         }
     }
     @GetMapping("/usuario/baja/{id}")
-    public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo) {
+    public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo,  HttpServletRequest request) {
         try {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");
-            return "redirect:/admin/dashboard";
+            String referencia = request.getHeader("Referer");
+            if (referencia != null && referencia.contains("/admin/dashboard/pacientes")) {
+                return "redirect:/admin/dashboard/pacientes";
+            } else {
+                return "redirect:/admin/dashboard";
+            }
         } catch (MiExcepcion e) {
             modelo.addAttribute("error", "Mensaje Admin "+e.getMessage());
             return "redirect:/admin/dashboard";
         }
     }
-
-
-
+    @GetMapping("/dashboard/pacientes")
+    public String listarPacientes(ModelMap modelo) {
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+        modelo.addAttribute("generos", enumServicio.obtenerGeneros());
+        return "lista_pacientes.html";
+    }
 }

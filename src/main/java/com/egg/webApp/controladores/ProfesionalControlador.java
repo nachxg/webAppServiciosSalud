@@ -8,6 +8,7 @@ import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +38,8 @@ public class ProfesionalControlador {
 
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
-                           @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo, @RequestParam String matricula,
-                           @RequestParam String especialidad, @RequestParam String fechaNacimiento, ModelMap modelo) {
+                           @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo, @RequestParam String matricula, ModelMap modelo,
                            @RequestParam String especialidad, @RequestParam @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
-
         try {
 
             profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad, fechaNacimiento);
