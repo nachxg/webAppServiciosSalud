@@ -15,10 +15,11 @@
 
     <nav class="">
         <a class="logo" href="/">
-            <img src="../static/img/logoColor.png" alt="" class="logo">
+            <img src="/img/logoColor.png" alt="" class="logo">
         </a>
-        <a href="#">Volver a Inicio</a>
-        
+        <div class="volver">
+        <a href="/">Volver a Inicio</a>
+        </div>
     </nav>
 
 
@@ -58,6 +59,10 @@
                     <p> "Confirme la contraseña ingresada anteriormente. Esto ayuda a prevenir errores y asegura que haya ingresado
                         la contraseña deseada. Asegúrese de que coincida exactamente con la contraseña anterior."</p>
                 </li>
+                <li>
+                    <h3>Genero </h3>
+                    <p> "Ingrese el genero, esto nos ayudara a diferenciar mejor su identidad"</p>
+                </li>
             </ul>
         </div>
 
@@ -80,7 +85,7 @@
                 </div>
                 <div class="inputs">
                     <label class="tipografia">Fecha de Nacimiento:</label>
-                    <input class="input-text" type="date" id="fecha-registro" name="fechaNacimiento"
+                    <input class="input-text" type="text" id="fecha-registro" name="fechaNacimiento"
                            placeholder="Indique su Fecha de Nacimiento">
                 </div>
                 <div class="inputs">
@@ -94,7 +99,7 @@
                            placeholder="Confirme su Contraseña">
                 </div>
                 <div class="inputs opcion-genero">
-                     <label class="tipografia" for="inputGroupSelect">Genero</label>
+                     <label class="tipografia" for="genero-registro">Genero</label>
                      <select class="input-text" id="inputGroupSelect" name="sexo">
                          <option selected>Elige...</option>
                          <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>

@@ -89,12 +89,14 @@ let estadoFlecha = false;
 linkProf.addEventListener("click", function(){
 
     if(!estadoFlecha){
+        linkProf.classList.add("link-click");
         icono.classList.add("rotar");
         desplegable.style.maxHeight = "20%";
         desplegable.style.visibility = "visible";
         desplegable.style.opacity = "1";
         estadoFlecha = true;
     } else {
+        linkProf.classList.remove("link-click");
         icono.classList.remove("rotar");
         desplegable.style.maxHeight = "0";
         desplegable.style.visibility = "hidden";
