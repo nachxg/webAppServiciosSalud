@@ -32,6 +32,7 @@
                     <img th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
 <!--                    Logica para tener un link dinamico a diferentes rutas segun el rol de sesion-->
                     <a th:if="${#authorization.expression('hasAnyRole(''PACIENTE'', ''PROFESIONAL'', ''ADMIN'')')}"
+                       th:href="@{${'/'+#strings.toLowerCase(session.usuariosession.rol)+'/perfil/'+ ${session.usuariosession.id}}}">Perfil</a>
                        th:href="@{${'/'+#strings.toLowerCase(session.usuariosession.rol)+'/perfil/'+ session.usuariosession.id }}">Perfil</a>
 
                 </div>

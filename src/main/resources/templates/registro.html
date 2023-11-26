@@ -94,7 +94,7 @@
                            placeholder="Confirme su Contraseña">
                 </div>
                 <div class="inputs opcion-genero">
-                     <label class="tipografia" for="genero-registro">Genero</label>
+                     <label class="tipografia" for="inputGroupSelect">Genero</label>
                      <select class="input-text" id="inputGroupSelect" name="sexo">
                          <option selected>Elige...</option>
                          <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>

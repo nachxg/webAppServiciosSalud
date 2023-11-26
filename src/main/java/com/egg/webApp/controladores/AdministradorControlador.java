@@ -1,5 +1,8 @@
 package com.egg.webApp.controladores;
 
+import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.entidades.Profesional;
+import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,8 +40,11 @@ public class AdministradorControlador {
     
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
 
-        modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
+
+        modelo.addAttribute("usuarios", usuarios);
+        modelo.addAttribute("roles", enumServicio.obtenerRoles());
 
         //modelo.put("profesional", profesionalServicio.listarProfesionales());
         modelo.put("roles", enumServicio.obtenerRoles());

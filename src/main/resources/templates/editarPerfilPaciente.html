@@ -3,28 +3,16 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Registro de Libros</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/formulario.css">
-<<<<<<< HEAD
-=======
-=======
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Registro de Libros</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/formularios.css">
->>>>>>> 254842d979e1af6b91acc0ff89883e472872c617:src/main/resources/templates/editarPerfil.html
->>>>>>> 2f55fdee2cf0d76aec140d35d58136a7b037dfc8
+    <link rel="stylesheet" href="/css/formularios.css">
 </head>
 <body>
 
 
 <div class="container-fluid m-5 contenedor">
-    <form class="formulario" th:action="@{/perfil/__${paciente.id}__}" method="POST" enctype="multipart/form-data">
 
+    <form class="formulario" th:action="@{/perfil/__${paciente.id}__}" method="POST" enctype="multipart/form-data">
         <input hidden th:value="${id}" name="id">
 
         <div class="form-group my-3">
@@ -37,7 +25,7 @@
             <input type="text" class="form-control" name="fechaNacimiento" placeholder="fechaNacimiento">
         </div>
         <div class="form-group my-3">
-            <input type="text" class="form-control" name="telefono" placeholder="telefono">
+            <input type="text" class="form-control" name="telefono" th:value="${paciente.numeroObraSocial}" placeholder="telefono">
         </div>
         <div class="form-group my-3">
             <input type="password" class="form-control" name="password" placeholder="PASSWORD">
