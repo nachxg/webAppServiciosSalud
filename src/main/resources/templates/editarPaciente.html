@@ -34,7 +34,7 @@
                    <input class="form-control" type="file" id="formFile" name="archivo">
                   </div>
                  <label for="nombre">Nombre:</label>
-                 <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                 <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:placeholder="${paciente.nombre}" readonly>
 
                  <label for="apellido">Apellido:</label>
                  <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
