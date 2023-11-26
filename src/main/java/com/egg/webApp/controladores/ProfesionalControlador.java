@@ -85,4 +85,17 @@ public class ProfesionalControlador {
         return "especialidades.html";
     }
 
+    @GetMapping("/grupo_familiar")
+    public String grupoFamiliar(ModelMap modelo){
+
+        modelo.addAttribute("familiares", profesionalServicio.listarFamiliar());
+
+        return "lista_familiar.html";
+    }
+
+    @PostMapping("/agregar_familiar")
+    public String crearFamiliar(){
+
+    }
+
 }

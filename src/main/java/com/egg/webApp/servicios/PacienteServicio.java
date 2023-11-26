@@ -1,5 +1,6 @@
 package com.egg.webApp.servicios;
 
+import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
@@ -117,6 +118,7 @@ public class PacienteServicio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
+
 
 
 }
