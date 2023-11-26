@@ -36,25 +36,32 @@
         </form>
     </section><br><br>
 
-    <section class="filtro-letras">
+    <section class="filtro-letras"id="lista-botones">
         <h4>Las especialidades están ordenadas alfabéticamente. Elija la letra de la especialidad que desea consultar:</h4>
-        <button onclick="mostrarEspecialidades('A-B')">A-B</button>
-        <button onclick="mostrarEspecialidades('C')">C</button>
-        <button onclick="mostrarEspecialidades('D-E')">D-E</button>
-        <button onclick="mostrarEspecialidades('F-G')">F-G</button>
-        <button onclick="mostrarEspecialidades('H-I-K')">H-I-K</button>
-        <button onclick="mostrarEspecialidades('L-M')">L-M</button>
-        <button onclick="mostrarEspecialidades('N')">N</button>
-        <button onclick="mostrarEspecialidades('O-P')">O-P</button>
-        <button onclick="mostrarEspecialidades('R-S')">R-S</button>
-        <button onclick="mostrarEspecialidades('T-U')">T-U</button>
+        <button onclick="mostrarEspecialidades(this, 'A-B')">A-B</button>
+  <button onclick="mostrarEspecialidades(this, 'C')">C</button>
+  <button onclick="mostrarEspecialidades(this, 'D-E')">D-E</button>
+  <button onclick="mostrarEspecialidades(this, 'F-G')">F-G</button>
+  <button onclick="mostrarEspecialidades(this, 'H-I-K')">H-I-K</button>
+  <button onclick="mostrarEspecialidades(this, 'L-M')">L-M</button>
+  <button onclick="mostrarEspecialidades(this, 'N')">N</button>
+  <button onclick="mostrarEspecialidades(this, 'O-P')">O-P</button>
+  <button onclick="mostrarEspecialidades(this, 'R-S')">R-S</button>
+  <button onclick="mostrarEspecialidades(this, 'T-U')">T-U</button>
 
-    </section><br><br><br>
-
-    <section id="especialidades-container"class="centrado">
-        <!-- Aquí se mostrarán las especialidades -->
-        <ul id="lista-especialidades"></ul>
     </section>
+
+    <section id="especialidades-container" class="centrado">
+        <!-- Aquí se mostrarán las especialidades -->
+        <div class="contenedor-lista" id="contenedor-lista">
+            <ul id="lista-especialidades"></ul>
+        </div>
+    
+        <div class="descrip-especia">
+            <p id="descripcion-especialidad"></p>
+        </div>
+    </section>
+    
 
     <footer class="pie">
         <div class="links">
