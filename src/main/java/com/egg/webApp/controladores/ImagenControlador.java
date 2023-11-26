@@ -30,42 +30,7 @@ public class ImagenControlador {
     UsuarioServicio usuarioServicio;
     @Autowired
     ProfesionalServicio profesionalServicio;
-
-    //    @GetMapping("/perfil/paciente/{id}")
-//    public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long  id){
-//
-//        Paciente paciente = pacienteServicio.getOne(id);
-//        byte[] imagen =  paciente.getImagen().getContenido();
-//
-//        HttpHeaders headers = new HttpHeaders();
-//
-//        // Metodo para que se pueda ingresar cualquier tipo de imagen (png, jpg, gif, etc)
-//        String mime = paciente.getImagen().getMime().toLowerCase();
-//
-//        MediaType tipo = MediaType.parseMediaType("image/" + mime.replace("/", "_"));
-//
-//        headers.setContentType(tipo);
-//
-//        return new ResponseEntity<>(imagen,headers, HttpStatus.OK);
-//    }
-//    @GetMapping("/perfil/profesional/{id}")
-//    public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long  id){
-//
-//        Usuario usuario = usuarioServicio.getOne(id);
-//        byte[] imagen =  usuario.getImagen().getContenido();
-//
-//        HttpHeaders headers = new HttpHeaders();
-//
-//        // Metodo para que se pueda ingresar cualquier tipo de imagen (png, jpg, gif, etc)
-//        String mime = usuario.getImagen().getMime().toLowerCase();
-//
-//        MediaType tipo = MediaType.parseMediaType("image/" + mime.replace("/", "_"));
-//
-//        headers.setContentType(tipo);
-//
-//        return new ResponseEntity<>(imagen,headers, HttpStatus.OK);
-//    }
-    @GetMapping("/profesional/perfil/{id}")
+    @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.getOne(id);
 
@@ -79,34 +44,4 @@ public class ImagenControlador {
         return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/paciente/perfil/{id}")
-    public ResponseEntity<byte[]> imagenPaciente(@PathVariable Long id) {
-        Usuario usuario = usuarioServicio.getOne(id);
-
-
-        Imagen imagen = usuario.getImagen();
-        byte[] contenido = imagen.getContenido();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-
-        return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
-    }
-
-    @GetMapping("/admin/perfil/{id}")
-    public ResponseEntity<byte[]> imagenAdmin(@PathVariable Long id) {
-
-        Usuario usuario = usuarioServicio.getOne(id);
-
-
-        Imagen imagen = usuario.getImagen();
-        byte[] contenido = imagen.getContenido();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-
-        return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
-    }
-
 }
-

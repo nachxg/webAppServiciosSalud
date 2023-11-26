@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <title>Formulario Registro</title>
 </head>
-
 <body>
-
     <nav class="">
         <a class="logo" href="/">
             <img src="/img/logoColor.png" alt="" class="logo">
@@ -21,15 +18,10 @@
         <div class="volver">
         <a href="/">Volver a Inicio</a>
         </div>
-
     </nav>
-
-
     <main class="cuerpo-main">
         <div class="imagen-principal">
             <h2 hidden style="color: white;">Desde la imagen principal</h2>
-
- 
         </div>
         <div class="grid-principal">
             <div class="sidebar">
@@ -87,7 +79,6 @@
                     </li>
                 </ul>
             </div>
-
             <form class="formulario" th:action="@{/paciente/registrar}" method="POST">
                 <legend class="legend">Completá el Formulario de Registro para darte de alta:</legend>
                 <div class="contenedor-inputs">
@@ -142,11 +133,9 @@
                     <button class="boton-enviar" type="submit">Registrarse</button>
                     <p th:if="${error != null}" class="warnings" id="warnings"></p>
                 </div>
-
             </form>
         </div>
     </main>
-
     <footer class="pie">
         <div class="links">
             <div class="seccion-nav">
@@ -183,14 +172,10 @@
             &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
         </div>
     </footer>
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
     <script src="/js/formularios.js"></script>
-
-
 </body>
-
 </html>
