@@ -67,7 +67,7 @@ public class PacienteControlador {
             paciente = (Paciente) session.getAttribute("usuariosession");
         }
        
-        modelo.put("paciente", paciente.getNumeroObraSocial());
+        modelo.put("paciente", paciente);
         return "editarPaciente.html";
     }
     
