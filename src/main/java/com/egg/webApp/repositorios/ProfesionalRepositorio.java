@@ -20,6 +20,7 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Long>
     public Profesional buscarPorId(@Param("id")Long id);
 
     public Boolean existsByMatricula(String matricula);
-    @Query("SELECT p FROM Profesional p WHERE p.especialidad = :especialidad")
-    List<Profesional> buscarPorEspecialidad(@Param("especialidad") Especialidad especialidad);
+    @Query("SELECT p FROM Profesional p WHERE LOWER(REPLACE(p.especialidad, ' ', '_')) LIKE LOWER(CONCAT('%', :especialidad, '%'))")
+    List<Profesional> buscarPorEspecialidadContiene(@Param("especialidad") String especialidad);
+
 }

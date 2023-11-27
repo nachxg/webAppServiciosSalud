@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
+import java.text.Normalizer;
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalControlador {
@@ -91,10 +92,27 @@ public class ProfesionalControlador {
         modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
         return "especialidades.html";
     }
+
     @PostMapping("/buscar_por_especialidad")
     public String buscarPorEspecialidad(ModelMap modelo, @RequestParam String especialidad) {
-        modelo.addAttribute("profesionales", profesionalServicio.buscarPorEspecialidad(especialidad));
+        // Normalizar la especialidad proporcionada por el usuario
+        String especialidadNormalizada = normalizarTexto(especialidad);
+
+        // Obtener la lista de profesionales filtrada por especialidad
+        List<Profesional> profesionales = profesionalServicio
+                .buscarPorEspecialidad(especialidadNormalizada);
+
+        if (profesionales.isEmpty()) {
+            modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad: " + especialidad);
+        } else {
+            modelo.addAttribute("profesionales", profesionales);
+        }
+
         return "especialidades.html";
+    }
+
+    private String normalizarTexto(String especialidad) {
+        return especialidad.replaceAll("\\s", "_").toLowerCase();
     }
 
     @GetMapping("/inicio")

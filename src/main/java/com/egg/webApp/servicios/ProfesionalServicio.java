@@ -163,7 +163,7 @@ public class ProfesionalServicio {
     }
 
     public List<Profesional> buscarPorEspecialidad(String especialidad) {
-        return profesionalRepositorio.buscarPorEspecialidad(Especialidad.valueOf(especialidad));
+        return profesionalRepositorio.buscarPorEspecialidadContiene(especialidad);
     }
 
     public Profesional buscarPorId(Long id) {
