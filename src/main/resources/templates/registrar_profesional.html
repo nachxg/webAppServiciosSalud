@@ -104,8 +104,8 @@
                        placeholder="Confirme su Contraseña">
             </div>
             <div class="inputs opcion-genero">
-                <label class="tipografia" for="genero-registro">Genero</label>
-                <select class="input-text" id="inputGroupSelect" name="sexo">
+                <label class="tipografia" for="opcion-genero">Genero</label>
+                <select class="input-text" id="opcion-genero" name="sexo">
                     <option selected>Elige...</option>
                     <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
                 </select>
@@ -114,13 +114,13 @@
 
         <div class="inputs">
             <label class="tipografia">Matricula:</label>
-            <input class="input-text" type="text" id="password2-registro" name="matricula"
+            <input class="input-text" type="text" id="matricula" name="matricula"
                    placeholder="Matricula de profesional">
         </div>
 
         <div class="inputs opcion-genero">
         <label class="tipografia" for="especialidad-registro">Especialidad</label>
-            <select class="input-text" id="inputGroupSelect" name="especialidad">
+            <select class="input-text" id="especialidad-registro" name="especialidad">
                 <option selected>Elige...</option>
                 <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}"></option>
             </select>
@@ -162,7 +162,7 @@
         <div class="seccion-nav">
             <p class="titulo-sec">Contacto</p>
             <div>
-                <a href="tu-link-de-WhatsApp" target="_blank">
+                <a href="https://chat.whatsapp.com/11-1234-5678" target="_blank">
                     <i class="fab fa-whatsapp"></i> 11-1234-5678
                 </a>
             </div>
