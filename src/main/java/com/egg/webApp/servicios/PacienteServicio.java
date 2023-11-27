@@ -1,8 +1,10 @@
 package com.egg.webApp.servicios;
 
+import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.repositorios.PacienteRepositorio;
@@ -44,7 +46,7 @@ public class PacienteServicio {
     }
 
     @Transactional
-    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
+    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo, String obraSocial, String numeroObraSocial) throws Exception {
 
 
         Optional<Paciente> respuesta = pacienteRepositorio.findById(id);
@@ -58,6 +60,8 @@ public class PacienteServicio {
             paciente.setRol(Rol.PACIENTE);
             paciente.setTelefono(telefono);
             paciente.setSexo(Sexo.valueOf(sexo));
+            paciente.setObraSocial(ObraSocial.valueOf(obraSocial));
+            paciente.setNumeroObraSocial(numeroObraSocial);
 
 
             Long idImagen = null;
@@ -121,6 +125,5 @@ public class PacienteServicio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
-
-
 }
+

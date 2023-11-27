@@ -12,7 +12,7 @@
         <a class="logo" href="/inicio">
             <img src="/img/logoColor.png" alt="" class="logo">
         </a>
-        <a href="">Volver a inicio</a>
+        <a href="/inicio">Volver a inicio</a>
         </nav>
       <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
@@ -20,7 +20,7 @@
             <div class="card">
               <div class="card-body">
                 
-            <form th:action="@{/profesional/perfil/__${profesional.id}__}" method="POST" enctype="multipart/form-data">
+            <form th:action="@{/perfil/__${profesional.id}__}" method="POST" enctype="multipart/form-data">
                 <input hidden th:value="${id}" name="id">
                 <div class="profile-image">
                     <img th:if="${session.usuariosession.imagen != null}" th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
