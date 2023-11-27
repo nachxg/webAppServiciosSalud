@@ -2,10 +2,13 @@ package com.egg.webApp.repositorios;
 
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
+import com.egg.webApp.enumeraciones.Especialidad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ProfesionalRepositorio extends JpaRepository<Profesional, Long> {
@@ -17,4 +20,6 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Long>
     public Profesional buscarPorId(@Param("id")Long id);
 
     public Boolean existsByMatricula(String matricula);
+    @Query("SELECT p FROM Profesional p WHERE p.especialidad = :especialidad")
+    List<Profesional> buscarPorEspecialidad(@Param("especialidad") Especialidad especialidad);
 }

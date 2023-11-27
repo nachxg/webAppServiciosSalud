@@ -162,6 +162,14 @@ public class ProfesionalServicio {
 
     }
 
+    public List<Profesional> buscarPorEspecialidad(String especialidad) {
+        return profesionalRepositorio.buscarPorEspecialidad(Especialidad.valueOf(especialidad));
+    }
+
+    public Profesional buscarPorId(Long id) {
+        return profesionalRepositorio.buscarPorId(id);
+    }
+
 
 //    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

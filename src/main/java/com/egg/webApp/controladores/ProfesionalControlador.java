@@ -91,6 +91,19 @@ public class ProfesionalControlador {
         modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
         return "especialidades.html";
     }
+    @PostMapping("/buscar_por_especialidad")
+    public String buscarPorEspecialidad(ModelMap modelo, @RequestParam String especialidad) {
+        modelo.addAttribute("profesionales", profesionalServicio.buscarPorEspecialidad(especialidad));
+        return "especialidades.html";
+    }
+
+    @GetMapping("/inicio")
+    public String inicioProfesional(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Profesional profesional = profesionalServicio.buscarPorId(usuario.getId());
+        modelo.put("profesional", profesional);
+        return "inicioProfesional.html";
+    }
 
     /*
     @GetMapping("/grupo_familiar")

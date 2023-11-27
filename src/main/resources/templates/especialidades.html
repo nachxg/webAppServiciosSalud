@@ -35,8 +35,10 @@
 </section>
 
 <section class="busqueda">
-    <form>
-        <input type="text" placeholder="Buscar Especialidades...">
+    <form th:action="@{/profesional/buscar_por_especialidad}" method="post">
+        <label>
+            <input type="text" name="especialidad" placeholder="Buscar Especialidades...">
+        </label>
         <button type="submit">Buscar</button>
     </form>
 </section>
@@ -60,7 +62,12 @@
 <section id="especialidades-container" class="centrado">
     <!-- Aquí se mostrarán las especialidades -->
     <div class="contenedor-lista" id="contenedor-lista">
-        <ul id="lista-especialidades"></ul>
+        <ul th:each="profesional : ${profesionales}" id="lista-especialidades">
+            <li>
+                <a th:text="${profesional.nombre} + ' ' + ${profesional.apellido}"></a>
+            </li>
+        </ul>
+
     </div>
 
     <div class="descrip-especia">

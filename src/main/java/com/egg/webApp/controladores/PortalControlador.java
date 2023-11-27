@@ -39,7 +39,13 @@ public class PortalControlador {
         modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
         
         if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/inicio";
+            return "redirect:/inicio";
+        }
+        if (logueado.getRol().toString().equals("PACIENTE")) {
+            return "redirect:/paciente/inicio";
+        }
+        if (logueado.getRol().toString().equals("PROFESIONAL")) {
+            return "redirect:/profesional/inicio";
         }
 
         return "inicio.html";
