@@ -32,22 +32,14 @@ public class PortalControlador {
     @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN', 'ROLE_PROFESIONAL')")
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo) {
-        
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
-         // NOS TRAE UN PACIENTE PARA PASARLO A LA VISTA
-        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-        
         if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/inicio";
-        }
-        if (logueado.getRol().toString().equals("PACIENTE")) {
-            return "redirect:/paciente/inicio";
+            return "redirect:/admin/inicio";
         }
         if (logueado.getRol().toString().equals("PROFESIONAL")) {
             return "redirect:/profesional/inicio";
         }
-
+        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
         return "inicio.html";
     }
 

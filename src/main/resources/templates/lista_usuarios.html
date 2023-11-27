@@ -37,7 +37,9 @@
             <td th:text="${usuario.sexo}"></td>
             <td th:text="${usuario.telefono}"></td>
             <td th:text="${usuario.email}"></td>
-            <td th:text="${usuario.rol}"></td>
+            <td class="badge bg-primary text-white m-2"
+                th:classappend="${usuario.rol eq 'admin'} ? 'bg-danger' : ''"
+                th:text="${usuario.rol}"></td>
               <td th:text="${#temporals.format(usuario.fechaAlta, 'dd/MM/yyyy HH:mm:ss')}"></td>
               <td>
                   <img class="rounded-3"  style="width: 50px;"

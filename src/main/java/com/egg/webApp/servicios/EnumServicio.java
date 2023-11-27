@@ -1,9 +1,6 @@
 package com.egg.webApp.servicios;
 
-import com.egg.webApp.enumeraciones.Especialidad;
-import com.egg.webApp.enumeraciones.ObraSocial;
-import com.egg.webApp.enumeraciones.Rol;
-import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.enumeraciones.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -24,6 +21,7 @@ public class EnumServicio {
     public List<ObraSocial> obtenerObraSocial() {
         return Arrays.asList(ObraSocial.values());
     }
-
-
+    public List<Vinculo> obtenerVinculo() {
+        return Arrays.asList(Vinculo.values());
+    }
 }

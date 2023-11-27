@@ -1,5 +1,7 @@
 package com.egg.webApp.entidades;
 
+import com.egg.webApp.enumeraciones.Rol;
+import com.egg.webApp.enumeraciones.Vinculo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class GrupoFamiliar {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
-    private String parentesco;
+
+    @Enumerated(EnumType.STRING)
+    private Vinculo vinculo;
 
     @ManyToOne
     @JoinColumn(name = "paciente_titular_id")
@@ -23,7 +27,5 @@ public class GrupoFamiliar {
 
     @OneToMany(mappedBy = "grupoFamiliar", cascade = CascadeType.ALL)
     private List<Paciente> miembros;
-
-
 }
 

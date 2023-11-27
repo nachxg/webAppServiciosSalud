@@ -2,6 +2,7 @@ package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.enumeraciones.Vinculo;
 import com.egg.webApp.repositorios.FamiliarRepositorio;
 import com.egg.webApp.repositorios.PacienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class FamiliarServicio {
     private PacienteRepositorio pacienteRepositorio;
 
     @Transactional
-    public void agregarMiembro(GrupoFamiliar familiar, Paciente miembro, String parentesco) throws Exception{
+    public void agregarMiembro(GrupoFamiliar familiar, Paciente miembro, String vinculo) throws Exception{
 
         try{
             if (familiar == null){
@@ -32,7 +33,7 @@ public class FamiliarServicio {
             }
 
             miembro.setGrupoFamiliar(familiar);
-            familiar.setParentesco(parentesco);
+            familiar.setVinculo(Vinculo.valueOf(vinculo));
             familiar.getMiembros().add(miembro);
 
             familiarRepositorio.save(familiar);
