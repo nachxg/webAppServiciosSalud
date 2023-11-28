@@ -76,6 +76,10 @@ public class PacienteServicio {
     public Paciente getOne(Long id) {
         return pacienteRepositorio.getOne(id);
     }
+    
+    public Paciente buscarPorId(Long id) {
+        return pacienteRepositorio.buscarPorId(id);
+    }
 
     public List<Paciente> listarPacientes() {
 
