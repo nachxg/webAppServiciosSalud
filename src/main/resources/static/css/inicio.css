@@ -355,6 +355,10 @@ main{
     list-style-type: none;
 }
 
+.contenedor-datos ul li svg{
+    margin-bottom: 3px;
+}
+
 .contenido{
     box-sizing: border-box;
     padding: 2rem;
