@@ -36,9 +36,9 @@
             </div>
             <div id="profile-circle">
                 <!-- Logica para tener un link dinamico a diferentes rutas segun el rol de sesion&ndash -->
-                <img class="profile-circle" th:if="${session.usuariosession.imagen != null}"
-                     th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
-                <img class="profile-circle" th:unless="${session.usuariosession.imagen != null}"
+                <img class="profile-circle" th:if="${paciente.imagen != null}"
+                     th:src="@{/imagen/perfil/{id}(id=${paciente.id})}">
+                <img class="profile-circle" th:unless="${paciente.imagen != null}"
                      th:src="@{/img/usuario.jpg}">
             </div>
         </div>
@@ -111,11 +111,11 @@
         <div class="perfil">
             <div class="tarjeta-perfil">
                 <div class="nombre-foto">
-                    <div id="profile-circle"> <!-- Agregué un 1 para que no tire error por repetir id -->
+                    <div id="profile-circle">
                         <!--     Logica para tener un link dinamico a diferentes rutas segun el rol de sesion&ndash -->
-                        <img class="profile-circle" th:if="${session.usuariosession.imagen != null}"
-                             th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
-                        <img th:unless="${session.usuariosession.imagen != null}" th:src="@{/img/usuario.jpg}">
+                        <img class="profile-circle" th:if="${paciente.imagen != null}"
+                             th:src="@{/imagen/perfil/{id}(id=${paciente.id})}">
+                        <img class="profile-circle" th:unless="${paciente.imagen != null}" th:src="@{/img/usuario.jpg}">
                     </div>
                     <div class="nombre">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor"

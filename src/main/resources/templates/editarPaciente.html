@@ -21,13 +21,13 @@
             <div class="card">
                 <div class="card-body">
 
-                    <form th:action="@{/perfil/__${paciente.id}__}" method="POST"
+                    <form th:action="@{/paciente/perfil/__${paciente.id}__}" method="POST"
                           enctype="multipart/form-data">
                         <input hidden th:value="${id}" name="id">
                         <div class="profile-image">
-                            <img th:if="${session.usuariosession.imagen != null}"
-                                 th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
-                            <img th:unless="${session.usuariosession.imagen != null}" th:src="@{/img/usuario.jpg}">
+                            <img th:if="${paciente.imagen != null}"
+                                 th:src="@{/imagen/perfil/{id}(id=${paciente.id})}">
+                            <img th:unless="${paciente.imagen != null}" th:src="@{/img/usuario.jpg}">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Cambiar foto de Perfil.</label>
