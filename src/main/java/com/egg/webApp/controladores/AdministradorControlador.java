@@ -1,5 +1,8 @@
 package com.egg.webApp.controladores;
 
+import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.entidades.Profesional;
+import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,23 +34,27 @@ public class AdministradorControlador {
         this.administradorServicio = administradorServicio;
     }
 
+    @GetMapping("/inicio")
+    public String inicioAdmin(){
+        return "adminDashboard.html";
+    }
 
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
 
-        modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
+
+        modelo.addAttribute("usuarios", usuarios);
+        modelo.addAttribute("roles", enumServicio.obtenerRoles());
 
         //modelo.put("profesional", profesionalServicio.listarProfesionales());
-        //modelo.put("roles", enumServicio.obtenerRoles());
+        modelo.put("roles", enumServicio.obtenerRoles());
         //modelo.put("generos", enumServicio.obtenerGeneros());
         //modelo.put("especialidades", enumServicio.obtenerEspecialidad());
 
         return "lista_usuarios";
     }
-
-    /*
     @PostMapping("/dashboard/cambiar-rol")
-
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
         try {
             administradorServicio.establecerRolUsuario(id, rol);
@@ -55,22 +64,28 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
-     */
-
-
-
     @GetMapping("/usuario/baja/{id}")
-    public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo) {
+    public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo,  HttpServletRequest request) {
         try {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");
-            return "redirect:/admin/dashboard";
+            String referencia = request.getHeader("Referer");
+            if (referencia != null && referencia.contains("/admin/dashboard/pacientes")) {
+                return "redirect:/admin/dashboard/pacientes";
+            } else {
+                return "redirect:/admin/dashboard";
+            }
         } catch (MiExcepcion e) {
             modelo.addAttribute("error", "Mensaje Admin "+e.getMessage());
             return "redirect:/admin/dashboard";
         }
     }
-
-
+    @GetMapping("/dashboard/pacientes")
+    public String listarPacientes(ModelMap modelo) {
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+        modelo.addAttribute("generos", enumServicio.obtenerGeneros());
+        return "lista_pacientes.html";
+    }
 
 }

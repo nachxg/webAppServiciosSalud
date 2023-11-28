@@ -1,5 +1,4 @@
 package com.egg.webApp.servicios;
-
 import com.egg.webApp.entidades.Administrador;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.excepciones.MiExcepcion;

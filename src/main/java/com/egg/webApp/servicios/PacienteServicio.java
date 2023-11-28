@@ -1,8 +1,10 @@
 package com.egg.webApp.servicios;
 
+import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.repositorios.PacienteRepositorio;
@@ -33,8 +35,9 @@ public class PacienteServicio {
 
 
     @Transactional
-    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, String fechaNacimiento) throws Exception {
+    public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, LocalDate fechaNacimiento) throws Exception {
 
+        validar(nombre, apellido, dni, password, password2, fechaNacimiento);
         Paciente paciente = new Paciente();
         paciente.setAltaSistema(true);
         paciente.setRol(Rol.PACIENTE);
@@ -43,7 +46,7 @@ public class PacienteServicio {
     }
 
     @Transactional
-    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
+    public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo, String obraSocial, String numeroObraSocial) throws Exception {
 
 
         Optional<Paciente> respuesta = pacienteRepositorio.findById(id);
@@ -57,6 +60,8 @@ public class PacienteServicio {
             paciente.setRol(Rol.PACIENTE);
             paciente.setTelefono(telefono);
             paciente.setSexo(Sexo.valueOf(sexo));
+            paciente.setObraSocial(ObraSocial.valueOf(obraSocial));
+            paciente.setNumeroObraSocial(numeroObraSocial);
 
 
             Long idImagen = null;
@@ -72,6 +77,10 @@ public class PacienteServicio {
         }
     }
 
+    @Transactional
+    public Paciente buscarPorId(Long id){
+        return pacienteRepositorio.buscarPorId(id);
+    }
     public Paciente getOne(Long id) {
         return pacienteRepositorio.getOne(id);
     }
@@ -85,7 +94,7 @@ public class PacienteServicio {
     }
 
 
-    private void validar(String nombre, String apellido, String dni, String password, String password2, String fechaNacimiento) throws Exception {
+    private void validar(String nombre, String apellido, String dni, String password, String password2, LocalDate fechaNacimiento) throws Exception {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede ser nulo o estar vacio");
@@ -96,7 +105,7 @@ public class PacienteServicio {
         if (dni.isEmpty() || dni == null) {
             throw new Exception("El dni no puede ser nulo o estar vacio");
         }
-        if (fechaNacimiento.isEmpty() || fechaNacimiento == null) {
+        if (fechaNacimiento == null) {
             throw new Exception("La fecha de nacimiento no puede ser nulo o estar vacio");
         }
         if (password.isEmpty() || password == null || password.length() <= 6) {
@@ -105,6 +114,10 @@ public class PacienteServicio {
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
+        // VALIDAR QUE DNI NO ESTÉ REPETIDO
+        if (usuarioServicio.validarDNI(dni)) {
+            throw new Exception("El DNI ya existe. Por favor intente nuevamente");
+        }
 
     }
 
@@ -112,6 +125,5 @@ public class PacienteServicio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
-
-
 }
+

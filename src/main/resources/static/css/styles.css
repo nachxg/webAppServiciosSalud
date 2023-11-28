@@ -37,20 +37,33 @@ nav{
 }
 
 .logo{
-    height: 80px;
-    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1.1;
+    height: 100%;
     padding: 0;
     cursor: pointer;
+    margin-left: 1.4rem;
 }
 
 .logo img{
-    width: 100%;
+    max-width: 300px;
     height: 100%;
 }
 
+.links-nav{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: fit-content;
+}
 
-
-nav a:not(:first-child){
+nav a{
+    cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     text-transform: uppercase;
@@ -66,11 +79,35 @@ nav a:not(:first-child){
     transition: background-size .3s, color .3s ease;
 }
 
-nav a:hover:not(.logo), .pie a:hover{
+nav a:hover:not(.logo), .pie a:hover, .dropdown-content a:hover, .link-click{
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
 
+.rotar {
+    transform: rotate(-180deg);
+}
+
+i{
+    transition: transform 0.3s ease; /* Agrega una transición para suavizar la rotación */
+}
+
+.dropdown-content {
+    border-radius: 5px;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.247);
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    top: 11%;
+    right: 26.2%;
+    z-index: 3;
+    visibility: visible;
+    max-height: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease, max-height 0.3s ease;
+  }
 
 main{
     display: flex;
@@ -81,6 +118,12 @@ main{
     margin-bottom: 0;
     padding-bottom: 0;
 }
+
+  .dropdown-content a{
+    width: fit-content;
+    margin: 5px;
+    text-align: left;
+  }
 
 .encabezado1{
     display: flex;
@@ -148,6 +191,10 @@ main{
 .seccion2 p{
     display: none;
     align-self: center;
+}
+
+.links-header{
+    color: #acfcf8;
 }
 
 .carousel{
