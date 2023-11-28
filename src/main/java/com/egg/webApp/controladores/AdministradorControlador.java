@@ -35,15 +35,26 @@ public class AdministradorControlador {
     }
 
     @GetMapping("/inicio")
-    public String inicioAdmin(){
+    public String inicioAdmin(Model modelo) {
+        List<Paciente> pacientesActivos = null;
+        List<Paciente> pacientes = null;
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        try {
+            pacientes = pacienteServicio.listarPacientes();
+            modelo.addAttribute("pacientes", pacientes);
+            modelo.addAttribute("generos", enumServicio.obtenerGeneros());
+            modelo.addAttribute("usuarios", usuarios);
+            pacientesActivos = pacienteServicio.listarPacientesActivos();
+            modelo.addAttribute("pacientesActivos", pacientesActivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
         return "adminDashboard.html";
     }
 
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-
-
         modelo.addAttribute("usuarios", usuarios);
         modelo.addAttribute("roles", enumServicio.obtenerRoles());
 
@@ -52,8 +63,9 @@ public class AdministradorControlador {
         //modelo.put("generos", enumServicio.obtenerGeneros());
         //modelo.put("especialidades", enumServicio.obtenerEspecialidad());
 
-        return "lista_usuarios";
+        return "redirect:/admin/inicio";
     }
+
     @PostMapping("/dashboard/cambiar-rol")
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
         try {
@@ -64,8 +76,9 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
+
     @GetMapping("/usuario/baja/{id}")
-    public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo,  HttpServletRequest request) {
+    public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo, HttpServletRequest request) {
         try {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");
@@ -76,16 +89,22 @@ public class AdministradorControlador {
                 return "redirect:/admin/dashboard";
             }
         } catch (MiExcepcion e) {
-            modelo.addAttribute("error", "Mensaje Admin "+e.getMessage());
+            modelo.addAttribute("error", "Mensaje Admin " + e.getMessage());
             return "redirect:/admin/dashboard";
         }
     }
+
     @GetMapping("/dashboard/pacientes")
     public String listarPacientes(ModelMap modelo) {
-        List<Paciente> pacientes = pacienteServicio.listarPacientes();
-        modelo.addAttribute("pacientes", pacientes);
+        try {
+            List<Paciente> pacientes = null;
+            pacientes = pacienteServicio.listarPacientes();
+            modelo.addAttribute("pacientes", pacientes);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
         modelo.addAttribute("generos", enumServicio.obtenerGeneros());
-        return "lista_pacientes.html";
+        return "adminDashboard.html";
     }
 
 }

@@ -37,7 +37,7 @@
 <section class="busqueda">
     <form th:action="@{/profesional/buscar_por_especialidad}" method="post">
         <label>
-            <input type="text" name="especialidad" placeholder="Buscar Especialidades...">
+            <input type="text" name="termino" placeholder="Buscar Especialidades...">
         </label>
         <button type="submit">Buscar</button>
     </form>
@@ -60,14 +60,17 @@
 </section>
 
 <section id="especialidades-container" class="centrado">
+    <div th:if="${not #strings.isEmpty(mensaje)}">
+        <p th:text="${mensaje}" class="mensaje-error"></p>
+    </div>
+
     <!-- Aquí se mostrarán las especialidades -->
     <div class="contenedor-lista" id="contenedor-lista">
         <ul th:each="profesional : ${profesionales}" id="lista-especialidades">
             <li>
-                <a th:text="${profesional.nombre} + ' ' + ${profesional.apellido}"></a>
+                <a th:text="${profesional.nombre} + ' ' + ${profesional.apellido}" th:href="@{'/turno/solicitar-turno/' + ${profesional.id}}"> Solicitar Turno</a>
             </li>
         </ul>
-
     </div>
 
     <div class="descrip-especia">
@@ -75,9 +78,8 @@
     </div>
 </section>
 
-
-<footer class="pie">
-    <div class="links">
+<footer class="pie mt-5">
+    <div class="links mt-5">
         <div class="seccion-nav">
             <p class="titulo-sec">Nosotros</p>
             <div>

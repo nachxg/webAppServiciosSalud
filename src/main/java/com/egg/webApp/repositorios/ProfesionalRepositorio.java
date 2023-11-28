@@ -1,8 +1,6 @@
 package com.egg.webApp.repositorios;
 
-import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
-import com.egg.webApp.enumeraciones.Especialidad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,5 +20,10 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Long>
     public Boolean existsByMatricula(String matricula);
     @Query("SELECT p FROM Profesional p WHERE LOWER(REPLACE(p.especialidad, ' ', '_')) LIKE LOWER(CONCAT('%', :especialidad, '%'))")
     List<Profesional> buscarPorEspecialidadContiene(@Param("especialidad") String especialidad);
+
+    @Query("SELECT p FROM Profesional p WHERE LOWER(p.nombre) LIKE LOWER(CONCAT('%', :termino, '%')) OR LOWER(REPLACE(p.especialidad, ' ', '_')) LIKE LOWER(CONCAT('%', :termino, '%'))")
+    List<Profesional> buscarPorNombreOEspecialidad(@Param("termino") String termino);
+
+
 
 }

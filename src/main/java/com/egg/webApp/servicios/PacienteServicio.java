@@ -7,6 +7,7 @@ import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.PacienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -85,12 +86,23 @@ public class PacienteServicio {
         return pacienteRepositorio.getOne(id);
     }
 
-    public List<Paciente> listarPacientes() {
+    public List<Paciente> listarPacientesActivos() throws MiExcepcion {
 
         List<Paciente> pacientes = new ArrayList<>();
-        pacientes = pacienteRepositorio.findAll();
-
-        return pacientes;
+        pacientes = pacienteRepositorio.listarPacientesDeAltaEnSistema();
+        if (pacientes.isEmpty()) {
+            throw new MiExcepcion("No hay pacientes registrados");
+        } else {
+            return pacientes;
+        }
+    }
+    public List<Paciente> listarPacientes() throws MiExcepcion {
+        List<Paciente> pacientes = pacienteRepositorio.obtenerTodosLosPacientes();
+        if (pacientes.isEmpty()) {
+            throw new MiExcepcion("No hay pacientes registrados");
+        } else {
+            return pacientes;
+        }
     }
 
 

@@ -1,8 +1,10 @@
 package com.egg.webApp.controladores;
+
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
-import java.text.Normalizer;
+
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalControlador {
@@ -34,7 +36,6 @@ public class ProfesionalControlador {
 
         return "registrar_profesional.html";
     }
-
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
                            @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo, @RequestParam String matricula, ModelMap modelo,
@@ -62,7 +63,7 @@ public class ProfesionalControlador {
             Profesional profesional = null;
 
             if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
-                profesional = profesionalServicio.getOne(id);
+                profesional = profesionalServicio.buscarPorId(id);
             } else {
                 profesional = (Profesional) session.getAttribute("usuariosession");
             }
@@ -79,7 +80,7 @@ public class ProfesionalControlador {
         try {
             profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
             modelo.put("exito", "Profesional actualizado con exito");
-            return "inicio.html";
+            return "redirect:/profesional/inicio";
 
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
@@ -94,25 +95,24 @@ public class ProfesionalControlador {
     }
 
     @PostMapping("/buscar_por_especialidad")
-    public String buscarPorEspecialidad(ModelMap modelo, @RequestParam String especialidad) {
-        // Normalizar la especialidad proporcionada por el usuario
-        String especialidadNormalizada = normalizarTexto(especialidad);
-
-        // Obtener la lista de profesionales filtrada por especialidad
-        List<Profesional> profesionales = profesionalServicio
-                .buscarPorEspecialidad(especialidadNormalizada);
-
-        if (profesionales.isEmpty()) {
-            modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad: " + especialidad);
-        } else {
-            modelo.addAttribute("profesionales", profesionales);
+    public String buscarPorEspecialidad(ModelMap modelo, @RequestParam String termino) {
+        List<Profesional> profesionales = null;
+        try {
+            profesionales = profesionalServicio.buscarPorNombreOEspecialidad(termino);
+            if (profesionales.isEmpty()) {
+                modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
+            } else {
+                modelo.addAttribute("profesionales", profesionales);
+            }
+            return "especialidades.html";
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("mensaje", e.getMessage());
+            return "redirect:/profesional/especialidad";
         }
-
-        return "especialidades.html";
     }
 
     private String normalizarTexto(String especialidad) {
-        return especialidad.replaceAll("\\s", "_").toLowerCase();
+        return especialidad.replaceAll("\\s", "_").toUpperCase();
     }
 
     @GetMapping("/inicio")

@@ -4,6 +4,7 @@ import com.egg.webApp.entidades.*;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.FamiliarRepositorio;
 import com.egg.webApp.repositorios.PacienteRepositorio;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
@@ -162,9 +163,21 @@ public class ProfesionalServicio {
 
     }
 
-    public List<Profesional> buscarPorEspecialidad(String especialidad) {
+    public List<Profesional> buscarPorEspecialidad(String especialidad) throws MiExcepcion {
+        if(especialidad.isEmpty() || especialidad == null){
+            throw new MiExcepcion("Indique una especialidad");
+        }
         return profesionalRepositorio.buscarPorEspecialidadContiene(especialidad);
     }
+
+
+    public List<Profesional> buscarPorNombreOEspecialidad(String termino) throws MiExcepcion {
+        if(termino.isEmpty() || termino == null){
+            throw new MiExcepcion("Indique un nombre o especialidad");
+        }
+        return profesionalRepositorio.buscarPorNombreOEspecialidad(termino);
+    }
+
 
     public Profesional buscarPorId(Long id) {
         return profesionalRepositorio.buscarPorId(id);

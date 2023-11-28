@@ -62,6 +62,9 @@ function mostrarDescripcionEspecialidad(especialidad) {
 
 function obtenerDescripcionEspecialidad(especialidad) {
     // Puedes expandir esta función con descripciones específicas para cada especialidad
+
+
+
     switch (especialidad) {
         case 'Alergia e Inmunología':
             return 'El Servicio de Alergia e Inmunología se encarga de la prevención, diagnóstico y tratamiento de las patologías del sistema inmunológico.'

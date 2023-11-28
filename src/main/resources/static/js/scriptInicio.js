@@ -21,5 +21,7 @@ contPerfil.addEventListener("click", function(){
         desplegable.style.opacity = "0";
         estadoFlecha = false;
     }
+
+
     
 });
