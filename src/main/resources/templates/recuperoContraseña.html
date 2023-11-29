@@ -34,7 +34,6 @@
                     
                       <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su Correo Electrónico" required>
                     </div>
-                 
                         <div class="d-flex justify-content-center align-items-center">
                         <button type="submit" class="btn btn-primary btn-block mt-3 border-0 w-50">Recuperar Contraseña</button>
                         </div>
@@ -45,7 +44,36 @@
         </div>
       </div>
   
-
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-center">Recupero de Contraseña</h5>
+                <form th:action="@{/logincheck}" method="POST">
+                  <div class="form-group">
+                    <label for="Codigo">Codigo:</label>
+                    <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código" required>
+                  </div>
+                  <div class="form-group mt-3" >
+                    <label for="password">Nueva Contraseña:</label>
+                    
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su Correo Electrónico" required>
+                    </div>
+                    <div class="form-group mt-3" >
+                      <label for="password">Repetir Contraseña:</label>
+                      
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su Correo Electrónico" required>
+                      </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-primary btn-block mt-3 border-0 w-50">Recuperar Contraseña</button>
+                        </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
    <footer class="pie">
         <div class="links">
