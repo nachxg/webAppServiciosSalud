@@ -8,18 +8,23 @@
     --linkedin: #0077B5;
     --whatsapp: #25D366;
     --colorLindo: #1D7874;
+    --colorBoton:#3cd2cb;
 }
 
-*{
+* {
     font-family: 'Montserrat', sans-serif;
 }
 
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
-nav{
+nav {
     height: 80px;
     background-color: white;
     display: flex;
@@ -31,7 +36,7 @@ nav{
     position: relative;
 }
 
-.logo{
+.logo {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -42,12 +47,12 @@ nav{
     margin-left: 1.4rem;
 }
 
-.logo img{
+.logo img {
     max-width: 300px;
     height: 100%;
 }
 
-.volver{
+.volver {
     flex: 1;
     display: flex;
     flex-direction: row;
@@ -57,7 +62,7 @@ nav{
     margin-right: 4rem;
 }
 
-nav div a{
+nav div a {
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
@@ -73,7 +78,8 @@ nav div a{
     transition: background-size .3s, color .3s ease;
 }
 
-nav a:hover:not(.logo), .pie a:hover{
+nav a:hover:not(.logo),
+.pie a:hover {
     color: var(--colorLindo);
     background-size: 100% 2px;
     text-decoration: none;
@@ -82,7 +88,7 @@ nav a:hover:not(.logo), .pie a:hover{
 .banner-especialidad {
     background-image: url('/img/especialidades.jpg');
     background-size: 100%;
-    color : #fff;
+    color: #fff;
     text-align: 45%;
     padding: 50px;
     color: #1D7874;
@@ -91,12 +97,13 @@ nav a:hover:not(.logo), .pie a:hover{
     z-index: 0;
 }
 
-.banner-especialidad div{
+.banner-especialidad div {
     z-index: 1;
 }
 
 .busqueda {
-    background-color: #f4f4f4; /* Color de fondo */
+    background-color: #f4f4f4;
+    /* Color de fondo */
     padding: 20px;
     text-align: center;
 }
@@ -118,16 +125,20 @@ nav a:hover:not(.logo), .pie a:hover{
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    background-color: #1D7874; /* Color de fondo del botón */
-    color: #fff; /* Color del texto del botón */
+    background-color: #1D7874;
+    /* Color de fondo del botón */
+    color: #fff;
+    /* Color del texto del botón */
     cursor: pointer;
 }
 
 .filtro-letras {
     text-align: center;
-    margin-top: 20px; /* Ajusta este valor según sea necesario */
-    margin-bottom: 20px; /* Ajusta este valor según sea necesario */
-    
+    margin-top: 20px;
+    /* Ajusta este valor según sea necesario */
+    margin-bottom: 20px;
+    /* Ajusta este valor según sea necesario */
+
 }
 
 .filtro-letras button {
@@ -138,11 +149,13 @@ nav a:hover:not(.logo), .pie a:hover{
     color: #fff;
     border: none;
     border-radius: 50%;
-    width: 80px; /* Ajusta el tamaño según tus necesidades */
-    height: 80px; /* Ajusta el tamaño según tus necesidades */
+    width: 80px;
+    /* Ajusta el tamaño según tus necesidades */
+    height: 80px;
+    /* Ajusta el tamaño según tus necesidades */
 }
 
-.pie{
+.pie {
     padding-top: 1rem;
     z-index: 2;
     box-shadow: 0px -1px 10px rgb(0, 0, 0);
@@ -158,7 +171,7 @@ nav a:hover:not(.logo), .pie a:hover{
     margin-top: auto;
 }
 
-.links{
+.links {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -168,7 +181,7 @@ nav a:hover:not(.logo), .pie a:hover{
     padding-bottom: 1rem;
 }
 
-.tyc{
+.tyc {
     padding: 0.5em;
     width: 100%;
     height: 100%;
@@ -176,7 +189,7 @@ nav a:hover:not(.logo), .pie a:hover{
     align-self: flex-end;
 }
 
-.seccion-nav{
+.seccion-nav {
     text-align: center;
     font-size: 1em;
     display: flex;
@@ -184,21 +197,21 @@ nav a:hover:not(.logo), .pie a:hover{
     text-transform: uppercase;
 }
 
-.seccion-nav div{
+.seccion-nav div {
     display: flex;
     flex-direction: column;
 }
 
-.titulo-sec{
+.titulo-sec {
     text-align: center;
     font-weight: 600;
     color: var(--colorLindo);
 }
 
-.pie .seccion-nav a{
+.pie .seccion-nav a {
     color: black;
     font-weight: 420;
-    background-image: linear-gradient(currentColor,currentColor);
+    background-image: linear-gradient(currentColor, currentColor);
     background-position: 0% 100%;
     background-repeat: no-repeat;
     background-size: 0% 2px;
@@ -209,9 +222,10 @@ nav a:hover:not(.logo), .pie a:hover{
     cursor: pointer;
     width: fit-content;
     text-decoration: none;
+
 }
 
-.pie .seccion-nav a:hover{
+.pie .seccion-nav a:hover {
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
@@ -220,27 +234,45 @@ nav a:hover:not(.logo), .pie a:hover{
 */
 #especialidades-container {
     text-align: center;
-    font-size: 18px; /* Ajusta el tamaño de la letra según tus necesidades */
-    font-family: 'Montserrat', sans-serif; /* Cambia a la fuente Montserrat */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    height: 100%;
+    
+    
 }
 
 #especialidades-container.centrado {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20vh; /* Ajusta según tus necesidades */
-    font-size: 24px; /* Ajusta el tamaño de la letra cuando está centrado */
-    font-family: 'Montserrat', sans-serif; /* Cambia a la fuente Montserrat */
+    
+    height: 20vh;
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+   
 }
 
 /* Agrega estilos para los enlaces dentro de la lista de especialidades */
 #lista-especialidades a {
-    color: #1D7874; /* Reemplaza "tu-color-deseado" con el color que prefieras */
-    text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces si lo deseas */
+
+    color: #1D7874;
+    /* Reemplaza "tu-color-deseado" con el color que prefieras */
+    text-decoration: none;
+    /* Elimina el subrayado predeterminado de los enlaces si lo deseas */
 }
 
-/* Cambia el color cuando el enlace está en estado hover (cuando el mouse pasa sobre él) */
-#lista-especialidades a:hover {
-    color: orange; /* Reemplaza "tu-color-hover" con el color que prefieras para el estado hover */
+#lista-especialidades {
+    list-style-type: none;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.descrip-especia {
+    text-align: left    ;
+    width: 72vw;
+
 }
 
