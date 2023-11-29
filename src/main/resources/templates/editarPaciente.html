@@ -10,7 +10,7 @@
  <body>
     <nav class="">
         <a class="logo" href="/">
-            <img src="/img/logoColor.png" alt="" class="logo">
+            <img src="../static/img/logoColor.png" alt="" class="logo">
         </a>
         <a href="">Volver a Inicio</a>
       </nav>
@@ -19,52 +19,58 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-body">
-
                   <form th:action="@{/paciente/perfil/__${paciente.id}__}" method="POST" enctype="multipart/form-data">
                       <input hidden th:value="${id}" name="id">
                       <div class="profile-image">
                           <img th:src="@{/imagen/paciente/perfil/{id}(id=${session.usuariosession.id})}" alt="Imagen de perfil">
                      </div>
-                  <div class="mb-3">
-                   <label for="formFile" class="form-label">Cambiar foto de Perfil.</label>
-                   <input class="form-control" type="file" id="formFile" name="archivo">
-                  </div>
-                 <label for="nombre">Nombre:</label>
-                 <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:placeholder="${paciente.nombre}" readonly>
+                   <div class="mb-3">
+                     <label for="formFile" class="form-label">Cambiar foto de Perfil.</label>
+                     <input class="form-control" type="file" id="formFile" name="archivo">
+                   </div>
 
-                 <label for="apellido">Apellido:</label>
-                 <input type="text" id="apellido" name="apellido" placeholder="Apellido" th:placeholder="${paciente.apellido}" readonly>
+                     <label for="nombre">Nombre:</label>
+                     <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:placeholder="${paciente.nombre}" readonly>
 
-                 <label for="dni">DNI:</label>
-                 <input type="text" id="dni" name="dni" placeholder="DNI" th:placeholder="${paciente.dni}" readonly>
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" placeholder="Apellido" th:placeholder="${paciente.apellido}" readonly>
 
-                 <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                 <input type="date" id="fechaNacimiento" name="fechaNacimiento" th:placeholder="${paciente.fechaNacimiento}" readonly>
+                    <label for="dni">DNI:</label>
+                    <input type="text" id="dni" name="dni" placeholder="DNI" th:placeholder="${paciente.dni}" readonly>
 
-                 <label for="email">Correo Electrónico:</label>
-                 <input type="email" id="email" name="email" placeholder="Correo Electrónico" required>
+                    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" th:placeholder="${paciente.fechaNacimiento}" readonly>
 
-                 <label for="telefono">Teléfono:</label>
-                 <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required>
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" placeholder="Correo Electrónico" required>
+
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required>
                  
-                 <label for="sexo">Sexo:</label>
-                 <select id="sexo" name="sexo" required>
+                   <label for="sexo">Sexo:</label>
+
+                   <select id="sexo" name="sexo" required>
                     <option value="masculino">Masculino</option>
                     <option value="femenino">Femenino</option>
                     <option value="femenino">Otros</option>
-                 </select>
+                   </select>
+
                       <div class="form-group my-3">
                           <input type="password" class="form-control" name="password" placeholder="PASSWORD">
                       </div>
                       <div class="form-group my-3">
                           <input type="password" class="form-control" name="password2" placeholder="REPETIR PASSWORD">
                       </div>
-                 <label class="mt-3" for="obraSocial">Obra social:</label>
-                 <input type="text" id="obra Social" name="obraSocial" placeholder="Obra Social" >
-                 <label for="afiliado">Número de Afiliado:</label>
-                 <input type="tel" id="afiliado" name="afiliado" placeholder="Numero de Afiliado" >
-                 <button type="submit" class="btn btn-custom-color  btn-block mt-3">Guardar cambios</button>
-            </form>
+                      
+                    <label class="mt-3" for="obraSocial">Obra social:</label>
+                    <input type="text" id="obra Social" name="obraSocial" placeholder="Obra Social" >
+                    <label for="afiliado">Número de Afiliado:</label>
+                    <input type="tel" id="afiliado" name="afiliado" placeholder="Numero de Afiliado" >
+                    <button type="submit" class="btn btn-custom-color  btn-block mt-3">Guardar cambios</button>
+                 
+                  </form>
+            
+            
         </div>
       </div>
     </div>
@@ -109,6 +115,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-    <script src="../static/js/scriptLogin.js"></script>
+    <script src="/js/scriptLogin.js"></script>
   </body>  
 </html>
