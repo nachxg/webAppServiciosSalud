@@ -2,20 +2,12 @@ package com.egg.webApp.controladores;
 
 
 import com.egg.webApp.entidades.Usuario;
-import com.egg.webApp.enumeraciones.Sexo;
-import com.egg.webApp.repositorios.PacienteRepositorio;
-import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
-import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 @Controller
@@ -54,6 +46,3 @@ public class PortalControlador {
 
 
 }
-
-    
-   

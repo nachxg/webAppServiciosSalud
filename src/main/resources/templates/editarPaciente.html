@@ -25,9 +25,9 @@
                           enctype="multipart/form-data">
                         <input hidden th:value="${id}" name="id">
                         <div class="profile-image">
-                            <img th:if="${session.usuariosession.imagen != null}"
-                                 th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
-                            <img th:unless="${session.usuariosession.imagen != null}" th:src="@{/img/usuario.jpg}">
+                            <img th:if="${paciente.imagen != null}"
+                                 th:src="@{/imagen/perfil/{id}(id=${paciente.id})}">
+                            <img th:unless="${paciente.imagen != null}" th:src="@{/img/usuario.jpg}">
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Cambiar foto de Perfil.</label>
@@ -117,15 +117,15 @@
                 </a>
             </div>
         </div>
-    </div>
-    <div class="tyc">
-        &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
-    </div>
-</footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-<script src="/js/scriptLogin.js"></script>
-</body>
+      </div>
+        <div class="tyc">
+          &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+    <script src="/js/scriptLogin.js"></script>
+  </body>  
 </html>
