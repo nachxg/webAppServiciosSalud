@@ -24,24 +24,69 @@ contPerfil.addEventListener("click", function () {
 
 });
 
-const boton1 = document.querySelector("#boton1");
-boton1.addEventListener("click",function(){
+const contenido = document.querySelector(".contenido");
 
-    
+function limpiarSeccion() { 
 
-    const sec1 = document.querySelector("#sec-1");
     const tarjetaContenido = document.querySelector(".tarjeta-contenido");
+    const secciones = Array.from(tarjetaContenido.children);   
+
+    secciones.forEach(seccion => {
+        seccion.style.display = "none";
+    });
+
     const parrafoClick = document.querySelector("#parrafo-click");
+
     if(parrafoClick.classList.contains("d-block")){
         parrafoClick.classList.replace("d-block","d-none");
     }
 
-    tarjetaContenido.scrollIntoView({ behavior: 'smooth' });
+}
+
+const boton1 = document.querySelector("#boton1");
+boton1.addEventListener("click",function(){
+
+    limpiarSeccion();
+
+    const sec1 = document.querySelector("#sec-1");
+
+    contenido.scrollIntoView({ behavior: 'smooth' });
     sec1.style.display = "flex";
 
 })
 
+const boton2 = document.querySelector("#boton2");
+boton2.addEventListener("click",function(){
+    limpiarSeccion();
 
+    const sec2 = document.querySelector("#sec-2");
+    
+    contenido.scrollIntoView({ behavior: 'smooth' });
+    sec2.style.display = "flex";
+
+});
+
+const boton3 = document.querySelector("#boton3");
+boton3.addEventListener("click",function(){
+    limpiarSeccion();
+
+    const sec3 = document.querySelector("#sec-3");
+    
+    contenido.scrollIntoView({ behavior: 'smooth' });
+    sec3.style.display = "block";
+
+});
+
+const boton4 = document.querySelector("#boton4");
+boton4.addEventListener("click",function(){
+    limpiarSeccion();
+
+    const sec4 = document.querySelector("#sec-4");
+    
+    contenido.scrollIntoView({ behavior: 'smooth' });
+    sec4.style.display = "block";
+
+});
 
 const daysTag = document.querySelector(".days"),
     currentDate = document.querySelector(".current-date"),
