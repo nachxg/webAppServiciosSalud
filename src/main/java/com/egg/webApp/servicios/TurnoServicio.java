@@ -69,14 +69,14 @@ public class TurnoServicio {
         }
     }
     
-    @Transactional
+    
     public List<Turno> listaDeTurnosDisponibles(Long idProfesional) {
         List<Turno> turnos = turnoRepositorio.buscarTurnosDisponiblesDeProfesional(idProfesional);
         return turnos;
     }
     
-    public Boolean validarFecha(String fecha, String hora){
-        return turnoRepositorio.existeFechaHora(fecha, hora);
+    public Turno existeFechaHora(Long idProfesional, LocalDateTime fechaHora) throws Exception{    
+        return turnoRepositorio.existeFechaHora(idProfesional, fechaHora);        
     }
 
     /*

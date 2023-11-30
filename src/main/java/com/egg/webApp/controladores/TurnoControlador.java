@@ -7,6 +7,7 @@ import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.TurnoServicio;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,22 +29,23 @@ public class TurnoControlador {
     TurnoServicio turnoServicio;
 
     @PostMapping("/crear_turno/{id}")
-    public String crearTurno(ModelMap modelo, String fecha, String hora, @PathVariable Long id, HttpSession session) {
+    public String crearTurno(ModelMap modelo, String fecha, String hora, @PathVariable Long id) {
 
         try {
-            if (turnoServicio.validarFecha(fecha, hora)) {
-               throw new Exception("El turno ya existe");
-            }
             LocalDateTime resultado = turnoServicio.convertirStringALocalDate(fecha, hora);
-            turnoServicio.crearTurnoDisponible(id, resultado);
-
+            Turno respuesta = turnoServicio.existeFechaHora(id, resultado);
+            if (respuesta == null) {
+                turnoServicio.crearTurnoDisponible(id, resultado);
+            } else {
+                System.out.println("El turno ya existe");
+            }      
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return "redirect:/inicio";
     }
 
-    @GetMapping("/listaTurnos/{id}")
+    @GetMapping("/listaTurnos/profesional/{id}")
     public String listarTurnos(ModelMap modelo, @PathVariable Long id) {
         try {
             List<Turno> turnos = turnoServicio.listaDeTurnosDisponibles(id);
