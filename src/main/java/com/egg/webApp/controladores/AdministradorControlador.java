@@ -1,5 +1,8 @@
 package com.egg.webApp.controladores;
 
+import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.entidades.Profesional;
+import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -28,23 +32,55 @@ public class AdministradorControlador {
         this.enumServicio = enumServicio;
         this.administradorServicio = administradorServicio;
     }
-    
     @GetMapping("/inicio")
-    public String inicioAdmin(){
+    public String inicioAdmin(Model modelo) {
+
+        List<Paciente> pacientesActivos = null;
+        List<Profesional> profesionalesInactivos = null;
+
+        modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
+
+        try {
+            pacientesActivos = pacienteServicio.listarPacientesActivos();
+            modelo.addAttribute("pacientesActivos", pacientesActivos);
+            profesionalesInactivos = profesionalServicio.listarProfesionalesPendientesAlta();
+            modelo.addAttribute("profesionalesInactivos", profesionalesInactivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
+
         return "adminDashboard.html";
     }
     
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
 
-        modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
-
         //modelo.put("profesional", profesionalServicio.listarProfesionales());
-        modelo.put("roles", enumServicio.obtenerRoles());
-        //modelo.put("generos", enumServicio.obtenerGeneros());
-        //modelo.put("especialidades", enumServicio.obtenerEspecialidad());
 
-        return "lista_usuarios";
+        modelo.put("especialidades", enumServicio.obtenerEspecialidad());
+        List<Profesional> profesionalesActivos = null;
+        List<Profesional> profesionales = null;
+        List<Paciente> pacientesActivos = null;
+        List<Paciente> pacientes = null;
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+
+        try {
+            modelo.put("roles", enumServicio.obtenerRoles());
+            profesionales = profesionalServicio.listarProfesionales();
+            modelo.addAttribute("profesionales", profesionales);
+            pacientes = pacienteServicio.listarPacientes();
+            modelo.addAttribute("pacientes", pacientes);
+            modelo.addAttribute("generos", enumServicio.obtenerGeneros());
+            modelo.addAttribute("usuarios", usuarios);
+            profesionalesActivos = profesionalServicio.listarProfesionalesActivos();
+            modelo.addAttribute("profesiuonalesActivos", profesionalesActivos);
+            pacientesActivos = pacienteServicio.listarPacientesActivos();
+            modelo.addAttribute("pacientesActivos", pacientesActivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
+
+        return "lista_usuarios.html";
     }
     @PostMapping("/dashboard/cambiar-rol")
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
@@ -57,13 +93,18 @@ public class AdministradorControlador {
         }
     }
     @GetMapping("/usuario/baja/{id}")
-    public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo) {
+    public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo, HttpServletRequest request) {
         try {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");
-            return "redirect:/admin/dashboard";
+            String referencia = request.getHeader("Referer");
+            if (referencia != null && referencia.contains("/admin/dashboard/pacientes")) {
+                return "redirect:/admin/dashboard/pacientes";
+            } else {
+                return "redirect:/admin/dashboard";
+            }
         } catch (MiExcepcion e) {
-            modelo.addAttribute("error", "Mensaje Admin "+e.getMessage());
+            modelo.addAttribute("error", "Mensaje Admin " + e.getMessage());
             return "redirect:/admin/dashboard";
         }
     }

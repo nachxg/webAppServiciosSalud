@@ -61,7 +61,6 @@ public class PacienteControlador {
         Paciente paciente = null;
 
         if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
-            //paciente = pacienteServicio.getOne(id);
             paciente = pacienteServicio.buscarPorId(id);
         } else {
             paciente = (Paciente) session.getAttribute("usuariosession");

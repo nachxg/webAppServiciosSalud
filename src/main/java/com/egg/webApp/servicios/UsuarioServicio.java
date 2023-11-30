@@ -1,4 +1,5 @@
 package com.egg.webApp.servicios;
+import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
@@ -46,7 +47,10 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
 
     }
-
+    @Transactional
+    public Usuario buscarPorId(Long id){
+        return usuarioRepositorio.buscarPorId(id);
+    }
     @Transactional
     public Usuario getOne(Long id) {
         Usuario usuario = usuarioRepositorio.getReferenceById(id);
