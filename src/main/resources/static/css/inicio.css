@@ -10,7 +10,7 @@
     --colorLindo: #1D7874;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
@@ -18,14 +18,14 @@
 
 body {
     width: 100%;
-    height: fit-content;  
+    height: fit-content;
     background-color: rgb(241, 241, 241);
     display: flex;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
 }
 
-nav{
+nav {
     height: 80px;
     background-color: white;
     display: flex;
@@ -36,7 +36,7 @@ nav{
     z-index: 2;
 }
 
-.logo{
+.logo {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -47,12 +47,12 @@ nav{
     margin-left: 1.4rem;
 }
 
-.logo img{
+.logo img {
     max-width: 300px;
     height: 100%;
 }
 
-.links-nav{
+.links-nav {
     padding-left: 30%;
     flex: 1;
     display: flex;
@@ -63,7 +63,8 @@ nav{
     width: fit-content;
 }
 
-nav a, .nombre-perfil{
+nav a,
+.nombre-perfil {
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
@@ -80,7 +81,9 @@ nav a, .nombre-perfil{
     transition: background-size .3s, color .3s ease;
 }
 
-nav a:hover:not(.logo), .pie a:hover, .dropdown-content a:hover{
+nav a:hover:not(.logo),
+.pie a:hover,
+.dropdown-content a:hover {
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
@@ -89,8 +92,9 @@ nav a:hover:not(.logo), .pie a:hover, .dropdown-content a:hover{
     transform: rotate(-180deg);
 }
 
-i{
-    transition: transform 0.3s ease; /* Agrega una transición para suavizar la rotación */
+i {
+    transition: transform 0.3s ease;
+    /* Agrega una transición para suavizar la rotación */
 }
 
 .dropdown-content {
@@ -109,9 +113,9 @@ i{
     max-height: 0;
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease, max-height 0.3s ease;
-  }
+}
 
-.contenedor-perfil{
+.contenedor-perfil {
     cursor: pointer;
     display: flex;
     gap: 10px;
@@ -136,7 +140,7 @@ i{
     transition: height 0.3s ease, width 0.3s ease;
 }
 
-.profile-circle img{
+.profile-circle img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -144,26 +148,29 @@ i{
     object-fit: cover;
 }
 
-.contenedor-perfil:hover .profile-circle, .link-click .profile-circle{
+.contenedor-perfil:hover .profile-circle,
+.link-click .profile-circle {
     height: 50px;
     width: 50px;
 }
 
-.contenedor-perfil:hover .profile-circle img, .link-click .profile-circle img{
+.contenedor-perfil:hover .profile-circle img,
+.link-click .profile-circle img {
     height: 100%;
     width: 100%;
 }
 
-.nombre-perfil{
-align-self: center;
+.nombre-perfil {
+    align-self: center;
 }
 
-.contenedor-perfil:hover .nombre-perfil, .link-click .nombre-perfil{
+.contenedor-perfil:hover .nombre-perfil,
+.link-click .nombre-perfil {
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -173,7 +180,7 @@ main{
     padding-bottom: 0;
 }
 
-.encabezado1{
+.encabezado1 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -188,7 +195,7 @@ main{
     z-index: 1;
 }
 
-.seccion-turnos{
+.seccion-turnos {
     margin: 0px 30px 0px 30px;
     height: 80%;
     width: 20%;
@@ -196,7 +203,7 @@ main{
     flex-flow: row wrap;
 }
 
-.seccion{
+.seccion {
     cursor: pointer;
     background-color: white;
     border-radius: 14px;
@@ -212,25 +219,25 @@ main{
     margin-left: 15px;
 }
 
-.icono{
+.icono {
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.texto{
+.texto {
     font-weight: 420;
     font-size: 0.8em;
     padding: 0;
     position: relative;
 }
 
-.seccion:hover{
+.seccion:hover {
     width: 7.2rem;
     height: 6.2rem;
     color: #44bdb3;
 }
 
-.saludo{
+.saludo {
     font-family: 'Montserrat', sans-serif;
     text-shadow: 1px 1px 10px rgb(0, 0, 0);
     width: 80%;
@@ -238,12 +245,12 @@ main{
     color: white;
 }
 
-.nombre-header{
+.nombre-header {
     text-transform: capitalize;
 }
 
-.contenedor-secciones{
-    background-image: linear-gradient(to left, #44bdb3,#1b5453);
+.contenedor-secciones {
+    background-image: linear-gradient(to left, #44bdb3, #1b5453);
     width: 100%;
     height: 100vh;
     display: flex;
@@ -252,14 +259,14 @@ main{
     z-index: 0;
 }
 
-.perfil{
+.perfil {
     box-sizing: border-box;
     width: 30%;
     height: 100%;
     padding: 2rem;
 }
 
-.tarjeta-perfil{
+.tarjeta-perfil {
     background-image: url('/img/fondo-perfil.jpg');
     background-size: 100%;
     background-blend-mode: lighten;
@@ -278,7 +285,7 @@ main{
     padding: 0;
 }
 
-.nombre-foto{
+.nombre-foto {
     color: rgb(255, 255, 255);
     background-color: rgb(60, 155, 147);
     width: 100%;
@@ -291,7 +298,7 @@ main{
     border-bottom-right-radius: 20px;
 }
 
-.nombre{
+.nombre {
     padding-right: 10px;
     text-align: center;
     flex: 0.8;
@@ -301,7 +308,7 @@ main{
     text-transform: uppercase;
 }
 
-.foto-perfil{
+.foto-perfil {
     border: 1px solid rgb(255, 255, 255);
     border-radius: 100%;
     height: 5.2rem;
@@ -311,20 +318,20 @@ main{
     overflow: hidden;
 }
 
-.foto-perfil img{
+.foto-perfil .foto {
     border-radius: 100%;
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-.fondo-datos{
+.fondo-datos {
     width: 100%;
     height: 80%;
     background-color: rgb(60, 155, 147);
 }
 
-.contenedor-datos{
+.contenedor-datos {
     width: 100%;
     height: 100%;
     background-image: url('/img/fondo-perfil.jpg');
@@ -334,14 +341,14 @@ main{
     border-top-left-radius: 20px;
 }
 
-.contenedor-datos{
+.contenedor-datos {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.contenedor-datos ul{
+.contenedor-datos ul {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -351,22 +358,22 @@ main{
     align-items: flex-start;
 }
 
-.contenedor-datos ul li{
+.contenedor-datos ul li {
     list-style-type: none;
 }
 
-.contenedor-datos ul li svg{
+.contenedor-datos ul li svg {
     margin-bottom: 3px;
 }
 
-.contenido{
+.contenido {
     box-sizing: border-box;
     padding: 2rem;
     width: 70%;
     height: 100%;
 }
 
-.tarjeta-contenido{
+.tarjeta-contenido {
     background-image: url('/img/fondo-perfil.jpg');
     background-size: 40%;
     background-blend-mode: lighten;
@@ -381,7 +388,80 @@ main{
     box-shadow: 0px 1px 10px rgb(0, 0, 0);
 }
 
-.pie{
+.formulario-turnos {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+}
+
+.horarios {
+    background-color: white;
+    width: 55%;
+    height: 100%;
+    border-radius: 9px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.308);
+    padding: 22.5px 27px 9px;
+    z-index: 0;
+}
+
+.horarios-header {
+    height: fit-content;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.horarios-selector {
+    margin-top: 10px;
+    display: grid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    height: 45%;
+}
+
+.item {
+    width: 32%;
+    background-color: transparent;
+    border: 1px solid #6aafac;
+    border-radius: 9px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    font-weight: 500;
+}
+
+.item:hover {
+    background-color: #408f8b;
+    color: white;
+}
+
+.seleccionado{
+    background-color: #408f8b;
+    color: white;
+}
+
+.confirmacion{
+    width: 100%;
+    height: 26%;
+    padding: 10px;
+    box-shadow: 1px 1px 15px rgba(197, 197, 197, 0.938);
+    border-radius: 9px;
+    margin: 10px 3px 3px 3px;
+}
+
+.confirmar{
+    
+}
+
+.pie {
     padding-top: 1rem;
     z-index: 2;
     box-shadow: 0px -1px 10px rgb(0, 0, 0);
@@ -397,7 +477,7 @@ main{
     margin-top: auto;
 }
 
-.links{
+.links {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -407,7 +487,7 @@ main{
     padding-bottom: 1rem;
 }
 
-.tyc{
+.tyc {
     padding: 0.5em;
     width: 100%;
     height: 100%;
@@ -417,30 +497,30 @@ main{
     background-color: rgba(0, 0, 0, 0.041);
 }
 
-.seccion-nav{
+.seccion-nav {
     font-size: 1em;
     display: flex;
     flex-direction: column;
     text-transform: uppercase;
 }
 
-.seccion-nav div{
+.seccion-nav div {
     display: flex;
     flex-direction: column;
 }
 
-.titulo-sec{
+.titulo-sec {
     margin-bottom: 0;
     text-align: left;
     font-weight: 600;
     color: var(--colorLindo);
 }
 
-.pie .seccion-nav a{
+.pie .seccion-nav a {
     text-decoration: none;
     color: black;
     font-weight: 420;
-    background-image: linear-gradient(currentColor,currentColor);
+    background-image: linear-gradient(currentColor, currentColor);
     background-position: 0% 100%;
     background-repeat: no-repeat;
     background-size: 0% 2px;
@@ -452,21 +532,138 @@ main{
     width: fit-content;
 }
 
-.pie .seccion-nav a:hover{
+.pie .seccion-nav a:hover {
     color: var(--colorLindo);
     background-size: 100% 2px;
 }
 
-@media(max-width: 1000px){
-    nav a:not(.logo){
-            display: none;
+@media(max-width: 1000px) {
+    nav a:not(.logo) {
+        display: none;
     }
-    
-    .logo{
-            width: 300px;
+
+    .logo {
+        width: 300px;
     }
-    
-    .encabezado1{
-            height: fit-content;
+
+    .encabezado1 {
+        height: fit-content;
     }
 }
+
+.wrapper {
+    height: 100%;
+    width: 45%;
+    background: #fff;
+    border-radius: 9px;
+    z-index: 1;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.308);
+}
+
+.wrapper header {
+    display: flex;
+    align-items: center;
+    padding: 22.5px 27px 9px;
+    justify-content: space-between;
+}
+
+header .icons {
+    display: flex;
+}
+
+header .icons span {
+    height: 34.2px;
+    width: 34.2px;
+    margin: 0 0.9px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 34.2px;
+    font-size: 1.71rem;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.icons span:last-child {
+    margin-right: -9px;
+}
+
+header .icons span:hover {
+    background: #f2f2f2;
+}
+
+header .current-date {
+    font-size: 1.305rem;
+    font-weight: 500;
+}
+
+.calendar {
+    padding: 18px;
+}
+
+.calendar ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+}
+
+.calendar .days {
+    margin-bottom: 5px;
+}
+
+.calendar li {
+    color: #333;
+    width: calc(90% / 7);
+    font-size: 0.963rem;
+}
+
+.calendar .weeks li {
+    font-weight: 500;
+    cursor: default;
+}
+
+.calendar .days li {
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 27px;
+}
+
+.days li.inactive {
+    color: #aaa;
+}
+
+.days li.active {
+    color: #fff;
+}
+
+.days li.actual {
+    color: #fff;
+}
+
+.days li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 36px;
+    width: 36px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.days li.actual::before {
+    background: var(--colorLindo);
+}
+
+.days li.active::before {
+    background: #a068b6;
+}
+
+.days li:not(.active, .actual):hover::before {
+    background: #f2f2f2;
+}
+
+.fecha-selec {}
