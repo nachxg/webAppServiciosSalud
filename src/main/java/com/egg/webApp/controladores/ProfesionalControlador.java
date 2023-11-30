@@ -78,7 +78,7 @@ public class ProfesionalControlador {
         try {
             profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
             modelo.put("exito", "Profesional actualizado con exito");
-            return "inicio.html";
+            return "inicioProfesional.html";
 
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
