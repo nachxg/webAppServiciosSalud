@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Service
@@ -19,8 +20,14 @@ public class FamiliarServicio {
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
 
+    @Autowired
+    private PacienteServicio pacienteServicio;
+
     @Transactional
-    public void agregarMiembro(GrupoFamiliar familiar, Paciente miembro, String parentesco) throws Exception{
+    public void registrarMiembro(GrupoFamiliar familiar, Paciente miembro,
+                                 String parentesco, String nombre, String apellido,
+                                 String dni, String password, String password2,
+                                 String sexo, LocalDate fechaNacimiento) throws Exception{
 
         try{
             if (familiar == null){
@@ -30,6 +37,8 @@ public class FamiliarServicio {
             if (familiar.getMiembros() == null){
                 familiar.setMiembros(new ArrayList<>());
             }
+
+            pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
 
             miembro.setGrupoFamiliar(familiar);
             familiar.setParentesco(parentesco);

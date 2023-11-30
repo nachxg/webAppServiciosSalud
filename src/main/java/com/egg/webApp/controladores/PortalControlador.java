@@ -3,6 +3,8 @@ package com.egg.webApp.controladores;
 
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.servicios.PacienteServicio;
+import com.egg.webApp.servicios.ProfesionalServicio;
+import com.egg.webApp.servicios.TurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,26 +18,35 @@ public class PortalControlador {
 
     @Autowired
     PacienteServicio pacienteServicio;
+    @Autowired
+    ProfesionalServicio profesionalServicio;
+    @Autowired
+    TurnoServicio turnoServicio;
+
     @GetMapping("/index")
     public String index(){
         return "index.html";
     }
-    
     @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN', 'ROLE_PROFESIONAL')")
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo) {
-        
+
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("turnos",turnoServicio.listaDeTurnosDisponibles(logueado.getId()));
 
-         // NOS TRAE UN PACIENTE PARA PASARLO A LA VISTA
-        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-        
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/inicio";
+        // NOS TRAE UN PACIENTE PARA PASARLO A LA VISTA
+        switch (logueado.getRol().toString()) {
+            case "PROFESIONAL":
+                modelo.addAttribute("profesional", profesionalServicio.buscarPorId(logueado.getId()));
+                return "inicioProfesional.html";
+            case "ADMIN":
+                return "redirect:/admin/inicio";
+            default:
+                modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
+                return "inicio.html";
         }
-
-        return "inicio.html";
     }
+
 
 
     @GetMapping("/login")

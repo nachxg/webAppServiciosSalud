@@ -6,28 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/inicio.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/css/inicio.css">
     <title>Inicio - Sanatorio Vitalis</title>
 </head>
 
 <body>
+
     <nav class="">
-        <div class="contenedor-logo">
-            <a class="logo" href="/inicio">
-                <img src="/img/logoColor.png" alt="" class="logo">
-            </a>
-        </div>
-        <div class="contenedor-links">
-            <a href="">Turnos</a>
-            <a href="">Especialidades</a>
-            <div class="contenedor-perfil">
-                <div class="nombre-perfil" th:text=" ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></div>
-                <div class="profile-circle" id="profile-circle">
-                    <img th:src="@{/imagen/profesional/perfil/{id}(id=${session.usuariosession.id})}">
+        <a class="logo" href="/inicio">
+            <img src="/img/logoColor.png" alt="" class="logo">
+        </a>
+        <div class="links-nav">
+            <a id="link_prof" href="/profesional/especialidad" class="dropdown">Especialidades</a>
+            <div id="desplegable" class="dropdown-content">
+                <a th:if="${#authorization.expression('hasAnyRole(''PACIENTE'', ''PROFESIONAL'', ''ADMIN'')')}"
+                    th:href="@{${'/'+#strings.toLowerCase(session.usuariosession.rol)+'/perfil/'+ session.usuariosession.id }}">
+                    Editar Perfil </a>
+                <a href="/logout">Cerrar sesión</a>
+            </div>
+            <div class="contenedor-perfil" id="contenedor-perfil">
+                <div class="nombre-perfil">
+                    <i id="icono" class="fa-solid fa-angle-down"></i>
+                    <span th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></span>
+                </div>
+                <div class="profile-circle">
+                    <!-- Logica para tener un link dinamico a diferentes rutas segun el rol de sesion&ndash -->
+                    <img th:if="${profesional.imagen}" th:src="@{/imagen/perfil/{id}(id=${profesional.id})}">
+                    <img th:unless="${profesional.imagen}" th:src="@{/img/usuario.jpg}">
                 </div>
             </div>
         </div>
@@ -36,7 +48,7 @@
     <main>
         <div class="encabezado1">
             <div class="seccion-turnos">
-                <div class="seccion">
+                <div class="seccion" id="nuevo-turno">
                     <div class="icono">
                         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
                             class="bi bi-calendar-plus" viewBox="0 0 16 16">
@@ -46,9 +58,9 @@
                                 d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                         </svg>
                     </div>
-                    <div class="texto">Nuevo Turno</div>
+                    <div class="texto">Nuevo turno</div>
                 </div>
-                <div class="seccion">
+                <div class="seccion" id="mis-turnos">
                     <div class="icono">
                         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
                             class="bi bi-calendar-heart" viewBox="0 0 16 16">
@@ -56,7 +68,7 @@
                                 d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Zm7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
                         </svg>
                     </div>
-                    <div class="texto">Mis Turnos</div>
+                    <div class="texto">Mis turnos</div>
                 </div>
                 <div class="seccion">
                     <div class="icono">
@@ -84,13 +96,89 @@
                         Grupo familiar
                     </div>
                 </div>
+
             </div>
 
             <div class="saludo">
-                <h1>BIENVENIDO, <span class="text-capitalize" th:text="${session.usuariosession?.nombre + ' ' + session.usuariosession?.apellido}"></span>.</h1>
+                <h1>BIENVENIDO, <span class="text-capitalize"
+                        th:text="${session.usuariosession?.nombre + ' ' + session.usuariosession?.apellido}"></span>.
+                </h1>
+            </div>
+
+        </div>
+
+        <div class="contenedor-secciones">
+            <div class="perfil">
+                <div class="tarjeta-perfil">
+                    
+                </div>
+            </div>
+            <div class="contenido">
+
+                <div class="tarjeta-contenido">
+                    <form action="" class="formulario-turnos p-2">
+                        <div class="wrapper">
+                            <header>
+                                <p class="current-date"></p>
+                                <div class="icons">
+                                    <span id="prev" class="material-symbols-outlined">chevron_left</span>
+                                    <span id="next" class="material-symbols-outlined">chevron_right</span>
+                                </div>
+                            </header>
+                            <div class="calendar">
+                                <ul class="weeks">
+                                    <li>D</li>
+                                    <li>L</li>
+                                    <li>M</li>
+                                    <li>X</li>
+                                    <li>J</li>
+                                    <li>V</li>
+                                    <li>S</li>
+                                </ul>
+                                <ul class="days"></ul>
+                                
+                            </div>
+                            <div class="fecha-selec h-10 w-100 d-flex flex-column justify-content-center align-items-center">
+                                <p id="hoy" class="m-0 p-0"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#1D7874" class="bi bi-circle-fill mb-1" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8"/>
+                                  </svg> Fecha de hoy</p>
+                                <p id="selec" class="m-0 p-0"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#a068b6" class="bi bi-circle-fill mb-1" viewBox="0 0 16 16">
+                                    <circle cx="8" cy="8" r="8"/>
+                                  </svg> Fecha seleccionada</p>
+                            </div>
+                        </div>
+                        <div class="horarios">
+                            <div class="horarios-header">
+                                Seleccione una fecha del calendario, y un horario de la lista a continuación:
+                            </div>
+                            <div class="horarios-selector">
+                                <div class="item">09:00</div>
+                                <div class="item">10:00</div>
+                                <div class="item">11:00</div>
+                                <div class="item">12:00</div>
+                                <div class="item">13:00</div>
+                                <div class="item">14:00</div>
+                                <div class="item">15:00</div>
+                                <div class="item">16:00</div>
+                                <div class="item">17:00</div>
+                                <div class="item">18:00</div>
+                                <div class="item">19:00</div>
+                                <div class="item">20:00</div>
+                            </div>
+                            <div class="confirmacion">
+
+                            </div>
+                            <input type="hidden" id="fecha-seleccionada" name="fecha" value="">
+                            <input type="hidden" id="horario-seleccionado" name="hora" value="">
+                            <button class="confirmar" type="submit">Confirmar turno</button>
+                        </div>
+                    </form>
+
             </div>
         </div>
+
     </main>
+
 
     <footer class="pie">
         <div class="links">
@@ -135,6 +223,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="..static/js/script.js"></script>
+    <script src="/js/scriptInicio.js"></script>
 </body>
+
 </html>

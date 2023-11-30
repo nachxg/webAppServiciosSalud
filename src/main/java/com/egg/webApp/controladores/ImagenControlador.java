@@ -32,6 +32,7 @@ public class ImagenControlador {
     ProfesionalServicio profesionalServicio;
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long id) {
+
         Usuario usuario = usuarioServicio.getOne(id);
 
 
