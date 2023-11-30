@@ -4,6 +4,7 @@ import com.egg.webApp.entidades.*;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.FamiliarRepositorio;
 import com.egg.webApp.repositorios.PacienteRepositorio;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
@@ -161,6 +162,7 @@ public class ProfesionalServicio {
         return familiares;
 
     }
+    
 
 
 //    public LocalDate convertirStringALocalDate(String fechaNacimiento) {

@@ -3,6 +3,7 @@ import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
+
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalControlador {
@@ -91,7 +93,18 @@ public class ProfesionalControlador {
         modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
         return "especialidades.html";
     }
+    
+     @PostMapping("/mostrarMedicos")
+    public String mostrarMedicos(@RequestParam ("especialidad")  String especialidad) {
+        // Lógica para manejar la especialidad recibida
+        System.out.println("Especialidad recibida: " +especialidad);
 
+        // Puedes agregar lógica adicional según tus necesidades
+
+        // Redirige a la vista correspondiente o realiza alguna acción
+        return "medicos.html"; // Reemplaza con el nombre de tu vista
+    }
+}
     /*
     @GetMapping("/grupo_familiar")
     public String grupoFamiliar(ModelMap modelo){
@@ -106,4 +119,4 @@ public class ProfesionalControlador {
 
     }
 */
-}
+

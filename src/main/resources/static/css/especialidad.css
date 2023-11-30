@@ -245,6 +245,9 @@ nav a:hover:not(.logo),
     
 }
 
+#especialidades-container .descrip-especia button {
+    display: none;
+}
 #especialidades-container.centrado {
     
     height: 20vh;
