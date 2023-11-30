@@ -24,6 +24,25 @@ contPerfil.addEventListener("click", function () {
 
 });
 
+const boton1 = document.querySelector("#boton1");
+boton1.addEventListener("click",function(){
+
+    
+
+    const sec1 = document.querySelector("#sec-1");
+    const tarjetaContenido = document.querySelector(".tarjeta-contenido");
+    const parrafoClick = document.querySelector("#parrafo-click");
+    if(parrafoClick.classList.contains("d-block")){
+        parrafoClick.classList.replace("d-block","d-none");
+    }
+
+    tarjetaContenido.scrollIntoView({ behavior: 'smooth' });
+    sec1.style.display = "flex";
+
+})
+
+
+
 const daysTag = document.querySelector(".days"),
     currentDate = document.querySelector(".current-date"),
     prevNextIcon = document.querySelectorAll(".icons span");
@@ -67,7 +86,7 @@ const renderCalendar = () => {
     const inputHoy = document.querySelector('#hoy');
     inputHoy.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#1D7874" class="bi bi-circle-fill mb-1" viewBox="0 0 16 16">
     <circle cx="8" cy="8" r="8"/>
-  </svg> Fecha de hoy: ${fechaAct.getDate()}/${fechaAct.getMonth()+1}/${fechaAct.getFullYear()}`;
+  </svg> Fecha de hoy: ${fechaAct.getDate()}/${fechaAct.getMonth() + 1}/${fechaAct.getFullYear()}`;
 
 }
 
@@ -92,12 +111,12 @@ renderCalendar();
 
 function selectDate(diaElegido) {
 
-    const fechaActual = new Date().setHours(0,0,0,0);
+    const fechaActual = new Date().setHours(0, 0, 0, 0);
     const fechaElegida = new Date(currYear, currMonth, diaElegido.textContent);
 
     if (fechaElegida < fechaActual) {
         alert('No se puede elegir una fecha anterior a la fecha actual.');
-    } else if(fechaElegida >= fechaActual){
+    } else if (fechaElegida >= fechaActual) {
 
         const dias = document.querySelectorAll('.days li');
         const inputSelec = document.querySelector('#selec');
@@ -115,40 +134,54 @@ function selectDate(diaElegido) {
                 dia.classList.remove('active');
             });
             diaElegido.classList.add('active');
-            let dia = diaElegido.textContent;
-            let fecha = `${currYear}/${currMonth + 1}/${dia}`;
+            let dia = diaElegido.textContent.toString().padStart(2,"0");
+            let mes = (currMonth + 1).toString().padStart(2,"0");
+            console.log("mes"+mes)
+            let fecha = `${currYear}/${mes}/${dia}`;
 
             inputSelec.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#a068b6" class="bi bi-circle-fill mb-1" viewBox="0 0 16 16">
             <circle cx="8" cy="8" r="8"/>
-            </svg> Fecha seleccionada: ${dia}/${currMonth + 1}/${currYear}`;
-
+            </svg> Fecha seleccionada: ${dia}/${mes}/${currYear}`;
             inputFecha.value = fecha;
-
         }
 
     }
-    
+    msjConfirmacion();
 }
 
 const horarios = document.querySelectorAll('.item');
 
-  horarios.forEach(function (horario) {
+horarios.forEach(function (horario) {
     horario.addEventListener('click', function () {
 
         let horarioSeleccionado = '';
-        
-        if(horario.classList.contains('seleccionado')){
+
+        if (horario.classList.contains('seleccionado')) {
             horario.classList.remove('seleccionado');
-            horarioSeleccionado = '';
             document.querySelector('#horario-seleccionado').value = horarioSeleccionado;
         } else {
-            horarios.forEach(horario => {horario.classList.remove('seleccionado')});
-            horario.classList.add('seleccionado');      
+            horarios.forEach(horario => { horario.classList.remove('seleccionado') });
+            horario.classList.add('seleccionado');
             horarioSeleccionado = horario.textContent;
-            document.querySelector('#horario-seleccionado').value = horarioSeleccionado;   
+            document.querySelector('#horario-seleccionado').value = horarioSeleccionado;
         }
-        
+
+        msjConfirmacion();
         console.log(document.querySelector('#horario-seleccionado').value);
     });
-  });
+});
 
+function msjConfirmacion() {
+    const inputFecha = document.querySelector('#fecha-seleccionada');
+    const inputHora = document.querySelector('#horario-seleccionado');
+    const msjTurno = document.querySelector('.msj-turno');
+    const confirmacionContainer = document.querySelector('.confirmacion-container');
+
+    if (inputFecha.value !== '' && inputHora.value !== '') {
+        confirmacionContainer.classList.add('mostrar');
+        msjTurno.innerHTML = `Turno a crear: ${inputFecha.value}, a las ${inputHora.value} hs.`;
+    } else {
+        confirmacionContainer.classList.remove('mostrar');
+        msjTurno.innerHTML = '';
+    }
+}

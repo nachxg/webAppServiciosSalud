@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/turno")
@@ -29,19 +30,22 @@ public class TurnoControlador {
     TurnoServicio turnoServicio;
 
     @PostMapping("/crear_turno/{id}")
-    public String crearTurno(ModelMap modelo, String fecha, String hora, @PathVariable Long id) {
+    public String crearTurno(ModelMap modelo, String fecha, String hora, @PathVariable Long id,RedirectAttributes rdA) {
 
         try {
             LocalDateTime resultado = turnoServicio.convertirStringALocalDate(fecha, hora);
             Turno respuesta = turnoServicio.existeFechaHora(id, resultado);
             if (respuesta == null) {
                 turnoServicio.crearTurnoDisponible(id, resultado);
+                rdA.addFlashAttribute("exito","El turno se creó correctamente, y puede ser visualizado desde la sección 'Mis turnos'.");
             } else {
                 System.out.println("El turno ya existe");
+                rdA.addFlashAttribute("error","El turno ya existe.");
             }      
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        
         return "redirect:/inicio";
     }
 
