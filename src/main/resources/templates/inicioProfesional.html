@@ -67,11 +67,9 @@
                                 d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Zm7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
                         </svg>
                     </div>
-                    <div class="texto"><a
-                            th:href="@{turno/listaTurnos/profesional/__${session.usuariosession.id}__}">Gestionar
-                            turnos</a></div>
+                    <div class="texto">Mis turnos</div>
                 </div>
-                <div class="seccion">
+                <div class="seccion" id="boton3">
                     <div class="icono">
                         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
                             class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
@@ -85,7 +83,7 @@
                     </div>
                     <div class="texto">H.C.</div>
                 </div>
-                <div class="seccion">
+                <div class="seccion" id="boton4">
                     <div class="icono">
                         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" 
                          class="bi bi-clipboard2-plus" viewBox="0 0 16 16">
@@ -295,9 +293,42 @@
                         </div>
                     </form>
 
+                    <div class="tabla" style="border-radius: 14px;" id="sec-2">
+                    <table >
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Atendido</th>
+                                <th scope="col">Cancelado</th>
+                                <th scope="col">Especialidad</th>
+                                <th scope="col">Fecha <br>y hora</th>
+                                <th scope="col">ID <br>Profesional</th>
+                                <th scope="col">Motivo de <br>consulta</th>
+                                <th scope="col">Cancelar</th>
+                                <th scope="col">Modificar</th>
+                                <th scope="col">Atender</th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="turno : ${turnos}">
+                          <tr>
+                            <th scope="row" th:text="${turno.id}"></th>
+                            <td th:text="${turno.atendido}"></td>
+                            <td th:text="${turno.cancelado}"></td>
+                            <td th:text="${turno.especialidad}"></td>
+                            <td th:text="${turno.fechaTurno}"></td>
+                            <td th:text="${turno.profesional.id}"></td>
+                            <td th:text="${turno.motivoConsulta}"></td>
+                            <td>Ico</td>
+                            <td>Ico</td>
+                            <td>Ico</td>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div id="sec-3">Seccion3</div>
+                    <div id="sec-4">Seccion4</div>
+
                 </div>
 
-                
             </div>
 
     </main>

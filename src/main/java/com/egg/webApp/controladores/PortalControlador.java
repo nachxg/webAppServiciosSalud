@@ -4,6 +4,8 @@ package com.egg.webApp.controladores;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
+import com.egg.webApp.servicios.TurnoServicio;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +21,9 @@ public class PortalControlador {
     PacienteServicio pacienteServicio;
     @Autowired
     ProfesionalServicio profesionaServicio;
+    @Autowired
+    TurnoServicio turnoServicio;
+    
     @GetMapping("/index")
     public String index(){
         return "index.html";
@@ -34,6 +39,7 @@ public class PortalControlador {
         switch (logueado.getRol().toString()) {
             case "PROFESIONAL":
                 modelo.addAttribute("profesional", profesionaServicio.buscarPorId(logueado.getId()));
+                modelo.addAttribute("turnos", turnoServicio.listaDeTurnosDisponibles(logueado.getId()));
                 return "inicioProfesional.html";
             case "ADMIN":
                 return "redirect:/admin/inicio";
