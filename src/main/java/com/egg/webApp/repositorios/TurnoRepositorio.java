@@ -10,15 +10,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TurnoRepositorio extends JpaRepository<Turno, Long> {
 
-  /*  @Query("SELECT t FROM turnos t WHERE t.paciente_id = :id")
+    @Query("SELECT t FROM Turno t WHERE t.profesional.id = :id AND t.atendido = false")
+    public List<Turno> buscarTurnosDisponiblesDeProfesional(@Param("id") Long id);
+    
+    public Boolean existeFechaHora(String fecha, String Hora);
+
+    /*  @Query("SELECT t FROM turnos t WHERE t.paciente_id = :id")
     public List<Turno> buscarTurnosPorIdPaciente(@Param("id") Long id);
 
 
     @Query("SELECT t FROM turnos t WHERE t.paciente_id = :id AND t.atendido = 1")
     public List<Turno> buscarTurnosPorIdPacienteAtendido(@Param("id") Long id);
 
-    @Query("SELECT t FROM turnos t WHERE t.profesional_id = :id AND t.atendido = 0 ")
-    public List<Turno> buscarTurnosDisponiblesDeProfecional(@Param("id") Long id);
+    
 
     @Query("SELECT t FROM turnos t WHERE t.profesional_id = :id")
     public List<Turno> todosLosTurnosDeProfecional(@Param("id") Long id);
