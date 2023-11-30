@@ -1,4 +1,5 @@
 package com.egg.webApp.controladores;
+
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/profesional")
@@ -24,6 +26,7 @@ public class ProfesionalControlador {
     ProfesionalServicio profesionalServicio;
     @Autowired
     EnumServicio enumServicio;
+
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
 
@@ -38,11 +41,14 @@ public class ProfesionalControlador {
 
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
-                           @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo, @RequestParam String matricula, ModelMap modelo,
-                           @RequestParam String especialidad, @RequestParam @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
+            @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo,
+            @RequestParam String matricula, ModelMap modelo,
+            @RequestParam String especialidad,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
         try {
 
-            profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad, fechaNacimiento);
+            profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula,
+                    especialidad, fechaNacimiento);
 
             return "redirect:/index";
 
@@ -52,33 +58,36 @@ public class ProfesionalControlador {
             return "redirect:/profesional/registrar";
         }
     }
-        @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
-        @GetMapping("/perfil/{id}")
-        public String perfilProfesional(ModelMap modelo, HttpSession session, @PathVariable Long id) {
+
+    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
+    @GetMapping("/perfil/{id}")
+    public String perfilProfesional(ModelMap modelo, HttpSession session, @PathVariable Long id) {
 
         List<Sexo> generos = enumServicio.obtenerGeneros();
         modelo.addAttribute("generos", generos);
 
-            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-            Profesional profesional = null;
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Profesional profesional = null;
 
-            if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
-                profesional = profesionalServicio.getOne(id);
-            } else {
-                profesional = (Profesional) session.getAttribute("usuariosession");
-            }
-
-            modelo.put("profesional", profesional);
-            return "editarProfesional.html";
+        if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
+            profesional = profesionalServicio.getOne(id);
+        } else {
+            profesional = (Profesional) session.getAttribute("usuariosession");
         }
 
-        @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
-        @PostMapping("/perfil/{id}")
-        public String actualizarProfesional(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
-                @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {
+        modelo.put("profesional", profesional);
+        return "editarProfesional.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
+    @PostMapping("/perfil/{id}")
+    public String actualizarProfesional(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo,
+            @RequestParam String telefono, @RequestParam String sexo) {
 
         try {
-            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
+            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono,
+                    sexo.toUpperCase());
             modelo.put("exito", "Profesional actualizado con exito");
             return "inicio.html";
 
@@ -93,30 +102,42 @@ public class ProfesionalControlador {
         modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
         return "especialidades.html";
     }
-    
-     @PostMapping("/mostrarMedicos")
-    public String mostrarMedicos(@RequestParam ("especialidad")  String especialidad) {
-        // Lógica para manejar la especialidad recibida
-        System.out.println("Especialidad recibida: " +especialidad);
 
-        // Puedes agregar lógica adicional según tus necesidades
+    @PostMapping("/buscar_especialidad")
+    public String buscarEspecialidad(ModelMap modelo, @RequestParam String termino) {
+        List<Profesional> profesionales = null;
+        try {
+            profesionales = profesionalServicio.buscarPorNombreOEspecialidad(termino);
+            if (profesionales.isEmpty()) {
+                modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
+            } else {
+                
+                  /*Map<Long, Double> promedios =
+                  calificacionService.calcularPromedioPuntuacionPorProfesionales(profesionales)
+                  ;
+                  modelo.addAttribute("promediosPuntuacion", promedios);
+                */
+            }
+            modelo.addAttribute("profesionales", profesionales);
+            return "medicos.html";
 
-        // Redirige a la vista correspondiente o realiza alguna acción
-        return "medicos.html"; // Reemplaza con el nombre de tu vista
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("mensaje", e.getMessage());
+            return "redirect:/profesional/especialidad";
+        }
     }
 }
-    /*
-    @GetMapping("/grupo_familiar")
-    public String grupoFamiliar(ModelMap modelo){
-
-        modelo.addAttribute("familiares", profesionalServicio.listarFamiliar());
-
-        return "lista_familiar.html";
-    }
-
-    @PostMapping("/agregar_familiar")
-    public String crearFamiliar(){
-
-    }
-*/
-
+/*
+ * @GetMapping("/grupo_familiar")
+ * public String grupoFamiliar(ModelMap modelo){
+ * 
+ * modelo.addAttribute("familiares", profesionalServicio.listarFamiliar());
+ * 
+ * return "lista_familiar.html";
+ * }
+ * 
+ * @PostMapping("/agregar_familiar")
+ * public String crearFamiliar(){
+ * 
+ * }
+ */
