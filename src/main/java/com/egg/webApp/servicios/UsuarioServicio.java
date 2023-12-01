@@ -1,4 +1,5 @@
 package com.egg.webApp.servicios;
+import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Sexo;
@@ -15,12 +16,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -46,6 +52,31 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setSexo(Sexo.valueOf(sexo));
         usuarioRepositorio.save(usuario);
 
+    }
+
+    @Transactional
+    public void editarAdmin(MultipartFile archivo, String password, String password2, Long id) throws Exception {
+
+        validarAdmin(password, password2);
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            Long idImagen = null;
+
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+            }
+
+            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+            usuario.setImagen(imagen);
+
+            usuarioRepositorio.save(usuario);
+        }
     }
     @Transactional
     public Usuario buscarPorId(Long id){
@@ -85,7 +116,15 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
+    private void validarAdmin(String password, String password2) throws Exception {
 
+        if (password.isEmpty() || password == null || password.length() <= 6) {
+            throw new Exception("El password no puede estar vacío y debe contener por lo menos 6 caracteres");
+        }
+        if (!password.equals(password2)) {
+            throw new Exception("Los password ingresados deben ser iguales");
+        }
+    }
     @Override
     public UserDetails loadUserByUsername(String dni) throws UsernameNotFoundException {
 

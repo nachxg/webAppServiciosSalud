@@ -3,15 +3,20 @@ package com.egg.webApp.controladores;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.enumeraciones.ObraSocial;
+import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -51,12 +56,10 @@ public class AdministradorControlador {
 
         return "adminDashboard.html";
     }
-    
+
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
-
-        //modelo.put("profesional", profesionalServicio.listarProfesionales());
-
+        modelo.addAttribute("roles", enumServicio.obtenerRoles());
         modelo.put("especialidades", enumServicio.obtenerEspecialidad());
         List<Profesional> profesionalesActivos = null;
         List<Profesional> profesionales = null;
@@ -94,6 +97,7 @@ public class AdministradorControlador {
     }
     @GetMapping("/usuario/baja/{id}")
     public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo, HttpServletRequest request) {
+
         try {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");
@@ -108,4 +112,45 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
+    @GetMapping("/dashboard/pacientes")
+    public String listarPacientes(ModelMap modelo) {
+        List<Paciente> pacientes = pacienteServicio.listarPacientes();
+        modelo.addAttribute("pacientes", pacientes);
+        modelo.addAttribute("generos", enumServicio.obtenerGeneros());
+        return "lista_pacientes.html";
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/perfil/{id}")
+    public String perfilAdmin(ModelMap modelo, HttpSession session, @PathVariable Long id) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        //Usuario usuario = null;
+
+        if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
+            usuario = usuarioServicio.buscarPorId(id);
+        } else {
+            usuario = (Usuario) session.getAttribute("usuariosession");
+        }
+
+        modelo.put("usuario", usuario);
+        return "editarAdmin.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/perfil/{id}")
+    public String actualizarAdmin(MultipartFile archivo, @PathVariable Long id, @RequestParam String password, @RequestParam String password2,
+                                     ModelMap modelo) {
+        System.out.println(id);
+        System.out.println(password);
+        System.out.println(password2);
+        try {
+            usuarioServicio.editarAdmin(archivo, password, password2, id);
+            modelo.put("exito", "Administrador actualizado correctamente");
+            return "redirect:/admin/inicio";
+        } catch (Exception e) {
+            modelo.put("error", e.getMessage());
+            return "editarAdmin.html";
+        }
+    }
+
 }

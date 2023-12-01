@@ -1,23 +1,18 @@
 package com.egg.webApp.servicios;
 
-import com.egg.webApp.entidades.Imagen;
-import com.egg.webApp.entidades.Paciente;
-import com.egg.webApp.entidades.Profesional;
-import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.entidades.*;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
-import com.egg.webApp.repositorios.PacienteRepositorio;
+import com.egg.webApp.repositorios.FamiliarRepositorio;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +26,8 @@ public class ProfesionalServicio {
     private ProfesionalRepositorio profesionalRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    FamiliarRepositorio familiarRepositorio;
 
     @Autowired
     UsuarioServicio usuarioServicio;
@@ -39,7 +36,7 @@ public class ProfesionalServicio {
     @Transactional
     public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, LocalDate fechaNacimiento) throws Exception {
 
-        validar(nombre, apellido, dni, password, password2,matricula, especialidad);
+        validar(nombre, apellido, dni, password, password2, matricula, especialidad);
         Profesional profesional = new Profesional();
         profesional.setMatricula(matricula);
         profesional.setEspecialidad(Especialidad.valueOf(especialidad));
@@ -51,7 +48,7 @@ public class ProfesionalServicio {
     @Transactional
     public void actualizarProfesional(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo) throws Exception {
 
-      validarActualizacion(password, password2, sexo, telefono, email);
+        validarActualizacion(password, password2, sexo, telefono, email);
 
         Optional<Profesional> respuesta = profesionalRepositorio.findById(id);
 
@@ -85,7 +82,6 @@ public class ProfesionalServicio {
         Profesional profesional = profesionalRepositorio.getOne(id);
         return profesional;
     }
-
     public List<Profesional> listarProfesionales() {
 
         List<Profesional> Profesionales = new ArrayList<>();
@@ -115,7 +111,6 @@ public class ProfesionalServicio {
     }
 
 
-
     private void validar(String nombre, String apellido, String dni, String password, String password2, String matricula, String especialidad) throws Exception {
 
         if (nombre.isEmpty() || nombre == null) {
@@ -133,10 +128,10 @@ public class ProfesionalServicio {
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
-        if (matricula.isEmpty() || matricula == null){
+        if (matricula.isEmpty() || matricula == null) {
             throw new Exception("La matricula no puede ser nulo o estar vacio");
         }
-        if (especialidad.isEmpty() || especialidad == null){
+        if (especialidad.isEmpty() || especialidad == null) {
             throw new Exception("La especialidad no puede ser nulo o estar vacio");
         }
         // VALIDAR QUE DNI NO ESTÉ REPETIDO
@@ -170,6 +165,20 @@ public class ProfesionalServicio {
         }
 
     }
+
+    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(fechaNacimiento, formatter);
+    }
+
+    public List<GrupoFamiliar> listarFamiliar() {
+
+        List<GrupoFamiliar> familiares = new ArrayList<>();
+        familiares = familiarRepositorio.findAll();
+        return familiares;
+
+    }
+
 
 //    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

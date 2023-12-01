@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
@@ -22,5 +23,7 @@ public class GrupoFamiliar {
 
     @OneToMany(mappedBy = "grupoFamiliar", cascade = CascadeType.ALL)
     private List<Paciente> miembros;
+
+
 }
 
