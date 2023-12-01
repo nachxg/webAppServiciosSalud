@@ -127,18 +127,4 @@ public class ProfesionalControlador {
             return "redirect:/profesional/especialidad";
         }
     }
-}
-/*
- * @GetMapping("/grupo_familiar")
- * public String grupoFamiliar(ModelMap modelo){
- * 
- * modelo.addAttribute("familiares", profesionalServicio.listarFamiliar());
- * 
- * return "lista_familiar.html";
- * }
- * 
- * @PostMapping("/agregar_familiar")
- * public String crearFamiliar(){
- * 
- * }
- */
+}    
