@@ -47,14 +47,36 @@ public class TurnoServicio {
     }
 
     @Transactional
-    public void modificarTurno(Long idTurno, String motivoConsulta, boolean atendido, boolean cancelado) {
+    public void modificarTurno(Long idTurno, LocalDateTime fecha) {
         Optional<Turno> respuesta = turnoRepositorio.findById(idTurno);
         if (respuesta.isPresent()) {
             Turno turno = respuesta.get();
-            turno.setMotivoConsulta(motivoConsulta);
-            turno.setCancelado(cancelado);
-            turno.setAtendido(atendido);
+            turno.setFechaTurno(fecha);
             turnoRepositorio.save(turno);
+        }
+    }
+    
+    @Transactional
+    public void cancelarTurno(Long id) {
+        Turno turno = turnoRepositorio.buscarTurnosPorId(id);
+        
+        if (turno != null) {
+            turno.setCancelado(true);
+            turnoRepositorio.save(turno);
+        } else {
+            System.out.println("No encontro Turno");
+        }
+    }
+    
+    @Transactional
+    public void atendidoTurno(Long id) {
+        Turno turno = turnoRepositorio.buscarTurnosPorId(id);
+        
+        if (turno != null) {
+            turno.setAtendido(true);
+            turnoRepositorio.save(turno);
+        } else {
+            System.out.println("No encontro Turno");
         }
     }
 
@@ -78,6 +100,7 @@ public class TurnoServicio {
     public Turno existeFechaHora(Long idProfesional, LocalDateTime fechaHora) throws Exception{    
         return turnoRepositorio.existeFechaHora(idProfesional, fechaHora);        
     }
+    
 
     /*
 
@@ -110,6 +133,15 @@ public class TurnoServicio {
     public LocalDateTime convertirStringALocalDate(String fecha, String hora) {
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        String fechaHoraString = fecha + " " + hora;
+
+        return LocalDateTime.parse(fechaHoraString, formato);
+
+    }
+    
+    public LocalDateTime convertirStringALocalDateb(String fecha, String hora) {
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String fechaHoraString = fecha + " " + hora;
 
         return LocalDateTime.parse(fechaHoraString, formato);

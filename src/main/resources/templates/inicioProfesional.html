@@ -317,9 +317,9 @@
                             <td th:text="${turno.fechaTurno}"></td>
                             <td th:text="${turno.profesional.id}"></td>
                             <td th:text="${turno.motivoConsulta}"></td>
-                            <td>Ico</td>
-                            <td>Ico</td>
-                            <td>Ico</td>
+                            <td><a th:href="@{/turno/cancelar/profesional/__${turno.id}__}">Cancelar</a></td>
+                            <td><a th:href="@{/turno/modificar_turno/__${turno.id}__}">Modificar</a></td>
+                            <td><a th:href="@{/turno/atendido/profesional/__${turno.id}__}">Atendido</a></td>
                         </tbody>
                       </table>
                     </div>
