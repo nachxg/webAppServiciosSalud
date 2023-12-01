@@ -88,6 +88,35 @@ boton4.addEventListener("click",function(){
 
 });
 
+function abrirModal(idTurno,idProf){
+
+    console.log(idTurno);
+    console.log(idProf);
+
+    const modalForm = document.querySelector("#form-modal");
+    const spanTurno = document.querySelector("#spanTurno");
+    const modal = document.querySelector(".modal-turnos");
+    const cerrarModal = document.querySelector(".cerrar-modal");
+
+    modalForm.setAttribute('action',`/turno/modificar_turno/${idTurno}/${idProf}`);
+
+    spanTurno.innerHTML = `${idTurno}`;
+    modal.style.display = "block";
+
+    cerrarModal.addEventListener("click", function(){
+        modal.style.display = "none";
+    });
+
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+
+
+
 const daysTag = document.querySelector(".days"),
     currentDate = document.querySelector(".current-date"),
     prevNextIcon = document.querySelectorAll(".icons span");

@@ -27,7 +27,7 @@
         </nav>
         
         <div th:each="turno : ${turno}" >
-            <form th:action="@{/turno/modificar_turno/__${turno.id}__/__${session.usuariosession.id}__}" method="GET">
+            <form th:action="@{/turno/modificar_turno/__${turno.id}__/__${session.usuariosession.id}__}" method="POST">
                 <label for="fecha">Nueva Fecha</label>
                 <input type="date" id="fehca" name="fecha">
                 <label for="hora">Nueva Hora</label>
