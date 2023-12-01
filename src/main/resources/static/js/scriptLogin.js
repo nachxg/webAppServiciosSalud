@@ -12,6 +12,3 @@ const pass = document.getElementById("pass");
             icon.classList.remove('bx-hide')
         }
       })
-
-
-      

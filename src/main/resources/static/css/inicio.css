@@ -178,6 +178,8 @@ main {
     height: 100%;
     margin-bottom: 0;
     padding-bottom: 0;
+    position: relative;
+    z-index: 0;
 }
 
 .encabezado1 {
@@ -572,7 +574,7 @@ main {
     display: none;
 }
 
-.tabla{
+.tabla {
     padding: 10px;
     font-size: .85em;
     text-align: center;
@@ -585,23 +587,40 @@ main {
     overflow-y: auto;
 }
 
-.tabla table{
+.tabla table {
     width: 100%;
-    border: collapse;
+    border-collapse: separate; /* Hace que el margen se aplique entre las celdas */
+    border-spacing: 5px; /* Define el espacio entre las celdas */
+}
+
+.tabla table th,
+.tabla table td {
+    border-radius: 5px;
     background-color: white;
-}
-
-.tabla table tbody{
-
-}
-
-.tabla table, .tabla table th, .tabla table td{
-    border: 1px solid rgb(180, 180, 180);
+    box-shadow: 1px 1px 10px rgb(194, 194, 194);
     padding: 3px;
 }
-
 #sec-3{
     display: none;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgb(163, 163, 163);
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#sec-3 .cuerpo-hc{
+    border: none;
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    z-index: 200;
+    position: relative;
 }
 
 #sec-4{
@@ -811,4 +830,84 @@ header .current-date {
 
 .days li:not(.active, .actual):hover::before {
     background: #f2f2f2;
+}
+
+.modal-turnos {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+}
+
+.modal-turnos-cuerpo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 200;
+    height: 45%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#form-modal{
+    height: 80%;
+    width: 90%;
+    box-shadow: 1px 1px 10px rgb(182, 182, 182);
+    background-color: #4d9692;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 14px;
+}
+
+#form-modal div{
+    height: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-transform: uppercase;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    width: 91%;
+    background-color: #3c7976;
+    border-radius: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#form-modal button{
+    margin-top: 20px;
+    height: 20%;
+    width: 30%;
+    align-self: center;
+    border: none;
+    border-radius: 14px;
+    color: #4d9692;
+    background-color: white;
+}
+
+
+.cerrar-modal {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
 }
