@@ -21,7 +21,7 @@ public class Turno {
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
     @Column(name = "motivo_consulta")
-    private String motivoCosulta;
+    private String motivoConsulta;
     private boolean atendido;
     private boolean cancelado;
 

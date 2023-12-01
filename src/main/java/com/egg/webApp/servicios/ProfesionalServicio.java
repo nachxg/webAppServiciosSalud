@@ -84,6 +84,11 @@ public class ProfesionalServicio {
 
         return profesional;
     }
+    
+    @Transactional
+    public Profesional buscarPorId(Long id){
+        return profesionalRepositorio.buscarPorId(id);
+    }
 
     public List<Profesional> listarProfesionales() {
 

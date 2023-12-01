@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
@@ -78,8 +80,7 @@ public class ProfesionalControlador {
         try {
             profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
             modelo.put("exito", "Profesional actualizado con exito");
-            return "inicio.html";
-
+            return "redirect:/inicio";
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
             return "editarProfesional.html";
