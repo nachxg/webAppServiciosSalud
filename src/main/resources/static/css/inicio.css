@@ -542,6 +542,25 @@ main {
 
 #sec-3{
     display: none;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgb(163, 163, 163);
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#sec-3 .cuerpo-hc{
+    border: none;
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    z-index: 200;
+    position: relative;
 }
 
 #sec-4{
