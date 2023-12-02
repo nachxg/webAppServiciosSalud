@@ -40,21 +40,33 @@ public class AdministradorControlador {
     @GetMapping("/inicio")
     public String inicioAdmin(Model modelo) {
 
-        List<Paciente> pacientesActivos = null;
         List<Profesional> profesionalesInactivos = null;
+        List<Profesional> profesionalesActivos = null;
+        List<Paciente> pacientesActivos = null;
+
 
         modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
 
         try {
-            pacientesActivos = pacienteServicio.listarPacientesActivos();
-            modelo.addAttribute("pacientesActivos", pacientesActivos);
             profesionalesInactivos = profesionalServicio.listarProfesionalesPendientesAlta();
             modelo.addAttribute("profesionalesInactivos", profesionalesInactivos);
         } catch (MiExcepcion e) {
             modelo.addAttribute("error", e.getMessage());
         }
+        try {
+            profesionalesActivos = profesionalServicio.listarProfesionalesActivos();
+            modelo.addAttribute("profesionalesActivos", profesionalesActivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
+        try {
+            pacientesActivos = pacienteServicio.listarPacientesActivos();
+            modelo.addAttribute("pacientesActivos", pacientesActivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
 
-        return "adminDashboard.html";
+        return "adminInicio.html";
     }
 
     @GetMapping("/dashboard")
@@ -83,7 +95,7 @@ public class AdministradorControlador {
             modelo.addAttribute("error", e.getMessage());
         }
 
-        return "lista_usuarios.html";
+        return "adminDashboard.html";
     }
     @PostMapping("/dashboard/cambiar-rol")
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
@@ -102,8 +114,8 @@ public class AdministradorControlador {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");
             String referencia = request.getHeader("Referer");
-            if (referencia != null && referencia.contains("/admin/dashboard/pacientes")) {
-                return "redirect:/admin/dashboard/pacientes";
+            if (referencia != null && referencia.contains("/admin/inicio")) {
+                return "redirect:/admin/inicio";
             } else {
                 return "redirect:/admin/dashboard";
             }
@@ -112,6 +124,7 @@ public class AdministradorControlador {
             return "redirect:/admin/dashboard";
         }
     }
+
     @GetMapping("/dashboard/pacientes")
     public String listarPacientes(ModelMap modelo) {
         List<Paciente> pacientes = pacienteServicio.listarPacientes();
