@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Clase que representa a un usuario en la aplicación.
@@ -98,5 +99,6 @@ public class Usuario {
     protected String apellido;
 
     protected boolean altaSistema;
-
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<RegistroAccion> registrosAcciones;
 }

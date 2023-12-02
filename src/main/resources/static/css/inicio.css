@@ -9,6 +9,13 @@
     --whatsapp: #25D366;
     --colorLindo: #1D7874;
 }
+.text-rojo {
+    color: red;
+}
+
+.text-verde {
+    color: green;
+}
 
 * {
     margin: 0;

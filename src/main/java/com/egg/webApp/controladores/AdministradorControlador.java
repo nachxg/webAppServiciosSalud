@@ -35,15 +35,23 @@ public class AdministradorControlador {
         this.administradorServicio = administradorServicio;
     }
     @GetMapping("/inicio")
-    public String inicioAdmin(Model modelo) {
+    public String inicioAdmin(Model modelo)  {
 
         List<Profesional> profesionalesInactivos = null;
         List<Profesional> profesionalesActivos = null;
         List<Paciente> pacientesActivos = null;
-
-
+        try {
+            modelo.addAttribute("porcentajeIncremental", administradorServicio.calcularPorcentajeCambioFormateado());
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("errorPorcentajeIncremental", e.getMessage());
+        }
         modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
-
+        try {
+            profesionalesInactivos = profesionalServicio.listarProfesionalesPendientesAlta();
+            modelo.addAttribute("profesionalesInactivos", profesionalesInactivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("errorProfesionalInactivo", e.getMessage());
+        }
         try {
             profesionalesInactivos = profesionalServicio.listarProfesionalesPendientesAlta();
             modelo.addAttribute("profesionalesInactivos", profesionalesInactivos);
@@ -53,6 +61,8 @@ public class AdministradorControlador {
         try {
             profesionalesActivos = profesionalServicio.listarProfesionalesActivos();
             modelo.addAttribute("profesionalesActivos", profesionalesActivos);
+            modelo.addAttribute("altasProfesionales", profesionalesActivos);
+            System.out.println("Profesionales activos: " + profesionalesActivos.size());
         } catch (MiExcepcion e) {
             modelo.addAttribute("errorProfesionalesActivos", e.getMessage());
         }
@@ -65,6 +75,8 @@ public class AdministradorControlador {
 
         return "adminInicio.html";
     }
+
+
 
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
@@ -108,7 +120,6 @@ public class AdministradorControlador {
 
     @GetMapping("/usuario/baja/{id}")
     public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo, HttpServletRequest request) {
-
         try {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");

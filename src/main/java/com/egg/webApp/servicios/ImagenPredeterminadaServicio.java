@@ -67,8 +67,13 @@ public class ImagenPredeterminadaServicio {
         }
     }
 
-    public ImagenPredeterminada obtenerImagenPredeterminada() {
+    public ImagenPredeterminada obtenerImagenPredeterminada() throws MiExcepcion {
         Optional<ImagenPredeterminada> imagenPredeterminadaOptional = imagenPredeterminadaRepository.findById(1L);
-        return imagenPredeterminadaOptional.orElse(null);
+
+        if (imagenPredeterminadaOptional.isPresent()) {
+            return imagenPredeterminadaOptional.get();
+        } else {
+            throw new MiExcepcion("Aún no se ha cargado una imagen predeterminada");
+        }
     }
 }

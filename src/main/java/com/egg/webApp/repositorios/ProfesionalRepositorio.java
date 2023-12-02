@@ -35,4 +35,15 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Long>
     @Query("SELECT p FROM Profesional p WHERE p.altaSistema = false")
     public List<Profesional> listarProfesionalDeBajaEnSistema();
 
+
+
+//consulatas para el dashboard
+    @Query("SELECT COUNT(p) FROM Profesional p WHERE p.altaSistema = true")
+    Long obtenerCantidadProfesionalesActivos();
+
+    @Query("SELECT COUNT(p) FROM Profesional p WHERE p.altaSistema = false")
+    Long obtenerCantidadProfesionalesInactivos();
+
+    @Query("SELECT AVG(COALESCE(p.calificaciones.size, 0)) FROM Profesional p WHERE p.calificaciones IS NOT EMPTY")
+    Double obtenerPromedioCalificacionesProfesionales();
 }
