@@ -39,14 +39,11 @@ public class ProfesionalControlador {
 
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
-            @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo,
-            @RequestParam String matricula, ModelMap modelo,
-            @RequestParam String especialidad,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
+                           @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo, @RequestParam String matricula, ModelMap modelo,
+                           @RequestParam String especialidad, @RequestParam @DateTimeFormat(iso= DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
         try {
 
-            profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula,
-                    especialidad, fechaNacimiento);
+            profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad, fechaNacimiento);
 
             return "redirect:/index";
 
@@ -56,19 +53,18 @@ public class ProfesionalControlador {
             return "redirect:/profesional/registrar";
         }
     }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
-    @GetMapping("/perfil/{id}")
-    public String perfilProfesional(ModelMap modelo, HttpSession session, @PathVariable Long id) {
+        @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
+        @GetMapping("/perfil/{id}")
+        public String perfilProfesional(ModelMap modelo, HttpSession session, @PathVariable Long id) {
 
         List<Sexo> generos = enumServicio.obtenerGeneros();
         modelo.addAttribute("generos", generos);
 
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        Profesional profesional = null;
+            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+            Profesional profesional = null;
 
             if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
-                profesional = profesionalServicio.buscarPorId(id);
+                profesional = profesionalServicio.getOne(id);
             } else {
                 profesional = (Profesional) session.getAttribute("usuariosession");
             }
@@ -85,7 +81,7 @@ public class ProfesionalControlador {
         try {
             profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
             modelo.put("exito", "Profesional actualizado con exito");
-            return "inicioProfesional.html";
+            return "inicio.html";
 
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
@@ -122,19 +118,5 @@ public class ProfesionalControlador {
             return "redirect:/profesional/especialidad";
         }
     }
+*/
 }
-/*
- * @GetMapping("/grupo_familiar")
- * public String grupoFamiliar(ModelMap modelo){
- *
- * modelo.addAttribute("familiares", profesionalServicio.listarFamiliar());
- *
- * return "lista_familiar.html";
- * }
- *
- * @PostMapping("/agregar_familiar")
- * public String crearFamiliar(){
- *
- * }
- */
-
