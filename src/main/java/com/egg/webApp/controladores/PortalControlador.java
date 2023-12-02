@@ -1,9 +1,9 @@
 package com.egg.webApp.controladores;
 
-
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.servicios.PacienteServicio;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.egg.webApp.servicios.ProfesionalServicio;
+import com.egg.webApp.servicios.TurnoServicio;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -13,30 +13,38 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
+private final ProfesionalServicio profesionalServicio;
+    private final PacienteServicio pacienteServicio;
+    private final TurnoServicio turnoServicio;
+    public PortalControlador(ProfesionalServicio profesionalServicio, PacienteServicio pacienteServicio, TurnoServicio turnoServicio) {
+        this.profesionalServicio = profesionalServicio;
+        this.pacienteServicio = pacienteServicio;
+        this.turnoServicio = turnoServicio;
+    }
 
-    @Autowired
-    PacienteServicio pacienteServicio;
     @GetMapping("/index")
     public String index(){
         return "index.html";
     }
-    
     @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN', 'ROLE_PROFESIONAL')")
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo) {
         
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("turnos", turnoServicio.listaDeTurnosDisponibles(logueado.getId()));
 
-         // NOS TRAE UN PACIENTE PARA PASARLO A LA VISTA
-        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-        
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/inicio";
+        // NOS TRAE UN PACIENTE PARA PASARLO A LA VISTA
+        switch (logueado.getRol().toString()) {
+            case "PROFESIONAL":
+                modelo.addAttribute("profesional", profesionalServicio.buscarPorId(logueado.getId()));
+                return "inicioProfesional.html";
+            case "ADMIN":
+                return "redirect:/admin/inicio";
+            default:
+                modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
+                return "inicio.html";
         }
-
-        return "inicio.html";
     }
-
 
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {

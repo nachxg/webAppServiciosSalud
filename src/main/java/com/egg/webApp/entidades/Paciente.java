@@ -1,7 +1,6 @@
 package com.egg.webApp.entidades;
 
 import com.egg.webApp.enumeraciones.ObraSocial;
-import com.egg.webApp.enumeraciones.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,7 @@ public class Paciente extends Usuario {
     @Enumerated(EnumType.STRING)
     private ObraSocial obraSocial;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Turno> turnos;
 
     @ManyToOne
@@ -37,5 +36,4 @@ public class Paciente extends Usuario {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
-
 }

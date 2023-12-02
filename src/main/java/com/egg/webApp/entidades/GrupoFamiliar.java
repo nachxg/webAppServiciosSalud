@@ -1,21 +1,23 @@
 package com.egg.webApp.entidades;
 
+import com.egg.webApp.enumeraciones.Vinculo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class GrupoFamiliar {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
-    private String parentesco;
+
+    @Enumerated(EnumType.STRING)
+    private Vinculo parentesco;
 
     @ManyToOne
     @JoinColumn(name = "paciente_titular_id")
@@ -23,7 +25,6 @@ public class GrupoFamiliar {
 
     @OneToMany(mappedBy = "grupoFamiliar", cascade = CascadeType.ALL)
     private List<Paciente> miembros;
-
 
 }
 
