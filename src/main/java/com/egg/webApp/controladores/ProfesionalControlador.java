@@ -123,6 +123,32 @@ public class ProfesionalControlador {
         return "inicioProfesional.html";
     }
 
+    @PostMapping("/buscar_especialidad")
+    public String buscarEspecialidad(ModelMap modelo, @RequestParam String termino) {
+        List<Profesional> profesionales = null;
+        try {
+            profesionales = profesionalServicio.buscarPorNombreOEspecialidad(termino);
+            profesionales.forEach(System.out::println);
+            
+            if (profesionales.isEmpty()) {
+                modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
+            } else {
+                /*
+                 * Map<Long, Double> promedios =
+                 * calificacionService.calcularPromedioPuntuacionPorProfesionales(profesionales)
+                 * ;
+                 * modelo.addAttribute("promediosPuntuacion", promedios);
+                 */
+            }
+            modelo.addAttribute("profesionales", profesionales);
+            return "lista_profesionales.html";
+
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("mensaje", e.getMessage());
+            return "redirect:/profesional/especialidad";
+        }
+    }
+
     /*
     @GetMapping("/grupo_familiar")
     public String grupoFamiliar(ModelMap modelo){

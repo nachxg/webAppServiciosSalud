@@ -4,54 +4,58 @@ function mostrarEspecialidades(boton, letra) {
     const contieneLista = document.getElementById('contenedor-lista');
     // Limpia el contenido existente
     contieneLista.innerHTML = '';
-  
+
     // Crea una lista desordenada para las especialidades
     var listaEspecialidades = document.createElement('ul');
     listaEspecialidades.id = 'lista-especialidades';
-  
+
     // Aquí podrías tener un array o datos de especialidades que empiezan con la letra seleccionada
     // En este ejemplo, utilizo un array simple como ejemplo
     var especialidades = obtenerEspecialidadesPorLetra(letra);
-  
+
     // Añade elementos de lista para cada especialidad a la lista
     especialidades.forEach(function (especialidad) {
-      var listItem = document.createElement('li');
-      var link = document.createElement('a');
-      link.textContent = especialidad;
-  
-      // Agrega un evento de clic a cada enlace para mostrar la descripción
-      link.addEventListener('click', function () {
-        mostrarDescripcionEspecialidad(especialidad);
-      });
-  
-      listItem.appendChild(link);
-      listaEspecialidades.appendChild(listItem);
+        var listItem = document.createElement('li');
+        var link = document.createElement('a');
+        link.textContent = especialidad;
+
+        // Agrega un evento de clic a cada enlace para mostrar la descripción
+        link.addEventListener('click', function () {
+            mostrarDescripcionEspecialidad(especialidad);
+            mostrarDetalles(especialidad)
+        });
+
+        listItem.appendChild(link);
+        listaEspecialidades.appendChild(listItem);
     });
-  
+
+
+
     // Añade la lista de especialidades al contenedor
     contieneLista.appendChild(listaEspecialidades);
-  
+
     // Agrega la clase 'centrado' al contenedor
     especialidadesContainer.classList.add('centrado');
-  
+
     // Cambia el color del botón clickeado
     resetearColoresBotones();
     boton.style.backgroundColor = '#3cd2cb'; // Puedes cambiar 'red' por el color que desees
-  }
-  
-  function resetearColoresBotones() {
+}
+
+function resetearColoresBotones() {
     // Resetea el color de todos los botones a su estado original
     var botones = document.querySelectorAll('#lista-botones button');
     botones.forEach(function (boton) {
-      boton.style.backgroundColor = ''; // Puedes cambiar '' por el color original de los botones
+        boton.style.backgroundColor = ''; // Puedes cambiar '' por el color original de los botones
     });
-  }
-  
-  // Esta función debería ser llamada al inicio para establecer el color original de los botones
-  resetearColoresBotones();
-  
+}
 
+// Esta función debería ser llamada al inicio para establecer el color original de los botones
+resetearColoresBotones();
+
+var especialidadSeleccionada;  // Declara la variable global
 function mostrarDescripcionEspecialidad(especialidad) {
+    especialidadSeleccionada = especialidad;
     // Puedes personalizar esta función con descripciones específicas para cada especialidad
     var descripcion = obtenerDescripcionEspecialidad(especialidad);
 
@@ -59,12 +63,41 @@ function mostrarDescripcionEspecialidad(especialidad) {
     var descripcionEspecialidad = document.getElementById('descripcion-especialidad');
     descripcionEspecialidad.textContent = descripcion;
 }
+function mostrarDetalles(especialidad) {
+    // Muestra la descripción de la especialidad
+    document.getElementById("descripcion-especialidad").textContent = obtenerDescripcionEspecialidad(especialidad);
+
+    // Muestra el botón "NUESTROS MEDICOS"
+    document.getElementById("btnMostrarMedicos").style.display = "block";
+    //enviarEspecialidadAlBackend(especialidad);
+}
+
+function mostrarMedicos() {
+
+    // Muestra la lista de médicos asociados a la especialidad
+    document.getElementById("contenedor-medicos").style.display = "block";
+    enviarEspecialidadAlBackend(especialidadSeleccionada);
+}
+function enviarEspecialidadAlBackend(especialidad) {
+    fetch('/profesional/buscar_especialidad', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'termino=' + encodeURIComponent(especialidad),
+    })
+        .then(response => response.text()) // Convertir la respuesta a texto
+        .then(data => {
+            // Actualizar el contenido de la página con la respuesta del servidor
+            document.body.innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error al enviar la especialidad al backend:', error);
+        });
+}
 
 function obtenerDescripcionEspecialidad(especialidad) {
     // Puedes expandir esta función con descripciones específicas para cada especialidad
-
-
-
     switch (especialidad) {
         case 'Alergia e Inmunología':
             return 'El Servicio de Alergia e Inmunología se encarga de la prevención, diagnóstico y tratamiento de las patologías del sistema inmunológico.'
@@ -105,7 +138,7 @@ function obtenerDescripcionEspecialidad(especialidad) {
         case 'Medicina Interna Hospitalaria':
             return 'Medicina Interna Hospitalaria se especializa en el diagnóstico y tratamiento de enfermedades complejas en pacientes hospitalizados.'
         case 'Nefrología' :
-             return 'Nefrología trata enfermedades relacionadas con los riñones.'
+            return 'Nefrología trata enfermedades relacionadas con los riñones.'
         case 'Neurocirugía' :
             return 'Neurocirugía realiza intervenciones quirúrgicas en el sistema nervioso para tratar diversas condiciones.'
         case 'Neurología':
@@ -162,6 +195,6 @@ function obtenerEspecialidadesPorLetra(letra) {
         case 'T-U':
             return ['Terapia Intensiva ', 'Trasplantes', 'Traumatología y Ortopedia', 'Trabajo Social', 'Urología']
         default:
-            return [];
+            return[];
     }
 }
