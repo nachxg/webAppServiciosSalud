@@ -40,6 +40,7 @@ public class AdministradorControlador {
         List<Profesional> profesionalesInactivos = null;
         List<Profesional> profesionalesActivos = null;
         List<Paciente> pacientesActivos = null;
+        modelo.addAttribute("usuariosRegistradosConAumento", administradorServicio.calcularUsuariosRegistradosConAumento());
         try {
             modelo.addAttribute("porcentajeIncremental", administradorServicio.calcularPorcentajeCambioFormateado());
         } catch (MiExcepcion e) {

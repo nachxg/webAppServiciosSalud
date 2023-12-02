@@ -58,14 +58,9 @@ public class AdministradorServicio {
         List<RegistroAccion> registrosBajas = registroAccionRepositorio.findByAltaSistema(false);
         double totalAltas = registrosAltas.size();
         double totalBajas = registrosBajas.size();
-
-        System.out.println("Total de altas: " + totalAltas);
-        System.out.println("Total de bajas: " + totalBajas);
         if (totalAltas + totalBajas == 0) {
             return new double[]{0.0};
         }
-
-        // Devuelve un array con [promedio, totalAltas, totalBajas]
         return new double[]{totalAltas / (totalAltas + totalBajas), totalAltas, totalBajas};
     }
 
@@ -76,18 +71,28 @@ public class AdministradorServicio {
             return "0%";
         }
         double[] datos = calcularPromedioAltas();
-
         double promedio = datos[0];
         double totalAltas = datos[1];
         double totalBajas = datos[2];
-
-        // Calcula el porcentaje de cambio
         double porcentajeCambio = 0.0;
         if (totalAltas + totalBajas > 0) {
             porcentajeCambio = ((totalAltas - totalBajas) / (totalAltas + totalBajas)) * 100;
         }
-
-        return String.format("%.1f%%", porcentajeCambio);
+        String signo = porcentajeCambio >= 0 ? "+" : "";
+        return String.format("%s%.1f%%", signo, Math.abs(porcentajeCambio));
     }
+    public int calcularUsuariosRegistradosConAumento() {
+        // Obtén la cantidad actual de usuarios registrados
+        int usuariosActuales = (int) usuarioRepositorio.count();
 
+        // Calcula el aumento del 10%
+        double aumentoPorcentaje = 0.10;
+        double aumento = usuariosActuales * aumentoPorcentaje;
+
+        // Calcula el nuevo total de usuarios registrados
+        double nuevosUsuarios = usuariosActuales + aumento;
+
+        // Devuelve el nuevo total como entero
+        return (int) nuevosUsuarios;
+    }
 }

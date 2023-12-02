@@ -50,10 +50,9 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Usuarios
-                                            Registrados</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Usuarios Registrados</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            30
+                                            <span class="text-sm font-weight-bolder" th:text="${usuariosRegistradosConAumento}"></span>
                                             <span class="text-success text-sm font-weight-bolder">+10%</span>
                                         </h5>
                                     </div>
@@ -498,6 +497,12 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 <script src="/js/scriptInicio.js"></script>
+<script>
+    function darDeAlta(id) {
+        var url = 'http://localhost:8080/admin/usuario/baja/' + id;
+        window.location.href = url;
+    }
+</script>
 </body>
 
 </html>
