@@ -119,7 +119,6 @@ public class PacienteServicio {
         if (usuarioServicio.validarDNI(dni)) {
             throw new Exception("El DNI ya existe. Por favor intente nuevamente");
         }
-
     }
 
     public LocalDate convertirStringALocalDate(String fechaNacimiento) {

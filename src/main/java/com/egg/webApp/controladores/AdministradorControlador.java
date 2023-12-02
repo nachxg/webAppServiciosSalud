@@ -3,8 +3,6 @@ package com.egg.webApp.controladores;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
-import com.egg.webApp.enumeraciones.ObraSocial;
-import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdministradorControlador {
-
     private final UsuarioServicio usuarioServicio;
     private final PacienteServicio pacienteServicio;
     private final ProfesionalServicio profesionalServicio;
@@ -52,19 +48,19 @@ public class AdministradorControlador {
             profesionalesInactivos = profesionalServicio.listarProfesionalesPendientesAlta();
             modelo.addAttribute("profesionalesInactivos", profesionalesInactivos);
         } catch (MiExcepcion e) {
-            modelo.addAttribute("error", e.getMessage());
+            modelo.addAttribute("errorProfesionalInactivo", e.getMessage());
         }
         try {
             profesionalesActivos = profesionalServicio.listarProfesionalesActivos();
             modelo.addAttribute("profesionalesActivos", profesionalesActivos);
         } catch (MiExcepcion e) {
-            modelo.addAttribute("error", e.getMessage());
+            modelo.addAttribute("errorProfesionalesActivos", e.getMessage());
         }
         try {
             pacientesActivos = pacienteServicio.listarPacientesActivos();
             modelo.addAttribute("pacientesActivos", pacientesActivos);
         } catch (MiExcepcion e) {
-            modelo.addAttribute("error", e.getMessage());
+            modelo.addAttribute("errorPacientesActivos", e.getMessage());
         }
 
         return "adminInicio.html";
@@ -145,14 +141,11 @@ public class AdministradorControlador {
     public String perfilAdmin(ModelMap modelo, HttpSession session, @PathVariable Long id) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        //Usuario usuario = null;
-
         if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
             usuario = usuarioServicio.buscarPorId(id);
         } else {
             usuario = (Usuario) session.getAttribute("usuariosession");
         }
-
         modelo.put("usuario", usuario);
         return "editarAdmin.html";
     }
@@ -161,9 +154,6 @@ public class AdministradorControlador {
     @PostMapping("/perfil/{id}")
     public String actualizarAdmin(MultipartFile archivo, @PathVariable Long id, @RequestParam String password, @RequestParam String password2,
                                      ModelMap modelo) {
-        System.out.println(id);
-        System.out.println(password);
-        System.out.println(password2);
         try {
             usuarioServicio.editarAdmin(archivo, password, password2, id);
             modelo.put("exito", "Administrador actualizado correctamente");

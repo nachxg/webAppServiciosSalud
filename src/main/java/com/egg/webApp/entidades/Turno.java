@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import com.egg.webApp.enumeraciones.Especialidad;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity

@@ -37,8 +37,8 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, LocalDate fechaNacimiento) throws Exception {
-
+    public void registrar(String nombre, String apellido, String dni, String password, String password2,
+                          Long id, String sexo, LocalDate fechaNacimiento) throws Exception {
         validar(nombre, apellido, dni, password, password2);
         Usuario usuario = usuarioRepositorio.getOne(id);
         usuario.setNombre(nombre);
@@ -79,10 +79,8 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     public List<Usuario> listarUsuarios() {
-
         List<Usuario> usuarios = new ArrayList<>();
         usuarios = usuarioRepositorio.findAll();
-
         return usuarios;
     }
 

@@ -14,7 +14,6 @@ import java.util.Optional;
 public class ImagenPredeterminadaServicio {
     private final ImagenPredeterminadaRepository imagenPredeterminadaRepository;
 
-
     public ImagenPredeterminadaServicio(ImagenPredeterminadaRepository imagenPredeterminadaRepository) {
         this.imagenPredeterminadaRepository = imagenPredeterminadaRepository;
     }

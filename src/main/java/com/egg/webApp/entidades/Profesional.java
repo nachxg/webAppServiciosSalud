@@ -15,7 +15,6 @@ import java.util.Set;
 @Table(name = "profesionales")
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Profesional extends Usuario {
-
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
     private String matricula;
@@ -24,5 +23,4 @@ public class Profesional extends Usuario {
 
     @OneToMany(mappedBy = "profesional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Calificacion> calificaciones;
-
 }

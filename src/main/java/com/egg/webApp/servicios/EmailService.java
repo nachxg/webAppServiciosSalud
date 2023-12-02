@@ -41,11 +41,9 @@ public class EmailService {
 
         // Utilizar directamente el repositorio para guardar el token
         passwordResetTokenService.guardarToken(passwordResetToken);
-
         String subject = "Código de Verificación para Restablecer Contraseña";
         String text = "Utiliza el siguiente código para restablecer tu contraseña: " + token;
         sendEmail(emailSender, email, subject, text);
-
         return token;
     }
 

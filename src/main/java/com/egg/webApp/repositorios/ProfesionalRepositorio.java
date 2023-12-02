@@ -1,6 +1,5 @@
 package com.egg.webApp.repositorios;
 
-import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +14,6 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Long>
 
     @Query("SELECT p FROM Profesional p WHERE p.dni = :dni")
     public Profesional buscarPorDni(@Param("dni") String dni);
-
     @Query("SELECT p FROM Profesional p WHERE p.id = :id")
     public Profesional buscarPorId(@Param("id")Long id);
     @Query("SELECT p FROM Profesional p WHERE p.altaSistema = true")

@@ -10,6 +10,13 @@
     --colorLindo: #1D7874;
 }
 
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -17,12 +24,14 @@
 }
 
 body {
-    width: 100%;
-    height: 120vh;   
+    min-height: 120vh;  
     background-color: rgb(241, 241, 241);
     display: flex;
     flex-direction: column;
-    font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3 {
+    text-align: center;
 }
 
 nav{
@@ -37,20 +46,32 @@ nav{
 }
 
 .logo{
-    height: 80px;
-    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1.1;
+    height: 100%;
     padding: 0;
     cursor: pointer;
+    margin-left: 1.4rem;
 }
 
 .logo img{
-    width: 100%;
+    max-width: 300px;
     height: 100%;
 }
 
+.volver{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    margin-right: 4rem;
+}
 
-
-nav a:not(:first-child){
+nav a{
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     text-transform: uppercase;
@@ -73,7 +94,6 @@ nav a:hover:not(.logo), .pie a:hover{
 
 /**MAIN**/
 .cuerpo-main {
-    width: 100%;
     background: linear-gradient(to left, #44bdb3,#1b5453); 
 }
 
@@ -89,93 +109,83 @@ nav a:hover:not(.logo), .pie a:hover{
 .grid-principal{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    margin: 20px;
     column-gap: 2rem;
-    margin-right: 20px;
 }
 
 .sidebar {
     color: white;
-    text-align: start;
-    margin: 80px 20px 20px 20px;
+    margin: 20px 0;
+}
+
+.sidebar p {
+    margin-bottom: 2rem;
+}
+
+.sidebar h3 {
+    text-align: left;
 }
 
 ul {
     list-style-type: none;
 }
 
-.input-sidebar p {
-    margin-bottom: 2rem;
-}
-
 
 @media (max-width: 768px) {
-   
-    .sidebar {
-        margin: 20px;
-    }
-
-    .input-sidebar h3 {
-        text-align: center;
-    }
-
     .grid-principal, .sidebar{
         grid-template-columns: 1fr; 
         grid-auto-flow: row;
         grid-row: 1/ 2;    
+        text-align: justify;
+    }
+    .sidebar h3 {
+        text-align: center;
+    }
+
+    .lista {
+        margin-top: 0;
     }
 }
 
+
+
 /**FORMULARIO**/
 .formulario {
-    margin: 40px auto 40px auto;
     border: none;
-    width: fit-content;
-    padding: 5rem;
     border-radius: 5%;
-    text-align: center;
+    padding: 2rem;    
+    height: fit-content;
     background-color: rgb(83, 85, 90);
+    text-align: center;
+    
 }
 
 .tipografia {
     color: white;
     text-transform: uppercase;
     font-weight: 700;
-    margin: 1rem 0;
     text-align: center;
 }
 
-legend {
-    padding: 0 0 30px 0;
-    font-size: larger;
+.legend {
+    margin-bottom: 2rem;
+    color: white;
+    font-weight: 800;
+    text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
-
     .formulario {
-        width: 300px;
         order: -1;
         border-radius: 10px;
     }
 }
 
-@media (min-width: 970px) {
-    .contenedor-inputs {
-        display: grid;
-        grid-template-columns: repeat(2,1fr);      
-        grid-template-rows: auto auto auto;
-        column-gap: 3rem;
-    }
-}
 
-.inputs {
-    margin-bottom: 1rem;
-}
 
-.inputs label {
-    display: block;
+.contenedor-inputs {
     color: white;
     font-weight: 700;
-    margin-bottom: .5rem;
 }
 
 .input-text {
@@ -184,6 +194,7 @@ legend {
     border: none;
     padding: .5rem;
     border-radius: .5rem;
+    margin: .5rem 0;
 }
 
 .boton-enviar {
@@ -199,32 +210,39 @@ legend {
     text-align: center;
     border: none;
     width: auto;
-}
-
-@media (max-width: 768px) {
-    .boton-enviar {
-        width: 105%;
-    }
+    
 }
 
 .boton-enviar:hover {
     cursor: pointer;
 }
 
+@media (min-width: 800px) {
+    .formulario {
+        margin: 160px 0;
+    }
+}
+
+@media (min-width: 900px) {
+    .formulario {
+        margin: 20px 0;
+    }
+}
+
 /** FOOTER **/
 .pie{
-    padding-top: 1rem;
+    padding: 1rem 0;
+    height: 13%;
     z-index: 2;
     box-shadow: 0px -1px 10px rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1em;
     color: black;
     background-color: white;
-    height: 13%;
-    margin-top: auto;
 }
 
 .links{
@@ -234,11 +252,11 @@ legend {
     align-items: center;
     height: 100%;
     width: 100%;
-    padding-bottom: 1rem;
+  
 }
 
 .tyc{
-    padding: 0.5em;
+    padding: 0.5em 0;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -299,9 +317,8 @@ legend {
         }
 
         .pie {
-          padding-top: 70px;
+          padding-top: auto;
           text-align: center;
-          
           order: 1; /* Cambiar el orden en columnas */
 
         }

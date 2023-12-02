@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CalificacionRepository extends JpaRepository<Calificacion, Long> {
-
     List<Calificacion> findByProfesional(Profesional profesional);
 }

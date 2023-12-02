@@ -3,7 +3,6 @@ package com.egg.webApp.servicios;
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.ImagenRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,10 +10,11 @@ import java.util.Optional;
 
 @Service
 public class ImagenServicio {
+    private final ImagenRepositorio imagenRepositorio;
 
-    @Autowired
-    private ImagenRepositorio imagenRepositorio;
-
+    public ImagenServicio(ImagenRepositorio imagenRepositorio) {
+        this.imagenRepositorio = imagenRepositorio;
+    }
 
     public Imagen guardar(MultipartFile archivo) throws MiExcepcion {
         if (archivo != null) {

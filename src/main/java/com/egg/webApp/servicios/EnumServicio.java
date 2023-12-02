@@ -11,7 +11,6 @@ public class EnumServicio {
     public List<Rol> obtenerRoles() {
         return Arrays.asList(Rol.values());
     }
-
     public List<Sexo> obtenerGeneros(){
         return Arrays.asList(Sexo.values());
     }
@@ -20,8 +19,5 @@ public class EnumServicio {
     }
     public List<ObraSocial> obtenerObraSocial() {
         return Arrays.asList(ObraSocial.values());
-    }
-    public List<Vinculo> obtenerVinculo() {
-        return Arrays.asList(Vinculo.values());
     }
 }
