@@ -84,6 +84,11 @@ public class ProfesionalServicio {
 
         return profesional;
     }
+    
+    @Transactional
+    public Profesional buscarPorId(Long id){
+        return profesionalRepositorio.buscarPorId(id);
+    }
 
     public List<Profesional> listarProfesionales() {
 
@@ -93,10 +98,6 @@ public class ProfesionalServicio {
         return Profesionales;
     }
 
-    @Transactional
-    public Profesional buscarPorId(Long id){
-        return profesionalRepositorio.buscarPorId(id);
-    }
 
 
     private void validar(String nombre, String apellido, String dni, String password, String password2, String matricula, String especialidad) throws Exception {

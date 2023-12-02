@@ -3,42 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <title>Familiar</title>
+    <!-- Bootstrap CSS (v4.6.0) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 </head>
 <body>
 
-<table>
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Parentesco</th>
-        <th scope="col">Paciente_Titular_Id</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">DNI</th>
-        <th scope="col">Fecha de nacimiento</th>
-        <th scope="col">Sexo</th>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card migrupo">
+                <div class="card-body grupoFamiliar">
+                    <!-- Tabla -->
+                    <h4 class="text-center">Mi Grupo Familiar</h4>
 
-    </tr>
-    </thead>
-    <tbody th:each="familiar : ${familiares}">
-    <tr>
-        <th scope="row" th:text="${familiar.id}"></th>
-        <td th:text="${familiar.parentesco}"></td>
-        <td th:text="${familiar.pacienteTitular}"></td>
-        <td th:text="${familiar.nombre}"></td>
-        <td th:text="${familiar.apellido}"></td>
-        <td th:text="${familiar.dni}"></td>
-        <td th:text="${familiar.fechaNacimiento}"></td>
-        <td th:text="${familiar.sexo}"></td>
-        <div>
-                <button type="button">
-                    Agregar Familiar
-                </button>
-            </a>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th> ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>DNI</th>
+                            <th>Parentesco</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="familiar : ${familiares}">
+                        <tr>
+                            <th scope="row" th:each="elemento : ${familiar}" th:text="${elemento}"></th>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Botón para abrir el modal -->
+                    <button type="button" class="btn btn-primary" id="openModalBtn">
+                        Agregar Familiar
+                    </button>
+                </div>
+            </div>
         </div>
 
-    </tbody>
-</table>
+        <!-- Modal para agregar familiar -->
+        <div class="modal" id="agregarFamiliarModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Cabecera del Modal -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Agregar Familiar</h4>
+                        <button type="button" class="close" id="closeModalBtn">&times;</button>
+                    </div>
+
+                    <!-- Contenido del Modal -->
+                    <div class="modal-body">
+                        <h4 class="titulo text-center">Agregar Familiar</h4>
+                        <form th:action="@{/paciente/familiar/{idMiembro}(idMiembro=${paciente.id})}" th:method="post">
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dni">DNI:</label>
+                                <input type="text" class="form-control" id="dni" name="dni" required>
+                            </div>
+                            <div class="inputs">
+                                <label class="tipografia">Fecha de Nacimiento:</label>
+                                <input class="input-text" type="date" id="fecha-registro" name="fechaNacimiento"
+                                       placeholder="Indique su Fecha de Nacimiento">
+                            </div>
+                            <div class="inputs">
+                                <label class="tipografia">Contraseña</label>
+                                <input class="input-text" type="password" id="password-registro" name="password"
+                                       placeholder="Indique su Contraseña">
+                            </div>
+                            <div class="inputs">
+                                <label class="tipografia">Confirme Contraseña:</label>
+                                <input class="input-text" type="password" id="password2-registro" name="password2"
+                                       placeholder="Confirme su Contraseña">
+                            </div>
+                            <div class="inputs opcion-genero">
+                                <label class="tipografia" for="genero-registro">Genero</label>
+                                <select class="input-text" id="inputGroupSelect" name="sexo">
+                                    <option selected>Elige...</option>
+                                    <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="parentesco">
+                                    <label class="tipografia" for="parentesco">Ingrese el parentesco</label>
+                                    <select class="form-control borde-gris" id="parentesco" name="parentesco">
+                                        <option selected>Esposo</option>
+                                        <option selected>Esposa</option>
+                                        <option selected>Hijo</option>
+                                        <option selected>Hija</option>
+                                        <option selected>Madre</option>
+                                        <option selected>Padre</option>
+                                        <option selected>Hermano</option>
+                                        <option selected>Hermana</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </form>
+                        <!-- Puedes utilizar Thymeleaf para conectar con tu controlador -->
+                    </div>
+
+                    <!-- Pie del Modal -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="closeModalBtn">Cerrar</button>
+                        <!-- Agrega aquí el botón de enviar formulario -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (v4.6.0) y Popper.js (necesario para Bootstrap 4) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/scriptFamiliar.js"> </script>
 
 </body>
 </html>

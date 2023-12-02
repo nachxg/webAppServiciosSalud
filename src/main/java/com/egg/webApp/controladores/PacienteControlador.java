@@ -1,4 +1,5 @@
 package com.egg.webApp.controladores;
+
 import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
@@ -7,10 +8,13 @@ import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.FamiliarServicio;
 import com.egg.webApp.servicios.PacienteServicio;
+import com.egg.webApp.servicios.TurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/paciente")
 public class PacienteControlador {
@@ -30,6 +36,9 @@ public class PacienteControlador {
 
     @Autowired
     FamiliarServicio familiarServicio;
+
+    @Autowired
+    TurnoServicio turnoServicio;
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
@@ -94,24 +103,72 @@ public class PacienteControlador {
         }
     }
 
-    @PostMapping("/familiar")
-    public String registrarFamiliar(GrupoFamiliar familiar, Paciente miembro,
-                                    String parentesco, ModelMap modelo, @RequestParam String nombre,
+    @GetMapping("/prueba123")
+    public String listaFamiliar(ModelMap modelo, HttpSession session){
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        List<Sexo> generos = enumServicio.obtenerGeneros();
+        modelo.addAttribute("generos", generos);
+        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
+        modelo.addAttribute("pacientes", pacienteServicio.listarPacientes());
+
+        List<Object[]> familiares = familiarServicio.listarFamiliares(logueado.getId());
+
+        familiares = familiares.stream().filter(GrupoFamiliar -> !GrupoFamiliar[0].equals(logueado.getId()))
+                        .collect(Collectors.toList()); // Metodo para filtrar el titular de la lista. Solo se muestran los pacientes con parentesco
+
+        modelo.addAttribute("familiares", familiares);
+
+        return "lista_familiar.html";
+    }
+
+    @PostMapping("/familiar/{idMiembro}")
+    public String registrarFamiliar(
+                                    @RequestParam String parentesco, ModelMap modelo, @RequestParam String nombre,
                                     @RequestParam String apellido, @RequestParam String password,
                                     @RequestParam String password2, @RequestParam String dni,
-                                    @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
+                                    @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate fechaNacimiento,
+                                     @PathVariable Long idMiembro) {
 
         try {
 
-            familiarServicio.registrarMiembro(familiar, miembro, parentesco, nombre, apellido, password,
-                    password2, dni, sexo, fechaNacimiento);
-            modelo.put("exito","Familiar registrado con exito");
+            Paciente miembro = pacienteServicio.buscarPorId(idMiembro);
+
+            familiarServicio.registrarMiembro(miembro, parentesco, nombre, apellido,dni, password,
+                    password2, sexo, fechaNacimiento);
+            modelo.put("exito", "Familiar registrado con exito");
             return "redirect:/inicio";
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
             modelo.put("error", e.getMessage());
             return "redirect:/lista_familiar";
+        }
+
+    }
+
+    @PostMapping("/tomarTurno/{idPaciente}/{idTurno}")
+    public String tomarTurno(@PathVariable Long idPaciente, @PathVariable Long idTurno, String motivoConsulta) {
+        try {
+
+            turnoServicio.tomarUnTurnoPaciente(idPaciente, idTurno, motivoConsulta);
+            System.out.println("Turno tomado");
+            return "redirect:/inicio";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error.html";
+        }
+    }
+
+    @PostMapping("/cancelarTurno/{idTurno}")
+    public String cancelarTurno(@PathVariable Long idTurno) {
+
+        try {
+            turnoServicio.cancelarTurnoPaciente(idTurno);
+            System.out.println("Turno cancelado");
+            return "redirect:/inicio";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error.html";
         }
 
     }

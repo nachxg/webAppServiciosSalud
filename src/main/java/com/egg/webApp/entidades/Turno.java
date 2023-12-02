@@ -24,7 +24,6 @@ public class Turno {
 
     @Column(name = "motivo_consulta")
     private String motivoConsulta;
-
     private boolean atendido;
     private boolean turnoTomado;
     private boolean cancelado;

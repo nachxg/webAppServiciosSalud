@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/")
@@ -29,21 +30,26 @@ public class PortalControlador {
     }
     @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN', 'ROLE_PROFESIONAL')")
     @GetMapping("/inicio")
-    public String inicio(HttpSession session, ModelMap modelo) {
+    public String inicio(HttpSession session, ModelMap modelo, RedirectAttributes rdA) {
 
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        modelo.addAttribute("turnos",turnoServicio.listaDeTurnosDisponibles(logueado.getId()));
 
-        // NOS TRAE UN PACIENTE PARA PASARLO A LA VISTA
+
         switch (logueado.getRol().toString()) {
             case "PROFESIONAL":
+
                 modelo.addAttribute("profesional", profesionalServicio.buscarPorId(logueado.getId()));
+                modelo.addAttribute("turnos", turnoServicio.listaDeTurnosDisponibles(logueado.getId()));
+
                 return "inicioProfesional.html";
             case "ADMIN":
                 return "redirect:/admin/inicio";
             default:
+
                 modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-                return "inicio.html";
+                modelo.addAttribute("turnos", turnoServicio.listaDeTurnosParaPaciente(17l));
+                return "inicio.html";          
+
         }
     }
 
