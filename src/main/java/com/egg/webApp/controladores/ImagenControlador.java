@@ -7,7 +7,6 @@ import com.egg.webApp.servicios.ImagenPredeterminadaServicio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.UsuarioServicio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,13 +26,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImagenControlador {
     private final ImagenPredeterminadaServicio imagenPredeterminadaServicio;
     private final UsuarioServicio usuarioServicio;
+    public ImagenControlador(ImagenPredeterminadaServicio imagenPredeterminadaServicio, UsuarioServicio usuarioServicio) {
+        this.imagenPredeterminadaServicio = imagenPredeterminadaServicio;
+        this.usuarioServicio = usuarioServicio;
+    }
 
-    @Autowired
-    PacienteServicio pacienteServicio;
-    @Autowired
-    UsuarioServicio usuarioServicio;
-    @Autowired
-    ProfesionalServicio profesionalServicio;
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.getOne(id);
@@ -68,7 +65,7 @@ public class ImagenControlador {
     public String registro(@RequestParam MultipartFile archivo, Model model) {
         try {
             imagenPredeterminadaServicio.guardarImagen(archivo);
-            return "redirect:/inicio/?success=Imagen+predeterminada+guardada+exitosamente";
+            return "redirect:/inicio/";
 
         } catch (MiExcepcion e) {
             model.addAttribute("error", e.getMessage());

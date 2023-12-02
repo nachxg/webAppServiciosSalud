@@ -1,22 +1,18 @@
 package com.egg.webApp.servicios;
 
-import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Paciente;
-import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.PacienteRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +20,14 @@ import java.util.Optional;
 
 @Service
 public class PacienteServicio {
-
-    ProfesionalServicio profesionalServicio;
-    @Autowired
-    private PacienteRepositorio pacienteRepositorio;
-    @Autowired
-    private ImagenServicio imagenServicio;
-
-    @Autowired
-    UsuarioServicio usuarioServicio;
-
+    private final PacienteRepositorio pacienteRepositorio;
+    private final ImagenServicio imagenServicio;
+    private final UsuarioServicio usuarioServicio;
+    public PacienteServicio(PacienteRepositorio pacienteRepositorio, ImagenServicio imagenServicio, UsuarioServicio usuarioServicio) {
+        this.pacienteRepositorio = pacienteRepositorio;
+        this.imagenServicio = imagenServicio;
+        this.usuarioServicio = usuarioServicio;
+    }
 
     @Transactional
     public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, LocalDate fechaNacimiento) throws Exception {
@@ -49,9 +43,7 @@ public class PacienteServicio {
     @Transactional
     public void actualizarPaciente(MultipartFile archivo, Long id, String email, String password, String password2, String telefono, String sexo, String obraSocial, String numeroObraSocial) throws Exception {
 
-
         Optional<Paciente> respuesta = pacienteRepositorio.findById(id);
-
         if (respuesta.isPresent()) {
 
             Paciente paciente = respuesta.get();
@@ -64,12 +56,10 @@ public class PacienteServicio {
             paciente.setObraSocial(ObraSocial.valueOf(obraSocial));
             paciente.setNumeroObraSocial(numeroObraSocial);
 
-
             Long idImagen = null;
 
             if (paciente.getImagen() != null) {
                 idImagen = paciente.getImagen().getId();
-
             }
             Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
             paciente.setImagen(imagen);
@@ -104,17 +94,6 @@ public class PacienteServicio {
             return pacientes;
         }
     }
-    public List<Paciente> listarPacientesActivos() throws MiExcepcion {
-
-        List<Paciente> pacientes = new ArrayList<>();
-        pacientes = pacienteRepositorio.listarPacientesDeAltaEnSistema();
-        if (pacientes.isEmpty()) {
-            throw new MiExcepcion("No hay pacientes registrados");
-        } else {
-            return pacientes;
-        }
-    }
-
 
     private void validar(String nombre, String apellido, String dni, String password, String password2, LocalDate fechaNacimiento) throws Exception {
 

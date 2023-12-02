@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TurnoRepositorio extends JpaRepository<Turno, Long>, JpaSpecificationExecutor<Turno> {
-	List<Turno> findAll(Specification<Turno> spec);
+public interface TurnoRepositorio extends JpaRepository<Turno, Long> {
+
 }
