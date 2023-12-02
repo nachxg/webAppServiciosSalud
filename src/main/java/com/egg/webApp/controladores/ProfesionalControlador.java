@@ -67,27 +67,26 @@ public class ProfesionalControlador {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         Profesional profesional = null;
 
-        if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
-            profesional = profesionalServicio.getOne(id);
-        } else {
-            profesional = (Profesional) session.getAttribute("usuariosession");
+            if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
+                profesional = profesionalServicio.buscarPorId(id);
+            } else {
+                profesional = (Profesional) session.getAttribute("usuariosession");
+            }
+
+            modelo.put("profesional", profesional);
+            return "editarProfesional.html";
         }
 
-        modelo.put("profesional", profesional);
-        return "editarProfesional.html";
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
-    @PostMapping("/perfil/{id}")
-    public String actualizarProfesional(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo,
-            @RequestParam String telefono, @RequestParam String sexo) {
+        @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
+        @PostMapping("/perfil/{id}")
+        public String actualizarProfesional(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
+                @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {
 
         try {
-            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono,
-                    sexo.toUpperCase());
+            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
             modelo.put("exito", "Profesional actualizado con exito");
-            return "redirect:/inicio";
+            return "inicioProfesional.html";
+
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
             return "editarProfesional.html";

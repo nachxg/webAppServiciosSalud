@@ -3,17 +3,20 @@ package com.egg.webApp.controladores;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.enumeraciones.ObraSocial;
+import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -26,6 +29,7 @@ public class AdministradorControlador {
     private final EnumServicio enumServicio;
     private final AdministradorServicio administradorServicio;
 
+    @Autowired
     public AdministradorControlador(UsuarioServicio usuarioServicio, PacienteServicio pacienteServicio, ProfesionalServicio profesionalServicio, EnumServicio enumServicio, AdministradorServicio administradorServicio) {
         this.usuarioServicio = usuarioServicio;
         this.pacienteServicio = pacienteServicio;
@@ -33,42 +37,65 @@ public class AdministradorControlador {
         this.enumServicio = enumServicio;
         this.administradorServicio = administradorServicio;
     }
-
     @GetMapping("/inicio")
     public String inicioAdmin(Model modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        try {
-            modelo.addAttribute("profesionalesBaja", profesionalServicio.listarProfesionalesBaja());
-        } catch (MiExcepcion e) {
-            modelo.addAttribute("errorProfesionalesBaja", e.getMessage());
-        }
-        try {
-            modelo.addAttribute("profesionalesActivos", profesionalServicio.listarProfesionalesActivos());
-            modelo.addAttribute("usuarios", usuarios);
-        } catch (MiExcepcion e) {
-            modelo.addAttribute("mensajeProfesionalActivo", e.getMessage());
-        }
-        try {
-            modelo.addAttribute("pacientesActivos", pacienteServicio.listarPacientesActivos());
 
+        List<Profesional> profesionalesInactivos = null;
+        List<Profesional> profesionalesActivos = null;
+        List<Paciente> pacientesActivos = null;
+
+
+        modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
+
+        try {
+            profesionalesInactivos = profesionalServicio.listarProfesionalesPendientesAlta();
+            modelo.addAttribute("profesionalesInactivos", profesionalesInactivos);
         } catch (MiExcepcion e) {
-            modelo.addAttribute("errorPacientesActivos", e.getMessage());
+            modelo.addAttribute("error", e.getMessage());
         }
-        return "adminDashboard.html";
+        try {
+            profesionalesActivos = profesionalServicio.listarProfesionalesActivos();
+            modelo.addAttribute("profesionalesActivos", profesionalesActivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
+        try {
+            pacientesActivos = pacienteServicio.listarPacientesActivos();
+            modelo.addAttribute("pacientesActivos", pacientesActivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
+
+        return "adminInicio.html";
     }
 
     @GetMapping("/dashboard")
     public String listarUsuarios(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        modelo.addAttribute("usuarios", usuarios);
         modelo.addAttribute("roles", enumServicio.obtenerRoles());
-
-        modelo.put("profesional", profesionalServicio.listarProfesionales());
-        modelo.put("roles", enumServicio.obtenerRoles());
-        modelo.put("generos", enumServicio.obtenerGeneros());
         modelo.put("especialidades", enumServicio.obtenerEspecialidad());
+        List<Profesional> profesionalesActivos = null;
+        List<Profesional> profesionales = null;
+        List<Paciente> pacientesActivos = null;
+        List<Paciente> pacientes = null;
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
 
-        return "redirect:/admin/inicio";
+        try {
+            modelo.put("roles", enumServicio.obtenerRoles());
+            profesionales = profesionalServicio.listarProfesionales();
+            modelo.addAttribute("profesionales", profesionales);
+            pacientes = pacienteServicio.listarPacientes();
+            modelo.addAttribute("pacientes", pacientes);
+            modelo.addAttribute("generos", enumServicio.obtenerGeneros());
+            modelo.addAttribute("usuarios", usuarios);
+            profesionalesActivos = profesionalServicio.listarProfesionalesActivos();
+            modelo.addAttribute("profesiuonalesActivos", profesionalesActivos);
+            pacientesActivos = pacienteServicio.listarPacientesActivos();
+            modelo.addAttribute("pacientesActivos", pacientesActivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
+
+        return "adminDashboard.html";
     }
 
     @PostMapping("/dashboard/cambiar-rol")
@@ -84,12 +111,13 @@ public class AdministradorControlador {
 
     @GetMapping("/usuario/baja/{id}")
     public String desactivarUsuarios(@PathVariable Long id, ModelMap modelo, HttpServletRequest request) {
+
         try {
             administradorServicio.desactivarActivarUsuario(id);
             modelo.addAttribute("exito", "Usuario desactivado correctamente");
             String referencia = request.getHeader("Referer");
-            if (referencia != null && referencia.contains("/admin/dashboard/pacientes")) {
-                return "redirect:/admin/dashboard/pacientes";
+            if (referencia != null && referencia.contains("/admin/inicio")) {
+                return "redirect:/admin/inicio";
             } else {
                 return "redirect:/admin/dashboard";
             }
@@ -111,4 +139,38 @@ public class AdministradorControlador {
         modelo.addAttribute("generos", enumServicio.obtenerGeneros());
         return "adminDashboard.html";
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/perfil/{id}")
+    public String perfilAdmin(ModelMap modelo, HttpSession session, @PathVariable Long id) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        //Usuario usuario = null;
+
+        if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
+            usuario = usuarioServicio.buscarPorId(id);
+        } else {
+            usuario = (Usuario) session.getAttribute("usuariosession");
+        }
+
+        modelo.put("usuario", usuario);
+        return "editarAdmin.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/perfil/{id}")
+    public String actualizarAdmin(MultipartFile archivo, @PathVariable Long id, @RequestParam String password, @RequestParam String password2,
+                                     ModelMap modelo) {
+        System.out.println(id);
+        System.out.println(password);
+        System.out.println(password2);
+        try {
+            usuarioServicio.editarAdmin(archivo, password, password2, id);
+            modelo.put("exito", "Administrador actualizado correctamente");
+            return "redirect:/admin/inicio";
+        } catch (Exception e) {
+            modelo.put("error", e.getMessage());
+            return "editarAdmin.html";
+        }
+    }
+
 }

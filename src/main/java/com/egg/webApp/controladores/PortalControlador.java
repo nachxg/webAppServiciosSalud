@@ -33,14 +33,17 @@ public class PortalControlador {
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/inicio";
+
+        switch (logueado.getRol().toString()) {
+            case "PROFESIONAL":
+                modelo.addAttribute("profesional", profesionaServicio.buscarPorId(logueado.getId()));
+                return "inicioProfesional.html";
+            case "ADMIN":
+                return "redirect:/admin/inicio";
+            default:
+                modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
+                return "inicio.html";
         }
-        if (logueado.getRol().toString().equals("PROFESIONAL")) {
-            return "redirect:/profesional/inicio";
-        }
-        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-        return "inicio.html";
     }
 
 
@@ -54,6 +57,3 @@ public class PortalControlador {
 
 
 }
-
-    
-   

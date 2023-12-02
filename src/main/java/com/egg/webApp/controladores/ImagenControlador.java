@@ -28,11 +28,12 @@ public class ImagenControlador {
     private final ImagenPredeterminadaServicio imagenPredeterminadaServicio;
     private final UsuarioServicio usuarioServicio;
 
-    public ImagenControlador(ImagenPredeterminadaServicio imagenPredeterminadaServicio, UsuarioServicio usuarioServicio) {
-        this.imagenPredeterminadaServicio = imagenPredeterminadaServicio;
-        this.usuarioServicio = usuarioServicio;
-    }
-
+    @Autowired
+    PacienteServicio pacienteServicio;
+    @Autowired
+    UsuarioServicio usuarioServicio;
+    @Autowired
+    ProfesionalServicio profesionalServicio;
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.getOne(id);

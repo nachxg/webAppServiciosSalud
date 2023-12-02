@@ -104,6 +104,16 @@ public class PacienteServicio {
             return pacientes;
         }
     }
+    public List<Paciente> listarPacientesActivos() throws MiExcepcion {
+
+        List<Paciente> pacientes = new ArrayList<>();
+        pacientes = pacienteRepositorio.listarPacientesDeAltaEnSistema();
+        if (pacientes.isEmpty()) {
+            throw new MiExcepcion("No hay pacientes registrados");
+        } else {
+            return pacientes;
+        }
+    }
 
 
     private void validar(String nombre, String apellido, String dni, String password, String password2, LocalDate fechaNacimiento) throws Exception {
