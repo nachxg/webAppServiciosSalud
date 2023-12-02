@@ -6,13 +6,17 @@ import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.FamiliarRepositorio;
+import com.egg.webApp.repositorios.PacienteRepositorio;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.sql.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +71,6 @@ public class ProfesionalServicio {
         }
     }
 
-    @Transactional
-    public Profesional buscarPorId(Long id) {
-        return profesionalRepositorio.buscarPorId(id);
-    }
-
     public Profesional getOne(Long id) {
         Profesional profesional = profesionalRepositorio.getOne(id);
         return profesional;
@@ -106,10 +105,10 @@ public class ProfesionalServicio {
     private void validar(String nombre, String apellido, String dni, String password,
                          String password2, String matricula, String especialidad) throws Exception {
         if (nombre.isEmpty() || nombre == null) {
-            throw new Exception("El nombre no puede ser nulo o estar vacío");
+            throw new Exception("El nombre no puede ser nulo o estar vacio");
         }
         if (apellido.isEmpty() || apellido == null) {
-            throw new Exception("El apellido no puede ser nulo o estar vacío");
+            throw new Exception("El apellido no puede ser nulo o estar vacio");
         }
         if (dni.isEmpty() || dni == null) {
             throw new Exception("El dni no puede ser nulo o estar vacio");
@@ -121,10 +120,10 @@ public class ProfesionalServicio {
             throw new Exception("Los password ingresados deben ser iguales");
         }
         if (matricula.isEmpty() || matricula == null) {
-            throw new Exception("La matricula no puede ser nulo o estar vacío");
+            throw new Exception("La matricula no puede ser nulo o estar vacio");
         }
         if (especialidad.isEmpty() || especialidad == null) {
-            throw new Exception("La especialidad no puede ser nulo o estar vacío");
+            throw new Exception("La especialidad no puede ser nulo o estar vacio");
         }
         // VALIDAR QUE DNI NO ESTÉ REPETIDO
         if (usuarioServicio.validarDNI(dni)) {
@@ -141,23 +140,30 @@ public class ProfesionalServicio {
     private void validarActualizacion(String password, String password2, String sexo,
                                       String telefono, String email) throws Exception {
         if (sexo.isEmpty() || sexo == null) {
-            throw new Exception("El sexo no puede ser nulo o estar vacío");
+            throw new Exception("El sexo no puede ser nulo o estar vacio");
         }
         if (telefono.isEmpty() || telefono == null) {
-            throw new Exception("El telefono no puede ser nulo o estar vacío");
+            throw new Exception("El telefono no puede ser nulo o estar vacio");
         }
         if (email.isEmpty() || email == null) {
-            throw new Exception("El email no puede ser nulo o estar vacío");
+            throw new Exception("El email no puede ser nulo o estar vacio");
         }
         if (password.isEmpty() || password == null || password.length() <= 6) {
-            throw new Exception("El password no puede estar vacío y debe contener por lo menos 6 caracteres");
+            throw new Exception("El password no puede estar vacio y debe contener por lo menos 6 caracteres");
         }
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
+
+    }
+
+    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(fechaNacimiento, formatter);
     }
 
     public List<GrupoFamiliar> listarFamiliar() {
+
         List<GrupoFamiliar> familiares = new ArrayList<>();
         familiares = familiarRepositorio.findAll();
         return familiares;
@@ -186,10 +192,5 @@ public class ProfesionalServicio {
             throw new MiExcepcion("No hay más profesionales disponibles para dar de alta en el sistema");
         }
         return profesionales;
-    }
-
-    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return LocalDate.parse(fechaNacimiento, formatter);
     }
 }

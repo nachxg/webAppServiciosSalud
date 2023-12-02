@@ -1,6 +1,7 @@
 package com.egg.webApp.entidades;
 
 import com.egg.webApp.enumeraciones.ObraSocial;
+import com.egg.webApp.enumeraciones.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,4 +37,8 @@ public class Paciente extends Usuario {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
+
+    private String parentesco; // Parentesco era un atributo de grupoFamiliar, lo moví para acá para poder mapearlo
+    // en el html
+
 }

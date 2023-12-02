@@ -1,10 +1,16 @@
 package com.egg.webApp.controladores;
 
+
 import com.egg.webApp.entidades.Turno;
-import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.repositorios.TurnoRepositorio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.TurnoServicio;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,6 +34,7 @@ public class TurnoControlador {
     TurnoServicio turnoServicio;
 
     @PostMapping("/crear_turno/{id}")
+    public String crearTurno(ModelMap modelo, String fecha, String hora, @PathVariable Long id,RedirectAttributes rdA) {
     public String crearTurno(ModelMap modelo, String fecha, String hora, @PathVariable Long id, RedirectAttributes rdA) {
 
         try {
@@ -46,6 +53,8 @@ public class TurnoControlador {
         return "redirect:/inicio";
     }
 
+    @GetMapping("/listaTurnos/profesional/{id}")
+    public String listarTurnosProfesional(ModelMap modelo, @PathVariable Long id) {
     @GetMapping("/modificar_turno/{idTurno}")
     public String modificarTurno(@PathVariable Long idTurno, ModelMap modelo){
         Turno turno = turnoServicio.getOne(idTurno);

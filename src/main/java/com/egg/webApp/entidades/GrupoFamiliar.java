@@ -6,14 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class GrupoFamiliar {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -23,8 +24,9 @@ public class GrupoFamiliar {
     @JoinColumn(name = "paciente_titular_id")
     private Paciente pacienteTitular;
 
-    @OneToMany(mappedBy = "grupoFamiliar", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "grupoFamiliar", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Paciente> miembros;
+
 
 }
 
