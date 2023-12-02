@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/profesional")
@@ -139,5 +138,4 @@ public class ProfesionalControlador {
  *
  * }
  */
-*/
 
