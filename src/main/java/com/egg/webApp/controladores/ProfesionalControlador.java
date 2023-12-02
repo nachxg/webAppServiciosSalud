@@ -5,7 +5,6 @@ import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
-import com.egg.webApp.servicios.CalificacionServicio;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,6 @@ public class ProfesionalControlador {
     ProfesionalServicio profesionalServicio;
     @Autowired
     EnumServicio enumServicio;
-    @Autowired
-    private CalificacionServicio calificacionServicio;
-
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
 
@@ -44,11 +40,14 @@ public class ProfesionalControlador {
 
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
-                           @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo, @RequestParam String matricula, ModelMap modelo,
-                           @RequestParam String especialidad, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
+            @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo,
+            @RequestParam String matricula, ModelMap modelo,
+            @RequestParam String especialidad,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
         try {
 
-            profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad, fechaNacimiento);
+            profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula,
+                    especialidad, fechaNacimiento);
 
             return "redirect:/index";
 
@@ -70,7 +69,7 @@ public class ProfesionalControlador {
         Profesional profesional = null;
 
         if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
-            profesional = profesionalServicio.buscarPorId(id);
+            profesional = profesionalServicio.getOne(id);
         } else {
             profesional = (Profesional) session.getAttribute("usuariosession");
         }
@@ -82,13 +81,14 @@ public class ProfesionalControlador {
     @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
     @PostMapping("/perfil/{id}")
     public String actualizarProfesional(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
-                                        @RequestParam String password, @RequestParam String password2, ModelMap modelo, @RequestParam String telefono, @RequestParam String sexo) {
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo,
+            @RequestParam String telefono, @RequestParam String sexo) {
 
         try {
-            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono, sexo.toUpperCase());
+            profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono,
+                    sexo.toUpperCase());
             modelo.put("exito", "Profesional actualizado con exito");
-            return "redirect:/profesional/inicio";
-
+            return "redirect:/inicio";
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
             return "editarProfesional.html";
@@ -101,50 +101,6 @@ public class ProfesionalControlador {
         return "especialidades.html";
     }
 
-    @PostMapping("/buscar_por_especialidad")
-    public String buscarPorEspecialidad(ModelMap modelo, @RequestParam String termino) {
-        List<Profesional> profesionales = null;
-        try {
-            profesionales = profesionalServicio.buscarPorNombreOEspecialidad(termino);
-            if (profesionales.isEmpty()) {
-                modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
-            } else {
-                modelo.addAttribute("profesionales", profesionales);
-            }
-            return "especialidades.html";
-        } catch (MiExcepcion e) {
-            modelo.addAttribute("mensaje", e.getMessage());
-            return "redirect:/profesional/especialidad";
-        }
-    }
-
-    private String normalizarTexto(String especialidad) {
-        return especialidad.replaceAll("\\s", "_").toUpperCase();
-    }
-
-    @GetMapping("/inicio")
-    public String inicioProfesional(ModelMap modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        Profesional profesional = profesionalServicio.buscarPorId(usuario.getId());
-        modelo.put("profesional", profesional);
-        return "inicioProfesional.html";
-    }
-
-    /*
-    @GetMapping("/grupo_familiar")
-    public String grupoFamiliar(ModelMap modelo){
-
-        modelo.addAttribute("familiares", profesionalServicio.listarFamiliar());
-
-        return "lista_familiar.html";
-    }
-
-    @PostMapping("/agregar_familiar")
-    public String crearFamiliar(){
-
-    }
-*/
-
     @PostMapping("/buscar_especialidad")
     public String buscarEspecialidad(ModelMap modelo, @RequestParam String termino) {
         List<Profesional> profesionales = null;
@@ -152,18 +108,36 @@ public class ProfesionalControlador {
             profesionales = profesionalServicio.buscarPorNombreOEspecialidad(termino);
             if (profesionales.isEmpty()) {
                 modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
-            }else {
-                Map<Long, Double> promedios = calificacionServicio.calcularPromedioPuntuacionPorProfesionales(profesionales);
-                modelo.addAttribute("promediosPuntuacion", promedios);
+            } else {
+
+                  /*Map<Long, Double> promedios =
+                  calificacionService.calcularPromedioPuntuacionPorProfesionales(profesionales)
+                  ;
+                  modelo.addAttribute("promediosPuntuacion", promedios);
+                */
             }
             modelo.addAttribute("profesionales", profesionales);
-
-            return "lista_profesionales.html";
+            return "medicos.html";
 
         } catch (MiExcepcion e) {
             modelo.addAttribute("mensaje", e.getMessage());
             return "redirect:/profesional/especialidad";
         }
     }
-
 }
+/*
+ * @GetMapping("/grupo_familiar")
+ * public String grupoFamiliar(ModelMap modelo){
+ *
+ * modelo.addAttribute("familiares", profesionalServicio.listarFamiliar());
+ *
+ * return "lista_familiar.html";
+ * }
+ *
+ * @PostMapping("/agregar_familiar")
+ * public String crearFamiliar(){
+ *
+ * }
+ */
+*/
+
