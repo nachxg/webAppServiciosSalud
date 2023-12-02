@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebAppApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Versión de Java: " + System.getProperty("java.version"));
+
 		SpringApplication.run(WebAppApplication.class, args);
 	}
+
 
 }

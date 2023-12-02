@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,14 +18,10 @@ public class Profesional extends Usuario {
 
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
-
-    @OneToMany(mappedBy = "profesional")
-    private List<Turno> turnosDisponibles;
-
     private String matricula;
+    @OneToMany(mappedBy = "profesional", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Turno> turnosDisponibles;
 
-    @OneToMany(mappedBy = "profesional")
-    private List<Calificacion> calificaciones;
-
-
+    @OneToMany(mappedBy = "profesional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Calificacion> calificaciones;
 }
