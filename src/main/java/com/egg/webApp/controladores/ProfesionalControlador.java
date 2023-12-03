@@ -5,26 +5,33 @@ import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
+import com.egg.webApp.servicios.CalificacionServicio;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalControlador {
-    @Autowired
-    ProfesionalServicio profesionalServicio;
-    @Autowired
-    EnumServicio enumServicio;
+    private final ProfesionalServicio profesionalServicio;
+    private final EnumServicio enumServicio;
+    private final CalificacionServicio calificacionServicio;
+
+    public ProfesionalControlador(ProfesionalServicio profesionalServicio, EnumServicio enumServicio, CalificacionServicio calificacionServicio) {
+        this.profesionalServicio = profesionalServicio;
+        this.enumServicio = enumServicio;
+        this.calificacionServicio = calificacionServicio;
+    }
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
@@ -104,15 +111,12 @@ public class ProfesionalControlador {
             profesionales = profesionalServicio.buscarPorNombreOEspecialidad(termino);
             if (profesionales.isEmpty()) {
                 modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
-            } else {
-
-                  /*Map<Long, Double> promedios =
-                  calificacionService.calcularPromedioPuntuacionPorProfesionales(profesionales)
-                  ;
-                  modelo.addAttribute("promediosPuntuacion", promedios);
-                */
             }
             modelo.addAttribute("profesionales", profesionales);
+//            List<Long> idsProfesionales = profesionales.stream().map(Profesional::getId).collect(Collectors.toList());
+//            //modelo.addAttribute("promediosPuntuacion", calificacionServicio.obtenerPromedioPuntuacionPorProfesional(idsProfesionales));
+//            System.out.println(" *******************"+idsProfesionales);
+//            System.out.println(" *******************"+calificacionServicio.obtenerPromedioPuntuacionPorProfesional(idsProfesionales));
             return "medicos.html";
 
         } catch (MiExcepcion e) {

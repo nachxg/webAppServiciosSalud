@@ -2,9 +2,12 @@ package com.egg.webApp.servicios;
 
 import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Paciente;
+import com.egg.webApp.enumeraciones.Rol;
+import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.repositorios.FamiliarRepositorio;
 import com.egg.webApp.repositorios.PacienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

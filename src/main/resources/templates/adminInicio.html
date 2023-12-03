@@ -50,12 +50,15 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Usuarios Registrados</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Usuarios
+                                            Registrados</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            <span class="text-sm font-weight-bolder" th:text="${usuariosRegistradosConAumento}"></span>
+                                            <span class="text-sm font-weight-bolder"
+                                                  th:text="${usuariosRegistradosConAumento}"></span>
                                             <span class="text-success text-sm font-weight-bolder">+10%</span>
                                         </h5>
                                     </div>
+
                                 </div>
                                 <div class="col-4 text-end">
                                     <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
@@ -120,8 +123,10 @@
                                     <div class="numbers">
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">Altas Médicas</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            <span class="text-sm font-weight-bolder" th:text="${altasProfesionales != null ? #lists.size(altasProfesionales) : 0}"></span>
-                                            <span class="text-success text-sm font-weight-bolder" th:text="${porcentajeIncremental}"></span>
+                                            <span class="text-sm font-weight-bolder"
+                                                  th:text="${altasProfesionales != null ? #lists.size(altasProfesionales) : 0}"></span>
+                                            <span class="text-success text-sm font-weight-bolder"
+                                                  th:text="${porcentajeIncremental}"></span>
                                         </h5>
                                     </div>
                                 </div>
@@ -165,7 +170,9 @@
                                     </td>
                                     <td th:text="${profesionalInactivo.dni}"></td>
                                     <td>
-                                        <button id="btnAlta" class="btn btn-primary" th:onclick="'darDeAlta(' + ${profesionalInactivo.id} + ')'"></button> Alta</button>
+                                        <button id="btnAlta" class="btn btn-primary"
+                                                th:onclick="'darDeAlta(' + ${profesionalInactivo.id} + ')'"></button>
+                                        Alta</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -451,8 +458,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
 </section>
 <footer class="pie mt-5">
     <div class="links">

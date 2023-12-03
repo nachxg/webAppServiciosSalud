@@ -1,17 +1,12 @@
 package com.egg.webApp.controladores;
 
-
 import com.egg.webApp.entidades.Turno;
-import com.egg.webApp.repositorios.TurnoRepositorio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.TurnoServicio;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,23 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-
 @Controller
 @RequestMapping("/turno")
 public class TurnoControlador {
-    @Autowired
-    PacienteServicio pacienteServicio;
-    @Autowired
-    ProfesionalServicio profesionalServicio;
-    @Autowired
-    TurnoServicio turnoServicio;
+    private final TurnoServicio turnoServicio;
+
+    public TurnoControlador(TurnoServicio turnoServicio) {
+        this.turnoServicio = turnoServicio;
+    }
 
     @PostMapping("/crear_turno/{id}")
     public String crearTurno(ModelMap modelo, String fecha, String hora, @PathVariable Long id,RedirectAttributes rdA) {
-    public String crearTurno(ModelMap modelo, String fecha, String hora, @PathVariable Long id, RedirectAttributes rdA) {
-
         try {
             LocalDateTime resultado = turnoServicio.convertirStringALocalDate(fecha, hora);
             Turno respuesta = turnoServicio.existeFechaHora(id, resultado);
@@ -49,17 +38,18 @@ public class TurnoControlador {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return "redirect:/inicio";
     }
 
     @GetMapping("/listaTurnos/profesional/{id}")
     public String listarTurnosProfesional(ModelMap modelo, @PathVariable Long id) {
-    @GetMapping("/modificar_turno/{idTurno}")
-    public String modificarTurno(@PathVariable Long idTurno, ModelMap modelo){
-        Turno turno = turnoServicio.getOne(idTurno);
-        modelo.addAttribute("turno", turno);
-        return "modificarTurnos.html";
+        try {
+            List<Turno> turnos = turnoServicio.listaDeTurnosDisponibles(id);
+            modelo.addAttribute("turnos", turnos);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return "listarTurnos.html";
     }
 
     @GetMapping("/modificar_turno/{idTurno}/{idProfesional}")
@@ -85,7 +75,7 @@ public class TurnoControlador {
     public String cancelarTurno(RedirectAttributes rdA, @PathVariable Long id) {
         System.out.println(id);
         try {
-            turnoServicio.cancelarTurno(id);
+            turnoServicio.cancelarTurnoProfesional(id);
             rdA.addFlashAttribute("exito", "El turno fue cancelado exitosamente y puede ser visualizado desde la sección 'Mis turnos'.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -97,12 +87,11 @@ public class TurnoControlador {
     public String atendidoTurno(RedirectAttributes rdA, @PathVariable Long id) {
         System.out.println(id);
         try {
-            turnoServicio.atendidoTurno(id);
+            turnoServicio.listaDeTurnosPorPacienteAtendido(id);
             rdA.addFlashAttribute("exito", "El turno fue marcado como atendido y puede ser visualizado desde la sección 'Mis turnos'.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return "redirect:/inicio";
     }
-
 }

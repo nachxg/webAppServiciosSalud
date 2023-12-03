@@ -1,24 +1,20 @@
 package com.egg.webApp.controladores;
 
-import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.FamiliarServicio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.TurnoServicio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -28,17 +24,17 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/paciente")
 public class PacienteControlador {
+    private final PacienteServicio pacienteServicio;
+    private final EnumServicio enumServicio;
+    private final FamiliarServicio familiarServicio;
+    private final TurnoServicio turnoServicio;
 
-    @Autowired
-    PacienteServicio pacienteServicio;
-    @Autowired
-    EnumServicio enumServicio;
-
-    @Autowired
-    FamiliarServicio familiarServicio;
-
-    @Autowired
-    TurnoServicio turnoServicio;
+    public PacienteControlador(PacienteServicio pacienteServicio, EnumServicio enumServicio, FamiliarServicio familiarServicio, TurnoServicio turnoServicio) {
+        this.pacienteServicio = pacienteServicio;
+        this.enumServicio = enumServicio;
+        this.familiarServicio = familiarServicio;
+        this.turnoServicio = turnoServicio;
+    }
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
@@ -53,9 +49,7 @@ public class PacienteControlador {
     @PostMapping("/registrar")
     public String registro(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
                            @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
-
         try {
-
             pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
             modelo.put("exito", "Usuario creado con exito");
             return "redirect:/index";
@@ -69,21 +63,17 @@ public class PacienteControlador {
     @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN')")
     @GetMapping("/perfil/{id}")
     public String perfilPaciente(ModelMap modelo, HttpSession session, @PathVariable Long id) {
-
         List<Sexo> generos = enumServicio.obtenerGeneros();
         List<ObraSocial> obraSociales = enumServicio.obtenerObraSocial();
         modelo.addAttribute("generos", generos);
         modelo.addAttribute("obraSociales", obraSociales);
-
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         Paciente paciente = null;
-
         if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
             paciente = pacienteServicio.buscarPorId(id);
         } else {
             paciente = (Paciente) session.getAttribute("usuariosession");
         }
-
         modelo.put("paciente", paciente);
         return "editarPaciente.html";
     }
@@ -109,7 +99,11 @@ public class PacienteControlador {
         List<Sexo> generos = enumServicio.obtenerGeneros();
         modelo.addAttribute("generos", generos);
         modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-        modelo.addAttribute("pacientes", pacienteServicio.listarPacientes());
+        try {
+            modelo.addAttribute("pacientes", pacienteServicio.listarPacientes());
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("error", e.getMessage());
+        }
 
         List<Object[]> familiares = familiarServicio.listarFamiliares(logueado.getId());
 
@@ -128,11 +122,8 @@ public class PacienteControlador {
                                     @RequestParam String password2, @RequestParam String dni,
                                     @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate fechaNacimiento,
                                      @PathVariable Long idMiembro) {
-
         try {
-
             Paciente miembro = pacienteServicio.buscarPorId(idMiembro);
-
             familiarServicio.registrarMiembro(miembro, parentesco, nombre, apellido,dni, password,
                     password2, sexo, fechaNacimiento);
             modelo.put("exito", "Familiar registrado con exito");
@@ -149,7 +140,6 @@ public class PacienteControlador {
     @PostMapping("/tomarTurno/{idPaciente}/{idTurno}")
     public String tomarTurno(@PathVariable Long idPaciente, @PathVariable Long idTurno, String motivoConsulta) {
         try {
-
             turnoServicio.tomarUnTurnoPaciente(idPaciente, idTurno, motivoConsulta);
             System.out.println("Turno tomado");
             return "redirect:/inicio";
@@ -161,7 +151,6 @@ public class PacienteControlador {
 
     @PostMapping("/cancelarTurno/{idTurno}")
     public String cancelarTurno(@PathVariable Long idTurno) {
-
         try {
             turnoServicio.cancelarTurnoPaciente(idTurno);
             System.out.println("Turno cancelado");
@@ -170,7 +159,5 @@ public class PacienteControlador {
             System.out.println(e.getMessage());
             return "error.html";
         }
-
     }
-
 }

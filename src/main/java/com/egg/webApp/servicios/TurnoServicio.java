@@ -5,16 +5,11 @@ import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Turno;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
 import com.egg.webApp.repositorios.TurnoRepositorio;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -53,9 +48,7 @@ public class TurnoServicio {
         Optional<Turno> respuesta = turnoRepositorio.findById(idTurno);
         if (respuesta.isPresent()) {
             Turno turno = respuesta.get();
-            turno.setMotivoConsulta(motivoConsulta);
-            turno.setCancelado(cancelado);
-            turno.setAtendido(atendido);
+            turno.setFechaTurno(fecha);
             turnoRepositorio.save(turno);
         }
     }
@@ -66,12 +59,13 @@ public class TurnoServicio {
         Paciente paciente = pacienteServicio.getOne(idPaciente);
         Turno turno = turnoRepositorio.getOne(idTurno);
         //if (paciente.isAltaSistema() && !turno.isAtendido() && !turno.isCancelado()) {
-            turno.setTurnoTomado(true);
-            turno.setPaciente(paciente);
-            turno.setMotivoConsulta(motivoConsulta);
-            turnoRepositorio.save(turno);
+        turno.setTurnoTomado(true);
+        turno.setPaciente(paciente);
+        turno.setMotivoConsulta(motivoConsulta);
+        turnoRepositorio.save(turno);
         //}
     }
+
     @Transactional
     public void cancelarTurnoProfesional(Long id) {
         Turno turno = turnoRepositorio.buscarTurnosPorId(id);
@@ -83,6 +77,7 @@ public class TurnoServicio {
             System.out.println("No encontro Turno");
         }
     }
+
     @Transactional
     public void cancelarTurnoPaciente(Long id) {
         Turno turno = turnoRepositorio.buscarTurnosPorId(id);
@@ -110,45 +105,33 @@ public class TurnoServicio {
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
-       String fechaFormateada = fecha.format(formato);
+        String fechaFormateada = fecha.format(formato);
 
-       LocalDateTime fechaFormateadaALocalDate = LocalDateTime.parse(fechaFormateada, formato);
+        LocalDateTime fechaFormateadaALocalDate = LocalDateTime.parse(fechaFormateada, formato);
 
         return turnoRepositorio.buscarTurnosDisponiblesParaPaciente(idProfesional, fechaFormateadaALocalDate);
     }
 
-
-    /*
-
-
-        /*
-
-
-
-        public List<Turno> listaDeTodosLosTurnosPorProfesional(Long idProfecional) {
-            List<Turno> turnos = turnoRepositorio.todosLosTurnosDeProfecional(idProfecional);
-            return turnos;
-        }
     public List<Turno> listaDeTodosLosTurnosPorProfesional(Long idProfecional) {
         List<Turno> turnos = turnoRepositorio.todosLosTurnosDeProfecional(idProfecional);
         return turnos;
     }
 
-        public List<Turno> listaDeTurnosPorEspecialidad(String especialidad) {
-            List<Turno> turnos = turnoRepositorio.todosLosTurnosPorEspecialidad(especialidad);
-            return turnos;
-        }
+    public List<Turno> listaDeTurnosPorEspecialidad(String especialidad) {
+        List<Turno> turnos = turnoRepositorio.todosLosTurnosPorEspecialidad(especialidad);
+        return turnos;
+    }
 
-        public List<Turno> listaDeTurnosPorPaciente(Long idPaciente) {
-            List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPaciente(idPaciente);
-            return turnos;
-        }
+    public List<Turno> listaDeTurnosPorPaciente(Long idPaciente) {
+        List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPaciente(idPaciente);
+        return turnos;
+    }
 
-        public List<Turno> listaDeTurnosPorPacienteAtendido(Long idPaciente) {
-            List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPacienteAtendido(idPaciente);
-            return turnos;
-        }
-         */
+    public List<Turno> listaDeTurnosPorPacienteAtendido(Long idPaciente) {
+        List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPacienteAtendido(idPaciente);
+        return turnos;
+    }
+
     public Turno getOne(Long id) {
         return turnoRepositorio.getOne(id);
     }
@@ -163,8 +146,7 @@ public class TurnoServicio {
         return LocalDateTime.parse(fechaHoraString, formato);
     }
 
-
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
     public LocalDateTime convertirStringALocalDateb(String fecha, String hora) {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -172,5 +154,4 @@ public class TurnoServicio {
         return LocalDateTime.parse(fechaHoraString, formato);
 
     }
-
 }
