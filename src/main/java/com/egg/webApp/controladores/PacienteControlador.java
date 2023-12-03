@@ -5,6 +5,7 @@ import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
+import com.egg.webApp.servicios.TurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -25,6 +25,8 @@ public class PacienteControlador {
     PacienteServicio pacienteServicio;
     @Autowired
     EnumServicio enumServicio;
+    @Autowired
+    TurnoServicio turnoServicio;
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
@@ -86,5 +88,32 @@ public class PacienteControlador {
             modelo.put("error", e.getMessage());
             return "editarPaciente.html";
         }
+    }
+    
+    @PostMapping("/tomarTurno/{idPaciente}/{idTurno}")
+    public String tomarTurno(@PathVariable Long idPaciente, @PathVariable Long idTurno) {
+        try {
+
+            turnoServicio.tomarUnTurnoPaciente(idPaciente, idTurno);
+            System.out.println("Turno tomado");
+            return "redirect:/inicio";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error.html";
+        }
+    }
+
+    @PostMapping("/cancelarTurno/{idTurno}")
+    public String cancelarTurno(@PathVariable Long idTurno) {
+
+        try {
+            turnoServicio.cancelarTurnoPaciente(idTurno);
+            System.out.println("Turno cancelado");
+            return "redirect:/inicio";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error.html";
+        }
+
     }
 }

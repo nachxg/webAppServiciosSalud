@@ -24,6 +24,7 @@ public class Turno {
     private String motivoCosulta;
     private boolean atendido;
     private boolean cancelado;
+    private boolean turnoTomado;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")

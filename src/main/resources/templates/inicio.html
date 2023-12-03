@@ -35,11 +35,12 @@
                 <span th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></span>
             </div>
             <div id="profile-circle">
-                <!-- Logica para tener un link dinamico a diferentes rutas segun el rol de sesion&ndash -->
-                <img class="profile-circle" th:if="${session.usuariosession.imagen != null}"
-                     th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
-                <img class="profile-circle" th:unless="${session.usuariosession.imagen != null}"
+                <!-- Logica para tener un link dinamico a diferentes rutas segun el rol de sesion&ndash
+                <img class="profile-circle" th:if="${paciente.imagen != null}"
+                     th:src="@{/imagen/perfil/{id}(id=${paciente.id})}">
+                <img class="profile-circle" th:unless="${paciente.imagen != null}"
                      th:src="@{/img/usuario.jpg}">
+                     -->
             </div>
         </div>
     </div>
@@ -111,11 +112,12 @@
         <div class="perfil">
             <div class="tarjeta-perfil">
                 <div class="nombre-foto">
-                    <div id="profile-circle"> <!-- Agregué un 1 para que no tire error por repetir id -->
-                        <!--     Logica para tener un link dinamico a diferentes rutas segun el rol de sesion&ndash -->
-                        <img class="profile-circle" th:if="${session.usuariosession.imagen != null}"
-                             th:src="@{/imagen/perfil/{id}(id=${session.usuariosession.id})}">
-                        <img th:unless="${session.usuariosession.imagen != null}" th:src="@{/img/usuario.jpg}">
+                    <div id="profile-circle">
+                        Logica para tener un link dinamico a diferentes rutas segun el rol de sesion&ndash
+                        <img class="profile-circle" th:if="${paciente.imagen != null}"
+                             th:src="@{/imagen/perfil/{id}(id=${paciente.id})}">
+                        <img class="profile-circle" th:unless="${paciente.imagen != null}" th:src="@{/img/usuario.jpg}">
+
                     </div>
                     <div class="nombre">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor"
@@ -126,6 +128,7 @@
                         Mis datos
                     </div>
                 </div>
+
                 <div class="fondo-datos">
                     <div class="contenedor-datos">
                         <ul>
@@ -190,15 +193,81 @@
                     </div>
                 </div>
             </div>
+            <table class="table table-sm table-bordered w-75 m-auto mt-5 text-center">
+
+                <tbody th:each="turno : ${turnos}">
+                <tr>
+                    <th scope="row" th:text="${turno.id}"></th>
+                    <td th:text="${turno.especialidad}"></td>
+                    <td th:text="${turno.fechaTurno}"></td>
+                    <td th:text="${turno.profesional.id}"></td>
+                    <td> <form th:action="@{/paciente/tomarTurno/{idPaciente}/{idTurno}(idPaciente=${paciente.id}, idTurno=${turno.id})}" th:method="post">
+                        <button type="submit" class="btn btn-warning btn-sm">Tomar</button>
+                    </form>
+                    </td>
+                </tbody>
+            </table>
+<span> Mis turnos: </span>
+            <table class="table table-sm table-bordered w-75 m-auto mt-5 text-center">
+
+                <tbody th:each="turno : ${turnos}">
+                <tr>
+                    <th scope="row" th:if="${turno.turnoTomado}" th:text="${turno.id}"></th>
+                    <td th:if="${turno.turnoTomado}" th:text="${turno.especialidad}"></td>
+                    <td th:if="${turno.turnoTomado}" th:text="${turno.fechaTurno}"></td>
+                    <td th:if="${turno.turnoTomado}" th:text="${turno.profesional.id}"></td>
+                    <td> <form th:action="@{/paciente/cancelarTurno/{idTurno}(idTurno=${turno.id})}" th:method="post">
+                        <button type="submit" class="btn btn-warning btn-sm">Cancelar</button>
+                    </form>
+                    </td>
+                </tbody>
+            </table>
         </div>
         <div class="contenido">
             <div class="tarjeta-contenido">
-                Haz click en cualquier sección para desplegar su contenido.
+
             </div>
+
         </div>
     </div>
-
 </main>
+
+<!-- Agrega esta sección dentro de tu bloque <body> -->
+    <main>
+        <!-- ... (otro contenido) ... -->
+    
+        <h2>Mis Turnos</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Especialidad</th>
+                    <th>Fecha de Turno</th>
+                    <th>ID del Profesional</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterar sobre la lista de turnos -->
+                <tr th:each="turno : ${turnos}">
+                    <td th:text="${turno.id}"></td>
+                    <td th:text="${turno.especialidad}"></td>
+                    <td th:text="${turno.fechaTurno}"></td>
+                    <td th:text="${turno.profesional.id}"></td>
+                    <td>
+                        <!-- Agregar un formulario para tomar o cancelar el turno según su estado -->
+                        <form th:if="${!turno.turnoTomado}" th:action="@{/paciente/tomarTurno/{idPaciente}/{idTurno}(idPaciente=${paciente.id}, idTurno=${turno.id})}" th:method="post">
+                            <button type="submit" class="btn btn-warning btn-sm">Tomar</button>
+                        </form>
+                        <form th:if="${turno.turnoTomado}" th:action="@{/paciente/cancelarTurno/{idTurno}(idTurno=${turno.id})}" th:method="post">
+                            <button type="submit" class="btn btn-warning btn-sm">Cancelar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    
 
 
 <footer class="pie">
