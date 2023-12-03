@@ -65,8 +65,8 @@ public class CalificacionServicio {
     }
 
     public List<Calificacion> calificacionesDeUnProfecional(Long idProfisional) {
-        List<Calificacion> calificaciones = new ArrayList<>();
-        calificaciones = calificacionRepositorio.buscarCalificacionesPorIdDeProfesionales(idProfisional);
+        List<Calificacion> calificaciones = new ArrayList();
+       calificaciones = calificacionRepositorio.buscarCalificacionesPorIdDeProfesionales(idProfisional);
         return calificaciones;
     }
 
