@@ -101,22 +101,25 @@ public class ProfesionalControlador {
     @GetMapping("/especialidad")
     public String especialidad(ModelMap modelo) {
         modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
-        return "especialidades.html";
+        return "medicos.html";
     }
 
     @PostMapping("/buscar_especialidad")
     public String buscarEspecialidad(ModelMap modelo, @RequestParam String termino) {
+        System.out.println("*******************" + termino);
         List<Profesional> profesionales = null;
         try {
             profesionales = profesionalServicio.buscarPorNombreOEspecialidad(termino);
+            System.out.println("*******************" + profesionales.size());
             if (profesionales.isEmpty()) {
+                System.out.println("No se encontraron profesionales para la especialidad");
                 modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
             }
-            modelo.addAttribute("profesionales", profesionales);
-//            List<Long> idsProfesionales = profesionales.stream().map(Profesional::getId).collect(Collectors.toList());
-//            //modelo.addAttribute("promediosPuntuacion", calificacionServicio.obtenerPromedioPuntuacionPorProfesional(idsProfesionales));
-//            System.out.println(" *******************"+idsProfesionales);
-//            System.out.println(" *******************"+calificacionServicio.obtenerPromedioPuntuacionPorProfesional(idsProfesionales));
+            //modelo.addAttribute("profesionales", profesionales);
+            List<Long> idsProfesionales = profesionales.stream().map(Profesional::getId).collect(Collectors.toList());
+            //modelo.addAttribute("promediosPuntuacion", calificacionServicio.obtenerPromedioPuntuacionPorProfesional(idsProfesionales));
+            System.out.println(" *******************"+idsProfesionales);
+            System.out.println(" *******************"+calificacionServicio.obtenerPromedioPuntuacionPorProfesional(idsProfesionales));
             return "medicos.html";
 
         } catch (MiExcepcion e) {
@@ -124,5 +127,6 @@ public class ProfesionalControlador {
             return "redirect:/profesional/especialidad";
         }
     }
+
 }
 

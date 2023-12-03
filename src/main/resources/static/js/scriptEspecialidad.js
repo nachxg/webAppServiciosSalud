@@ -95,7 +95,6 @@ function enviarEspecialidadAlBackend(especialidad) {
             console.error('Error al enviar la especialidad al backend:', error);
         });
 }
-
 function obtenerDescripcionEspecialidad(especialidad) {
     // Puedes expandir esta función con descripciones específicas para cada especialidad
     switch (especialidad) {

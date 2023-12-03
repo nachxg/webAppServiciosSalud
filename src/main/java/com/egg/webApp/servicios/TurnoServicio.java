@@ -55,11 +55,11 @@ public class TurnoServicio {
             turnoRepositorio.save(turno);
         }
     }
-    
+
     @Transactional
-    public void cancelarTurno(Long id) {
+    public void cancelarTurnoProfesional(Long id) {
         Turno turno = turnoRepositorio.buscarTurnosPorId(id);
-        
+
         if (turno != null) {
             turno.setCancelado(true);
             turnoRepositorio.save(turno);
@@ -81,14 +81,16 @@ public class TurnoServicio {
     }
 
     @Transactional
-    public void tomarUnTurnoPaciente(Long idTurno, Long idPaciente) {
+    public void tomarUnTurnoPaciente(Long idPaciente, Long idTurno, String motivoConsulta) {
+
         Paciente paciente = pacienteServicio.getOne(idPaciente);
         Turno turno = turnoRepositorio.getOne(idTurno);
-        if (paciente.isAltaSistema() && !turno.isAtendido() && !turno.isCancelado()) {
-            //turno.setTurnoTomado(true);
-            turno.setPaciente(paciente);
-            turnoRepositorio.save(turno);
-        }
+        //if (paciente.isAltaSistema() && !turno.isAtendido() && !turno.isCancelado()) {
+        turno.setTurnoTomado(true);
+        turno.setPaciente(paciente);
+        turno.setMotivoConsulta(motivoConsulta);
+        turnoRepositorio.save(turno);
+        //}
     }
     
     
@@ -100,11 +102,6 @@ public class TurnoServicio {
     public Turno existeFechaHora(Long idProfesional, LocalDateTime fechaHora) throws Exception{    
         return turnoRepositorio.existeFechaHora(idProfesional, fechaHora);        
     }
-    
-
-    /*
-
-  
 
     public List<Turno> listaDeTodosLosTurnosPorProfesional(Long idProfecional) {
         List<Turno> turnos = turnoRepositorio.todosLosTurnosDeProfecional(idProfecional);
@@ -125,7 +122,7 @@ public class TurnoServicio {
         List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPacienteAtendido(idPaciente);
         return turnos;
     }
-     */
+
     public Turno getOne(Long id) {
         return turnoRepositorio.getOne(id);
     }
@@ -146,6 +143,17 @@ public class TurnoServicio {
 
         return LocalDateTime.parse(fechaHoraString, formato);
 
+    }
+    @Transactional
+    public void cancelarTurnoPaciente(Long id) {
+        Turno turno = turnoRepositorio.buscarTurnosPorId(id);
+
+        if (turno != null) {
+            turno.setTurnoTomado(false); // La idea es manejar el booleano de turno tomado para paciente y turno cancelado para profesional
+            turnoRepositorio.save(turno);
+        } else {
+            System.out.println("No encontro Turno");
+        }
     }
 
 }

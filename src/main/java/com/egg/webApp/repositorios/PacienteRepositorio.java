@@ -25,4 +25,5 @@ public interface PacienteRepositorio extends JpaRepository<Paciente, Long> {
 
     @Query("SELECT p FROM Paciente p WHERE p.altaSistema = false")
     public List<Paciente> listarPacientesDeBajaEnSistema();
+
 }

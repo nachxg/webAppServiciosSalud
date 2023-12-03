@@ -33,8 +33,8 @@ public class ImagenControlador {
     }
 
     @GetMapping("/perfil/{id}")
-    public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id)  {
-        Usuario usuario = usuarioServicio.getOne(id);
+    public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id) {
+        Usuario usuario = usuarioServicio.buscarPorId(id);
 
         if (usuario != null) {
             Imagen imagen = usuario.getImagen();
@@ -50,7 +50,7 @@ public class ImagenControlador {
                 try {
                     imagenPredeterminada = imagenPredeterminadaServicio.obtenerImagenPredeterminada().getContenido();
                 } catch (MiExcepcion e) {
-                    System.err.println(e.getMessage());
+                    System.err.println("Info" + e.getMessage());
                 }
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.IMAGE_JPEG);

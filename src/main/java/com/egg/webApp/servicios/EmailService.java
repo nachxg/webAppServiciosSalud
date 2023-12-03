@@ -23,6 +23,7 @@ public class EmailService {
 
     public void sendEmail(String from, String to, String subject, String text) {
         try {
+
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(from);
             message.setTo(to);

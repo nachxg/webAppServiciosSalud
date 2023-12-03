@@ -1,8 +1,11 @@
 package com.egg.webApp.servicios;
 
+import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.ImagenPredeterminada;
+import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.ImagenPredeterminadaRepository;
+import com.egg.webApp.repositorios.UsuarioRepositorio;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,9 +16,11 @@ import java.util.Optional;
 @Service
 public class ImagenPredeterminadaServicio {
     private final ImagenPredeterminadaRepository imagenPredeterminadaRepository;
+    private final UsuarioRepositorio usuarioRepositorio;
 
-    public ImagenPredeterminadaServicio(ImagenPredeterminadaRepository imagenPredeterminadaRepository) {
+    public ImagenPredeterminadaServicio(ImagenPredeterminadaRepository imagenPredeterminadaRepository, UsuarioRepositorio usuarioRepositorio) {
         this.imagenPredeterminadaRepository = imagenPredeterminadaRepository;
+        this.usuarioRepositorio = usuarioRepositorio;
     }
 
     public ImagenPredeterminada guardarImagen(MultipartFile archivo) throws MiExcepcion {
