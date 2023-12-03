@@ -403,8 +403,6 @@ main {
     height: 100%;
     border-radius: 14px;
     box-shadow: 0px 1px 10px rgb(0, 0, 0);
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 .formulario-turnos {
@@ -850,11 +848,63 @@ header .current-date {
     background-color: white;
 }
 
-
 .cerrar-modal {
     position: absolute;
     top: 5px;
     right: 20px;
     font-size: 30px;
     cursor: pointer;
+}
+
+.form-tomar-turno{
+    color: white;
+    padding: 20px;
+    width: 97%;
+    height: 95%;
+    background-color: #408f8b;
+    box-shadow: 1px 1px 10px rgb(175, 175, 175);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form-tomar-turno div{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-tomar-turno label{
+    font-size: 1.1rem;
+}
+
+.form-tomar-turno div select{
+    max-width: 50%;
+    background-color: #9accc9;
+    color: black;
+    border: none;
+    border-radius: 8px;
+}
+
+.select-turnos-container, .select-especialidades-container, .{
+    color: white;
+    font-weight: 300;
+    text-shadow: 1px 1px 10px rgb(104, 104, 104);
+    background-color:  #3c7471;
+    height: 20%;
+    border-radius: 14px;
+    padding: 2%;
+    z-index: 1;
+}
+
+.select-turnos-container{
+    padding-top: 3%;
+    height: 21%;
+    background-color: #4e9e9a;
+    margin-top: -20px;
+    z-index: 0;
 }
