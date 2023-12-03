@@ -854,13 +854,17 @@ header .current-date {
     padding: 20px;
     width: 97%;
     height: 95%;
-    background-color: #408f8b;
+    background-color: #41928e;
     box-shadow: 1px 1px 10px rgb(175, 175, 175);
     border-radius: 14px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+}
+
+.form-tomar-turno{
+    text-shadow: 1px 1px 10px rgb(48, 48, 48);
 }
 
 .form-tomar-turno div{
@@ -875,23 +879,22 @@ header .current-date {
     font-size: 1.1rem;
 }
 
-.form-tomar-turno div select{
+.form-tomar-turno div select, .form-tomar-turno div input{
     max-width: 50%;
-    background-color: #9accc9;
     color: black;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
-.select-turnos-container, .select-especialidades-container, .{
+.select-turnos-container, .select-especialidades-container, .consulta-container{
     color: white;
     font-weight: 300;
-    text-shadow: 1px 1px 10px rgb(104, 104, 104);
+    text-shadow: 1px 1px 10px rgb(0, 0, 0);
     background-color:  #3c7471;
     height: 20%;
     border-radius: 14px;
     padding: 2%;
-    z-index: 1;
+    z-index: 2;
 }
 
 .select-turnos-container{
@@ -899,5 +902,33 @@ header .current-date {
     height: 21%;
     background-color: #4e9e9a;
     margin-top: -20px;
+    z-index: 1;
+}
+
+.consulta-container{
+    height: 21%;
+    padding-top: 3%;
+    background-color: #65b6b2;
+    margin-top: -20px;
     z-index: 0;
+}
+
+.consulta-container input{
+    padding-left: 3px;
+    width: 50%;
+}
+
+.form-tomar-turno button{
+    color: black;
+    box-shadow: 1px 1px 10px rgb(70, 70, 70);
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    height: 8%;
+    width: 30%;
+    transition: color 0.3s ease;
+}
+
+.form-tomar-turno button:hover{
+    color: var(--colorLindo);
 }

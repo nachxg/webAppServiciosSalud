@@ -212,7 +212,7 @@
                 <div class="tarjeta-contenido">
                     <form class="form-tomar-turno">
                         
-                        <h4 class="mb-3">NUEVO TURNO</h4>
+                        <h3 class="mb-3">NUEVO TURNO</h4>
                         
                         <div class="select-especialidades-container">
                         <label for="select-especialidades">Seleccione una especialidad: </label>
@@ -225,9 +225,12 @@
                             <label for="select-turnos-disponibles">Seleccione un turno: </label>
                         </div>
 
-                        <div class="motivo-de-consulta">
-                            
+                        <div class="consulta-container">
+                            <label for="motivo-consulta">Motivo de consulta: </label>
+                            <input type="text" id="motivo-consulta" placeholder="Ingrese el motivo de su consulta...">
                         </div>
+
+                        <button type="submit">Reservar turno</button>
 
                         <div id="contenedor-listas" class="d-none">
                         <ul th:each="turno : ${turnos}">
