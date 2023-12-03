@@ -113,11 +113,7 @@ public class ProfesionalControlador {
                 modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
             } else {
                 
-                  /*Map<Long, Double> promedios =
-                  calificacionService.calcularPromedioPuntuacionPorProfesionales(profesionales)
-                  ;
-                  modelo.addAttribute("promediosPuntuacion", promedios);
-                */
+            
             }
             modelo.addAttribute("profesionales", profesionales);
             return "medicos.html";
