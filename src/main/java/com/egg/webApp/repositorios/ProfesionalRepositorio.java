@@ -50,4 +50,5 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Long>
     @Query("SELECT DISTINCT p FROM Profesional p WHERE LOWER(REPLACE(p.especialidad, ' ', '_')) LIKE LOWER(CONCAT('%', :especialidad, '%'))")
     List<Profesional> buscarPorNombreOEspecialidad(@Param("especialidad") String especialidad);
 
+
 }
