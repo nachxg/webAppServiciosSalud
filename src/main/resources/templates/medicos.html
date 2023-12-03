@@ -43,12 +43,12 @@
                          th:src="@{/img/usuario.jpg}">
                     <h5 class="mb-2" th:text="${profesional.nombre + ' ' + profesional.apellido}"></h5>
                     <p class="text-muted" th:text="${profesional.especialidad}"></p>
-                    <ul class="list-unstyled d-flex justify-content-center text-warning mb-2 mt-0">
-                        <!-- Utiliza Thymeleaf para iterar sobre las estrellas según el promedio -->
-                        <li th:each="star : ${#numbers.sequence(1, 5)}">
-                            <i th:class="${promediosPuntuacion[profesional.id] >= star} ? 'fas fa-star fa-sm' : 'far fa-star fa-sm'"></i>
-                        </li>
-                    </ul>
+<!--                    <ul class="list-unstyled d-flex justify-content-center text-warning mb-2 mt-0">-->
+<!--                        &lt;!&ndash; Utiliza Thymeleaf para iterar sobre las estrellas según el promedio &ndash;&gt;-->
+<!--                        <li th:each="star : ${#numbers.sequence(1, 5)}">-->
+<!--                            <i th:class="${promediosPuntuacion[profesional.id] >= star} ? 'fas fa-star fa-sm' : 'far fa-star fa-sm'"></i>-->
+<!--                        </li>-->
+<!--                    </ul>-->
                 </div>
                 <div class="text-center">
                     <p class="text-muted"><i class="fas fa-quote-left"></i>

@@ -133,15 +133,7 @@ public class ProfesionalControlador {
             return "redirect:/profesional/especialidad";
         }
     }
-<<<<<<<<< Temporary merge branch 1
 
-    @PostMapping("/agregar_familiar")
-    public String crearFamiliar(){
-
-    }
-*/
-}
-=========
 }
 /*
  * @GetMapping("/grupo_familiar")
@@ -157,4 +149,4 @@ public class ProfesionalControlador {
  * 
  * }
  */
->>>>>>>>> Temporary merge branch 2
+
