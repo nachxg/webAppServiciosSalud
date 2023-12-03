@@ -44,6 +44,7 @@ nav{
     padding: 0;
     cursor: pointer;
     margin-left: 1.4rem;
+    margin-left: 1.4rem;
 }
 
 .logo img{
@@ -142,7 +143,6 @@ button{
     width: 50%;
     transition: color 0.2s ease;
 }
-
 button:hover{
     background-color:linear-gradient(to left, #44bdb3,#1b5453);
     color: white;

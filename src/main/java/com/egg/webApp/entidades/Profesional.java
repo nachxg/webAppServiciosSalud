@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "profesionales")
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Profesional extends Usuario {
+
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
     private String matricula;
