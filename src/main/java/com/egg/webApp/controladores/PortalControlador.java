@@ -2,6 +2,8 @@ package com.egg.webApp.controladores;
 
 
 import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.repositorios.TurnoRepositorio;
+import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.TurnoServicio;
@@ -17,6 +19,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @RequestMapping("/")
 public class PortalControlador {
 
+    @Autowired
+    TurnoRepositorio turnoRepositorio;
+    @Autowired
+    EnumServicio enumServicio;
     @Autowired
     PacienteServicio pacienteServicio;
     @Autowired
@@ -44,6 +50,9 @@ public class PortalControlador {
             case "ADMIN":
                 return "redirect:/admin/inicio";
             default:
+                modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
+                modelo.addAttribute("profesionales", profesionaServicio.listarProfesionales());
+                modelo.addAttribute("turnos",turnoRepositorio.findAll());
                 modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
                 return "inicio.html";          
         }
