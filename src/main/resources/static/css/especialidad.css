@@ -331,4 +331,7 @@ nav a:hover:not(.logo),
         order: 3; /* Cambiar el orden en columnas */
        
     }
+    .filled {
+        color: gold; /* Cambia el color a dorado para indicar una estrella llena */
+    }
 }

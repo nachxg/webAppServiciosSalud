@@ -943,7 +943,7 @@ header .current-date {
     border-radius: 8px;
 }
 
-.select-turnos-container, .select-especialidades-container, .{
+.select-turnos-container, .select-especialidades-container{
     color: white;
     font-weight: 300;
     text-shadow: 1px 1px 10px rgb(104, 104, 104);
@@ -960,4 +960,14 @@ header .current-date {
     background-color: #4e9e9a;
     margin-top: -20px;
     z-index: 0;
+}
+.stars {
+    color: gold; /* Color de las estrellas (puedes cambiarlo según tu diseño) */
+    font-size: 2em; /* Tamaño de las estrellas */
+}
+
+.rating-number {
+    color: green; /* Color del número de puntuación (puedes cambiarlo según tu diseño) */
+    font-weight: bold; /* Puedes ajustar el peso de la fuente si es necesario */
+    margin-left: 5px; /* Ajustar el espacio entre las estrellas y el número */
 }

@@ -96,6 +96,12 @@ function enviarEspecialidadAlBackend(especialidad) {
         });
 }
 
+
+
+
+
+
+
 function obtenerDescripcionEspecialidad(especialidad) {
     // Puedes expandir esta función con descripciones específicas para cada especialidad
     switch (especialidad) {
