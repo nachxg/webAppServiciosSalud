@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -20,8 +22,8 @@ public class Profesional extends Usuario {
     private Especialidad especialidad;
     private String matricula;
     @OneToMany(mappedBy = "profesional", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Turno> turnosDisponibles;
+    private List<Turno> turnosDisponibles;
 
     @OneToMany(mappedBy = "profesional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Calificacion> calificaciones;
+    private List<Calificacion> calificaciones;
 }

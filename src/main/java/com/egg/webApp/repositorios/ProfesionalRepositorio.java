@@ -21,7 +21,9 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Long>
     public Profesional buscarPorId(@Param("id")Long id);
 
     public Boolean existsByMatricula(String matricula);
-    @EntityGraph(attributePaths = {"turnosDisponibles", "calificaciones"})
-    @Query("SELECT DISTINCT p FROM Profesional p LEFT JOIN FETCH p.turnosDisponibles LEFT JOIN FETCH p.calificaciones WHERE LOWER(p.nombre) LIKE LOWER(CONCAT('%', :termino, '%')) OR LOWER(REPLACE(p.especialidad, ' ', '_')) LIKE LOWER(CONCAT('%', :termino, '%'))")
-    List<Profesional> buscarPorNombreOEspecialidad(@Param("termino") String termino);
+   //@EntityGraph(attributePaths = {"turnosDisponibles", "calificaciones"})
+    //@Query("SELECT DISTINCT p FROM Profesional p LEFT JOIN FETCH p.turnosDisponibles LEFT JOIN FETCH p.calificaciones WHERE LOWER(p.nombre) LIKE LOWER(CONCAT('%', :termino, '%')) OR LOWER(REPLACE(p.especialidad, ' ', '_')) LIKE LOWER(CONCAT('%', :termino, '%'))")
+   //List<Profesional> buscarPorNombreOEspecialidad(@Param("termino") String termino);
+   @Query("SELECT DISTINCT p FROM Profesional p WHERE LOWER(REPLACE(p.especialidad, ' ', '_')) LIKE LOWER(CONCAT('%', :especialidad, '%'))")
+    List<Profesional> buscarPorNombreOEspecialidad(@Param("especialidad") String especialidad);
 }
