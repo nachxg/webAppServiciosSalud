@@ -1,12 +1,12 @@
 package com.egg.webApp.servicios;
 
+
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
-import com.egg.webApp.repositorios.PacienteRepositorio;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,8 +23,7 @@ public class PacienteServicio {
     private final PacienteRepositorio pacienteRepositorio;
     private final ImagenServicio imagenServicio;
     private final UsuarioServicio usuarioServicio;
-    public PacienteServicio(PacienteRepositorio pacienteRepositorio, ImagenServicio imagenServicio, UsuarioServicio usuarioServicio) {
-        this.pacienteRepositorio = pacienteRepositorio;
+    public PacienteServicio( ImagenServicio imagenServicio, UsuarioServicio usuarioServicio) {
         this.imagenServicio = imagenServicio;
         this.usuarioServicio = usuarioServicio;
     }
