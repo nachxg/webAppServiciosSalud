@@ -15,18 +15,18 @@ function mostrarEspecialidades(boton, letra) {
 
     // Añade elementos de lista para cada especialidad a la lista
     especialidades.forEach(function (especialidad) {
-        var listItem = document.createElement('li');
-        var link = document.createElement('a');
-        link.textContent = especialidad;
+      var listItem = document.createElement('li');
+      var link = document.createElement('a');
+      link.textContent = especialidad;
 
-        // Agrega un evento de clic a cada enlace para mostrar la descripción
-        link.addEventListener('click', function () {
-            mostrarDescripcionEspecialidad(especialidad);
-            mostrarDetalles(especialidad)
-        });
+      // Agrega un evento de clic a cada enlace para mostrar la descripción
+      link.addEventListener('click', function () {
+        mostrarDescripcionEspecialidad(especialidad);
+          mostrarDetalles(especialidad)
+      });
 
-        listItem.appendChild(link);
-        listaEspecialidades.appendChild(listItem);
+      listItem.appendChild(link);
+      listaEspecialidades.appendChild(listItem);
     });
 
 
@@ -40,18 +40,18 @@ function mostrarEspecialidades(boton, letra) {
     // Cambia el color del botón clickeado
     resetearColoresBotones();
     boton.style.backgroundColor = '#3cd2cb'; // Puedes cambiar 'red' por el color que desees
-}
+  }
 
-function resetearColoresBotones() {
+  function resetearColoresBotones() {
     // Resetea el color de todos los botones a su estado original
     var botones = document.querySelectorAll('#lista-botones button');
     botones.forEach(function (boton) {
-        boton.style.backgroundColor = ''; // Puedes cambiar '' por el color original de los botones
+      boton.style.backgroundColor = ''; // Puedes cambiar '' por el color original de los botones
     });
-}
+  }
 
-// Esta función debería ser llamada al inicio para establecer el color original de los botones
-resetearColoresBotones();
+  // Esta función debería ser llamada al inicio para establecer el color original de los botones
+  resetearColoresBotones();
 
 var especialidadSeleccionada;  // Declara la variable global
 function mostrarDescripcionEspecialidad(especialidad) {
@@ -95,6 +95,13 @@ function enviarEspecialidadAlBackend(especialidad) {
             console.error('Error al enviar la especialidad al backend:', error);
         });
 }
+
+
+
+
+
+
+
 function obtenerDescripcionEspecialidad(especialidad) {
     // Puedes expandir esta función con descripciones específicas para cada especialidad
     switch (especialidad) {
@@ -137,7 +144,7 @@ function obtenerDescripcionEspecialidad(especialidad) {
         case 'Medicina Interna Hospitalaria':
             return 'Medicina Interna Hospitalaria se especializa en el diagnóstico y tratamiento de enfermedades complejas en pacientes hospitalizados.'
         case 'Nefrología' :
-            return 'Nefrología trata enfermedades relacionadas con los riñones.'
+             return 'Nefrología trata enfermedades relacionadas con los riñones.'
         case 'Neurocirugía' :
             return 'Neurocirugía realiza intervenciones quirúrgicas en el sistema nervioso para tratar diversas condiciones.'
         case 'Neurología':
@@ -194,6 +201,6 @@ function obtenerEspecialidadesPorLetra(letra) {
         case 'T-U':
             return ['Terapia Intensiva ', 'Trasplantes', 'Traumatología y Ortopedia', 'Trabajo Social', 'Urología']
         default:
-            return[];
-    }
+            return [];
+    }
 }

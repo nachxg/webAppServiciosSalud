@@ -82,17 +82,17 @@ public class AdministradorServicio {
         return String.format("%s%.1f%%", signo, Math.abs(porcentajeCambio));
     }
     public int calcularUsuariosRegistradosConAumento() {
-        // Obtén la cantidad actual de usuarios registrados
-        int usuariosActuales = (int) usuarioRepositorio.count();
+    long usuariosActuales = usuarioRepositorio.count();
+    double aumentoPorcentaje = 0.1;
+    
+    // Calcular el aumento de usuarios y redondear al entero más cercano
+    long aumento = Math.round(usuariosActuales * aumentoPorcentaje);
+    
+    // Calcular el total de nuevos usuarios
+    long nuevosUsuarios = usuariosActuales + aumento;
+    
+    // Asegurarse de que el resultado sea un entero y devolverlo
+    return Math.toIntExact(nuevosUsuarios);
+}
 
-        // Calcula el aumento del 10%
-        double aumentoPorcentaje = 0.10;
-        double aumento = usuariosActuales * aumentoPorcentaje;
-
-        // Calcula el nuevo total de usuarios registrados
-        double nuevosUsuarios = usuariosActuales + aumento;
-
-        // Devuelve el nuevo total como entero
-        return (int) nuevosUsuarios;
-    }
 }

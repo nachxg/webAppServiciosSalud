@@ -125,5 +125,15 @@ public class PacienteServicio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
+    public List<Paciente> listarPacientesActivos() throws MiExcepcion {
+    List<Paciente> pacientes = pacienteRepositorio.listarPacientesDeAltaEnSistema();
+    
+    if (pacientes.isEmpty()) {
+        throw new MiExcepcion("No hay pacientes registrados");
+    } else {
+        return pacientes;
+    }
+}
+
 }
 

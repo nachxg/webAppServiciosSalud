@@ -24,4 +24,6 @@ public class Profesional extends Usuario {
 
     @OneToMany(mappedBy = "profesional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
+
+    private int puntuacion;
 }
