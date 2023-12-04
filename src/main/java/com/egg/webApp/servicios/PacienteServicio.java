@@ -7,6 +7,7 @@ import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
+import com.egg.webApp.repositorios.PacienteRepositorio;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +23,8 @@ public class PacienteServicio {
     private final PacienteRepositorio pacienteRepositorio;
     private final ImagenServicio imagenServicio;
     private final UsuarioServicio usuarioServicio;
-    public PacienteServicio( ImagenServicio imagenServicio, UsuarioServicio usuarioServicio) {
+    public PacienteServicio(PacienteRepositorio pacienteRepositorio, ImagenServicio imagenServicio, UsuarioServicio usuarioServicio) {
+        this.pacienteRepositorio = pacienteRepositorio;
         this.imagenServicio = imagenServicio;
         this.usuarioServicio = usuarioServicio;
     }
@@ -75,16 +76,6 @@ public class PacienteServicio {
         return pacienteRepositorio.getOne(id);
     }
 
-    public List<Paciente> listarPacientesActivos() throws MiExcepcion {
-
-        List<Paciente> pacientes = new ArrayList<>();
-        pacientes = pacienteRepositorio.listarPacientesDeAltaEnSistema();
-        if (pacientes.isEmpty()) {
-            throw new MiExcepcion("No hay pacientes registrados");
-        } else {
-            return pacientes;
-        }
-    }
     public List<Paciente> listarPacientes() throws MiExcepcion {
         List<Paciente> pacientes = pacienteRepositorio.obtenerTodosLosPacientes();
         if (pacientes.isEmpty()) {
