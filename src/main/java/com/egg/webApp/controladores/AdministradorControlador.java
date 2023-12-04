@@ -35,8 +35,46 @@ public class AdministradorControlador {
     }
 
     @GetMapping("/inicio")
-    public String inicioAdmin(){
-        return "adminDashboard.html";
+    public String inicioAdmin(Model modelo)  {
+
+        List<Profesional> profesionalesInactivos = null;
+        List<Profesional> profesionalesActivos = null;
+        List<Paciente> pacientesActivos = null;
+        modelo.addAttribute("usuariosRegistradosConAumento", administradorServicio.calcularUsuariosRegistradosConAumento());
+        try {
+            modelo.addAttribute("porcentajeIncremental", administradorServicio.calcularPorcentajeCambioFormateado());
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("errorPorcentajeIncremental", e.getMessage());
+        }
+        modelo.addAttribute("usuarios", usuarioServicio.listarUsuarios());
+        try {
+            profesionalesInactivos = profesionalServicio.listarProfesionalesPendientesAlta();
+            modelo.addAttribute("profesionalesInactivos", profesionalesInactivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("errorProfesionalInactivo", e.getMessage());
+        }
+        try {
+            profesionalesInactivos = profesionalServicio.listarProfesionalesPendientesAlta();
+            modelo.addAttribute("profesionalesInactivos", profesionalesInactivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("errorProfesionalInactivo", e.getMessage());
+        }
+        try {
+            profesionalesActivos = profesionalServicio.listarProfesionalesActivos();
+            modelo.addAttribute("profesionalesActivos", profesionalesActivos);
+            modelo.addAttribute("altasProfesionales", profesionalesActivos);
+            System.out.println("Profesionales activos: " + profesionalesActivos.size());
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("errorProfesionalesActivos", e.getMessage());
+        }
+        try {
+            pacientesActivos = pacienteServicio.listarPacientesActivos();
+            modelo.addAttribute("pacientesActivos", pacientesActivos);
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("errorPacientesActivos", e.getMessage());
+        }
+
+        return "adminInicio.html";
     }
 
     @GetMapping("/dashboard")

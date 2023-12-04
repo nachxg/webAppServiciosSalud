@@ -367,7 +367,7 @@ main {
     list-style-type: none;
 }
 
-.contenedor-datos ul li svg{
+.contenedor-datos ul li svg {
     margin-bottom: 3px;
 }
 
@@ -402,19 +402,16 @@ main {
     box-shadow: 0px 1px 10px rgb(0, 0, 0);
 }
 
-.card-body{
+.card-body {
     font-family: 'Montserrat', sans-serif;
-    
+
     box-shadow: 0px 1px 10px rgb(0, 0, 0);
     background-color: #eeeded8e;
 }
 
-.fondo-hc{
-  
-     
-}
+.fondo-hc {}
 
-.formulario-turnos{
+.formulario-turnos {
     height: 100%;
     width: 100%;
     display: flex;
@@ -424,7 +421,7 @@ main {
     align-items: center;
 }
 
-.horarios{
+.horarios {
     background-color: white;
     width: 55%;
     height: 100%;
@@ -434,7 +431,7 @@ main {
     z-index: 0;
 }
 
-.horarios-header{
+.horarios-header {
     height: fit-content;
     font-size: 1.2rem;
     font-weight: 500;
@@ -447,16 +444,17 @@ main {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px; /* Espacio entre las celdas */
-  }
-  
-  .item {
+    gap: 10px;
+    /* Espacio entre las celdas */
+}
+
+.item {
     background-color: transparent;
     border: 1px solid var(--colorLindo);
     border-radius: 9px;
     padding: 20px;
     text-align: center;
-  }
+}
 
 .formulario-turnos {
     height: 100%;
@@ -517,12 +515,12 @@ main {
     color: white;
 }
 
-.seleccionado{
+.seleccionado {
     background-color: #408f8b;
     color: white;
 }
 
-.confirmacion-container{
+.confirmacion-container {
     background-color: #4d9692;
     display: flex;
     visibility: hidden;
@@ -544,7 +542,7 @@ main {
     transition: all 0.3s ease;
 }
 
-.mostrar{
+.mostrar {
     transform: scaleY(1);
     opacity: 1;
     visibility: visible;
@@ -552,23 +550,24 @@ main {
     height: 37%;
 }
 
-.confirmacion{
+.confirmacion {
     color: white;
     font-weight: 500;
     margin-top: auto;
 }
 
-.confirmacion-container button{
+.confirmacion-container button {
     margin-top: auto;
     background-color: white;
     border-radius: 9px;
-    padding: 3px 10px;;
+    padding: 3px 10px;
+    ;
     color: var(--colorLindo);
     border: none;
     transition: all 0.3s ease;
 }
 
-.lista-turnos{
+.lista-turnos {
     display: none;
 }
 
@@ -587,9 +586,10 @@ main {
 
 .tabla table {
     width: 100%;
-    border-collapse: separate; /* Hace que el margen se aplique entre las celdas */
-    border-spacing: 5px; /* Define el espacio entre las celdas */
-   
+    border-collapse: separate;
+    /* Hace que el margen se aplique entre las celdas */
+    border-spacing: 5px;
+    /* Define el espacio entre las celdas */
 }
 
 .tabla table th,
@@ -599,7 +599,8 @@ main {
     box-shadow: 1px 1px 10px rgb(194, 194, 194);
     padding: 3px;
 }
-#sec-3{
+
+#sec-3 {
     display: none;
     overflow: hidden;
     justify-content: center;
@@ -613,7 +614,7 @@ main {
     margin-right: 10px;
 }
 
-#sec-3 .cuerpo-hc{
+#sec-3 .cuerpo-hc {
     border: none;
     background-color: white;
     margin-left: 10px;
@@ -622,7 +623,7 @@ main {
     position: relative;
 }
 
-#sec-4{
+#sec-4 {
     display: none;
 }
 
@@ -860,7 +861,7 @@ header .current-date {
     align-items: center;
 }
 
-#form-modal{
+#form-modal {
     height: 80%;
     width: 90%;
     box-shadow: 1px 1px 10px rgb(182, 182, 182);
@@ -872,7 +873,7 @@ header .current-date {
     border-radius: 14px;
 }
 
-#form-modal div{
+#form-modal div {
     height: 25%;
     display: flex;
     flex-direction: row;
@@ -891,7 +892,7 @@ header .current-date {
     padding-right: 10px;
 }
 
-#form-modal button{
+#form-modal button {
     margin-top: 20px;
     height: 20%;
     width: 30%;
@@ -910,7 +911,7 @@ header .current-date {
     cursor: pointer;
 }
 
-.form-tomar-turno{
+.form-tomar-turno {
     color: white;
     padding: 20px;
     width: 97%;
@@ -924,7 +925,7 @@ header .current-date {
     align-items: center;
 }
 
-.form-tomar-turno div{
+.form-tomar-turno div {
     width: 80%;
     display: flex;
     flex-direction: row;
@@ -932,11 +933,11 @@ header .current-date {
     align-items: center;
 }
 
-.form-tomar-turno label{
+.form-tomar-turno label {
     font-size: 1.1rem;
 }
 
-.form-tomar-turno div select{
+.form-tomar-turno div select {
     max-width: 50%;
     background-color: #9accc9;
     color: black;
@@ -944,27 +945,31 @@ header .current-date {
     border-radius: 8px;
 }
 
-.select-turnos-container, .select-especialidades-container{
+.select-turnos-container,
+.select-especialidades-container {
     color: white;
     font-weight: 300;
     text-shadow: 1px 1px 10px rgb(104, 104, 104);
-    background-color:  #3c7471;
+    background-color: #3c7471;
     height: 20%;
     border-radius: 14px;
     padding: 2%;
     z-index: 1;
 }
 
-.select-turnos-container{
+.select-turnos-container {
     padding-top: 3%;
     height: 21%;
     background-color: #4e9e9a;
     margin-top: -20px;
     z-index: 0;
 }
+
 .stars {
-    color: gold; /* Color de las estrellas (puedes cambiarlo según tu diseño) */
-    font-size: 2em; /* Tamaño de las estrellas */
+    color: gold;
+    /* Color de las estrellas (puedes cambiarlo según tu diseño) */
+    font-size: 2em;
+    /* Tamaño de las estrellas */
 }
 
 .rating-number {
