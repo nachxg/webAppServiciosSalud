@@ -44,7 +44,7 @@ public class ProfesionalControlador {
 
             profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula, especialidad, fechaNacimiento);
 
-            return "redirect:/index";
+            return "redirect:/login";
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");

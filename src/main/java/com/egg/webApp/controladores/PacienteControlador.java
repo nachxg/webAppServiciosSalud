@@ -113,7 +113,7 @@ public class PacienteControlador {
     public String cancelarTurno(@PathVariable Long idTurno) {
 
         try {
-            turnoServicio.cancelarTurnoPaciente(idTurno);
+            turnoServicio.cancelarTurno(idTurno);
             System.out.println("Turno cancelado");
             return "redirect:/inicio";
         } catch (Exception e) {
