@@ -530,6 +530,7 @@ main {
     width: 100%;
     border-collapse: separate; /* Hace que el margen se aplique entre las celdas */
     border-spacing: 5px; /* Define el espacio entre las celdas */
+   
 }
 
 .tabla table th,
@@ -579,7 +580,7 @@ main {
     color: black;
     background-color: white;
     height: 13%;
-    margin-top: auto;
+    margin-top: 4rem;
 }
 
 .links {
@@ -1196,3 +1197,36 @@ header .current-date {
 input[type=date]:focus::-webkit-datetime-edit {
     color: black !important;
 }
+
+.rating-number {
+    color: green; /* Color del número de puntuación (puedes cambiarlo según tu diseño) */
+    font-weight: bold; /* Puedes ajustar el peso de la fuente si es necesario */
+    margin-left: 5px; /* Ajustar el espacio entre las estrellas y el número */
+}
+
+/*vista profesional consultas historias clinica*/
+
+.borde{
+    border: black 1px solid;
+    height: 700px;
+    width: 900px;
+}
+.borde h1{
+    text-align: center;
+}
+.buscador {
+    margin-top: 20px;
+}
+
+
+/* VISTA ADMIN DASHBOARD */
+
+.input-group{
+    margin: 10px;
+}
+
+.banner-especialidad {
+    margin: 30px
+}
+
+

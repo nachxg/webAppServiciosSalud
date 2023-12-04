@@ -58,6 +58,8 @@ function mostrarDescripcionEspecialidad(especialidad) {
     // Obtén el elemento del párrafo y actualiza su contenido
     var descripcionEspecialidad = document.getElementById('descripcion-especialidad');
     descripcionEspecialidad.textContent = descripcion;
+
+    descripcionEspecialidad.classList.add('centrado');
 }
 
 function obtenerDescripcionEspecialidad(especialidad) {
