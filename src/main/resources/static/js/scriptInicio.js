@@ -26,10 +26,10 @@ contPerfil.addEventListener("click", function () {
 
 const contenido = document.querySelector(".contenido");
 
-function limpiarSeccion() { 
+function limpiarSeccion() {
 
     const tarjetaContenido = document.querySelector(".tarjeta-contenido");
-    const secciones = Array.from(tarjetaContenido.children);   
+    const secciones = Array.from(tarjetaContenido.children);
 
     secciones.forEach(seccion => {
         seccion.style.display = "none";
@@ -60,7 +60,7 @@ boton2.addEventListener("click",function(){
     limpiarSeccion();
 
     const sec2 = document.querySelector("#sec-2");
-    
+
     contenido.scrollIntoView({ behavior: 'smooth' });
     sec2.style.display = "flex";
 
@@ -71,7 +71,7 @@ boton3.addEventListener("click",function(){
     limpiarSeccion();
 
     const sec3 = document.querySelector("#sec-3");
-    
+
     contenido.scrollIntoView({ behavior: 'smooth' });
     sec3.style.display = "block";
 
@@ -82,7 +82,7 @@ boton4.addEventListener("click",function(){
     limpiarSeccion();
 
     const sec4 = document.querySelector("#sec-4");
-    
+
     contenido.scrollIntoView({ behavior: 'smooth' });
     sec4.style.display = "block";
 

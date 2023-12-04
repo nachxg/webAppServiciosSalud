@@ -29,6 +29,7 @@ public class FamiliarServicio {
     @Autowired
     private PacienteRepositorio pacienteRepositorio;
 
+
     @Transactional
     public void registrarMiembro(Paciente miembro,
                                  String parentesco, String nombre, String apellido,
@@ -78,6 +79,19 @@ public class FamiliarServicio {
 
     public List<Object[]> listarFamiliares(Long titularId) { //Titular id == paciente id
         return familiarRepositorio.findByTitularId(titularId);
+
     }
 
+    @Transactional
+    public GrupoFamiliar buscarPorId(Long id){
+        return familiarRepositorio.buscarPorId(id);
+    }
+
+
+    /*
+    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(fechaNacimiento, formatter);
+    }
+*/
 }
