@@ -13,10 +13,6 @@ import com.egg.webApp.servicios.ProfesionalServicio;
 @RequestMapping("/calificaciones")
 public class CalificacionesControlador {
 
-    
-
-    
-
     @GetMapping("/crear")
     public String crearCalificacion(ModelMap model) {
 

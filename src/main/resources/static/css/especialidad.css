@@ -305,7 +305,6 @@ nav a:hover:not(.logo),
 
 
 
-
     .encabezado1{
         height: fit-content;
     }
@@ -314,6 +313,7 @@ nav a:hover:not(.logo),
       padding-top: auto;
       text-align: center;
       order: 1; /* Cambiar el orden en columnas */
+
 
     }
 

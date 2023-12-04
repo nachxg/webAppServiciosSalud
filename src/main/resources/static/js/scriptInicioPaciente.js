@@ -24,6 +24,12 @@ contPerfil.addEventListener("click", function () {
 
 });
 
+const inputContainer = document.querySelector(".consulta-container");
+const input = document.createElement('input');
+const boton = document.createElement('button');
+boton.setAttribute('type','submit');
+boton.innerHTML = "Reservar turno";
+
 function obtenerSeleccion(value) {
     let especialidadElegida = value.toString();
     console.log(especialidadElegida);
@@ -54,8 +60,13 @@ function obtenerSeleccion(value) {
         selectTurnosDisponibles.innerHTML = '';
     } else {
         selectTurnosDisponibles = document.createElement('select');
+        let opSelected = document.createElement('option');
+        opSelected.selected = true;
+        opSelected.text = "Elija una opción";
+        opSelected.value = "";
+        selectTurnosDisponibles.add(opSelected);
         selectTurnosDisponibles.setAttribute('name', 'idTurno');
-        selectTurnosDisponibles.setAttribute('onchange', 'desplegarTextarea()');
+        selectTurnosDisponibles.setAttribute('onchange', 'desplegarInput(value)');
         selectTurnosDisponibles.classList.add('select-turnos-disponibles');
     }
 
@@ -75,22 +86,118 @@ function obtenerSeleccion(value) {
 
     console.log(selectTurnosDisponibles.length);
 
+    let containerSelectTurnos = document.querySelector('.select-turnos-container');
+    const sinTurnos = document.querySelector('.sin-turnos');
     // Agrega el select al DOM si tiene opciones, o elimínalo si ya existe
-    if (selectTurnosDisponibles.length > 0) {
-
+    if (selectTurnosDisponibles.length > 1) {
+        sinTurnos.style.display = "none";
         if (!document.querySelector('.select-turnos-disponibles')) {
-            let containerSelectTurnos = document.querySelector('.select-turnos-container');
+            containerSelectTurnos.classList.add("mostrar-container");
             containerSelectTurnos.appendChild(selectTurnosDisponibles);
         }
 
     } else {
         // Elimina el select si no hay opciones
+        sinTurnos.style.display = "block";
         if (document.querySelector('.select-turnos-disponibles')) {
             document.querySelector('.select-turnos-disponibles').remove();
+            containerSelectTurnos.classList.remove("mostrar-container");
+            inputContainer.classList.remove("mostrar-container");
+            boton.remove();
+            input.remove();
         }
     }
 }
 
-function desplegarTextarea() {
+const botonContainer = document.querySelector('.boton-container');
+const formularioTomarTurno = document.querySelector('.form-tomar-turno')
 
+function desplegarInput(value) {
+    if(value != ""){
+        inputContainer.appendChild(input);
+        input.setAttribute('name','motivoConsulta');
+        input.setAttribute('id','motivo-consulta');
+        input.required = "true";
+        inputContainer.classList.add("mostrar-container");
+        botonContainer.appendChild(boton);
+        botonContainer.style.opacity = 1;
+        let idPaciente = document.querySelector('#idPaciente').textContent;
+        formularioTomarTurno.setAttribute('action',`/paciente/tomarTurno/${idPaciente}/${value}/`);
+    } else {
+        inputContainer.removeChild(input);
+        inputContainer.classList.remove("mostrar-container");
+        botonContainer.style.opacity = 0;
+        document.querySelector('.boton-container').removeChild(boton);
+    }
+}
+
+const contenido = document.querySelector(".contenido");
+
+function limpiarSeccion() {
+
+    const tarjetaContenido = document.querySelector(".tarjeta-contenido");
+    const secciones = Array.from(tarjetaContenido.children);
+
+    secciones.forEach(seccion => {
+        seccion.style.display = "none";
+    });
+
+    const parrafoClick = document.querySelector("#parrafo-click");
+
+    if(parrafoClick.classList.contains("d-block")){
+        parrafoClick.classList.replace("d-block","d-none");
+    }
+
+}
+
+const boton1 = document.querySelector("#boton1");
+boton1.addEventListener("click",function(){
+
+    limpiarSeccion();
+
+    const sec1 = document.querySelector("#sec1");
+
+    contenido.scrollIntoView({ behavior: 'smooth' });
+    sec1.style.display = "flex";
+
+})
+
+const boton2 = document.querySelector("#boton2");
+boton2.addEventListener("click",function(){
+    limpiarSeccion();
+
+    const sec2 = document.querySelector("#sec2");
+
+    contenido.scrollIntoView({ behavior: 'smooth' });
+    sec2.style.display = "flex";
+
+});
+
+const boton3 = document.querySelector("#boton3");
+boton3.addEventListener("click",function(){
+    limpiarSeccion();
+
+    const sec3 = document.querySelector("#sec3");
+
+    contenido.scrollIntoView({ behavior: 'smooth' });
+    sec3.style.display = "flex";
+
+});
+
+function abrirModal(){
+
+    const modal = document.querySelector(".modal-familiar");
+    const cerrarModal = document.querySelector(".cerrar-modal");
+
+    modal.style.display = "block";
+
+    cerrarModal.addEventListener("click", function(){
+        modal.style.display = "none";
+    });
+
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 }

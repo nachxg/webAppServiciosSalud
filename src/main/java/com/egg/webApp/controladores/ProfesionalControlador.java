@@ -43,10 +43,10 @@ public class ProfesionalControlador {
 
     @PostMapping("/registrar")
     public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String password,
-            @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo,
-            @RequestParam String matricula, ModelMap modelo,
-            @RequestParam String especialidad,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
+                           @RequestParam String password2, @RequestParam String dni, @RequestParam String sexo,
+                           @RequestParam String matricula, ModelMap modelo,
+                           @RequestParam String especialidad,
+                           @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento) {
         try {
 
             profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula,
@@ -84,8 +84,8 @@ public class ProfesionalControlador {
     @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL', 'ROLE_ADMIN')")
     @PostMapping("/perfil/{id}")
     public String actualizarProfesional(MultipartFile archivo, @PathVariable Long id, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo,
-            @RequestParam String telefono, @RequestParam String sexo) {
+                                        @RequestParam String password, @RequestParam String password2, ModelMap modelo,
+                                        @RequestParam String telefono, @RequestParam String sexo) {
 
         try {
             profesionalServicio.actualizarProfesional(archivo, id, email, password, password2, telefono,
@@ -112,8 +112,8 @@ public class ProfesionalControlador {
             if (profesionales.isEmpty()) {
                 modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
             } else {
-                
-            
+
+
             }
             modelo.addAttribute("profesionales", profesionales);
             return "medicos.html";
@@ -123,4 +123,4 @@ public class ProfesionalControlador {
             return "redirect:/profesional/especialidad";
         }
     }
-}    
+}

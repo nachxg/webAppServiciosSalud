@@ -201,6 +201,8 @@ function obtenerEspecialidadesPorLetra(letra) {
         case 'T-U':
             return ['Terapia Intensiva ', 'Trasplantes', 'Traumatología y Ortopedia', 'Trabajo Social', 'Urología']
         default:
-            return [];
-    }
+
+            return [];
+
+}
 }
