@@ -38,4 +38,6 @@ public class Paciente extends Usuario {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
 
+    private String parentesco;
+
 }

@@ -14,6 +14,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
 }
 
 body {
@@ -187,7 +188,7 @@ main {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background: linear-gradient(to left, #44bdb34d, #1b54534d), url('../img/fondoinicio.jpg');
+    background: linear-gradient(to left, #44bdb34d, #1b54534d), url('../img/fondoinicio.avif');
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -339,7 +340,7 @@ main {
 .contenedor-datos {
     width: 100%;
     height: 100%;
-    background-image: url('../img/fondo-perfil.jpg');
+    background-image: url('/img/fondo-perfil.jpg');
     background-size: 100%;
     background-blend-mode: lighten;
     background-color: rgba(255, 255, 255, 0.822);
@@ -365,10 +366,6 @@ main {
 
 .contenedor-datos ul li {
     list-style-type: none;
-}
-
-.contenedor-datos ul li svg{
-    margin-bottom: 3px;
 }
 
 .contenedor-datos ul li svg {
@@ -401,62 +398,6 @@ main {
     border-radius: 14px;
     box-shadow: 0px 1px 10px rgb(0, 0, 0);
 }
-
-.card-body{
-    font-family: 'Montserrat', sans-serif;
-    
-    box-shadow: 0px 1px 10px rgb(0, 0, 0);
-    background-color: #eeeded8e;
-}
-
-.fondo-hc{
-  
-     
-}
-
-.formulario-turnos{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 10px;
-    align-items: center;
-}
-
-.horarios{
-    background-color: white;
-    width: 55%;
-    height: 100%;
-    border-radius: 9px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.308);
-    padding: 22.5px 27px 9px;
-    z-index: 0;
-}
-
-.horarios-header{
-    height: fit-content;
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-
-.grid-container {
-    margin-top: 10px;
-    display: grid;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px; /* Espacio entre las celdas */
-  }
-  
-  .item {
-    background-color: transparent;
-    border: 1px solid var(--colorLindo);
-    border-radius: 9px;
-    padding: 20px;
-    text-align: center;
-  }
 
 .formulario-turnos {
     height: 100%;
@@ -830,7 +771,7 @@ header .current-date {
     background: #f2f2f2;
 }
 
-.modal-turnos {
+.modal-turnos{
     display: none;
     position: fixed;
     top: 0;
@@ -841,7 +782,7 @@ header .current-date {
     z-index: 200;
 }
 
-.modal-turnos-cuerpo {
+.modal-turnos-cuerpo{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -911,47 +852,57 @@ header .current-date {
 
 .form-tomar-turno{
     color: white;
-    padding: 20px;
-    width: 97%;
-    height: 95%;
-    background-color: #408f8b;
+    padding: 0px 20px 20px 20px;
+    width: 90%;
+    height: 90%;
+    background-color: #41928e;
     box-shadow: 1px 1px 10px rgb(175, 175, 175);
     border-radius: 14px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-}
-
-.form-tomar-turno div{
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
+    text-shadow: 1px 1px 10px rgb(48, 48, 48);
 }
 
 .form-tomar-turno label{
     font-size: 1.1rem;
 }
 
-.form-tomar-turno div select{
+.form-tomar-turno div select, .form-tomar-turno div input{
     max-width: 50%;
-    background-color: #9accc9;
-    color: black;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.274);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.411);
+    color: #062524;
 }
 
-.select-turnos-container, .select-especialidades-container{
+.form-tomar-turno div select option{
+    color: black;
+}
+
+.select-turnos-container, .select-especialidades-container, .consulta-container{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     color: white;
     font-weight: 300;
-    text-shadow: 1px 1px 10px rgb(104, 104, 104);
+    text-shadow: 1px 1px 10px rgb(0, 0, 0);
     background-color:  #3c7471;
     height: 20%;
     border-radius: 14px;
     padding: 2%;
-    z-index: 1;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s, transform 0.4s;
+}
+
+.select-especialidades-container{
+    opacity: 1;
 }
 
 .select-turnos-container{
@@ -959,15 +910,289 @@ header .current-date {
     height: 21%;
     background-color: #4e9e9a;
     margin-top: -20px;
-    z-index: 0;
-}
-.stars {
-    color: gold; /* Color de las estrellas (puedes cambiarlo según tu diseño) */
-    font-size: 2em; /* Tamaño de las estrellas */
+    z-index: 1;
+    transform: translateY(-80%);
 }
 
-.rating-number {
-    color: green; /* Color del número de puntuación (puedes cambiarlo según tu diseño) */
-    font-weight: bold; /* Puedes ajustar el peso de la fuente si es necesario */
-    margin-left: 5px; /* Ajustar el espacio entre las estrellas y el número */
+.select-turnos-container select{
+    background-color: rgba(255, 255, 255, 0.384);
+}
+
+.consulta-container{
+    height: 21%;
+    padding-top: 3%;
+    background-color: #65b6b2;
+    margin-top: -20px;
+    z-index: 0;
+    transform: translateY(-80%);
+}
+
+.consulta-container input{
+    padding-left: 3px;
+    width: 50%;
+    color: black;
+}
+
+.boton-container{
+    height: 8%;
+    width: 30%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.form-tomar-turno button{
+    color: black;
+    box-shadow: 1px 1px 10px rgb(70, 70, 70);
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    height: 100%;
+    width: 100%;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.form-tomar-turno input:focus, .form-tomar-turno select:focus{
+    outline: 1px solid black;
+}
+
+.form-tomar-turno button:hover{
+    color: var(--colorLindo);
+}
+
+.mostrar-container{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sin-turnos{
+    position: absolute;
+    display: none;
+    width: 80%;
+    text-align: center;
+    margin-top: 2%;
+    color: rgb(255, 255, 255);
+}
+
+#sec1,#sec2,#sec3,#sec4{
+    display: none;
+}
+
+#sec3{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#sec3>.tabla{
+    display: flex;
+    width: 100%;
+    height: 80%;
+}
+
+.boton-agregar-familiar{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.boton-agregar-familiar button{
+    padding-left: 14px;
+    margin-right: 30px;
+    height: 50px;
+    width: 50px;
+    background-color: #2f8883;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.534);
+}
+
+.textoBoton {
+    text-transform: uppercase;
+    position: absolute;
+    width: 200px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.boton-agregar-familiar button:hover {
+    width: 260px;
+    padding-left: 15px;
+}
+
+.boton-agregar-familiar button:hover .textoBoton {
+    left: 17%;
+    opacity: 1;
+}
+
+.modal-familiar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+}
+
+.modal-familiar-cuerpo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 200;
+    height: 90%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    font-size: 35px;
+    cursor: pointer;
+    color: white;
+}
+
+.header-modal{
+    background: linear-gradient(to left, #44bdb3, #286e6d);
+    width: 100%;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.header-modal h2{
+    padding: 0;
+    margin: 0;
+    color: white;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.534);
+}
+
+.form-agf{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+.form-agf input, .form-agf select{
+    outline: none;
+}
+
+.form-agf h4{
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.form-agf button{
+    border: none;
+    border-radius: 14px;
+    width: 20%;
+    padding: 5px;
+    background: linear-gradient(to left, #44bdb3, #286e6d);
+    color: white;
+    transition: width 0.3s ease;
+}
+
+.form-agf button:hover{
+    width: 81%;
+}
+
+.datos-familiar{
+    padding-top: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.wrapperInput{
+    width: 200px;
+    background: #fff;
+  }
+  .wrapperInput .input-data{
+    height: 40px;
+    width: 100%;
+    position: relative;
+  }
+  .wrapperInput .input-data input, .wrapperInput .input-data select{
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 17px;
+    border-bottom: 2px solid silver;
+    
+  }
+  .input-data input:focus ~ label,
+  .input-data input:valid ~ label,.input-data select:focus ~ label,.input-data select:valid ~ label{
+    transform: translateY(-20px);
+    font-size: 15px;
+    color: #2f8883;
+  }
+  .wrapperInput .input-data label{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: grey;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  .input-data .underline{
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    bottom: 0;
+  }
+  .input-data .underline:before{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: #2f8883;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+  .input-data input:focus ~ .underline:before,
+  .input-data input:valid ~ .underline:before,
+  .input-data select:focus ~ .underline:before,
+  .input-data select:valid ~ .underline:before{
+    transform: scaleX(1);
+  }
+
+  input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+    color: black !important;
 }

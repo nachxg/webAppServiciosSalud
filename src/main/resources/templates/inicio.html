@@ -49,7 +49,7 @@
     <main>
         <div class="encabezado1">
             <div class="seccion-turnos">
-                <div class="seccion" id="nuevo-turno">
+                <div class="seccion" id="boton1">
                     <div class="icono">
                         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
                             class="bi bi-calendar-plus" viewBox="0 0 16 16">
@@ -61,7 +61,7 @@
                     </div>
                     <div class="texto">Nuevo turno</div>
                 </div>
-                <div class="seccion" id="mis-turnos">
+                <div class="seccion" id="boton2">
                     <div class="icono">
                         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
                             class="bi bi-calendar-heart" viewBox="0 0 16 16">
@@ -71,21 +71,8 @@
                     </div>
                     <div class="texto">Mis turnos</div>
                 </div>
-                <div class="seccion">
-                    <div class="icono">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
-                            class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
-                            <path
-                                d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
-                            <path
-                                d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z" />
-                            <path
-                                d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128L9.979 5.356Z" />
-                        </svg>
-                    </div>
-                    <div class="texto">Mis estudios</div>
-                </div>
-                <div class="seccion">
+
+                <div class="seccion" id="boton3">
                     <div class="icono">
                         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor"
                             class="bi bi-person-heart" viewBox="0 0 16 16">
@@ -210,45 +197,250 @@
             </div>
             <div class="contenido">
 
+                <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show"
+                    style="border-radius: 14px;" role="alert">
+                    <strong>Error: </strong><span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <div th:if="${exito != null}" class="alert alert-success alert-dismissible fade show w-10"
+                    style="border-radius: 14px;" role="alert">
+                    <strong>Éxito: </strong><span th:text="${exito}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 <div class="tarjeta-contenido">
-                    <form class="form-tomar-turno">
-                        
-                        <h4 class="mb-3">NUEVO TURNO</h4>
-                        
+                    <p class="d-block" id="parrafo-click">Haz click sobre una sección para desplegar su contenido.</p>
+
+                    <form class="form-tomar-turno" th:action="@{/tomarTurno/__${session.usuariosession.id}__/}"
+                        method="POST" id="sec1">
+
+                        <span class="d-none" id="idPaciente" th:text="${session.usuariosession.id}"></span>
+
+                        <h3 class="mb-3">NUEVO TURNO</h3>
+
                         <div class="select-especialidades-container">
-                        <label for="select-especialidades">Seleccione una especialidad: </label>
-                        <select id="select-especialidades" class="w-50" onchange="obtenerSeleccion(value)">
-                            <option th:each="especialidad : ${especialidades}" th:text="${especialidad}" th:value="${especialidad}"></option>
-                        </select>
+                            <label for="select-especialidades">Seleccione una especialidad: </label>
+                            <select id="select-especialidades" class="w-50" onchange="obtenerSeleccion(value)">
+                                <option selected>Elija una opción</option>
+                                <option th:each="especialidad : ${especialidades}" th:text="${especialidad}"
+                                    th:value="${especialidad}"></option>
+                            </select>
                         </div>
+
+                        <div class="sin-turnos"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="red" class="bi bi-exclamation-circle mb-1" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                <path
+                                    d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                            </svg> No se encontraron turnos disponibles para esa especialidad. Comuníquese con
+                            nosotros a través de nuestros canales de contacto para solicitar un turno.</div>
 
                         <div class="select-turnos-container">
                             <label for="select-turnos-disponibles">Seleccione un turno: </label>
                         </div>
 
-                        <div class="motivo-de-consulta">
-                            
+                        <div class="consulta-container">
+                            <label for="motivo-consulta">Motivo de consulta: </label>
+                        </div>
+
+                        <div class="boton-container">
+
                         </div>
 
                         <div id="contenedor-listas" class="d-none">
-                        <ul th:each="turno : ${turnos}">
-                            <li id="idTurno"th:text="${turno.id}"></li>
-                            <li id="especialidadTurno"th:text="${turno.especialidad}"></li>
-                            <li id="fechaTurno"th:text="${turno.fechaTurno}"></li>
-                            <li id="profesionalACargo"th:text="${turno.profesional.nombre +' '+ turno.profesional.apellido}"></li>
-                            <li id="cancelado"th:text="${turno.cancelado}"></li>
-                            <li id="atendido"th:text="${turno.atendido}"></li>
-                        </ul>
+                            <ul th:each="turno : ${turnos}">
+                                <li id="idTurno" th:text="${turno.id}"></li>
+                                <li id="especialidadTurno" th:text="${turno.especialidad}"></li>
+                                <li id="fechaTurno" th:text="${turno.fechaTurno}"></li>
+                                <li id="profesionalACargo"
+                                    th:text="${turno.profesional.nombre +' '+ turno.profesional.apellido}"></li>
+                                <li id="cancelado" th:text="${turno.cancelado}"></li>
+                                <li id="atendido" th:text="${turno.atendido}"></li>
+                            </ul>
                         </div>
-                        
-                    </form>
-                </div>
 
+                    </form>
+
+                    <div class="tabla" style="border-radius: 14px;" id="sec2">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nº</th>
+                                    <th scope="col">Especialidad</th>
+                                    <th scope="col">Fecha y hora</th>
+                                    <th scope="col">Motivo de consulta</th>
+                                    <th scope="col">Profesional</th>
+                                    <th scope="col">Cancelar</th>
+                                </tr>
+                            </thead>
+                            <tbody th:each="turnoT : ${turnosTomados}">
+                                <tr>
+                                    <th scope="row" th:text="${turnoT.id}"></th>
+                                    <td th:text="${turnoT.especialidad}"></td>
+                                    <td th:text="${turnoT.fechaTurno}"></td>
+                                    <td th:text="${turnoT.motivoConsulta}"></td>
+                                    <td th:text="${turnoT.profesional.nombre +' '+ turnoT.profesional.apellido}"></td>
+                                    <td><a th:href="@{/turno/cancelar/profesional/__${turnoT.id}__}"><button
+                                                type="button" class="btn btn-sm btn-danger"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="white" class="bi bi-calendar-x" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708" />
+                                                    <path
+                                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                                </svg></button></a>
+                                    </td>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div id="sec3">
+                        <div class="tabla" style="border-radius: 14px;">
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>DNI</th>
+                                        <th>Parentesco</th>
+                                    </tr>
+                                </thead>
+                                <tbody th:each="familiar : ${familiares}">
+                                    <tr>
+                                        <th scope="row" th:each="elemento, iterStat : ${familiar}" th:text="${elemento}"
+                                            th:if="${iterStat.index == 0}"></th>
+                                        <td th:each="elemento, iterStat : ${familiar}" th:text="${elemento}"
+                                            th:unless="${iterStat.index == 0}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="boton-agregar-familiar">
+                            <button type="button" onclick="abrirModal()"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="25" height="25" fill="currentColor" class="bi bi-person-plus"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z" />
+                                    <path fill-rule="evenodd"
+                                        d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                </svg><span class="textoBoton">Agregar un familiar</span>
+                            </button>
+                        </div>
+
+
+
+                    </div>
+                </div>
             </div>
         </div>
 
     </main>
 
+    <!-- nombre, apellido, dni, fechaNacimiento, password, password2, sexo, parentesco -->
+
+    <div class="modal-familiar">
+
+        <div class="modal-familiar-cuerpo">
+
+            <div class="header-modal">
+                <h2>REGISTRAR FAMILIAR</h2>
+            </div>
+
+            <form th:action="@{/paciente/familiar/{idMiembro}(idMiembro=${paciente.id})}" method="POST" class="form-agf">
+
+                <div class="datos-familiar">
+
+                    <div class="wrapperInput">
+                        <div class="input-data">
+                            <input type="text" name="nombre" required>
+                            <div class="underline"></div>
+                            <label>Nombre</label>
+                        </div>
+                    </div>
+
+                    <div class="wrapperInput">
+                        <div class="input-data">
+                            <input type="text" name="apellido" required>
+                            <div class="underline"></div>
+                            <label>Apellido</label>
+                        </div>
+                    </div>
+
+                    <div class="wrapperInput" style="width: 440px;">
+                        <div class="input-data">
+                            <input type="number" name="dni" required>
+                            <div class="underline"></div>
+                            <label>DNI</label>
+                        </div>
+                    </div>
+
+                    <div class="wrapperInput">
+                        <div class="input-data">
+                            <select name="parentesco" required>
+                                <option disabled selected></option>
+                                <option>Esposo</option>
+                                <option>Esposa</option>
+                                <option>Hijo</option>
+                                <option>Hija</option>
+                                <option>Madre</option>
+                                <option>Padre</option>
+                                <option>Hermano</option>
+                                <option>Hermana</option>
+                            </select>
+                            <div class="underline"></div>
+                            <label>Relación</label>
+                        </div>
+                    </div>
+
+                    <div class="wrapperInput">
+                        <div class="input-data">
+                            <select name="sexo" required>
+                                <option disabled selected></option>
+                                <option th:each="genero : ${generos}" th:text="${genero}"></option>
+                            </select>
+                            <div class="underline"></div>
+                            <label>Sexo</label>
+                        </div>
+                    </div>
+
+                    <div class="wrapperInput" style="width: 440px;">
+                        <div class="input-data">
+                            <input type="date" name="fechaNacimiento" required>
+                            <div class="underline"></div>
+                            <label>Fecha de nacimiento</label>
+                        </div>
+                    </div>
+
+                    <div class="wrapperInput">
+                        <div class="input-data">
+                            <input type="password" name="password"required>
+                            <div class="underline"></div>
+                            <label>Contraseña</label>
+                        </div>
+                    </div>
+
+                    <div class="wrapperInput">
+                        <div class="input-data">
+                            <input type="password" name="password2" required>
+                            <div class="underline"></div>
+                            <label>Repetir contraseña</label>
+                        </div>
+                    </div>
+
+                    <div class="w-100 d-flex justify-content-center align-items-center">
+                        <button type="submit" class="mb-5">Confirmar</button>
+                    </div>
+
+                </div>
+            </form>
+            <span class="cerrar-modal">&times;</span>
+        </div>
+
+    </div>
 
     <footer class="pie">
         <div class="links">
@@ -279,15 +471,21 @@
             <div class="seccion-nav">
                 <p class="titulo-sec">Contacto</p>
                 <div>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
-                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-                      </svg> 11-1234-5678</a>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
-                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
-                      </svg> info@sanatoriovitalis.com</a>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-instagram mb-1" viewBox="0 0 16 16">
-                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-                      </svg> Sanatorio.Vitalis</a>
+                    <a><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                            class="bi bi-whatsapp" viewBox="0 0 16 16">
+                            <path
+                                d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                        </svg> 11-1234-5678</a>
+                    <a><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                            class="bi bi-envelope" viewBox="0 0 16 16">
+                            <path
+                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                        </svg> info@sanatoriovitalis.com</a>
+                    <a><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+                            class="bi bi-instagram mb-1" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+                        </svg> Sanatorio.Vitalis</a>
                 </div>
             </div>
         </div>
@@ -295,10 +493,16 @@
             &copy; 2023 Sanatorio Vitalis. Todos los derechos reservados.
         </div>
     </footer>
+    <style>
+        .encabezado1 {
+            background: linear-gradient(to left, #44bdb34d, #1b54534d), url('/img/fondoiniciopacientes.avif');
+            background-position-y: -60px;
+            background-size: cover;
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-        
     <script src="/js/scriptInicioPaciente.js"></script>
 
 </body>
