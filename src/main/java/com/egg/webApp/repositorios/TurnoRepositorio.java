@@ -21,9 +21,9 @@ public interface TurnoRepositorio extends JpaRepository<Turno, Long> {
     @Query("SELECT t FROM Turno t WHERE t.id = :id")
     public Turno buscarTurnosPorId(@Param("id") Long id);
 
-    /* @Query("SELECT t FROM turnos t WHERE t.paciente_id = :id")
+     @Query("SELECT t FROM Turnos t WHERE t.paciente.id = :id")
     public List<Turno> buscarTurnosPorIdPaciente(@Param("id") Long id);
-
+/*
     @Query("SELECT t FROM Turno t WHERE t.paciente.id = :id AND t.atendido = true")
     public List<Turno> buscarTurnosPorIdPacienteAtendido(@Param("id") Long id);
 
