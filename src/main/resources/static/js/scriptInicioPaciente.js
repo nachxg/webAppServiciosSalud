@@ -133,10 +133,10 @@ function desplegarInput(value) {
 
 const contenido = document.querySelector(".contenido");
 
-function limpiarSeccion() { 
+function limpiarSeccion() {
 
     const tarjetaContenido = document.querySelector(".tarjeta-contenido");
-    const secciones = Array.from(tarjetaContenido.children);   
+    const secciones = Array.from(tarjetaContenido.children);
 
     secciones.forEach(seccion => {
         seccion.style.display = "none";
@@ -167,7 +167,7 @@ boton2.addEventListener("click",function(){
     limpiarSeccion();
 
     const sec2 = document.querySelector("#sec2");
-    
+
     contenido.scrollIntoView({ behavior: 'smooth' });
     sec2.style.display = "flex";
 
@@ -178,7 +178,7 @@ boton3.addEventListener("click",function(){
     limpiarSeccion();
 
     const sec3 = document.querySelector("#sec3");
-    
+
     contenido.scrollIntoView({ behavior: 'smooth' });
     sec3.style.display = "flex";
 

@@ -7,6 +7,7 @@ import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.PacienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -125,5 +126,15 @@ public class PacienteServicio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.parse(fechaNacimiento, formatter);
     }
+    public List<Paciente> listarPacientesActivos() throws MiExcepcion {
+    List<Paciente> pacientes = pacienteRepositorio.listarPacientesDeAltaEnSistema();
+    
+    if (pacientes.isEmpty()) {
+        throw new MiExcepcion("No hay pacientes registrados");
+    } else {
+        return pacientes;
+    }
+}
+
 }
 
