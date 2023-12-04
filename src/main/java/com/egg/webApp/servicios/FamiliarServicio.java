@@ -19,15 +19,15 @@ import java.util.List;
 
 @Service
 public class FamiliarServicio {
+    private final FamiliarRepositorio familiarRepositorio;
+    private final PacienteRepositorio pacienteRepositorio;
+    private final PacienteServicio pacienteServicio;
 
-    @Autowired
-    private FamiliarRepositorio familiarRepositorio;
-
-    @Autowired
-    private PacienteServicio pacienteServicio;
-
-    @Autowired
-    private PacienteRepositorio pacienteRepositorio;
+    public FamiliarServicio(FamiliarRepositorio familiarRepositorio, PacienteRepositorio pacienteRepositorio, PacienteServicio pacienteServicio) {
+        this.familiarRepositorio = familiarRepositorio;
+        this.pacienteRepositorio = pacienteRepositorio;
+        this.pacienteServicio = pacienteServicio;
+    }
 
 
     @Transactional
@@ -83,7 +83,7 @@ public class FamiliarServicio {
     }
 
     @Transactional
-    public GrupoFamiliar buscarPorId(Long id){
+    public GrupoFamiliar buscarPorId(Long id) {
         return familiarRepositorio.buscarPorId(id);
     }
 

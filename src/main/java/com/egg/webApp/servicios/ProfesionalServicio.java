@@ -6,13 +6,17 @@ import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.FamiliarRepositorio;
+import com.egg.webApp.repositorios.PacienteRepositorio;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.sql.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +29,7 @@ public class ProfesionalServicio {
     private final FamiliarRepositorio familiarRepositorio;
     private final UsuarioServicio usuarioServicio;
 
-    public ProfesionalServicio(ProfesionalRepositorio profesionalRepositorio, ImagenServicio imagenServicio,
-            FamiliarRepositorio familiarRepositorio, UsuarioServicio usuarioServicio) {
+    public ProfesionalServicio(ProfesionalRepositorio profesionalRepositorio, ImagenServicio imagenServicio, FamiliarRepositorio familiarRepositorio, UsuarioServicio usuarioServicio) {
         this.profesionalRepositorio = profesionalRepositorio;
         this.imagenServicio = imagenServicio;
         this.familiarRepositorio = familiarRepositorio;
@@ -34,8 +37,7 @@ public class ProfesionalServicio {
     }
 
     @Transactional
-    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2,
-            String sexo, String matricula, String especialidad, LocalDate fechaNacimiento) throws Exception {
+    public void registrarProfesional(String nombre, String apellido, String dni, String password, String password2, String sexo, String matricula, String especialidad, LocalDate fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2, matricula, especialidad);
         Profesional profesional = new Profesional();
@@ -43,13 +45,12 @@ public class ProfesionalServicio {
         profesional.setEspecialidad(Especialidad.valueOf(especialidad));
         profesional.setRol(Rol.PROFESIONAL);
         profesionalRepositorio.save(profesional);
-        usuarioServicio.registrar(nombre, apellido, dni, password, password2, profesional.getId(), sexo,
-                fechaNacimiento);
+        usuarioServicio.registrar(nombre, apellido, dni, password, password2, profesional.getId(), sexo, fechaNacimiento);
     }
 
     @Transactional
     public void actualizarProfesional(MultipartFile archivo, Long id, String email, String password,
-            String password2, String telefono, String sexo) throws Exception {
+                                      String password2, String telefono, String sexo) throws Exception {
         validarActualizacion(password, password2, sexo, telefono, email);
         Optional<Profesional> respuesta = profesionalRepositorio.findById(id);
 
@@ -75,9 +76,12 @@ public class ProfesionalServicio {
         return profesional;
     }
 
-    public List<Profesional> listarProfesionales() {
+    public List<Profesional> listarProfesionales() throws MiExcepcion {
         List<Profesional> Profesionales = new ArrayList<>();
         Profesionales = profesionalRepositorio.findAll();
+        if(Profesionales.isEmpty()){
+            throw new MiExcepcion("No hay profesionales disponibles");
+        }
         return Profesionales;
     }
 
@@ -103,7 +107,7 @@ public class ProfesionalServicio {
     }
 
     private void validar(String nombre, String apellido, String dni, String password,
-            String password2, String matricula, String especialidad) throws Exception {
+                         String password2, String matricula, String especialidad) throws Exception {
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede ser nulo o estar vacio");
         }
@@ -129,15 +133,16 @@ public class ProfesionalServicio {
         if (usuarioServicio.validarDNI(dni)) {
             throw new Exception("El DNI ya existe. Por favor intente nuevamente");
         }
-        // VALIDAR QUE LA MATRICULA NO ESTÉ REPETIDA
+        //VALIDAR QUE LA MATRICULA NO ESTÉ REPETIDA
         if (usuarioServicio.validarMatricula(matricula)) {
             throw new Exception("La matricula ingresada ya existe. Por favor intente nuevamente");
         }
 
+
     }
 
     private void validarActualizacion(String password, String password2, String sexo,
-            String telefono, String email) throws Exception {
+                                      String telefono, String email) throws Exception {
         if (sexo.isEmpty() || sexo == null) {
             throw new Exception("El sexo no puede ser nulo o estar vacio");
         }
