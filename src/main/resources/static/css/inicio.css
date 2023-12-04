@@ -971,3 +971,17 @@ header .current-date {
     font-weight: bold; /* Puedes ajustar el peso de la fuente si es necesario */
     margin-left: 5px; /* Ajustar el espacio entre las estrellas y el número */
 }
+
+/*vista profesional consultas historias clinica*/
+
+.borde{
+    border: black 1px solid;
+    height: 700px;
+    width: 900px;
+}
+.borde h1{
+    text-align: center;
+}
+.buscador {
+    margin-top: 20px;
+}
