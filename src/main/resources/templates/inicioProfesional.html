@@ -37,8 +37,8 @@
                     <span th:text="${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido}"></span>
                 </div>
                 <div class="profile-circle">
-                    <img th:if="${profesional.imagen != null}" th:src="@{/imagen/perfil/{id}(id=${profesional.id})}">
-                    <img th:unless="${profesional.imagen != null}" th:src="@{/img/usuario.jpg}">
+                    <img th:if="${profesional != null and profesional.imagen != null}" th:src="@{/imagen/perfil/{id}(id=${profesional.id})}">
+                    <img th:unless="${profesional != null and profesional.imagen != null}" th:src="@{/img/usuario.jpg}">
                 </div>
             </div>
         </div>
@@ -451,7 +451,7 @@
                     <div class="borde" id="sec-4">
                         <h1>Consulta de Historias Clínicas</h1>
     
-                        <form class="buscador" th:action="@{/buscarHistorias}" method="get">
+                        <form class="buscador" th:action="@{/profesional/buscarHistorias}" method="get">
                             <label for="dniInput">Ingrese el número de DNI:</label>
                             <input type="text" id="dniInput" name="dni">
                             <button type="submit">Buscar</button>

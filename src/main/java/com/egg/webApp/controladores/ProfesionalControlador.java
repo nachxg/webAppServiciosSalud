@@ -1,12 +1,15 @@
 package com.egg.webApp.controladores;
 
+import com.egg.webApp.entidades.HistoriaClinica;
 import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.EnumServicio;
+import com.egg.webApp.servicios.HistorialClinicoServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
+import com.egg.webApp.servicios.TurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,20 +17,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalControlador {
+
     @Autowired
     ProfesionalServicio profesionalServicio;
     @Autowired
     EnumServicio enumServicio;
+    @Autowired
+    HistorialClinicoServicio historialClinicoServicio;
+    @Autowired
+    TurnoServicio turnoServicio;
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
@@ -52,7 +58,7 @@ public class ProfesionalControlador {
             profesionalServicio.registrarProfesional(nombre, apellido, dni, password, password2, sexo, matricula,
                     especialidad, fechaNacimiento);
 
-            return "redirect:/index";
+            return "redirect:/login";
 
         } catch (Exception e) {
             System.out.println("ERROR ERROR USUARIO NO CREADO");
@@ -98,6 +104,8 @@ public class ProfesionalControlador {
         }
     }
 
+    @PostMapping()
+
     @GetMapping("/especialidad")
     public String especialidad(ModelMap modelo) {
         modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
@@ -112,8 +120,7 @@ public class ProfesionalControlador {
             if (profesionales.isEmpty()) {
                 modelo.addAttribute("mensaje", "No se encontraron profesionales para la especialidad");
             } else {
-                
-            
+
             }
             modelo.addAttribute("profesionales", profesionales);
             return "medicos.html";
@@ -123,4 +130,4 @@ public class ProfesionalControlador {
             return "redirect:/profesional/especialidad";
         }
     }
-}    
+}

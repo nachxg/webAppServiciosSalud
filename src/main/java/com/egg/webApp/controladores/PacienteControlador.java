@@ -45,7 +45,7 @@ public class PacienteControlador {
 
             pacienteServicio.registrarPaciente(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
             modelo.put("exito", "Usuario creado con exito");
-            return "redirect:/index";
+            return "redirect:/login";
 
         } catch (Exception e) {
             modelo.put("error", e.getMessage());
