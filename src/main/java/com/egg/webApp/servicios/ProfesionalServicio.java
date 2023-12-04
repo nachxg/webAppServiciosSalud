@@ -4,18 +4,15 @@ import com.egg.webApp.entidades.*;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Rol;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.FamiliarRepositorio;
-import com.egg.webApp.repositorios.PacienteRepositorio;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.transaction.Transactional;
-import java.sql.Array;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,25 +74,40 @@ public class ProfesionalServicio {
             profesionalRepositorio.save(profesional);
         }
     }
-
-    public Profesional getOne(Long id) {
-        Profesional profesional = profesionalRepositorio.getOne(id);
-        profesional.getImagen();
-
-        return profesional;
-    }
-    
     @Transactional
     public Profesional buscarPorId(Long id){
         return profesionalRepositorio.buscarPorId(id);
     }
-
+    public Profesional getOne(Long id) {
+        Profesional profesional = profesionalRepositorio.getOne(id);
+        return profesional;
+    }
     public List<Profesional> listarProfesionales() {
 
         List<Profesional> Profesionales = new ArrayList<>();
         Profesionales = profesionalRepositorio.findAll();
 
         return Profesionales;
+    }
+    public List<Profesional> listarProfesionalesActivos() throws MiExcepcion {
+
+        List<Profesional> profesionales = new ArrayList<>();
+        profesionales = profesionalRepositorio.listarProfesionalesDeAltaEnSistema();
+        if (profesionales.isEmpty()) {
+            throw new MiExcepcion("No hay pacientes registrados");
+        } else {
+            return profesionales;
+        }
+    }
+    public List<Profesional> listarProfesionalesPendientesAlta() throws MiExcepcion {
+
+        List<com.egg.webApp.entidades.Profesional> profesionales = new ArrayList<>();
+        profesionales = profesionalRepositorio.listarProfesionalesPendientesAlta();
+        if (profesionales.isEmpty()) {
+            throw new MiExcepcion("No hay pacientes registrados");
+        } else {
+            return profesionales;
+        }
     }
 
 

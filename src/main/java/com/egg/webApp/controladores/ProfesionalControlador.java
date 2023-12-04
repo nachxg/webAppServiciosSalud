@@ -63,7 +63,7 @@ public class ProfesionalControlador {
             Profesional profesional = null;
 
             if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
-                profesional = profesionalServicio.getOne(id);
+                profesional = profesionalServicio.buscarPorId(id);
             } else {
                 profesional = (Profesional) session.getAttribute("usuariosession");
             }
