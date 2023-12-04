@@ -100,8 +100,8 @@ nav a:hover:not(.logo),
     text-align: 45%;
     padding: 50px;
     color: #1D7874;
-    height: 200px;
-    font-size: 24px;
+    height: 150px;
+    font-size: 50px;
     z-index: 0;
 }
 
@@ -216,6 +216,7 @@ nav a:hover:not(.logo),
         height: fit-content;
         overflow: visible;
         order: 2;
+       
     }
    
 }
@@ -302,9 +303,8 @@ nav a:hover:not(.logo),
         display: none;
     }
 
-    .logo{
-        width: 300px;
-    }
+
+
 
     .encabezado1{
         height: fit-content;
@@ -330,5 +330,8 @@ nav a:hover:not(.logo),
         flex-direction: column;
         order: 3; /* Cambiar el orden en columnas */
        
+    }
+    .filled {
+        color: gold; /* Cambia el color a dorado para indicar una estrella llena */
     }
 }
