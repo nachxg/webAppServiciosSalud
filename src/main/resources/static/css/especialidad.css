@@ -100,9 +100,10 @@ nav a:hover:not(.logo),
     text-align: 45%;
     padding: 50px;
     color: #1D7874;
-    height: 150px;
+    height: 200px;
     font-size: 50px;
     z-index: 0;
+    
 }
 
 .banner-especialidad div {
@@ -179,7 +180,7 @@ nav a:hover:not(.logo),
 }
 
 #especialidades-container.centrado {
-
+ text-align: center;
  font-size: 24px;
    
 }
@@ -195,13 +196,20 @@ nav a:hover:not(.logo),
 
 #lista-especialidades {
     list-style-type: none;
-    text-align: left;
+    text-align: center;
     position: relative;
     z-index: 2;
     cursor: pointer;
 }
 
+.descrip-especia {
+    text-align: center;
 
+}
+
+.contenedor-lista {
+    margin: 1rem;
+}
 
 @media (max-width: 768px) {
     #especialidades-container {
@@ -214,6 +222,7 @@ nav a:hover:not(.logo),
 
     .descrip-especia {
         height: fit-content;
+        width: fit-content;
         overflow: visible;
         order: 2;
        

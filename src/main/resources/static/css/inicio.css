@@ -589,6 +589,7 @@ main {
     width: 100%;
     border-collapse: separate; /* Hace que el margen se aplique entre las celdas */
     border-spacing: 5px; /* Define el espacio entre las celdas */
+   
 }
 
 .tabla table th,
@@ -638,7 +639,7 @@ main {
     color: black;
     background-color: white;
     height: 13%;
-    margin-top: auto;
+    margin-top: 4rem;
 }
 
 .links {
@@ -985,3 +986,15 @@ header .current-date {
 .buscador {
     margin-top: 20px;
 }
+
+
+/* VISTA ADMIN DASHBOARD */
+
+.input-group{
+    margin: 10px;
+}
+
+.banner-especialidad {
+    margin: 30px
+}
+
