@@ -1,5 +1,6 @@
 package com.egg.webApp.entidades;
 
+import com.egg.webApp.enumeraciones.Vinculo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,9 @@ public class GrupoFamiliar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private Vinculo parentesco;
 
     @ManyToOne
     @JoinColumn(name = "paciente_titular_id")

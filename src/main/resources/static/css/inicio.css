@@ -372,6 +372,10 @@ main {
     margin-bottom: 3px;
 }
 
+.contenedor-datos ul li svg {
+    margin-bottom: 3px;
+}
+
 .contenido {
     display: flex;
     flex-direction: row;
@@ -397,6 +401,60 @@ main {
     height: 100%;
     border-radius: 14px;
     box-shadow: 0px 1px 10px rgb(0, 0, 0);
+}
+
+.card-body {
+    font-family: 'Montserrat', sans-serif;
+
+    box-shadow: 0px 1px 10px rgb(0, 0, 0);
+    background-color: #eeeded8e;
+}
+
+.fondo-hc {}
+
+.formulario-turnos {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+}
+
+.horarios {
+    background-color: white;
+    width: 55%;
+    height: 100%;
+    border-radius: 9px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.308);
+    padding: 22.5px 27px 9px;
+    z-index: 0;
+}
+
+.horarios-header {
+    height: fit-content;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.grid-container {
+    margin-top: 10px;
+    display: grid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    /* Espacio entre las celdas */
+}
+
+.item {
+    background-color: transparent;
+    border: 1px solid var(--colorLindo);
+    border-radius: 9px;
+    padding: 20px;
+    text-align: center;
 }
 
 .formulario-turnos {
@@ -458,12 +516,12 @@ main {
     color: white;
 }
 
-.seleccionado{
+.seleccionado {
     background-color: #408f8b;
     color: white;
 }
 
-.confirmacion-container{
+.confirmacion-container {
     background-color: #4d9692;
     display: flex;
     visibility: hidden;
@@ -485,7 +543,7 @@ main {
     transition: all 0.3s ease;
 }
 
-.mostrar{
+.mostrar {
     transform: scaleY(1);
     opacity: 1;
     visibility: visible;
@@ -493,23 +551,24 @@ main {
     height: 37%;
 }
 
-.confirmacion{
+.confirmacion {
     color: white;
     font-weight: 500;
     margin-top: auto;
 }
 
-.confirmacion-container button{
+.confirmacion-container button {
     margin-top: auto;
     background-color: white;
     border-radius: 9px;
-    padding: 3px 10px;;
+    padding: 3px 10px;
+    ;
     color: var(--colorLindo);
     border: none;
     transition: all 0.3s ease;
 }
 
-.lista-turnos{
+.lista-turnos {
     display: none;
 }
 
@@ -528,9 +587,10 @@ main {
 
 .tabla table {
     width: 100%;
-    border-collapse: separate; /* Hace que el margen se aplique entre las celdas */
-    border-spacing: 5px; /* Define el espacio entre las celdas */
-   
+    border-collapse: separate;
+    /* Hace que el margen se aplique entre las celdas */
+    border-spacing: 5px;
+    /* Define el espacio entre las celdas */
 }
 
 .tabla table th,
@@ -540,7 +600,8 @@ main {
     box-shadow: 1px 1px 10px rgb(194, 194, 194);
     padding: 3px;
 }
-#sec-3{
+
+#sec-3 {
     display: none;
     overflow: hidden;
     justify-content: center;
@@ -554,7 +615,7 @@ main {
     margin-right: 10px;
 }
 
-#sec-3 .cuerpo-hc{
+#sec-3 .cuerpo-hc {
     border: none;
     background-color: white;
     margin-left: 10px;
@@ -563,7 +624,7 @@ main {
     position: relative;
 }
 
-#sec-4{
+#sec-4 {
     display: none;
 }
 
@@ -801,7 +862,7 @@ header .current-date {
     align-items: center;
 }
 
-#form-modal{
+#form-modal {
     height: 80%;
     width: 90%;
     box-shadow: 1px 1px 10px rgb(182, 182, 182);
@@ -813,7 +874,7 @@ header .current-date {
     border-radius: 14px;
 }
 
-#form-modal div{
+#form-modal div {
     height: 25%;
     display: flex;
     flex-direction: row;
@@ -832,7 +893,7 @@ header .current-date {
     padding-right: 10px;
 }
 
-#form-modal button{
+#form-modal button {
     margin-top: 20px;
     height: 20%;
     width: 30%;
@@ -851,7 +912,7 @@ header .current-date {
     cursor: pointer;
 }
 
-.form-tomar-turno{
+.form-tomar-turno {
     color: white;
     padding: 0px 20px 20px 20px;
     width: 90%;
@@ -861,13 +922,21 @@ header .current-date {
     border-radius: 14px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form-tomar-turno div {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     text-shadow: 1px 1px 10px rgb(48, 48, 48);
 }
 
-.form-tomar-turno label{
+.form-tomar-turno label {
     font-size: 1.1rem;
 }
 
@@ -894,6 +963,12 @@ header .current-date {
     font-weight: 300;
     text-shadow: 1px 1px 10px rgb(0, 0, 0);
     background-color:  #3c7471;
+.select-turnos-container,
+.select-especialidades-container {
+    color: white;
+    font-weight: 300;
+    text-shadow: 1px 1px 10px rgb(104, 104, 104);
+    background-color: #3c7471;
     height: 20%;
     border-radius: 14px;
     padding: 2%;
@@ -906,7 +981,7 @@ header .current-date {
     opacity: 1;
 }
 
-.select-turnos-container{
+.select-turnos-container {
     padding-top: 3%;
     height: 21%;
     background-color: #4e9e9a;
@@ -1196,15 +1271,23 @@ header .current-date {
 }
 input[type=date]:focus::-webkit-datetime-edit {
     color: black !important;
+.stars {
+    color: gold;
+    /* Color de las estrellas (puedes cambiarlo según tu diseño) */
+    font-size: 2em;
+    /* Tamaño de las estrellas */
 }
 
 .rating-number {
-    color: green; /* Color del número de puntuación (puedes cambiarlo según tu diseño) */
-    font-weight: bold; /* Puedes ajustar el peso de la fuente si es necesario */
-    margin-left: 5px; /* Ajustar el espacio entre las estrellas y el número */
+    color: green;
+    /* Color del número de puntuación (puedes cambiarlo según tu diseño) */
+    font-weight: bold;
+    /* Puedes ajustar el peso de la fuente si es necesario */
+    margin-left: 5px;
+    /* Ajustar el espacio entre las estrellas y el número */
 }
 
-/*vista profesional consultas historias clinica*/
+/*vista profesional consultas historias clinicas*/
 
 .borde{
     border: black 1px solid;

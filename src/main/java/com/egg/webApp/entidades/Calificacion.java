@@ -28,6 +28,7 @@ public class Calificacion {
     private Profesional profesional;
 
     private int puntuacion;
+
     private String comentario;
     private LocalDateTime fechaCalificacion;
 }

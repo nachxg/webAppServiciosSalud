@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import com.egg.webApp.enumeraciones.Especialidad;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -27,7 +26,6 @@ public class Turno {
     private boolean atendido;
     private boolean turnoTomado;
     private boolean cancelado;
-    private boolean turnoTomado;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
