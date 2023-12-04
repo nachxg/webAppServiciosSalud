@@ -1,17 +1,12 @@
 package com.egg.webApp.controladores;
 
-import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Turno;
-import com.egg.webApp.repositorios.TurnoRepositorio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.TurnoServicio;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -85,18 +80,18 @@ public class TurnoControlador {
         return "redirect:/inicio";
     }
 
-    @GetMapping("/cancelar/profesional/{id}")
-    public String cancelarTurno(RedirectAttributes rdA, @PathVariable Long id) {
-        System.out.println(id);
-        try {
-            turnoServicio.cancelarTurno(id);
-            rdA.addFlashAttribute("exito",
-                    "El turno fue cancelado exitosamente y puede ser visualizado desde la sección 'Mis turnos'.");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return "redirect:/inicio";
-    }
+//    @GetMapping("/cancelar/profesional/{id}")
+//    public String cancelarTurno(RedirectAttributes rdA, @PathVariable Long id) {
+//        System.out.println(id);
+//        try {
+//            turnoServicio.cancelarTurno(id);
+//            rdA.addFlashAttribute("exito",
+//                    "El turno fue cancelado exitosamente y puede ser visualizado desde la sección 'Mis turnos'.");
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return "redirect:/inicio";
+//    }
 
     @GetMapping("/atendido/profesional/{id}")
     public String atendidoTurno(RedirectAttributes rdA, @PathVariable Long id) {

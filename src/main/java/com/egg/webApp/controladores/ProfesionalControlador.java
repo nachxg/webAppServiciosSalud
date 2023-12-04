@@ -5,7 +5,6 @@ import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Especialidad;
 import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.excepciones.MiExcepcion;
-import com.egg.webApp.servicios.CalificacionServicio;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +24,10 @@ import java.util.Map;
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalControlador {
-    private final ProfesionalServicio profesionalServicio;
-    private final EnumServicio enumServicio;
-    private final CalificacionServicio calificacionServicio;
-
-    public ProfesionalControlador(ProfesionalServicio profesionalServicio, EnumServicio enumServicio, CalificacionServicio calificacionServicio) {
-        this.profesionalServicio = profesionalServicio;
-        this.enumServicio = enumServicio;
-        this.calificacionServicio = calificacionServicio;
-    }
+    @Autowired
+    ProfesionalServicio profesionalServicio;
+    @Autowired
+    EnumServicio enumServicio;
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
@@ -129,20 +123,4 @@ public class ProfesionalControlador {
             return "redirect:/profesional/especialidad";
         }
     }
-
-}
-/*
- * @GetMapping("/grupo_familiar")
- * public String grupoFamiliar(ModelMap modelo){
- * 
- * modelo.addAttribute("familiares", profesionalServicio.listarFamiliar());
- * 
- * return "lista_familiar.html";
- * }
- * 
- * @PostMapping("/agregar_familiar")
- * public String crearFamiliar(){
- * 
- * }
- */
-
+}    

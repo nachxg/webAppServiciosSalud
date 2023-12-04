@@ -50,7 +50,7 @@ public class ImagenControlador {
                 try {
                     imagenPredeterminada = imagenPredeterminadaServicio.obtenerImagenPredeterminada().getContenido();
                 } catch (MiExcepcion e) {
-                    System.err.println("Info" + e.getMessage());
+                    System.err.println("Info Admin: " + e.getMessage());
                 }
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.IMAGE_JPEG);
