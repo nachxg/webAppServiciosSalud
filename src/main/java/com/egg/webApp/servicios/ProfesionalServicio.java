@@ -76,9 +76,12 @@ public class ProfesionalServicio {
         return profesional;
     }
 
-    public List<Profesional> listarProfesionales() {
+    public List<Profesional> listarProfesionales() throws MiExcepcion {
         List<Profesional> Profesionales = new ArrayList<>();
         Profesionales = profesionalRepositorio.findAll();
+        if(Profesionales.isEmpty()){
+            throw new MiExcepcion("No hay profesionales disponibles");
+        }
         return Profesionales;
     }
 
@@ -86,7 +89,7 @@ public class ProfesionalServicio {
         List<Profesional> profesionales = new ArrayList<>();
         profesionales = profesionalRepositorio.listarProfesionalesDeAltaEnSistema();
         if (profesionales.isEmpty()) {
-            throw new MiExcepcion("No hay pacientes registrados");
+            throw new MiExcepcion("No hay profesionales registrados");
         } else {
             return profesionales;
         }

@@ -2,12 +2,14 @@ package com.egg.webApp.controladores;
 
 
 import com.egg.webApp.entidades.Usuario;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.TurnoRepositorio;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.TurnoServicio;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +19,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
-    private final ProfesionalServicio profesionalServicio;
-    private final PacienteServicio pacienteServicio;
-    private final TurnoServicio turnoServicio;
-    private final EnumServicio enumServicio;
-    private final TurnoRepositorio turnoRepositorio;
 
-    public PortalControlador(ProfesionalServicio profesionalServicio, PacienteServicio pacienteServicio, TurnoServicio turnoServicio, EnumServicio enumServicio, TurnoRepositorio turnoRepositorio) {
-        this.profesionalServicio = profesionalServicio;
-        this.pacienteServicio = pacienteServicio;
-        this.turnoServicio = turnoServicio;
-        this.enumServicio = enumServicio;
-        this.turnoRepositorio = turnoRepositorio;
-    }
-
+    @Autowired
+    TurnoRepositorio turnoRepositorio;
+    @Autowired
+    EnumServicio enumServicio;
+    @Autowired
+    PacienteServicio pacienteServicio;
+    @Autowired
+    ProfesionalServicio profesionaServicio;
+    @Autowired
+    TurnoServicio turnoServicio;
+    
     @GetMapping("/index")
     public String index(){
         return "index.html";
@@ -45,14 +45,18 @@ public class PortalControlador {
         // NOS TRAE UN PACIENTE PARA PASARLO A LA VISTA
         switch (logueado.getRol().toString()) {
             case "PROFESIONAL":
-                modelo.addAttribute("profesional", profesionalServicio.buscarPorId(logueado.getId()));
+                modelo.addAttribute("profesional", profesionaServicio.buscarPorId(logueado.getId()));
                 modelo.addAttribute("turnos", turnoServicio.listaDeTurnosDisponibles(logueado.getId()));
                 return "inicioProfesional.html";
             case "ADMIN":
                 return "redirect:/admin/inicio";
             default:
                 modelo.addAttribute("especialidades", enumServicio.obtenerEspecialidad());
-                modelo.addAttribute("profesionales", profesionalServicio.listarProfesionales());
+                try {
+                    modelo.addAttribute("profesionales", profesionaServicio.listarProfesionales());
+                } catch (MiExcepcion e) {
+                    throw new RuntimeException(e);
+                }
                 modelo.addAttribute("turnos",turnoRepositorio.findAll());
                 modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
                 return "inicio.html";          

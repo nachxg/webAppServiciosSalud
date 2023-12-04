@@ -62,27 +62,12 @@ public class HistorialClinicoServicio {
 
     public List<HistoriaClinica> listaDeHistorialesClinicosPorPaciente(Long idPaciente) {
         List<HistoriaClinica> historiales = new ArrayList();
-        historiales = historialClinicoRepositorio.buscarHistorialesPorIdPaciente(idPaciente);
+       // historiales = historialClinicoRepositorio.buscarHistorialesPorIdPaciente(idPaciente);
         return historiales;
-    }
-
-    public List<HistoriaClinica> listaDeHistorialesPorDNI(String dni) {
-        List<HistoriaClinica> historiales = historialClinicoRepositorio.findAll();
-        List<HistoriaClinica> historialesFiltrado = new ArrayList();
-        for (HistoriaClinica historiale : historiales) {
-            if (historiale.getPaciente().getDni().equalsIgnoreCase(dni)) {
-                historialesFiltrado.add(historiale);
-            }
-        }
-        return historialesFiltrado;
     }
 
     public HistoriaClinica getOne(Long id) {
         return historialClinicoRepositorio.getOne(id);
-    }
-
-    public void eliminalHistorial(Long id) {
-        historialClinicoRepositorio.deleteById(id);
     }
 
     private void validar(Paciente paciente, Profesional profesional) throws MiExcepcion {

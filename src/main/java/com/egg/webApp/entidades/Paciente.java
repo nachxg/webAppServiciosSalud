@@ -21,7 +21,7 @@ public class Paciente extends Usuario {
     @Enumerated(EnumType.STRING)
     private ObraSocial obraSocial;
 
-    @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Turno> turnos;
 
     @ManyToOne
@@ -37,8 +37,5 @@ public class Paciente extends Usuario {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
-
-    private String parentesco; // Parentesco era un atributo de grupoFamiliar, lo moví para acá para poder mapearlo
-    // en el html
 
 }

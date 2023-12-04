@@ -2,8 +2,6 @@ package com.egg.webApp.controladores;
 
 import com.egg.webApp.entidades.Imagen;
 import com.egg.webApp.entidades.Usuario;
-import com.egg.webApp.excepciones.MiExcepcion;
-import com.egg.webApp.servicios.ImagenPredeterminadaServicio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.UsuarioServicio;
@@ -13,9 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controlador para las operaciones relacionadas con imágenes en la aplicación.
@@ -25,57 +23,27 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/imagen")
 public class ImagenControlador {
-    private final ImagenPredeterminadaServicio imagenPredeterminadaServicio;
-    private final UsuarioServicio usuarioServicio;
-    public ImagenControlador(ImagenPredeterminadaServicio imagenPredeterminadaServicio, UsuarioServicio usuarioServicio) {
-        this.imagenPredeterminadaServicio = imagenPredeterminadaServicio;
-        this.usuarioServicio = usuarioServicio;
-    }
 
+    @Autowired
+    PacienteServicio pacienteServicio;
+    @Autowired
+    UsuarioServicio usuarioServicio;
+    @Autowired
+    ProfesionalServicio profesionalServicio;
     @GetMapping("/perfil/{id}")
-    public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id) {
-        Usuario usuario = usuarioServicio.buscarPorId(id);
+    public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long id) {
+        Usuario usuario = usuarioServicio.getOne(id);
 
-        if (usuario != null) {
-            Imagen imagen = usuario.getImagen();
-            if (imagen != null && imagen.getContenido() != null) {
-                byte[] contenido = imagen.getContenido();
-
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.IMAGE_JPEG);
-
-                return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
-            } else {
-                byte[] imagenPredeterminada = new byte[0];
-                try {
-                    imagenPredeterminada = imagenPredeterminadaServicio.obtenerImagenPredeterminada().getContenido();
-                } catch (MiExcepcion e) {
-                    System.err.println("Info Admin: " + e.getMessage());
-                }
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.IMAGE_JPEG);
-                return new ResponseEntity<>(imagenPredeterminada, headers, HttpStatus.OK);
-                //return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("El usuario con ID: " + id + " no tiene una imagen asociada.").getBytes());
-            }
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("Usuario no encontrado con ID: " + id).getBytes());
+        Imagen imagen = usuario.getImagen();
+        if (imagen == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("El usuario con ID: " + id + " no tiene una imagen asociada. Se Asignara una por defecto").getBytes());
         }
+        byte[] contenido = imagen.getContenido();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/predeterminada")
-    public String  imagenPredeterminada() {
-        return "cargar-imagen-predeterminada.html";
-    }
-
-    @PostMapping("/predeterminar")
-    public String registro(@RequestParam MultipartFile archivo, Model model) {
-        try {
-            imagenPredeterminadaServicio.guardarImagen(archivo);
-            return "redirect:/inicio/";
-
-        } catch (MiExcepcion e) {
-            model.addAttribute("error", e.getMessage());
-            return "redirect:/imagen/predeterminada";
-        }
-    }
 }

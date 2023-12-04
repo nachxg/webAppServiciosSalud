@@ -36,7 +36,19 @@ public class AdministradorControlador {
     }
     @GetMapping("/inicio")
     public String inicioAdmin(Model modelo)  {
-
+        //SECTION MODAL
+        modelo.addAttribute("roles", enumServicio.obtenerRoles());
+        try {
+            modelo.addAttribute("pacientes", pacienteServicio.listarPacientes());
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("pacientesErrors", e.getMessage());
+        }
+        try {
+            modelo.addAttribute("profesionales", profesionalServicio.listarProfesionales());
+        } catch (MiExcepcion e) {
+            modelo.addAttribute("profesionalesErrors", e.getMessage());
+        }
+        //SECTION INICIO
         List<Profesional> profesionalesInactivos = null;
         List<Profesional> profesionalesActivos = null;
         List<Paciente> pacientesActivos = null;
@@ -112,10 +124,10 @@ public class AdministradorControlador {
     public String cambiarRol(@RequestParam Long id, @RequestParam String rol, Model model) {
         try {
             administradorServicio.establecerRolUsuario(id, rol);
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/inicio";
         } catch (MiExcepcion e) {
             model.addAttribute("error", e.getMessage());
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/inicio";
         }
     }
 
@@ -128,11 +140,11 @@ public class AdministradorControlador {
             if (referencia != null && referencia.contains("/admin/inicio")) {
                 return "redirect:/admin/inicio";
             } else {
-                return "redirect:/admin/dashboard";
+                return "redirect:/admin/inicio";
             }
         } catch (MiExcepcion e) {
             modelo.addAttribute("error", "Mensaje Admin " + e.getMessage());
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/inicio";
         }
     }
 

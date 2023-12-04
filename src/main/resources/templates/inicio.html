@@ -115,7 +115,8 @@
                 <div class="tarjeta-perfil">
                     <div class="nombre-foto">
                         <div id="foto-perfil" class="foto-perfil">
-                            <img class="foto" th:if="${paciente.imagen != null}" th:src="@{/imagen/perfil/{id}(id=${paciente.id})}">
+                            <img class="foto" th:if="${paciente.imagen != null}"
+                                th:src="@{/imagen/perfil/{id}(id=${paciente.id})}">
                             <img class="foto" th:unless="${paciente.imagen != null}" th:src="@{/img/usuario.jpg}">
                         </div>
                         <div class="nombre">

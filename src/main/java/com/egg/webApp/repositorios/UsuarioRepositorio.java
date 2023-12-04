@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
+
     @Query("SELECT u FROM Usuario u WHERE u.dni = :dni")
     public Usuario buscarPorDni(@Param("dni") String dni);
 
@@ -16,6 +17,5 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
 
     public Boolean existsByDni(String dni);
 
-    @Query("SELECT u FROM Usuario u WHERE u.dni = :dni AND u.email = :email")
-    Usuario buscarUsuarioPorDniYEmail(@Param("dni") String dni, @Param("email") String email);
+
 }
