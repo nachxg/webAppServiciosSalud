@@ -30,19 +30,29 @@ public class ImagenControlador {
     UsuarioServicio usuarioServicio;
     @Autowired
     ProfesionalServicio profesionalServicio;
+
     @GetMapping("/perfil/{id}")
-    public ResponseEntity<byte[]> imagenProfesional(@PathVariable Long id) {
+    public ResponseEntity<byte[]> imagenUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.getOne(id);
 
+        if (usuario != null) {
+            Imagen imagen = usuario.getImagen();
+            if (imagen != null && imagen.getContenido() != null) {
+                byte[] contenido = imagen.getContenido();
 
-        Imagen imagen = usuario.getImagen();
-        byte[] contenido = imagen.getContenido();
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_JPEG);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-
-        return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
+                return new ResponseEntity<>(contenido, headers, HttpStatus.OK);
+            } else {
+                // byte[] imagenPredeterminada = imagenPredeterminadaServicio.obtenerImagenPredeterminada().getContenido();
+                // HttpHeaders headers = new HttpHeaders();
+                //headers.setContentType(MediaType.IMAGE_JPEG);
+                //return new ResponseEntity<>(imagenPredeterminada, headers, HttpStatus.OK);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("El usuario con ID: " + id + " no tiene una imagen asociada.").getBytes());
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("Usuario no encontrado con ID: " + id).getBytes());
+        }
     }
-
 }
-
