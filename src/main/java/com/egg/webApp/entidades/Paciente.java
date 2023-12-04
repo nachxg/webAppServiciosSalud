@@ -38,7 +38,7 @@ public class Paciente extends Usuario {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
 
-    private String parentesco; // Parentesco era un atributo de grupoFamiliar, lo moví para acá para poder mapearlo
-    // en el html
+    private String parentesco;
+
 
 }

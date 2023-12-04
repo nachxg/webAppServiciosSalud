@@ -11,7 +11,7 @@ import java.util.List;
 public interface FamiliarRepositorio extends JpaRepository<GrupoFamiliar, Long> {
 
     @Query("SELECT p FROM GrupoFamiliar p WHERE p.id = :id")
-    public GrupoFamiliar buscarPorId(@Param("id")Long id);
+    public GrupoFamiliar buscarPorId(@Param("id") Long id);
 
     @Query("SELECT p.id, p.nombre, p.apellido, p.dni, p.parentesco FROM Paciente p " +
             "LEFT JOIN p.grupoFamiliar gf " +

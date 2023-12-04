@@ -11,9 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +24,11 @@ public class FamiliarServicio {
     private FamiliarRepositorio familiarRepositorio;
 
     @Autowired
-    private PacienteRepositorio pacienteRepositorio;
+    private PacienteServicio pacienteServicio;
 
     @Autowired
-    private PacienteServicio pacienteServicio;
+    private PacienteRepositorio pacienteRepositorio;
+
 
     @Transactional
     public void registrarMiembro(Paciente miembro,
@@ -76,14 +77,16 @@ public class FamiliarServicio {
         }
     }
 
+    public List<Object[]> listarFamiliares(Long titularId) { //Titular id == paciente id
+        return familiarRepositorio.findByTitularId(titularId);
+
+    }
+
     @Transactional
     public GrupoFamiliar buscarPorId(Long id){
         return familiarRepositorio.buscarPorId(id);
     }
 
-    public List<Object[]> listarFamiliares(Long titularId) { //Titular id == paciente id
-        return familiarRepositorio.findByTitularId(titularId);
-    }
 
     /*
     public LocalDate convertirStringALocalDate(String fechaNacimiento) {

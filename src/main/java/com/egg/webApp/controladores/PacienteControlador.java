@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -33,12 +34,11 @@ public class PacienteControlador {
     PacienteServicio pacienteServicio;
     @Autowired
     EnumServicio enumServicio;
-
+    @Autowired
+    TurnoServicio turnoServicio;
     @Autowired
     FamiliarServicio familiarServicio;
 
-    @Autowired
-    TurnoServicio turnoServicio;
 
     @GetMapping("/registrar")
     public String registrar(ModelMap modelo) {
@@ -103,37 +103,33 @@ public class PacienteControlador {
         }
     }
 
-    @GetMapping("/prueba123")
-    public String listaFamiliar(ModelMap modelo, HttpSession session){
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        List<Sexo> generos = enumServicio.obtenerGeneros();
-        modelo.addAttribute("generos", generos);
-        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-        modelo.addAttribute("pacientes", pacienteServicio.listarPacientes());
 
-        List<Object[]> familiares = familiarServicio.listarFamiliares(logueado.getId());
-
-        familiares = familiares.stream().filter(GrupoFamiliar -> !GrupoFamiliar[0].equals(logueado.getId()))
-                        .collect(Collectors.toList()); // Metodo para filtrar el titular de la lista. Solo se muestran los pacientes con parentesco
-
-        modelo.addAttribute("familiares", familiares);
-
-        return "lista_familiar.html";
+    @PostMapping("/tomarTurno/{idPaciente}/{idTurno}")
+    public String tomarTurno(@PathVariable Long idPaciente, @PathVariable Long idTurno, String motivoConsulta, RedirectAttributes rdA) {
+        try {
+            turnoServicio.tomarUnTurnoPaciente(idPaciente, idTurno, motivoConsulta);
+            rdA.addFlashAttribute("exito", "Su turno fue reservado correctamente.");
+            return "redirect:/inicio";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error.html";
+        }
     }
+
 
     @PostMapping("/familiar/{idMiembro}")
     public String registrarFamiliar(
-                                    @RequestParam String parentesco, ModelMap modelo, @RequestParam String nombre,
-                                    @RequestParam String apellido, @RequestParam String password,
-                                    @RequestParam String password2, @RequestParam String dni,
-                                    @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate fechaNacimiento,
-                                     @PathVariable Long idMiembro) {
+            @RequestParam String parentesco, ModelMap modelo, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam String password,
+            @RequestParam String password2, @RequestParam String dni,
+            @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate fechaNacimiento,
+            @PathVariable Long idMiembro) {
 
         try {
 
             Paciente miembro = pacienteServicio.buscarPorId(idMiembro);
 
-            familiarServicio.registrarMiembro(miembro, parentesco, nombre, apellido,dni, password,
+            familiarServicio.registrarMiembro(miembro, parentesco, nombre, apellido, dni, password,
                     password2, sexo, fechaNacimiento);
             modelo.put("exito", "Familiar registrado con exito");
             return "redirect:/inicio";
@@ -146,31 +142,5 @@ public class PacienteControlador {
 
     }
 
-    @PostMapping("/tomarTurno/{idPaciente}/{idTurno}")
-    public String tomarTurno(@PathVariable Long idPaciente, @PathVariable Long idTurno, String motivoConsulta) {
-        try {
-
-            turnoServicio.tomarUnTurnoPaciente(idPaciente, idTurno, motivoConsulta);
-            System.out.println("Turno tomado");
-            return "redirect:/inicio";
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return "error.html";
-        }
-    }
-
-    @PostMapping("/cancelarTurno/{idTurno}")
-    public String cancelarTurno(@PathVariable Long idTurno) {
-
-        try {
-            turnoServicio.cancelarTurnoPaciente(idTurno);
-            System.out.println("Turno cancelado");
-            return "redirect:/inicio";
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return "error.html";
-        }
-
-    }
 
 }

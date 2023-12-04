@@ -32,7 +32,6 @@ public class TurnoServicio {
     @Transactional
     public void crearTurnoDisponible(Long idProfesional, LocalDateTime fecha) {
 
-
         Turno nuevoTurno = new Turno();
         Profesional profesional = profesionalRepositorio.getById(idProfesional);
 
@@ -51,31 +50,17 @@ public class TurnoServicio {
     }
 
     @Transactional
-    public void modificarTurno(Long idTurno, String motivoConsulta, boolean atendido, boolean cancelado) {
+    public void modificarTurno(Long idTurno, LocalDateTime fecha) {
         Optional<Turno> respuesta = turnoRepositorio.findById(idTurno);
         if (respuesta.isPresent()) {
             Turno turno = respuesta.get();
-            turno.setMotivoConsulta(motivoConsulta);
-            turno.setCancelado(cancelado);
-            turno.setAtendido(atendido);
+            turno.setFechaTurno(fecha);
             turnoRepositorio.save(turno);
         }
     }
 
     @Transactional
-    public void tomarUnTurnoPaciente(Long idPaciente, Long idTurno, String motivoConsulta) {
-
-        Paciente paciente = pacienteServicio.getOne(idPaciente);
-        Turno turno = turnoRepositorio.getOne(idTurno);
-        //if (paciente.isAltaSistema() && !turno.isAtendido() && !turno.isCancelado()) {
-            turno.setTurnoTomado(true);
-            turno.setPaciente(paciente);
-            turno.setMotivoConsulta(motivoConsulta);
-            turnoRepositorio.save(turno);
-        //}
-    }
-    @Transactional
-    public void cancelarTurnoProfesional(Long id) {
+    public void cancelarTurno(Long id) {
         Turno turno = turnoRepositorio.buscarTurnosPorId(id);
 
         if (turno != null) {
@@ -85,15 +70,28 @@ public class TurnoServicio {
             System.out.println("No encontro Turno");
         }
     }
+
     @Transactional
-    public void cancelarTurnoPaciente(Long id) {
+    public void atendidoTurno(Long id) {
         Turno turno = turnoRepositorio.buscarTurnosPorId(id);
 
         if (turno != null) {
-            turno.setTurnoTomado(false); // La idea es manejar el booleano de turno tomado para paciente y turno cancelado para profesional
+            turno.setAtendido(true);
             turnoRepositorio.save(turno);
         } else {
             System.out.println("No encontro Turno");
+        }
+    }
+
+    @Transactional
+    public void tomarUnTurnoPaciente(Long idPaciente, Long idTurno, String motivoConsulta) {
+
+        Paciente paciente = pacienteServicio.getOne(idPaciente);
+        Turno turno = turnoRepositorio.getOne(idTurno);
+        if (paciente.isAltaSistema() && !turno.isAtendido() && !turno.isCancelado()) {
+            turno.setPaciente(paciente);
+            turno.setMotivoConsulta(motivoConsulta);
+            turnoRepositorio.save(turno);
         }
     }
 
@@ -106,68 +104,46 @@ public class TurnoServicio {
         return turnoRepositorio.existeFechaHora(idProfesional, fechaHora);
     }
 
-    public List<Turno> listaDeTurnosParaPaciente(Long idProfesional) {
-
-        LocalDateTime fecha = LocalDateTime.now();
-
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-
-       String fechaFormateada = fecha.format(formato);
-
-       LocalDateTime fechaFormateadaALocalDate = LocalDateTime.parse(fechaFormateada, formato);
-
-        return turnoRepositorio.buscarTurnosDisponiblesParaPaciente(idProfesional, fechaFormateadaALocalDate);
+    public List<Turno> listaTurnosTomadosPorPaciente(Long idPaciente) {
+        return turnoRepositorio.buscarTurnosPorIdPaciente(idPaciente);
     }
 
+    public List<Turno> listaTurnosDisponiblesValidos() {
+        List<Turno> turnos = turnoRepositorio.findAll();
+        List<Turno> turnosValidos = new ArrayList<>();
 
-    /*
-
-
-        /*
-
-
-
-        public List<Turno> listaDeTodosLosTurnosPorProfesional(Long idProfecional) {
-            List<Turno> turnos = turnoRepositorio.todosLosTurnosDeProfecional(idProfecional);
-            return turnos;
+        for (Turno turno : turnos) {
+            if (turno.getPaciente() == null) {
+                turnosValidos.add(turno);
+            }
         }
 
-        public List<Turno> listaDeTurnosPorEspecialidad(String especialidad) {
-            List<Turno> turnos = turnoRepositorio.todosLosTurnosPorEspecialidad(especialidad);
-            return turnos;
-        }
+        return turnosValidos;
+    }
 
-        public List<Turno> listaDeTurnosPorPaciente(Long idPaciente) {
-            List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPaciente(idPaciente);
-            return turnos;
-        }
-
-        public List<Turno> listaDeTurnosPorPacienteAtendido(Long idPaciente) {
-            List<Turno> turnos = turnoRepositorio.buscarTurnosPorIdPacienteAtendido(idPaciente);
-            return turnos;
-        }
-         */
     public Turno getOne(Long id) {
         return turnoRepositorio.getOne(id);
     }
 
+
     public LocalDateTime convertirStringALocalDate(String fecha, String hora) {
 
-        System.out.println(fecha);
-        System.out.println(hora);
-
-        if (fecha == null || hora == null || fecha.isEmpty() || hora.isEmpty()) {
-
-            throw new IllegalArgumentException("Fecha y hora deben estar presentes y no deben ser vacías.");
-        }
-
-
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-
         String fechaHoraString = fecha + " " + hora;
 
         return LocalDateTime.parse(fechaHoraString, formato);
 
     }
+
+
+    public LocalDateTime convertirStringALocalDateb(String fecha, String hora) {
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String fechaHoraString = fecha + " " + hora;
+
+        return LocalDateTime.parse(fechaHoraString, formato);
+
+    }
+
 
 }
