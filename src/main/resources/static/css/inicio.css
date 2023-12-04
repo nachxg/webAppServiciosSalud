@@ -985,8 +985,12 @@ header .current-date {
 }
 .buscador {
     margin-top: 20px;
+    text-align: center;
 }
 
+.id-paciente {
+    text-align: center;
+}
 
 /* VISTA ADMIN DASHBOARD */
 
