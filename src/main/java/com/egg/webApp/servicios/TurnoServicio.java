@@ -24,7 +24,7 @@ public class TurnoServicio {
     @Autowired
     private ProfesionalRepositorio profesionalRepositorio;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
     @Transactional
     public void crearTurnoDisponible(Long idProfesional, LocalDateTime fecha) {
@@ -92,10 +92,8 @@ public class TurnoServicio {
         turnoRepositorio.save(turno);
         //}
     }
-    
-    
-    public List<Turno> listaDeTurnosDisponibles(Long idProfesional) {
-        List<Turno> turnos = turnoRepositorio.buscarTurnosDisponiblesDeProfesional(idProfesional);
+    public List<Turno> listaDeTurnosDisponibles(Long idProfecional) {
+        List<Turno> turnos = turnoRepositorio.buscarTurnosDisponiblesDeProfesional(idProfecional);
         return turnos;
     }
     
@@ -126,6 +124,29 @@ public class TurnoServicio {
     public Turno getOne(Long id) {
         return turnoRepositorio.getOne(id);
     }
+
+    public boolean validarTurnoFecha(Long idProfecional, LocalDateTime comparar) {
+        List<Turno> turnos = listaDeTurnosDisponibles(idProfecional);
+        for (Turno turno : turnos) {
+            if (comparar.isEqual(turno.getFechaTurno())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Transactional
+    public void cancelarTurnoPaciente(Long id) {
+        Turno turno = turnoRepositorio.getById(id);
+
+        if (turno != null) {
+            turno.setTurnoTomado(false); // La idea es manejar el booleano de turno tomado para paciente y turno cancelado para profesional
+            turnoRepositorio.save(turno);
+        } else {
+            System.out.println("No encontro Turno");
+        }
+    }
+
 
     public LocalDateTime convertirStringALocalDate(String fecha, String hora) {
 

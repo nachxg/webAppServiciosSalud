@@ -26,6 +26,7 @@ public class Turno {
     private boolean atendido;
     private boolean turnoTomado;
     private boolean cancelado;
+    private boolean turnoTomado;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")

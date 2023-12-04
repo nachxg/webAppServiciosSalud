@@ -57,15 +57,15 @@ public class CalificacionServicio {
     }
 
     @Transactional
-    public void eliminarCalificacion(Long id) {
-        Optional<Calificacion> respuesta = calificacionRepositorio.findById(id);
+    public void eliminarCalificacion(Long idCalificacion) {
+        Optional<Calificacion> respuesta = calificacionRepositorio.findById(idCalificacion);
         if (respuesta.isPresent()) {
-            calificacionRepositorio.deleteById(id);
+            calificacionRepositorio.deleteById(idCalificacion);
         }
     }
 
     public List<Calificacion> calificacionesDeUnProfecional(Long idProfisional) {
-        List<Calificacion> calificaciones = new ArrayList<>();
+        List<Calificacion> calificaciones = new ArrayList();
        calificaciones = calificacionRepositorio.buscarCalificacionesPorIdDeProfesionales(idProfisional);
         return calificaciones;
     }

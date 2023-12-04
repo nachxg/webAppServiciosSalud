@@ -1,14 +1,11 @@
 package com.egg.webApp.controladores;
-
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.ObraSocial;
 import com.egg.webApp.enumeraciones.Sexo;
-import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.servicios.EnumServicio;
-import com.egg.webApp.servicios.FamiliarServicio;
 import com.egg.webApp.servicios.PacienteServicio;
-import com.egg.webApp.servicios.TurnoServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -63,17 +60,21 @@ public class PacienteControlador {
     @PreAuthorize("hasAnyRole('ROLE_PACIENTE', 'ROLE_ADMIN')")
     @GetMapping("/perfil/{id}")
     public String perfilPaciente(ModelMap modelo, HttpSession session, @PathVariable Long id) {
+
         List<Sexo> generos = enumServicio.obtenerGeneros();
         List<ObraSocial> obraSociales = enumServicio.obtenerObraSocial();
         modelo.addAttribute("generos", generos);
         modelo.addAttribute("obraSociales", obraSociales);
+
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         Paciente paciente = null;
+
         if (usuario.getRol().toString().equalsIgnoreCase("ADMIN")) {
             paciente = pacienteServicio.buscarPorId(id);
         } else {
             paciente = (Paciente) session.getAttribute("usuariosession");
         }
+
         modelo.put("paciente", paciente);
         return "editarPaciente.html";
     }
@@ -93,54 +94,11 @@ public class PacienteControlador {
         }
     }
 
-    @GetMapping("/prueba123")
-    public String listaFamiliar(ModelMap modelo, HttpSession session){
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        List<Sexo> generos = enumServicio.obtenerGeneros();
-        modelo.addAttribute("generos", generos);
-        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-        try {
-            modelo.addAttribute("pacientes", pacienteServicio.listarPacientes());
-        } catch (MiExcepcion e) {
-            modelo.addAttribute("error", e.getMessage());
-        }
-
-        List<Object[]> familiares = familiarServicio.listarFamiliares(logueado.getId());
-
-        familiares = familiares.stream().filter(GrupoFamiliar -> !GrupoFamiliar[0].equals(logueado.getId()))
-                        .collect(Collectors.toList()); // Metodo para filtrar el titular de la lista. Solo se muestran los pacientes con parentesco
-
-        modelo.addAttribute("familiares", familiares);
-
-        return "lista_familiar.html";
-    }
-
-    @PostMapping("/familiar/{idMiembro}")
-    public String registrarFamiliar(
-                                    @RequestParam String parentesco, ModelMap modelo, @RequestParam String nombre,
-                                    @RequestParam String apellido, @RequestParam String password,
-                                    @RequestParam String password2, @RequestParam String dni,
-                                    @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate fechaNacimiento,
-                                     @PathVariable Long idMiembro) {
-        try {
-            Paciente miembro = pacienteServicio.buscarPorId(idMiembro);
-            familiarServicio.registrarMiembro(miembro, parentesco, nombre, apellido,dni, password,
-                    password2, sexo, fechaNacimiento);
-            modelo.put("exito", "Familiar registrado con exito");
-            return "redirect:/inicio";
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            modelo.put("error", e.getMessage());
-            return "redirect:/lista_familiar";
-        }
-
-    }
-
     @PostMapping("/tomarTurno/{idPaciente}/{idTurno}")
-    public String tomarTurno(@PathVariable Long idPaciente, @PathVariable Long idTurno, String motivoConsulta) {
+    public String tomarTurno(@PathVariable Long idPaciente, @PathVariable Long idTurno) {
         try {
-            turnoServicio.tomarUnTurnoPaciente(idPaciente, idTurno, motivoConsulta);
+
+            turnoServicio.tomarUnTurnoPaciente(idPaciente, idTurno);
             System.out.println("Turno tomado");
             return "redirect:/inicio";
         } catch (Exception e) {
@@ -151,6 +109,7 @@ public class PacienteControlador {
 
     @PostMapping("/cancelarTurno/{idTurno}")
     public String cancelarTurno(@PathVariable Long idTurno) {
+
         try {
             turnoServicio.cancelarTurnoPaciente(idTurno);
             System.out.println("Turno cancelado");
@@ -159,5 +118,6 @@ public class PacienteControlador {
             System.out.println(e.getMessage());
             return "error.html";
         }
+
     }
 }
