@@ -7,7 +7,6 @@ import com.egg.webApp.repositorios.ProfesionalRepositorio;
 import com.egg.webApp.repositorios.TurnoRepositorio;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -81,14 +80,14 @@ public class TurnoServicio {
     }
 
     @Transactional
-    public void tomarUnTurnoPaciente(Long idPaciente, Long idTurno, String motivoConsulta) {
+    public void tomarUnTurnoPaciente(Long idPaciente, Long idTurno) {
 
         Paciente paciente = pacienteServicio.getOne(idPaciente);
         Turno turno = turnoRepositorio.getOne(idTurno);
         //if (paciente.isAltaSistema() && !turno.isAtendido() && !turno.isCancelado()) {
         turno.setTurnoTomado(true);
         turno.setPaciente(paciente);
-        turno.setMotivoConsulta(motivoConsulta);
+        //turno.setMotivoConsulta(motivoConsulta);
         turnoRepositorio.save(turno);
         //}
     }
@@ -133,18 +132,6 @@ public class TurnoServicio {
             }
         }
         return true;
-    }
-
-    @Transactional
-    public void cancelarTurnoPaciente(Long id) {
-        Turno turno = turnoRepositorio.getById(id);
-
-        if (turno != null) {
-            turno.setTurnoTomado(false); // La idea es manejar el booleano de turno tomado para paciente y turno cancelado para profesional
-            turnoRepositorio.save(turno);
-        } else {
-            System.out.println("No encontro Turno");
-        }
     }
 
 
