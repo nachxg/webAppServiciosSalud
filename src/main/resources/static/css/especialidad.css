@@ -179,19 +179,14 @@ nav a:hover:not(.logo),
     
 }
 
-#especialidades-container.centrado {
- text-align: center;
- font-size: 24px;
-   
+.centrado { 
+    text-align: center;
 }
 
-/* Agrega estilos para los enlaces dentro de la lista de especialidades */
-#lista-especialidades a {
+#especialidades-container.centrado {
 
-    color: #1D7874;
-    /* Reemplaza "tu-color-deseado" con el color que prefieras */
-    text-decoration: none;
-    /* Elimina el subrayado predeterminado de los enlaces si lo deseas */
+ font-size: 24px;
+   
 }
 
 #lista-especialidades {
@@ -211,13 +206,34 @@ nav a:hover:not(.logo),
     margin: 1rem;
 }
 
+/* Agrega estilos para los enlaces dentro de la lista de especialidades */
+#lista-especialidades a {
+
+    color: #1D7874;
+    /* Reemplaza "tu-color-deseado" con el color que prefieras */
+    text-decoration: none;
+    /* Elimina el subrayado predeterminado de los enlaces si lo deseas */
+}
+
+#btnMostrarMedicos {
+    text-decoration: none;
+    color: white;
+    background-color: var(--colorBoton);
+    border-radius: 10px;
+    width: 20%;
+    padding: 10px;
+    font-size: 900;
+    margin: auto;
+    display: block;
+    text-align: center;
+ 
+}
+
 @media (max-width: 768px) {
     #especialidades-container {
         flex-direction: column;
         align-items: center;
         order: 1;
-        
-
     }
 
     .descrip-especia {
@@ -225,9 +241,7 @@ nav a:hover:not(.logo),
         width: fit-content;
         overflow: visible;
         order: 2;
-       
     }
-   
 }
 
 /** FOOTER **/
