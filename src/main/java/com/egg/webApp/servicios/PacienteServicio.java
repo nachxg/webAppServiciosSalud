@@ -96,7 +96,8 @@ public class PacienteServicio {
     }
 
 
-    private void validar(String nombre, String apellido, String dni, String password, String password2, LocalDate fechaNacimiento) throws Exception {
+    private void validar(String nombre, String apellido, String dni, String password, String password2,
+                         LocalDate fechaNacimiento) throws Exception {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new Exception("El nombre no puede ser nulo o estar vacio");

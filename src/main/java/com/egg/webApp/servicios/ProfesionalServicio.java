@@ -76,9 +76,10 @@ public class ProfesionalServicio {
     }
 
     public List<Profesional> listarProfesionales() {
-        List<Profesional> Profesionales = new ArrayList<>();
-        Profesionales = profesionalRepositorio.findAll();
-        return Profesionales;
+        List<Profesional> profesionales = new ArrayList<>();
+        profesionales = profesionalRepositorio.findAll();
+
+        return profesionales;
     }
 
     public List<Profesional> listarProfesionalesActivos() throws MiExcepcion {

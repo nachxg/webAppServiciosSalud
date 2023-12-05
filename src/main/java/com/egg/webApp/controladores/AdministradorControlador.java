@@ -43,11 +43,7 @@ public class AdministradorControlador {
         } catch (MiExcepcion e) {
             modelo.addAttribute("pacientesErrors", e.getMessage());
         }
-        try {
-            modelo.addAttribute("profesionales", profesionalServicio.listarProfesionales());
-        } catch (MiExcepcion e) {
-            modelo.addAttribute("profesionalesErrors", e.getMessage());
-        }
+        modelo.addAttribute("profesionales", profesionalServicio.listarProfesionales());
         //SECTION INICIO
         List<Profesional> profesionalesInactivos = null;
         List<Profesional> profesionalesActivos = null;
