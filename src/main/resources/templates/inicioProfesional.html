@@ -449,6 +449,31 @@
                         </div>
                     </div>
                     <div id="sec-4">
+                        <h1>Consulta de Historias Clínicas</h1>
+
+    <form th:action="@{/buscarHistorias}" method="get">
+        <label for="dniInput">Ingrese el número de DNI:</label>
+        <input type="text" id="dniInput" name="dni">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div>
+
+        <table border1="1">
+            <tr>
+                <th>ID</th>
+                <th>Paciente</th>
+                <th>Fecha</th>
+                <th>Detalle</th>
+            </tr>
+            <tr th:each="historia : ${historiasClinicas}">
+                <td th:text="${historia.id}"></td>
+                <td th:text="${historia.paciente}"></td>
+                <td th:text="${historia.fecha}"></td>
+                <td th:text="${historia.detalle}"></td>
+            </tr>
+        </table>
+    </div>
                     </div>
 
                 </div>
