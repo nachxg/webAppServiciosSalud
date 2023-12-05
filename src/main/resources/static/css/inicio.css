@@ -1151,7 +1151,7 @@ header .current-date {
     border: none;
     font-size: 17px;
     border-bottom: 2px solid silver;
-    
+
   }
   .input-data input:focus ~ label,
   .input-data input:valid ~ label,.input-data select:focus ~ label,.input-data select:valid ~ label{

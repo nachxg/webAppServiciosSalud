@@ -1,11 +1,10 @@
 package com.egg.webApp.servicios;
 import com.egg.webApp.entidades.Imagen;
-import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.Sexo;
+import com.egg.webApp.excepciones.MiExcepcion;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
 import com.egg.webApp.repositorios.UsuarioRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -26,21 +25,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @Service
 public class UsuarioServicio implements UserDetailsService {
-
-    @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
-    @Autowired
-    private ImagenServicio imagenServicio;
-    @Autowired
-    private ProfesionalRepositorio profesionalRepositorio;
+    private final UsuarioRepositorio usuarioRepositorio;
+    private final ImagenServicio imagenServicio;
+    private final ProfesionalRepositorio profesionalRepositorio;
+    public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, ImagenServicio imagenServicio, ProfesionalRepositorio profesionalRepositorio) {
+        this.usuarioRepositorio = usuarioRepositorio;
+        this.imagenServicio = imagenServicio;
+        this.profesionalRepositorio = profesionalRepositorio;
+    }
 
     @Transactional
-    public void registrar(String nombre, String apellido, String dni, String password, String password2, Long id, String sexo, LocalDate fechaNacimiento) throws Exception {
-
+    public void registrar(String nombre, String apellido, String dni, String password, String password2,
+                          Long id, String sexo, LocalDate fechaNacimiento) throws Exception {
         validar(nombre, apellido, dni, password, password2);
         Usuario usuario = usuarioRepositorio.getOne(id);
         usuario.setNombre(nombre);
@@ -51,30 +49,21 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setSexo(Sexo.valueOf(sexo));
         usuarioRepositorio.save(usuario);
-
     }
 
     @Transactional
     public void editarAdmin(MultipartFile archivo, String password, String password2, Long id) throws Exception {
-
         validarAdmin(password, password2);
-
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-
         if (respuesta.isPresent()) {
-
             Usuario usuario = respuesta.get();
-
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             Long idImagen = null;
-
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getId();
             }
-
             Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
             usuario.setImagen(imagen);
-
             usuarioRepositorio.save(usuario);
         }
     }
@@ -90,10 +79,8 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     public List<Usuario> listarUsuarios() {
-
         List<Usuario> usuarios = new ArrayList<>();
         usuarios = usuarioRepositorio.findAll();
-
         return usuarios;
     }
 
@@ -114,7 +101,6 @@ public class UsuarioServicio implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new Exception("Los password ingresados deben ser iguales");
         }
-
     }
     private void validarAdmin(String password, String password2) throws Exception {
 
@@ -159,9 +145,29 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.existsByDni(dni);
 
     }
+
     //METODO PARA EVITAR QUE SE INGRESEN MATRICULAS REPETIDAS
     public Boolean validarMatricula(String matricula) {
         return profesionalRepositorio.existsByMatricula(matricula);
     }
 
+    public Usuario buscarUsuarioPorDniYEmail(String dni, String email) {
+        return usuarioRepositorio.buscarUsuarioPorDniYEmail(dni, email);
+    }
+
+    @Transactional
+    public void actualizarPassword(String dni, String email, String password, String password2) throws MiExcepcion {
+        Usuario usuario = buscarUsuarioPorDniYEmail(dni, email);
+        if (usuario == null) {
+            throw new MiExcepcion("No se encontró el usuario");
+        }
+        if (password.isEmpty() || password == null || password.length() <= 6) {
+            throw new MiExcepcion("El password no puede estar vacío y debe contener por lo menos 6 caracteres");
+        }
+        if (!password.equals(password2)) {
+            throw new MiExcepcion("Los password ingresados deben ser iguales");
+        }
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        usuarioRepositorio.save(usuario);
+    }
 }
