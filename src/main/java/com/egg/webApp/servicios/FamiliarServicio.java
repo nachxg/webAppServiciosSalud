@@ -37,7 +37,7 @@ public class FamiliarServicio {
                                  String sexo, LocalDate fechaNacimiento) throws Exception {
         try {
 
-            pacienteServicio.validar(nombre, apellido, dni, password, password2, fechaNacimiento);
+            //pacienteServicio.validar(nombre, apellido, dni, password, password2, fechaNacimiento);
 
             Paciente nuevoMiembro = new Paciente();
             nuevoMiembro.setNombre(nombre);
