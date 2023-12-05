@@ -42,7 +42,7 @@ nav{
     height: 100%;
     padding: 0;
     cursor: pointer;
-    margin: left 1.4rem; ;
+    margin-left: 1.4rem;
 }
     
 
@@ -146,7 +146,6 @@ button{
     width: 50%;
     transition: color 0.2s ease;
 }
-
 button:hover{
     background-color:linear-gradient(to left, #44bdb3,#1b5453);
     color: white;
@@ -265,16 +264,3 @@ button:hover{
 }
 
 
-    /* Puedes agregar estilos adicionales según tus necesidades */
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    #calendario {
-      /* Estilos para el calendario */
-    }
-
-    #horarios {
-      /* Estilos para la lista de horarios */
-    }
- 
