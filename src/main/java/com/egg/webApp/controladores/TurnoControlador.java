@@ -1,19 +1,13 @@
 package com.egg.webApp.controladores;
 
-
-import com.egg.webApp.entidades.Profesional;
 import com.egg.webApp.entidades.Turno;
-import com.egg.webApp.repositorios.TurnoRepositorio;
 import com.egg.webApp.servicios.PacienteServicio;
 import com.egg.webApp.servicios.ProfesionalServicio;
 import com.egg.webApp.servicios.TurnoServicio;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 @Controller
 @RequestMapping("/turno")
@@ -89,7 +82,6 @@ public class TurnoControlador {
         return "redirect:/inicio";
     }
 
-
     @GetMapping("/cancelar/profesional/{id}")
     public String cancelarTurno(RedirectAttributes rdA, @PathVariable Long id) {
         System.out.println(id);
@@ -102,6 +94,7 @@ public class TurnoControlador {
         }
         return "redirect:/inicio";
     }
+
 
     @GetMapping("/atendido/profesional/{id}")
     public String atendidoTurno(RedirectAttributes rdA, @PathVariable Long id) {

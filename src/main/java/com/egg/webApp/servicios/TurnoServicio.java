@@ -6,7 +6,6 @@ import com.egg.webApp.entidades.Turno;
 import com.egg.webApp.repositorios.ProfesionalRepositorio;
 import com.egg.webApp.repositorios.TurnoRepositorio;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -45,7 +44,6 @@ public class TurnoServicio {
             nuevoTurno.setPaciente(null);
             profesional.getTurnosDisponibles().add(nuevoTurno);
             profesionalRepositorio.save(profesional);
-            turnoRepositorio.save(nuevoTurno);
         }
     }
 
@@ -125,7 +123,6 @@ public class TurnoServicio {
         return turnoRepositorio.getOne(id);
     }
 
-
     public LocalDateTime convertirStringALocalDate(String fecha, String hora) {
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
@@ -135,7 +132,6 @@ public class TurnoServicio {
 
     }
 
-
     public LocalDateTime convertirStringALocalDateb(String fecha, String hora) {
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -144,6 +140,5 @@ public class TurnoServicio {
         return LocalDateTime.parse(fechaHoraString, formato);
 
     }
-
 
 }

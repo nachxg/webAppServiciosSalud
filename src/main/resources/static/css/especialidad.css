@@ -95,58 +95,19 @@ nav a:hover:not(.logo),
 
 .banner-especialidad {
     background-image: url('/img/especialidades.jpg');
-    background-size: cover;
-    background-position: center;
-    color: var(--colorLindo);
-    text-align: left;
+    background-size: 100%;
+    color: #fff;
+    text-align: 45%;
     padding: 50px;
-    font-size: 2em; /* Ajusta el tamaño del texto según tus necesidades */
-    position: relative;
-}
-.banner-especialidad h1 {
-    margin-bottom: 20px;
+    color: #1D7874;
+    height: 150px;
+    font-size: 50px;
+    z-index: 0;
 }
 
 .banner-especialidad div {
     z-index: 1;
 }
-button[type="submit"] {
-    padding: 15px 30px; /* Ajusta el padding según tus necesidades */
-    font-size: 1.2em; /* Ajusta el tamaño del texto según tus necesidades */
-    background-color: var(--colorBoton);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-button[type="submit"]:hover {
-    background-color: #1D7874; /* Cambia el color al pasar el ratón sobre el botón */
-}
-.volver-a-inicio a {
-    color: var(--azulado); /* Cambia el color del enlace según tu paleta de colores */
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1em; /* Ajusta el tamaño del texto según tus necesidades */
-    transition: color 0.3s ease;
-}
-.volver-a-inicio a:hover {
-    color: var(--colorLindo); /* Cambia el color al pasar el ratón sobre el enlace */
-}
-/* Otras sugerencias de estilo */
-.pie {
-    background-color: var(--beige); /* Cambia el color de fondo del pie según tu paleta de colores */
-}
-
-.tyc {
-    color: var(--azulado); /* Cambia el color del texto del pie según tu paleta de colores */
-}
-
-/* Ajustes de estilo específicos para dispositivos móviles */
-@media (max-width: 768px) {
-    /* Realiza ajustes de estilo específicos para dispositivos móviles si es necesario */
-}
-
 
 .busqueda {
     background-color: #f4f4f4;
@@ -206,7 +167,7 @@ button[type="submit"]:hover {
 */
 #especialidades-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
     justify-content: space-between;
     font-size: 18px;
@@ -215,7 +176,7 @@ button[type="submit"]:hover {
     height: 100%;
 }
 
-.centrado { 
+.centrado {
     text-align: center;
 }
 
@@ -262,7 +223,7 @@ button[type="submit"]:hover {
     margin: auto;
     display: block;
     text-align: center;
- 
+
 }
 
 @media (max-width: 768px) {
@@ -277,7 +238,9 @@ button[type="submit"]:hover {
         width: fit-content;
         overflow: visible;
         order: 2;
+       
     }
+   
 }
 
 /** FOOTER **/
