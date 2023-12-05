@@ -35,7 +35,7 @@ public class TurnoServicio {
         Turno nuevoTurno = new Turno();
         Profesional profesional = profesionalRepositorio.getById(idProfesional);
 
-        if (profesional.isAltaSistema()) {
+        //if (profesional.isAltaSistema()) {
             nuevoTurno.setProfesional(profesional);
             nuevoTurno.setFechaTurno(fecha);
             nuevoTurno.setAtendido(false);
@@ -45,8 +45,7 @@ public class TurnoServicio {
             nuevoTurno.setPaciente(null);
             profesional.getTurnosDisponibles().add(nuevoTurno);
             profesionalRepositorio.save(profesional);
-            turnoRepositorio.save(nuevoTurno);
-        }
+       // }
     }
 
     @Transactional
@@ -100,8 +99,14 @@ public class TurnoServicio {
         return turnos;
     }
 
-    public Turno existeFechaHora(Long idProfesional, LocalDateTime fechaHora) throws Exception {
-        return turnoRepositorio.existeFechaHora(idProfesional, fechaHora);
+    public boolean existeFechaHora(Long idProfesional, LocalDateTime fechaHora) throws Exception {
+        List<Turno> turnos = turnoRepositorio.buscarTurnosDisponiblesDeProfesional(idProfesional);
+        for (Turno turno : turnos) {
+            if (turno.getFechaTurno().isEqual(fechaHora)) {
+               return false;
+            }
+        }
+        return true;
     }
 
     public List<Turno> listaTurnosTomadosPorPaciente(Long idPaciente) {

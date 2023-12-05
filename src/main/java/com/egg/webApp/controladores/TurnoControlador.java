@@ -37,8 +37,8 @@ public class TurnoControlador {
 
         try {
             LocalDateTime resultado = turnoServicio.convertirStringALocalDate(fecha, hora);
-            Turno respuesta = turnoServicio.existeFechaHora(id, resultado);
-            if (respuesta == null) {
+            boolean respuesta = turnoServicio.existeFechaHora(id, resultado);
+            if (respuesta) {
                 turnoServicio.crearTurnoDisponible(id, resultado);
                 rdA.addFlashAttribute("exito", "El turno se creó correctamente, y puede ser visualizado desde la sección 'Mis turnos'.");
             } else {
@@ -63,8 +63,8 @@ public class TurnoControlador {
 
         try {
             LocalDateTime resultado = turnoServicio.convertirStringALocalDateb(fecha, hora);
-            Turno respuesta = turnoServicio.existeFechaHora(idProfesional, resultado);
-            if (respuesta == null) {
+            boolean respuesta = turnoServicio.existeFechaHora(idProfesional, resultado);
+            if (respuesta) {
                 turnoServicio.modificarTurno(idTurno, resultado);
                 rdA.addFlashAttribute("exito", "El turno se modifico correctamente, y puede ser visualizado desde la sección 'Mis turnos'.");
             } else {
