@@ -2,73 +2,170 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Familiar</title>
 </head>
 <body>
 
-<table>
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Parentesco</th>
-        <th scope="col">Paciente_Titular_Id</th>
-        <!--
-        <th scope="col">DNI</th>
-        <th scope="col">Fecha de nacimiento</th>
-        <th scope="col">Sexo</th>
-        <th scope="col">Teléfono</th>
-        <th scope="col">Email</th>
-        <th scope="col">Contraseña</th>
-        <th scope="col">Rol</th>
-        <th scope="col">Fecha de alta</th>
-        th scope="col">ID Imagen</th>
-        <th scope="col" sec:authorize="hasRole('ADMIN')">Modificar</th>
-        <th scope="col" sec:authorize="hasRole('ADMIN')">Dar de baja</th>
-        -->
-    </tr>
-    </thead>
-    <tbody th:each="familiar : ${familiares}">
-    <tr>
-        <th scope="row" th:text="${familiar.id}"></th>
-        <td th:text="${familiar.parentesco}"></td>
-        <td th:text="${usuario.pacienteTitular}"></td>
-        <div>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{/profesional/agregar_familiar}">
-                <button type="button">
-                    Agregar Familiar
-                </button>
-            </a>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card migrupo">
+                <div class="card-body grupoFamiliar">
+                    <!-- Tabla -->
+                    <h4 class="text-center">Mi Grupo Familiar</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>DNI</th>
+                            <th>Parentesco</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="familiar : ${familiares}">
+                        <tr>
+                            <th th:text="${familiar.nombre}"></th>
+                            <td th:text="${familiar.apellido}"></td>
+                            <td th:text="${familiar.dni}"></td>
+                            
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- Botón para abrir el modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarFamiliarModal">
+                        Agregar Familiar
+                    </button>
+                </div>
+            </div>
         </div>
         <!--
-        <td th:text="${usuario.dni}"></td>
-        <td th:text="${usuario.fechaNacimiento}"></td>
-        <td th:text="${usuario.sexo}"></td>
-        <td th:text="${usuario.telefono}"></td>
-        <td th:text="${usuario.email}"></td>
-        <td th:text="${usuario.password}"></td>
-        <td th:text="${usuario.rol}"></td>
-        <td th:text="${usuario.fechaAlta}"></td>
-         <td th:text="${usuario.imagen}"></td>
-        <td th:text="${usuario.altaSistema}"></td>
-        <td>
-            <div>
-                <a sec:authorize="hasRole('ADMIN')" th:href="@{/usuario/modificar/__${usuario.id}__}"><button type="button" class="btn btn-warning btn-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square mb-1" viewBox="0 0 16 16">
-                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                    </svg> Modificar</button></a>
+       <div class="col-md-6">
+           <div class="card migrupo">
+               <div class="card-body grupoFamiliar">
+                  Formulario
+                   <h4 class="titulo text-center">Agregar Familiar</h4>
+                   <form>
+                       <div class="form-group">
+                           <label for="nombre">Nombre:</label>
+                           <input type="text" class="form-control" id="nombre" name="nombre" required>
+                       </div>
+                       <div class="form-group">
+                           <label for="apellido">Apellido:</label>
+                           <input type="text" class="form-control" id="apellido" name="apellido" required>
+                       </div>
+                       <div class="form-group">
+                           <label for="dni">DNI:</label>
+                           <input type="text" class="form-control" id="dni" name="dni" required>
+                       </div>
+                       <div class="form-group">
+                           <div class="parentesco">
+                               <label class="tipografia" for="parentesco">Ingrese el parentesco</label>
+                               <select class="form-control borde-gris" id="parentesco" name="parentesco">
+                                   <option selected>Esposo</option>
+                                   <option selected>Esposa</option>
+                                   <option selected>Hijo</option>
+                                   <option selected>Hija</option>
+                                   <option selected>Madre</option>
+                                   <option selected>Padre</option>
+                                   <option selected>Hermano</option>
+                                   <option selected>Hermana</option>
+                               </select>
+                           </div>
+                       </div>
+                       <button type="submit" class="btn btn-primary">Guardar</button>
+                   </form>
+
+                </div>
             </div>
-        </td>
-        <td><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/usuario/baja/__${usuario.id}__}">
-            <input type="hidden" th:value="${id}" name="id">
-            <button type="button" class="btn btn-danger btn-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square mb-1" viewBox="0 0 16 16">
-                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                </svg> Desactivar </button></a></td>
-                -->
-    </tbody>
-</table>
+        </div>
+    </div>
+</div>
+  -->
+
+<!-- Modal para agregar familiar -->
+<div class="modal" id="agregarFamiliarModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Cabecera del Modal -->
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar Familiar</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Contenido del Modal -->
+            <div class="modal-body">
+                <h4 class="titulo text-center">Agregar Familiar</h4>
+                <form th:action="@{/paciente/familiar/__${session.usuariosession.id}__}" th:method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni">DNI:</label>
+                        <input type="text" class="form-control" id="dni" name="dni" required>
+                    </div>
+                    <div class="inputs">
+                        <label class="tipografia">Fecha de Nacimiento:</label>
+                        <input class="input-text" type="text" id="fecha-registro" name="fechaNacimiento"
+                               placeholder="Indique su Fecha de Nacimiento">
+                    </div>
+                    <div class="inputs">
+                        <label class="tipografia">Contraseña</label>
+                        <input class="input-text" type="password" id="password-registro" name="password"
+                               placeholder="Indique su Contraseña">
+                    </div>
+                    <div class="inputs">
+                        <label class="tipografia">Confirme Contraseña:</label>
+                        <input class="input-text" type="password" id="password2-registro" name="password2"
+                               placeholder="Confirme su Contraseña">
+                    </div>
+                    <div class="inputs opcion-genero">
+                        <label class="tipografia" for="genero-registro">Genero</label>
+                        <select class="input-text" id="inputGroupSelect" name="sexo">
+                            <option selected>Elige...</option>
+                            <option th:each="sexo : ${generos}" th:value="${sexo}" th:text="${sexo}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="parentesco">
+                            <label class="tipografia" for="parentesco">Ingrese el parentesco</label>
+                            <select class="form-control borde-gris" id="parentesco" name="parentesco">
+                                <option selected>Esposo</option>
+                                <option selected>Esposa</option>
+                                <option selected>Hijo</option>
+                                <option selected>Hija</option>
+                                <option selected>Madre</option>
+                                <option selected>Padre</option>
+                                <option selected>Hermano</option>
+                                <option selected>Hermana</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+                <!-- Puedes utilizar Thymeleaf para conectar con tu controlador -->
+            </div>
+
+            <!-- Pie del Modal -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <!-- Agrega aquí el botón de enviar formulario -->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
 
 </body>
 </html>

@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 public class GrupoFamiliar {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String parentesco;
 

@@ -38,11 +38,16 @@ public class PacienteServicio {
     public void registrarPaciente(String nombre, String apellido, String dni, String password, String password2, String sexo, LocalDate fechaNacimiento) throws Exception {
 
         validar(nombre, apellido, dni, password, password2, fechaNacimiento);
+        metodoRegistrar(nombre, apellido, dni, password, password2, sexo, fechaNacimiento);
+    }
+    
+    public Paciente metodoRegistrar(String nombre, String apellido, String dni, String password, String password2, String sexo, LocalDate fechaNacimiento) throws Exception{
         Paciente paciente = new Paciente();
         paciente.setAltaSistema(true);
         paciente.setRol(Rol.PACIENTE);
         pacienteRepositorio.save(paciente);
         usuarioServicio.registrar(nombre, apellido, dni, password, password2, paciente.getId(), sexo, fechaNacimiento);
+        return paciente;
     }
 
     @Transactional
@@ -81,6 +86,7 @@ public class PacienteServicio {
     public Paciente buscarPorId(Long id){
         return pacienteRepositorio.buscarPorId(id);
     }
+    
     public Paciente getOne(Long id) {
         return pacienteRepositorio.getOne(id);
     }

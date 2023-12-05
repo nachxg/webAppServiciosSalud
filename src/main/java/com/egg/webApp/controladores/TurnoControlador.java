@@ -89,7 +89,6 @@ public class TurnoControlador {
 
     @GetMapping("/atendido/profesional/{id}")
     public String atendidoTurno(RedirectAttributes rdA, @PathVariable Long id) {
-        System.out.println(id);
         try {
             turnoServicio.atendidoTurno(id);
             rdA.addFlashAttribute("exito", "El turno fue marcado como atendido y puede ser visualizado desde la sección 'Mis turnos'.");
