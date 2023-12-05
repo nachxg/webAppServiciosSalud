@@ -110,11 +110,11 @@ public class PacienteControlador {
 
     @PostMapping("/familiar/{idMiembro}")
     public String registrarFamiliar(
-                                    @RequestParam String parentesco, ModelMap modelo, @RequestParam String nombre,
-                                    @RequestParam String apellido, @RequestParam String password,
-                                    @RequestParam String password2, @RequestParam String dni,
-                                    @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate fechaNacimiento,
-                                     @PathVariable Long idMiembro) {
+            @RequestParam String parentesco, ModelMap modelo, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam String password,
+            @RequestParam String password2, @RequestParam String dni,
+            @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate fechaNacimiento,
+            @PathVariable Long idMiembro) {
 
         try {
 

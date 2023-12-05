@@ -19,15 +19,16 @@ import java.util.List;
 
 @Service
 public class FamiliarServicio {
+    private final FamiliarRepositorio familiarRepositorio;
+    private final PacienteRepositorio pacienteRepositorio;
+    private final PacienteServicio pacienteServicio;
 
-    @Autowired
-    private FamiliarRepositorio familiarRepositorio;
+    public FamiliarServicio(FamiliarRepositorio familiarRepositorio, PacienteRepositorio pacienteRepositorio, PacienteServicio pacienteServicio) {
+        this.familiarRepositorio = familiarRepositorio;
+        this.pacienteRepositorio = pacienteRepositorio;
+        this.pacienteServicio = pacienteServicio;
+    }
 
-    @Autowired
-    private PacienteServicio pacienteServicio;
-
-    @Autowired
-    private PacienteRepositorio pacienteRepositorio;
 
     @Transactional
     public void registrarMiembro(Paciente miembro,
@@ -78,6 +79,19 @@ public class FamiliarServicio {
 
     public List<Object[]> listarFamiliares(Long titularId) { //Titular id == paciente id
         return familiarRepositorio.findByTitularId(titularId);
+
     }
 
+    @Transactional
+    public GrupoFamiliar buscarPorId(Long id) {
+        return familiarRepositorio.buscarPorId(id);
+    }
+
+
+    /*
+    public LocalDate convertirStringALocalDate(String fechaNacimiento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(fechaNacimiento, formatter);
+    }
+*/
 }

@@ -1,21 +1,19 @@
 package com.egg.webApp.entidades;
 
 import com.egg.webApp.enumeraciones.Rol;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
-
 import com.egg.webApp.enumeraciones.Sexo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Clase que representa a un usuario en la aplicación.
@@ -101,6 +99,6 @@ public class Usuario {
     protected String apellido;
 
     protected boolean altaSistema;
-
-
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<RegistroAccion> registrosAcciones;
 }
