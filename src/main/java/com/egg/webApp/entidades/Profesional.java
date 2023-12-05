@@ -18,14 +18,12 @@ public class Profesional extends Usuario {
 
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
-
-    @OneToMany(mappedBy = "profesional")
+    private String matricula;
+    @OneToMany(mappedBy = "profesional", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Turno> turnosDisponibles;
 
-    private String matricula;
-
-    @OneToMany(mappedBy = "profesional")
+    @OneToMany(mappedBy = "profesional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Calificacion> calificaciones;
 
-
+    private int puntuacion;
 }
