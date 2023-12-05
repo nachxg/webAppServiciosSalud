@@ -1,5 +1,4 @@
 package com.egg.webApp.controladores;
-import com.egg.webApp.entidades.GrupoFamiliar;
 import com.egg.webApp.entidades.Paciente;
 import com.egg.webApp.entidades.Usuario;
 import com.egg.webApp.enumeraciones.ObraSocial;
@@ -7,6 +6,7 @@ import com.egg.webApp.enumeraciones.Sexo;
 import com.egg.webApp.servicios.EnumServicio;
 import com.egg.webApp.servicios.FamiliarServicio;
 import com.egg.webApp.servicios.PacienteServicio;
+import com.egg.webApp.servicios.TurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,11 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 @Controller
 @RequestMapping("/paciente")
@@ -28,6 +26,8 @@ public class PacienteControlador {
     PacienteServicio pacienteServicio;
     @Autowired
     EnumServicio enumServicio;
+    @Autowired
+    TurnoServicio turnoServicio;
     @Autowired
     FamiliarServicio familiarServicio;
 
@@ -93,29 +93,21 @@ public class PacienteControlador {
         }
     }
     
-    @GetMapping("/prueba123")
-    public String listaFamiliar(ModelMap modelo, HttpSession session){
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        List<Sexo> generos = enumServicio.obtenerGeneros();
-        List<Usuario> familiares = familiarServicio.listarFamiliares(logueado.getId());
-        modelo.addAttribute("generos", generos);
-        modelo.addAttribute("familiares", familiares);
-        modelo.addAttribute("paciente", pacienteServicio.buscarPorId(logueado.getId()));
-        return "lista_familiar.html";
-    }
-    
     @PostMapping("/familiar/{idMiembro}")
     public String registrarFamiliar(
-                                    @RequestParam String parentesco, ModelMap modelo, @RequestParam String nombre,
-                                    @RequestParam String apellido, @RequestParam String password,
-                                    @RequestParam String password2, @RequestParam String dni,
-                                    @RequestParam String sexo, @RequestParam String fechaNacimiento,
-                                     @PathVariable Long idMiembro) {
-    try {
-            LocalDate fecha = familiarServicio.convertirStringALocalDate(fechaNacimiento);
-            Paciente heredero = pacienteServicio.metodoRegistrar(nombre, apellido, dni, password, password2, sexo, fecha);
+            @RequestParam String parentesco, ModelMap modelo, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam String password,
+            @RequestParam String password2, @RequestParam String dni,
+            @RequestParam String sexo, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate fechaNacimiento,
+            @PathVariable Long idMiembro) {
+
+        try {
+
             Paciente miembro = pacienteServicio.buscarPorId(idMiembro);
-            familiarServicio.registrarMiembro(miembro, heredero, parentesco);
+
+            familiarServicio.registrarMiembro(miembro, parentesco, nombre, apellido,dni, password,
+                    password2, sexo, fechaNacimiento);
+
             modelo.put("exito", "Familiar registrado con exito");
             return "redirect:/inicio";
 
@@ -124,7 +116,7 @@ public class PacienteControlador {
             modelo.put("error", e.getMessage());
             return "redirect:/lista_familiar";
         }
-
+        
     }    
-    
+   
 }

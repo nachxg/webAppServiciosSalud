@@ -43,7 +43,16 @@ nav{
     height: 100%;
     padding: 0;
     cursor: pointer;
+<<<<<<< HEAD
+<<<<<<< HEAD
+    
+=======
     margin-left: 1.4rem;
+>>>>>>> 7ee957b3d99090c326b86128a21cab555fdd9206
+=======
+    margin-left: 1.4rem;
+    margin-left: 1.4rem;
+>>>>>>> 1295ebf836c1c800fe248a37896ca5a7a057c2c3
 }
 
 .logo img{

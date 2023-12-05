@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
-
     @Query("SELECT u FROM Usuario u WHERE u.dni = :dni")
     public Usuario buscarPorDni(@Param("dni") String dni);
 
@@ -21,5 +20,6 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
     @Query("SELECT u FROM Usuario u INNER JOIN GrupoFamiliar g ON g.pacienteTitular.id = :idTitular WHERE u.id = g.id")
     public List<Usuario> buscarPorIdtitular(@Param("idTitular")Long idTitular);
 
-
+    @Query("SELECT u FROM Usuario u WHERE u.dni = :dni AND u.email = :email")
+    Usuario buscarUsuarioPorDniYEmail(@Param("dni") String dni, @Param("email") String email);
 }

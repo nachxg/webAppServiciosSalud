@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import com.egg.webApp.enumeraciones.Especialidad;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
@@ -18,11 +17,14 @@ public class Turno {
 
     @Column(name = "fecha_turno")
     private LocalDateTime fechaTurno;
+
     @Enumerated(EnumType.STRING)
     private Especialidad especialidad;
+
     @Column(name = "motivo_consulta")
     private String motivoConsulta;
     private boolean atendido;
+    private boolean turnoTomado;
     private boolean cancelado;
 
     @ManyToOne
