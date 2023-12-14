@@ -3,8 +3,8 @@ package com.egg.webApp.servicios;
 import com.egg.webApp.entidades.PasswordResetToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.time.LocalDateTime;
 import java.util.Random;
